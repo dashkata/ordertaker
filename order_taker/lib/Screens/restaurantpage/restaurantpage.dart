@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:order_taker/Screens/customwidgets.dart';
 
 class RestaurantPage extends StatelessWidget {
   const RestaurantPage({Key? key}) : super(key: key);
@@ -6,7 +7,11 @@ class RestaurantPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("Restaurant Page"),
+      body: Stack(
+        children: [
+          CustomWidgets.returnBackground(),
+        ],
+      ),
     );
   }
 }

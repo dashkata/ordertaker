@@ -5,11 +5,11 @@ import 'Screens/loginpage/loginpage.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/login',
+    initialRoute: '/restaurants',
     routes: {
-      '/login': (context) => LoginPage(),
-      '/register': (context) => RegisterPage(),
-      '/restaurants': (context) => RestaurantPage()
+      '/login': (context) => const LoginPage(),
+      '/register': (context) => const RegisterPage(),
+      '/restaurants': (context) => const RestaurantPage()
     },
   ));
 }
