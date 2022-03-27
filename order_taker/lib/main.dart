@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:order_taker/navigation/registerpage/registerpage.dart';
-import 'package:order_taker/navigation/restaurantpage/restaurantpage.dart';
-import 'navigation/loginpage/loginpage.dart';
+import 'package:order_taker/Screens/registerpage/registerpage.dart';
+import 'package:order_taker/Screens/restaurantpage/restaurantpage.dart';
+import 'Screens/loginpage/loginpage.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/restaurants',
+    initialRoute: '/login',
     routes: {
       '/login': (context) => LoginPage(),
       '/register': (context) => RegisterPage(),
