@@ -20,40 +20,37 @@ class _RestaurantPageState extends State<RestaurantPage> {
           SafeArea(
             child: Column(
               children: [
-                GFCard(
-                  boxFit: BoxFit.cover,
-                  titlePosition: GFPosition.start,
-                  image: Image.asset('your asset image'),
-                  title: const GFListTile(
-                    title: Text('Pizza Don Vito'),
-                  ),
-                  content: const Text("A nice pizza restaurant"),
-                  buttonBar: GFButtonBar(
-                    children: <Widget>[
-                      GFButton(
-                        onPressed: () {},
-                        text: 'Choose',
+                Column(
+                  children: [
+                    InkWell(
+                      child: SizedBox(
+                        height: 150,
+                        width: double.infinity,
+                        child: Card(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30.0),
+                            child: Container(
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      'lib/Assets/PizzaDonVito.jpg',
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                child: const Text("Pizza Don Vito")),
+                          ),
+                          semanticContainer: true,
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          margin: const EdgeInsets.all(20),
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-                GFCard(
-                  boxFit: BoxFit.cover,
-                  titlePosition: GFPosition.start,
-                  imageOverlay: const AssetImage('lib/Assets/PizzaDonVito.jpg'),
-                  showOverlayImage: true,
-                  title: const GFListTile(
-                    title: Text('Pizza Don Vito'),
-                  ),
-                  content: const Text("A nice pizza restaurant"),
-                  buttonBar: GFButtonBar(
-                    children: <Widget>[
-                      GFButton(
-                        onPressed: () {},
-                        text: 'Choose',
-                      ),
-                    ],
-                  ),
+                      onTap: () {},
+                    ),
+                  ],
                 ),
               ],
             ),
