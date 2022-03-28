@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:order_taker/Screens/customwidgets.dart';
-import '';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -26,6 +25,22 @@ class _LoginPageState extends State<LoginPage> {
                 height: 70,
               ),
               CustomWidgets.button("Login"),
+              const SizedBox(
+                height: 20,
+              ),
+              /*
+              const Text(
+                "Do not have an account?",
+                style: TextStyle(
+                  letterSpacing: 1,
+                  fontSize: 15,
+                ),
+              ),
+              */
+              const SizedBox(
+                height: 15,
+              ),
+              CustomWidgets.button("Register"),
             ],
           ),
         )
