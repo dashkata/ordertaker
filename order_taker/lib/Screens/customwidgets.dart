@@ -31,18 +31,37 @@ class CustomWidgets {
     );
   }
 
-  static Widget button(String? buttonText) {
+  static Widget button(String? buttonText, void Function() buttonFunc) {
     return ConstrainedBox(
       constraints: Themes.constraints(),
       child: SizedBox(
         width: 200,
         height: 50,
         child: GFButton(
-          onPressed: () {},
+          onPressed: buttonFunc,
           text: buttonText,
           shape: GFButtonShape.pills,
           size: GFSize.LARGE,
-          color: Colors.orange[400] as Color,
+          color: Themes().buttonColor,
+          fullWidthButton: true,
+          elevation: 5,
+        ),
+      ),
+    );
+  }
+
+  static Widget dialogButtons(String? buttonText, void Function() buttonFunc) {
+    return ConstrainedBox(
+      constraints: Themes.constraints(),
+      child: SizedBox(
+        width: 100,
+        height: 30,
+        child: GFButton(
+          onPressed: buttonFunc,
+          text: buttonText,
+          shape: GFButtonShape.pills,
+          size: GFSize.LARGE,
+          color: Themes().buttonColor,
           fullWidthButton: true,
           elevation: 5,
         ),

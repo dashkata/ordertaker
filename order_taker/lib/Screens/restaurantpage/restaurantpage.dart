@@ -27,12 +27,12 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   title: const GFListTile(
                     title: Text('Pizza Don Vito'),
                   ),
-                  content: Text("A nice pizza restaurant"),
+                  content: const Text("A nice pizza restaurant"),
                   buttonBar: GFButtonBar(
                     children: <Widget>[
                       GFButton(
                         onPressed: () {},
-                        text: 'Chooose',
+                        text: 'Choose',
                       ),
                     ],
                   ),
@@ -40,16 +40,17 @@ class _RestaurantPageState extends State<RestaurantPage> {
                 GFCard(
                   boxFit: BoxFit.cover,
                   titlePosition: GFPosition.start,
-                  image: Image.asset('your asset image'),
+                  imageOverlay: const AssetImage('lib/Assets/PizzaDonVito.jpg'),
+                  showOverlayImage: true,
                   title: const GFListTile(
                     title: Text('Pizza Don Vito'),
                   ),
-                  content: Text("A nice pizza restaurant"),
+                  content: const Text("A nice pizza restaurant"),
                   buttonBar: GFButtonBar(
                     children: <Widget>[
                       GFButton(
                         onPressed: () {},
-                        text: 'Chooose',
+                        text: 'Choose',
                       ),
                     ],
                   ),

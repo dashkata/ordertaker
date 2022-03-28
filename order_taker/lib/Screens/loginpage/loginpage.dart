@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:order_taker/Screens/customwidgets.dart';
+import 'package:order_taker/Themes/themes.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -9,6 +11,59 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  void _showRegisterChoice() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          actionsAlignment: MainAxisAlignment.center,
+          backgroundColor: Colors.amber[200],
+          title: const Center(
+            child: Text(
+              "Choose a register type: ",
+              style: TextStyle(
+                letterSpacing: 0.5,
+                fontSize: 20,
+                fontStyle: FontStyle.italic,
+                color: Colors.black54,
+                height: 2,
+              ),
+            ),
+          ),
+          actions: [
+            OverflowBar(
+              alignment: MainAxisAlignment.spaceAround,
+              children: [
+                CustomWidgets.dialogButtons("User", () {}),
+                CustomWidgets.dialogButtons("Employee", () {}),
+              ],
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            OverflowBar(
+              alignment: MainAxisAlignment.end,
+              children: [
+                GFIconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.cancel),
+                  color: Themes().backgroundColor,
+                  size: GFSize.SMALL,
+                  shape: GFIconButtonShape.circle,
+                  iconSize: 15,
+                  buttonBoxShadow: true,
+                ),
+              ],
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,23 +79,11 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 70,
               ),
-              CustomWidgets.button("Login"),
+              CustomWidgets.button("Login", () {}),
               const SizedBox(
-                height: 20,
+                height: 35,
               ),
-              /*
-              const Text(
-                "Do not have an account?",
-                style: TextStyle(
-                  letterSpacing: 1,
-                  fontSize: 15,
-                ),
-              ),
-              */
-              const SizedBox(
-                height: 15,
-              ),
-              CustomWidgets.button("Register"),
+              CustomWidgets.button("Register", _showRegisterChoice),
             ],
           ),
         )

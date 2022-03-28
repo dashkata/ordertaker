@@ -26,7 +26,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(
                   height: 70,
                 ),
-                CustomWidgets.button("Register"),
+                CustomWidgets.button("Register", () {}),
               ],
             ),
           ),

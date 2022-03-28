@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class Themes {
+  Color backgroundColor = Colors.amber[400] as Color;
+  Color buttonColor = Colors.orange[400] as Color;
+
   static BoxConstraints constraints() {
     return const BoxConstraints(
         minWidth: 0,
