@@ -30,15 +30,25 @@ class _RestaurantPageState extends State<RestaurantPage> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(30.0),
                             child: Container(
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      'lib/Assets/PizzaDonVito.jpg',
-                                    ),
-                                    fit: BoxFit.cover,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    'lib/Assets/PizzaDonVito.jpg',
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  "Pizza Don Vito",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 24,
                                   ),
                                 ),
-                                child: const Text("Pizza Don Vito")),
+                              ),
+                            ),
                           ),
                           semanticContainer: true,
                           elevation: 5,
