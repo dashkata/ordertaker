@@ -35,8 +35,8 @@ class _LoginPageState extends State<LoginPage> {
             OverflowBar(
               alignment: MainAxisAlignment.spaceAround,
               children: [
-                CustomWidgets.dialogButtons("User", () {}),
-                CustomWidgets.dialogButtons("Employee", () {}),
+                DialogButtons(buttonText: "User", buttonFunc: () {}),
+                DialogButtons(buttonText: "Employee", buttonFunc: () {}),
               ],
             ),
             const SizedBox(
@@ -68,22 +68,28 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
-        CustomWidgets.returnBackground(),
+        const BackgroundWidget(),
         SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomWidgets.textField("Enter your email", Icons.email, false),
-              CustomWidgets.textField(
-                  "Enter your password", Icons.password, true),
+              const TextFields(
+                  hintText: "Enter your email",
+                  icon: Icons.email,
+                  obscure: false),
+              const TextFields(
+                  hintText: "Enter your password",
+                  icon: Icons.password,
+                  obscure: true),
               const SizedBox(
                 height: 70,
               ),
-              CustomWidgets.button("Login", () {}),
+              NormalButtons(buttonText: "Login", buttonFunc: () {}),
               const SizedBox(
                 height: 35,
               ),
-              CustomWidgets.button("Register", _showRegisterChoice),
+              NormalButtons(
+                  buttonText: "Register", buttonFunc: _showRegisterChoice),
             ],
           ),
         )

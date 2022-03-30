@@ -14,19 +14,27 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       body: Stack(
         children: [
-          CustomWidgets.returnBackground(),
+          const BackgroundWidget(),
           SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CustomWidgets.textField("Enter your name", Icons.person, false),
-                CustomWidgets.textField("Enter your email", Icons.mail, false),
-                CustomWidgets.textField(
-                    "Enter your password", Icons.lock, true),
+                const TextFields(
+                    hintText: "Enter your name",
+                    icon: Icons.person,
+                    obscure: false),
+                const TextFields(
+                    hintText: "Enter your email",
+                    icon: Icons.mail,
+                    obscure: false),
+                const TextFields(
+                    hintText: "Enter your password",
+                    icon: Icons.lock,
+                    obscure: true),
                 const SizedBox(
                   height: 70,
                 ),
-                CustomWidgets.button("Register", () {}),
+                NormalButtons(buttonText: "Register", buttonFunc: () {}),
               ],
             ),
           ),

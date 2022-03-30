@@ -2,14 +2,82 @@ import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:order_taker/Themes/themes.dart';
 
-class CustomWidgets {
-  static Widget returnBackground() {
-    return Container(
-      color: Colors.amber[200],
+class DialogButtons extends StatelessWidget {
+  const DialogButtons({
+    Key? key,
+    required this.buttonText,
+    required this.buttonFunc,
+  }) : super(key: key);
+
+  final String? buttonText;
+  final void Function() buttonFunc;
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: Themes.constraints(),
+      child: SizedBox(
+        width: 100,
+        height: 30,
+        child: GFButton(
+          onPressed: buttonFunc,
+          text: buttonText,
+          shape: GFButtonShape.pills,
+          size: GFSize.LARGE,
+          color: Themes().buttonColor,
+          fullWidthButton: true,
+          elevation: 5,
+        ),
+      ),
     );
   }
+}
 
-  static Widget textField(String? hintText, IconData icon, bool obscure) {
+class NormalButtons extends StatelessWidget {
+  const NormalButtons({
+    Key? key,
+    required this.buttonText,
+    required this.buttonFunc,
+  }) : super(key: key);
+
+  final String? buttonText;
+  final void Function() buttonFunc;
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: Themes.constraints(),
+      child: SizedBox(
+        width: 200,
+        height: 50,
+        child: GFButton(
+          onPressed: buttonFunc,
+          text: buttonText,
+          shape: GFButtonShape.pills,
+          size: GFSize.LARGE,
+          color: Themes().buttonColor,
+          fullWidthButton: true,
+          elevation: 5,
+        ),
+      ),
+    );
+  }
+}
+
+class TextFields extends StatelessWidget {
+  const TextFields({
+    Key? key,
+    required this.hintText,
+    required this.icon,
+    required this.obscure,
+  }) : super(key: key);
+
+  final String? hintText;
+  final IconData icon;
+  final bool obscure;
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ConstrainedBox(
@@ -30,42 +98,17 @@ class CustomWidgets {
       ),
     );
   }
+}
 
-  static Widget button(String? buttonText, void Function() buttonFunc) {
-    return ConstrainedBox(
-      constraints: Themes.constraints(),
-      child: SizedBox(
-        width: 200,
-        height: 50,
-        child: GFButton(
-          onPressed: buttonFunc,
-          text: buttonText,
-          shape: GFButtonShape.pills,
-          size: GFSize.LARGE,
-          color: Themes().buttonColor,
-          fullWidthButton: true,
-          elevation: 5,
-        ),
-      ),
-    );
-  }
+class BackgroundWidget extends StatelessWidget {
+  const BackgroundWidget({
+    Key? key,
+  }) : super(key: key);
 
-  static Widget dialogButtons(String? buttonText, void Function() buttonFunc) {
-    return ConstrainedBox(
-      constraints: Themes.constraints(),
-      child: SizedBox(
-        width: 100,
-        height: 30,
-        child: GFButton(
-          onPressed: buttonFunc,
-          text: buttonText,
-          shape: GFButtonShape.pills,
-          size: GFSize.LARGE,
-          color: Themes().buttonColor,
-          fullWidthButton: true,
-          elevation: 5,
-        ),
-      ),
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.amber[200],
     );
   }
 }
