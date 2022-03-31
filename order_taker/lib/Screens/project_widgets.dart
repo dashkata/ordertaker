@@ -171,19 +171,21 @@ class CustomDrawer extends StatelessWidget {
               icon: Icons.local_pizza,
               titleText: "Restaurants",
               func: () {
-                Navigator.of(context).pushNamed('/restaurants');
+                Navigator.of(context).popAndPushNamed('/restaurants');
               }),
           DrawerTab(
             icon: Icons.edit_note,
             titleText: "Reservations",
             func: () {
-              Navigator.of(context).pushNamed('/reservations');
+              Navigator.of(context).popAndPushNamed('/reservations');
             },
           ),
           DrawerTab(
             icon: Icons.person,
             titleText: "Profile",
-            func: () {},
+            func: () {
+              Navigator.of(context).popAndPushNamed('/profile');
+            },
           ),
           DrawerTab(
             icon: Icons.exit_to_app,
