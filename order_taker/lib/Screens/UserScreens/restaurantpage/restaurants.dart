@@ -25,7 +25,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.amber,
               ),
               child: Text('Drawer Header'),
             ),
