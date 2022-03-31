@@ -15,7 +15,7 @@ class DialogButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: Themes.constraints(),
+      constraints: constraints(),
       child: SizedBox(
         width: 100,
         height: 30,
@@ -24,7 +24,7 @@ class DialogButtons extends StatelessWidget {
           text: buttonText,
           shape: GFButtonShape.pills,
           size: GFSize.LARGE,
-          color: Themes().buttonColor,
+          color: buttonColor,
           fullWidthButton: true,
           elevation: 5,
         ),
@@ -46,7 +46,7 @@ class NormalButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: Themes.constraints(),
+      constraints: constraints(),
       child: SizedBox(
         width: 200,
         height: 50,
@@ -55,7 +55,7 @@ class NormalButtons extends StatelessWidget {
           text: buttonText,
           shape: GFButtonShape.pills,
           size: GFSize.LARGE,
-          color: Themes().buttonColor,
+          color: buttonColor,
           fullWidthButton: true,
           elevation: 5,
         ),
@@ -81,7 +81,7 @@ class TextFields extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ConstrainedBox(
-        constraints: Themes.constraints(),
+        constraints: constraints(),
         child: TextField(
           decoration: InputDecoration(
             icon: Icon(icon),

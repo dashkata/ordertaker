@@ -6,7 +6,7 @@ import 'Screens/loginpage/login.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/login',
+    initialRoute: '/restaurants',
     routes: {
       '/login': (context) => const LoginPage(),
       '/register': (context) => const RegisterPage(),

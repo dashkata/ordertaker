@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           actionsAlignment: MainAxisAlignment.center,
-          backgroundColor: Colors.amber[200],
+          backgroundColor: backgroundColor,
           title: const Center(
             child: Text(
               "Choose a register type: ",
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.of(context).pop();
                   },
                   icon: const Icon(Icons.cancel),
-                  color: Themes().backgroundColor,
+                  color: iconbuttonColor,
                   size: GFSize.SMALL,
                   shape: GFIconButtonShape.circle,
                   iconSize: 15,

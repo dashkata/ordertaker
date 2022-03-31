@@ -13,59 +13,61 @@ class RestaurantCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: Card(
-        elevation: 6,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(30),
-                bottom: Radius.zero,
+    return SizedBox(
+      height: 200,
+      width: 100,
+      child: InkWell(
+        child: Card(
+          elevation: 6,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(30),
+                  bottom: Radius.zero,
+                ),
+                child: Image.asset("Assets/$imagePath"),
               ),
-              child: Image.asset("Assets/$imagePath"),
-            ),
-            // const SizedBox(
-            //   height: 6,
-            // ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 15, 0, 0),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        restaurantName,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          letterSpacing: 1,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 15, 0, 0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          restaurantName,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            letterSpacing: 1,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        restaurantInfo,
-                        style: TextStyle(
-                          color: Colors.grey[500],
-                          fontStyle: FontStyle.italic,
-                          fontSize: 12,
-                          letterSpacing: 1,
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          restaurantInfo,
+                          style: TextStyle(
+                            color: Colors.grey[500],
+                            fontStyle: FontStyle.italic,
+                            fontSize: 12,
+                            letterSpacing: 1,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            )
-          ],
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+          color: Colors.white70,
         ),
-        color: Colors.white70,
+        onTap: () {},
       ),
-      onTap: () {},
     );
   }
 }

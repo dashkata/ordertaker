@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/getwidget.dart';
+
 import 'package:order_taker/Screens/UserScreens/restaurantpage/restaurant_widget.dart';
 import 'package:order_taker/Screens/customwidgets.dart';
+import 'package:order_taker/Themes/themes.dart';
 
 class RestaurantPage extends StatefulWidget {
   const RestaurantPage({Key? key}) : super(key: key);
@@ -16,28 +17,44 @@ class _RestaurantPageState extends State<RestaurantPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.amber[300],
+        backgroundColor: appBarColor,
       ),
       drawer: Drawer(
+        backgroundColor: backgroundColor,
         child: ListView(
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
+            DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.amber,
+                color: appBarColor,
               ),
-              child: Text('Drawer Header'),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  CircleAvatar(
+                    child: Icon(Icons.person),
+                    radius: 40,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text("The name of the user"),
+                ],
+              ),
             ),
             ListTile(
-              title: const Text('Item 1'),
+              leading: Icon(Icons.local_pizza),
+              title: const Text('Restaurants'),
               onTap: () {
                 // Update the state of the app.
                 // ...
               },
             ),
             ListTile(
-              title: const Text('Item 2'),
+              leading: Icon(Icons.note),
+              title: const Text('Reservations'),
               onTap: () {
                 // Update the state of the app.
                 // ...
@@ -52,7 +69,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
           SafeArea(
             child: Center(
               child: SizedBox(
-                height: 250, // card height
+                height: 240, // card height
                 child: PageView.builder(
                   itemCount: 10,
                   controller: PageController(viewportFraction: 0.7),
