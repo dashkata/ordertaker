@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:order_taker/Screens/customwidgets.dart';
+import 'package:order_taker/Screens/project_widgets.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);

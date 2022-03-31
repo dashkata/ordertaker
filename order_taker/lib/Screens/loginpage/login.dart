@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:order_taker/Screens/customwidgets.dart';
+import 'package:order_taker/Screens/project_widgets.dart';
 import 'package:order_taker/Themes/themes.dart';
 
 class LoginPage extends StatefulWidget {

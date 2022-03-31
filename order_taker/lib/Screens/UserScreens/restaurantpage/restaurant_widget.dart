@@ -21,6 +21,7 @@ class RestaurantCards extends StatelessWidget {
           elevation: 6,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          color: Colors.white70,
           child: Column(
             children: [
               ClipRRect(
@@ -64,7 +65,6 @@ class RestaurantCards extends StatelessWidget {
               )
             ],
           ),
-          color: Colors.white70,
         ),
         onTap: () {},
       ),

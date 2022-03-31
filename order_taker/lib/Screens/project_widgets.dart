@@ -112,3 +112,86 @@ class BackgroundWidget extends StatelessWidget {
     );
   }
 }
+
+class DrawerTab extends StatelessWidget {
+  const DrawerTab({
+    Key? key,
+    required this.icon,
+    required this.titleText,
+    required this.func,
+  }) : super(key: key);
+  final IconData icon;
+  final String titleText;
+  final void Function() func;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(
+        icon,
+      ),
+      title: Text(titleText),
+      onTap: func,
+    );
+  }
+}
+
+class CustomDrawer extends StatelessWidget {
+  const CustomDrawer({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      backgroundColor: backgroundColor,
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(
+              color: appBarColor,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                CircleAvatar(
+                  child: Icon(Icons.person),
+                  radius: 40,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text("The name of the user"),
+              ],
+            ),
+          ),
+          DrawerTab(
+              icon: Icons.local_pizza,
+              titleText: "Restaurants",
+              func: () {
+                Navigator.of(context).pushNamed('/restaurants');
+              }),
+          DrawerTab(
+            icon: Icons.edit_note,
+            titleText: "Reservations",
+            func: () {
+              Navigator.of(context).pushNamed('/reservations');
+            },
+          ),
+          DrawerTab(
+            icon: Icons.person,
+            titleText: "Profile",
+            func: () {},
+          ),
+          DrawerTab(
+            icon: Icons.exit_to_app,
+            titleText: "Sign out",
+            func: () {},
+          ),
+        ],
+      ),
+    );
+  }
+}
