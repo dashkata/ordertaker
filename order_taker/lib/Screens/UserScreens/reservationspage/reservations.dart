@@ -20,14 +20,13 @@ class _ReservationPageState extends State<ReservationPage> {
         children: [
           const BackgroundWidget(),
           SafeArea(
-            child: ListView(
-              children: const [
-                ReservationCard(
-                  titleText: "Pizza Don Vito",
-                  date: "Date and time",
-                ),
-              ],
-            ),
+            child: ListView(children: const [
+              ReservationCard(
+                titleText: "Pizza Don Vito",
+                date: "Date and time",
+                imagePath: "PizzaDonVito.jpg",
+              ),
+            ]),
           ),
         ],
       ),

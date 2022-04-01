@@ -4,6 +4,7 @@ import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/size/gf_size.dart';
 import 'package:order_taker/Screens/project_widgets.dart';
 import 'package:order_taker/Themes/themes.dart';
+import 'profile_widgets.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -22,6 +23,7 @@ class ProfilePage extends StatelessWidget {
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ProfilePageWidgets(
                     changeButton: TextButton(
@@ -71,28 +73,6 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class ProfilePageWidgets extends StatelessWidget {
-  const ProfilePageWidgets({
-    required this.userData,
-    required this.changeButton,
-    Key? key,
-  }) : super(key: key);
-  final Widget userData;
-  final Widget changeButton;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        children: [
-          userData,
-          changeButton,
         ],
       ),
     );
