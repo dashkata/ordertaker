@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:getwidget/getwidget.dart';
 
 import 'package:order_taker/Screens/UserScreens/restaurantpage/restaurant_widget.dart';
 import 'package:order_taker/Screens/project_widgets.dart';
@@ -34,7 +36,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   itemBuilder: (_, i) {
                     return Transform.scale(
                       scale: i == _index ? 1 : 0.9,
-                      child: const RestaurantCards(
+                      child: RestaurantCards(
                         imagePath: "PizzaDonVito.jpg",
                         restaurantName: "Pizza Don Vito",
                         restaurantInfo: "A nice pizza restaurant",

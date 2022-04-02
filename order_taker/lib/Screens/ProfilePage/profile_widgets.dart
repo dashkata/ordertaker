@@ -15,7 +15,7 @@ class ProfilePageWidgets extends StatelessWidget {
       child: Column(
         children: [
           userData,
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           changeButton,
         ],
       ),

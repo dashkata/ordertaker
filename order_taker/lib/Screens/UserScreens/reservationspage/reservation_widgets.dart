@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:order_taker/Themes/themes.dart';
 
 class ReservationCard extends StatelessWidget {
   const ReservationCard({
@@ -17,7 +18,7 @@ class ReservationCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Card(
-        color: Colors.white60,
+        color: cardColor,
         child: Column(
           children: [
             GFListTile(
