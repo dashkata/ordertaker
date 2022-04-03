@@ -16,6 +16,77 @@ class RestaurantCards extends StatelessWidget {
   final String restaurantName;
   final String restaurantInfo;
 
+  void confirmation(BuildContext context, String formatedDate) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          actionsAlignment: MainAxisAlignment.center,
+          backgroundColor: backgroundColor,
+          title: Center(
+            child: Column(
+              children: [
+                Text(
+                  "Confirm your reservation for: ",
+                  style: alertTextStyle,
+                ),
+                Text(
+                  "Pizza Don Vito",
+                  style: alertTextStyle,
+                ),
+                Text(
+                  formatedDate,
+                  style: alertTextStyle,
+                ),
+                TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    hintText: "Number of people: ",
+                    filled: true,
+                    fillColor: Colors.white60,
+                  ),
+                  obscureText: false,
+                  autocorrect: false,
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            OverflowBar(
+              alignment: MainAxisAlignment.spaceAround,
+              children: [
+                DialogButtons(buttonText: "Confirm", buttonFunc: () {}),
+              ],
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            OverflowBar(
+              alignment: MainAxisAlignment.end,
+              children: [
+                GFIconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.cancel),
+                  color: iconbuttonColor,
+                  size: GFSize.SMALL,
+                  shape: GFIconButtonShape.circle,
+                  iconSize: 15,
+                  buttonBoxShadow: true,
+                ),
+              ],
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -72,82 +143,12 @@ class RestaurantCards extends StatelessWidget {
           ),
         ),
         onTap: () {
-          DatePicker.showDateTimePicker(context, showTitleActions: true,
-              onConfirm: (date) {
+          DatePicker.showDateTimePicker(context,
+              showTitleActions: true,
+              minTime: DateTime.now(), onConfirm: (date) {
             String formatedDate = date.toString().substring(0, 16);
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  actionsAlignment: MainAxisAlignment.center,
-                  backgroundColor: backgroundColor,
-                  title: Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          "Confirm your reservation for: ",
-                          style: TextStyle(
-                            letterSpacing: 0.5,
-                            fontSize: 20,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.black54,
-                            height: 2,
-                          ),
-                        ),
-                        Text(
-                          "Pizza Don Vito",
-                          style: TextStyle(
-                            letterSpacing: 0.5,
-                            fontSize: 20,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.black54,
-                            height: 2,
-                          ),
-                        ),
-                        Text(
-                          formatedDate,
-                          style: TextStyle(
-                            letterSpacing: 0.5,
-                            fontSize: 20,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.black54,
-                            height: 2,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  actions: [
-                    OverflowBar(
-                      alignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        DialogButtons(buttonText: "Confirm", buttonFunc: () {}),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    OverflowBar(
-                      alignment: MainAxisAlignment.end,
-                      children: [
-                        GFIconButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          icon: const Icon(Icons.cancel),
-                          color: iconbuttonColor,
-                          size: GFSize.SMALL,
-                          shape: GFIconButtonShape.circle,
-                          iconSize: 15,
-                          buttonBoxShadow: true,
-                        ),
-                      ],
-                    )
-                  ],
-                );
-              },
-            );
+
+            confirmation(context, formatedDate);
           }, currentTime: DateTime.now(), locale: LocaleType.en);
         },
       ),

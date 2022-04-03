@@ -19,16 +19,10 @@ class _LoginPageState extends State<LoginPage> {
         return AlertDialog(
           actionsAlignment: MainAxisAlignment.center,
           backgroundColor: backgroundColor,
-          title: const Center(
+          title: Center(
             child: Text(
               "Choose a register type: ",
-              style: TextStyle(
-                letterSpacing: 0.5,
-                fontSize: 20,
-                fontStyle: FontStyle.italic,
-                color: Colors.black54,
-                height: 2,
-              ),
+              style: alertTextStyle,
             ),
           ),
           actions: [
