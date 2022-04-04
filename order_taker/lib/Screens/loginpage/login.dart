@@ -14,14 +14,14 @@ class _LoginPageState extends State<LoginPage> {
   void _showRegisterChoice() {
     showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
           actionsAlignment: MainAxisAlignment.center,
           backgroundColor: backgroundColor,
           title: Center(
             child: Text(
-              "Choose a register type: ",
+              "Register as a: ",
               style: alertTextStyle,
             ),
           ),
@@ -29,29 +29,13 @@ class _LoginPageState extends State<LoginPage> {
             OverflowBar(
               alignment: MainAxisAlignment.spaceAround,
               children: [
-                DialogButtons(buttonText: "User", buttonFunc: () {}),
-                DialogButtons(buttonText: "Employee", buttonFunc: () {}),
+                DialogButtons(buttonText: "Customer", buttonFunc: () {}),
+                DialogButtons(buttonText: "Restaurant", buttonFunc: () {}),
               ],
             ),
             const SizedBox(
               height: 30,
             ),
-            OverflowBar(
-              alignment: MainAxisAlignment.end,
-              children: [
-                GFIconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: const Icon(Icons.cancel),
-                  color: iconbuttonColor,
-                  size: GFSize.SMALL,
-                  shape: GFIconButtonShape.circle,
-                  iconSize: 15,
-                  buttonBoxShadow: true,
-                ),
-              ],
-            )
           ],
         );
       },
