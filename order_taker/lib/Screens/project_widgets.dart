@@ -70,11 +70,13 @@ class TextFields extends StatelessWidget {
     required this.hintText,
     required this.icon,
     required this.obscure,
+    required this.inputType,
   }) : super(key: key);
 
   final String? hintText;
   final IconData icon;
   final bool obscure;
+  final TextInputType inputType;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +85,7 @@ class TextFields extends StatelessWidget {
       child: ConstrainedBox(
         constraints: constraints(),
         child: TextField(
+          keyboardType: inputType,
           decoration: InputDecoration(
             icon: Icon(icon),
             border: OutlineInputBorder(

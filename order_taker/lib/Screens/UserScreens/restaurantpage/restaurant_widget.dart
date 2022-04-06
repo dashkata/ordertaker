@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:order_taker/Screens/UserScreens/restaurantpage/restaurant_class.dart';
-import 'package:order_taker/Screens/project_widgets.dart';
-import 'restaurants.dart';
 import 'package:order_taker/Themes/themes.dart';
 
 class RestaurantCards extends StatelessWidget {

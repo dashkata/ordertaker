@@ -1,7 +1,10 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/getwidget.dart';
+
+import 'package:order_taker/Screens/UserScreens/restaurantinfopage/restaurant_info_widget.dart';
 import 'package:order_taker/Screens/project_widgets.dart';
+import 'package:order_taker/Themes/themes.dart';
 import 'package:readmore/readmore.dart';
 
 class RestaurantInfo extends StatefulWidget {
@@ -15,44 +18,255 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: appBarColor,
+      ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 30.0),
+            child: GFButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      backgroundColor: backgroundColor,
+                      actionsAlignment: MainAxisAlignment.start,
+                      actions: [
+                        SizedBox(
+                          height: 150,
+                          width: 300,
+                          child: Card(
+                            elevation: 5,
+                            color: Colors.white54,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Center(
+                                  child: Text(
+                                    "Order delivery or takeout",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 15),
+                                const InfoDivider(),
+                                const SizedBox(height: 10),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: GFButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.phone),
+                                    text: "restaurant phone number",
+                                    color: buttonColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        SizedBox(
+                          height: 150,
+                          width: 300,
+                          child: Card(
+                            elevation: 5,
+                            color: Colors.white54,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Row(
+                                    children: const [
+                                      Icon(Icons.location_on),
+                                      Text("The location of the restaurant"),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: const [
+                            DetailText(
+                              detailTitle: "Neighborhood",
+                              detailTitleIcon: Icon(Icons.location_city),
+                              detailDesc: "Neighborhood",
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            DetailText(
+                              detailTitle: "Open hours",
+                              detailTitleIcon: Icon(Icons.watch_later_outlined),
+                              detailDesc: "open hours",
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            DetailText(
+                              detailTitle: "Payment options",
+                              detailTitleIcon: Icon(Icons.credit_card),
+                              detailDesc: "Visa, Mastercard",
+                            ),
+                          ],
+                        )
+                      ],
+                    );
+                  },
+                );
+              },
+              shape: GFButtonShape.pills,
+              text: "Details",
+              color: buttonColor,
+            ),
+          ),
+          FloatingActionButton(
+            backgroundColor: buttonColor,
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      actionsAlignment: MainAxisAlignment.start,
+                      backgroundColor: backgroundColor,
+                      title: const Center(
+                        child: Text("Make a reservation"),
+                      ),
+                      actions: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Number of people",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            SizedBox(
+                              height: 30,
+                              width: 400,
+                              child: DropdownButtonHideUnderline(
+                                child: GFDropdown(
+                                  isExpanded: true,
+                                  dropdownButtonColor: GFColors.TRANSPARENT,
+                                  onChanged: (newValue) {},
+                                  items: [
+                                    'FC Barcelona',
+                                    'Real Madrid',
+                                    'Villareal',
+                                    'Manchester City'
+                                  ]
+                                      .map((value) => DropdownMenuItem(
+                                            value: value,
+                                            child: Text(value),
+                                          ))
+                                      .toList(),
+                                ),
+                              ),
+                            ),
+
+                            //dropdown,
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              child: DateTimePicker(
+                                initialValue: '',
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime(2100),
+                                decoration: const InputDecoration(
+                                  labelText: "Date",
+                                  labelStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                  ),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Time",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                  child: DropdownButtonHideUnderline(
+                                    child: GFDropdown(
+                                      dropdownButtonColor: GFColors.TRANSPARENT,
+                                      onChanged: (newValue) {},
+                                      items: [
+                                        'FC Barcelona',
+                                        'Real Madrid',
+                                        'Villareal',
+                                        'Manchester City'
+                                      ]
+                                          .map((value) => DropdownMenuItem(
+                                                value: value,
+                                                child: Text(value),
+                                              ))
+                                          .toList(),
+                                    ),
+                                  ),
+                                ),
+
+                                //dropdown,
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Center(
+                          child: SizedBox(
+                            width: 250,
+                            height: 35,
+                            child: GFButton(
+                              onPressed: () {},
+                              text: "Find a table",
+                              size: GFSize.LARGE,
+                              color: buttonColor,
+                              type: GFButtonType.outline2x,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  });
+            },
+            child: const Icon(Icons.restaurant),
+          ),
+        ],
+      ),
       body: Stack(
         children: [
-          BackgroundWidget(),
+          const BackgroundWidget(),
           SafeArea(
             child: ListView(
+              shrinkWrap: true,
               scrollDirection: Axis.vertical,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GFButton(
-                      onPressed: () {},
-                      type: GFButtonType.outline2x,
-                      text: "Overview",
-                    ),
-                    GFButton(
-                      onPressed: () {},
-                      type: GFButtonType.outline2x,
-                      text: "Photos",
-                    ),
-                    GFButton(
-                      onPressed: () {},
-                      type: GFButtonType.outline2x,
-                      text: "Menu",
-                    ),
-                    GFButton(
-                      onPressed: () {},
-                      type: GFButtonType.outline2x,
-                      text: "Reviews",
-                    ),
-                  ],
-                ),
-                Divider(
-                  thickness: 1,
-                  color: Colors.grey[400],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 30, top: 30, left: 10),
+                const ButtonRow(),
+                const InfoDivider(),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 30, top: 30, left: 10),
                   child: Text(
                     "Pizza Don Vito",
                     style: TextStyle(
@@ -62,47 +276,56 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
                     ),
                   ),
                 ),
-                Divider(
-                  thickness: 1,
-                  color: Colors.grey[400],
-                ),
+                const InfoDivider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
+                  children: const [
                     Text("Review stars"),
                     Text("Other stuff"),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
-                const Padding(
+                Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: ReadMoreText(
-                    "Some information about the resaturant",
+                    "WELCOME TO BESTIA, THE HUNGARIAN BEAST. THE PLACE OF QUALITY STEAKS, HUGE SELECTION OF CRAFT LOCAL BEERS AND LIVE MUSIC PROGRAMS, RIGHT NEXT TO THE GORGEOUS BASILICA. IF YOU WISH TO SKIP ORDINARY WE OFFER SOME SPECIAL BAR STYLE SEATING EITHER, IN FRONT OF OUR OPEN KITCHEN, GIVING THE GUESTS A UNIQUE VIEW OF OUR TALENTED CHEFS CREATING MEALS FROM SCRATCH.",
                     trimLines: 2,
-                    colorClickableText: Colors.pink,
+                    colorClickableText: Colors.red,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: '+ Read more',
                     trimExpandedText: '- Read less',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.grey[900],
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Divider(
-                  thickness: 1,
-                  color: Colors.grey[400],
-                ),
-                Text(
+                const InfoDivider(),
+                const Text(
                   "Photos from the restaurant",
                 ),
-                Divider(
-                  thickness: 1,
-                  color: Colors.grey[400],
+                const SizedBox(
+                  height: 100,
+                ),
+                const InfoDivider(),
+                const Center(
+                  child: Text(
+                    "Menu",
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
+                  ),
+                ),
+                const InfoDivider(),
+                const Center(
+                  child: Text(
+                    "Reviews",
+                    style: TextStyle(fontSize: 25),
+                  ),
                 ),
               ],
             ),

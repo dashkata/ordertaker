@@ -52,13 +52,17 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const TextFields(
-                  hintText: "Enter your email",
-                  icon: Icons.email,
-                  obscure: false),
+                hintText: "Enter your email",
+                icon: Icons.email,
+                obscure: false,
+                inputType: TextInputType.emailAddress,
+              ),
               const TextFields(
-                  hintText: "Enter your password",
-                  icon: Icons.password,
-                  obscure: true),
+                hintText: "Enter your password",
+                icon: Icons.password,
+                obscure: true,
+                inputType: TextInputType.text,
+              ),
               const SizedBox(
                 height: 70,
               ),

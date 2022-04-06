@@ -28,7 +28,7 @@ class OrderTaker extends StatelessWidget {
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
-      initialRoute: '/restaurant_info',
+      initialRoute: '/confirm_reservation',
       routes: {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),

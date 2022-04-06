@@ -20,17 +20,38 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const TextFields(
-                    hintText: "Enter your name",
-                    icon: Icons.person,
-                    obscure: false),
+                  hintText: "Enter your full name",
+                  icon: Icons.person,
+                  obscure: false,
+                  inputType: TextInputType.name,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 const TextFields(
-                    hintText: "Enter your email",
-                    icon: Icons.mail,
-                    obscure: false),
+                  hintText: "Enter your email",
+                  icon: Icons.mail,
+                  obscure: false,
+                  inputType: TextInputType.emailAddress,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 const TextFields(
-                    hintText: "Enter your password",
-                    icon: Icons.lock,
-                    obscure: true),
+                  hintText: "Enter your password",
+                  icon: Icons.lock,
+                  obscure: true,
+                  inputType: TextInputType.text,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const TextFields(
+                  hintText: "Enter your phone number",
+                  icon: Icons.phone,
+                  obscure: false,
+                  inputType: TextInputType.number,
+                ),
                 const SizedBox(
                   height: 70,
                 ),

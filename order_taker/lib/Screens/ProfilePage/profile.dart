@@ -54,6 +54,7 @@ class ProfilePage extends StatelessWidget {
                       hintText: "User's email",
                       icon: Icons.email,
                       obscure: false,
+                      inputType: TextInputType.emailAddress,
                     ),
                   ),
                   ProfilePageWidgets(
@@ -67,6 +68,7 @@ class ProfilePage extends StatelessWidget {
                       hintText: "Enter new passowrd",
                       icon: Icons.password,
                       obscure: true,
+                      inputType: TextInputType.text,
                     ),
                   ),
                 ],
