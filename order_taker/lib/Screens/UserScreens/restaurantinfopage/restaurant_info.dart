@@ -298,6 +298,8 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
                     trimExpandedText: '- Read less',
                     style: TextStyle(
                       color: Colors.grey[900],
+                      fontSize: 15,
+                      letterSpacing: 0.5,
                     ),
                   ),
                 ),
@@ -307,6 +309,10 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
                 const InfoDivider(),
                 const Text(
                   "Photos from the restaurant",
+                  style: TextStyle(
+                    fontSize: 15,
+                    letterSpacing: 0.5,
+                  ),
                 ),
                 const SizedBox(
                   height: 100,

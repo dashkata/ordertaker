@@ -59,7 +59,13 @@ class InfoDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Divider(thickness: 1.5, color: Colors.grey);
+    return const Padding(
+      padding: EdgeInsets.only(left: 10.0, right: 10),
+      child: Divider(
+        thickness: 0.5,
+        color: Colors.black54,
+      ),
+    );
   }
 }
 
