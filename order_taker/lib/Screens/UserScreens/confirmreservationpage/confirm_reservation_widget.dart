@@ -1,74 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Themes/themes.dart';
 
-class UserDetails extends StatelessWidget {
-  const UserDetails({
+class UserDetail extends StatelessWidget {
+  const UserDetail({
+    required this.detailType,
     required this.userDetail,
-    required this.buttonText,
     Key? key,
   }) : super(key: key);
+  final String detailType;
   final String userDetail;
-  final String buttonText;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15.0, right: 15),
-      child: Container(
-        color: Colors.white38,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              userDetail,
-              style: const TextStyle(
+      padding: const EdgeInsets.only(left: 20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+              bottom: 10.0,
+              left: 10,
+            ),
+            child: Text(
+              detailType,
+              style: GoogleFonts.roboto(
+                color: accentColor,
                 fontSize: 20,
+                fontStyle: FontStyle.italic,
               ),
             ),
-            const SizedBox(
-              width: 50,
-            ),
-            Expanded(
-              child: GFButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          backgroundColor: backgroundColor,
-                          title: Text(buttonText),
-                          actions: [
-                            TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                hintText: buttonText,
-                                filled: true,
-                                fillColor: Colors.white60,
-                              ),
-                              obscureText: false,
-                              autocorrect: false,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            GFButton(
-                              onPressed: () {},
-                              color: buttonColor,
-                              text: "Confirm changes",
-                            )
-                          ],
-                        );
-                      });
-                },
-                text: buttonText,
-                shape: GFButtonShape.pills,
-                color: buttonColor,
+          ),
+          Material(
+            elevation: 10,
+            borderRadius: BorderRadius.circular(40),
+            child: Container(
+              decoration: BoxDecoration(
+                color: mainColor,
+                borderRadius: BorderRadius.circular(40),
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 30,
+                vertical: 10,
+              ),
+              child: Text(
+                userDetail,
+                style: GoogleFonts.roboto(
+                  color: accentColor,
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

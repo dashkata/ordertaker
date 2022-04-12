@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Screens/UserScreens/confirmreservationpage/confirm_reservation_widget.dart';
+import 'package:order_taker/Screens/UserScreens/restaurantinfopage/restaurant_info_widget.dart';
 import 'package:order_taker/Screens/project_widgets.dart';
 import 'package:order_taker/Themes/themes.dart';
 
@@ -19,51 +21,136 @@ class _ConfirmReservationState extends State<ConfirmReservation> {
         children: [
           const BackgroundWidget(),
           SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GFCard(
-                  titlePosition: GFPosition.start,
-                  color: cardColor,
-                  title: const GFListTile(
-                    avatar: GFAvatar(
-                      backgroundImage: AssetImage('Assets/PizzaDonVito.jpg'),
-                    ),
-                    titleText: "Pizza Don Vito",
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                ),
+                child: Container(
+                  width: double.infinity,
+                  height: 500,
+                  decoration: BoxDecoration(
+                    color: complementaryColor,
+                    borderRadius: BorderRadius.circular(40),
                   ),
-                  content: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      Icon(Icons.calendar_month),
-                      Text("Thu, Apr 21"),
-                      Icon(Icons.watch_later_outlined),
-                      Text("12:45 PM"),
-                      Icon(Icons.person),
-                      Text("6 people"),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GFListTile(
+                        margin: EdgeInsets.zero,
+                        padding: const EdgeInsets.only(top: 10, left: 20),
+                        avatar: GFAvatar(
+                          backgroundImage:
+                              const AssetImage('Assets/PizzaDonVito.jpg'),
+                          shape: GFAvatarShape.square,
+                          borderRadius: BorderRadius.circular(10),
+                          radius: 30,
+                        ),
+                        title: Text(
+                          "Pizza Don Vito",
+                          style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30,
+                            color: accentColor,
+                          ),
+                        ),
+                        subTitle: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Icon(
+                              Icons.calendar_month,
+                              size: 15,
+                              color: accentColor,
+                            ),
+                            Text(
+                              "Thu, Apr 21",
+                              style: GoogleFonts.roboto(
+                                fontSize: 15,
+                                fontStyle: FontStyle.italic,
+                                color: accentColor,
+                              ),
+                            ),
+                            Icon(
+                              Icons.watch_later_outlined,
+                              size: 15,
+                              color: accentColor,
+                            ),
+                            Text(
+                              "12:45 PM",
+                              style: GoogleFonts.roboto(
+                                fontSize: 15,
+                                fontStyle: FontStyle.italic,
+                                color: accentColor,
+                              ),
+                            ),
+                            Icon(
+                              Icons.person,
+                              size: 15,
+                              color: accentColor,
+                            ),
+                            Text(
+                              "6 people",
+                              style: GoogleFonts.roboto(
+                                fontSize: 15,
+                                fontStyle: FontStyle.italic,
+                                color: accentColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      const InfoDivider(),
+                      Row(
+                        children: const [
+                          UserDetail(
+                            detailType: "First Name",
+                            userDetail: "Alexander",
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 15.0),
+                            child: UserDetail(
+                              detailType: "Last Name",
+                              userDetail: "Georgiev",
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const UserDetail(
+                        detailType: "Email Address",
+                        userDetail: "alexandergeorgiev04@gmail.com",
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const UserDetail(
+                        detailType: "Mobile Number",
+                        userDetail: "089 783 4668",
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Center(
+                        child: NormalButtons(
+                            buttonText: "Confirm Reservation",
+                            buttonFunc: () {}),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Center(
+                        child: NormalButtons(
+                            buttonText: "Change Details", buttonFunc: () {}),
+                      ),
                     ],
                   ),
                 ),
-                const UserDetails(
-                  userDetail: "Alexander Georgiev",
-                  buttonText: "Change name",
-                ),
-                const UserDetails(
-                  userDetail: "alex@abv.bg",
-                  buttonText: "Change email",
-                ),
-                const UserDetails(
-                  userDetail: "08977832321",
-                  buttonText: "Change phone number",
-                ),
-                SizedBox(
-                  width: 350,
-                  child: GFButton(
-                    onPressed: () {},
-                    text: "Complete reservation",
-                    color: buttonColor,
-                  ),
-                )
-              ],
+              ),
             ),
           ),
         ],

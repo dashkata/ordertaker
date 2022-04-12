@@ -1,6 +1,7 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:order_taker/Screens/UserScreens/restaurantinfopage/restaurant_info_widget.dart';
 import 'package:order_taker/Screens/project_widgets.dart';
@@ -265,14 +266,15 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
               children: [
                 const ButtonRow(),
                 const InfoDivider(),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(bottom: 30, top: 30, left: 10),
                   child: Text(
                     "Pizza Don Vito",
-                    style: TextStyle(
-                      fontSize: 35,
+                    style: GoogleFonts.roboto(
+                      fontSize: 40,
                       fontWeight: FontWeight.bold,
                       fontStyle: FontStyle.italic,
+                      color: accentColor,
                     ),
                   ),
                 ),
@@ -296,10 +298,10 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
                     trimMode: TrimMode.Line,
                     trimCollapsedText: '+ Read more',
                     trimExpandedText: '- Read less',
-                    style: TextStyle(
-                      color: Colors.grey[900],
-                      fontSize: 15,
-                      letterSpacing: 0.5,
+                    style: GoogleFonts.roboto(
+                      color: accentColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -307,30 +309,40 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
                   height: 30,
                 ),
                 const InfoDivider(),
-                const Text(
-                  "Photos from the restaurant",
-                  style: TextStyle(
-                    fontSize: 15,
-                    letterSpacing: 0.5,
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text(
+                    "Photos from the restaurant",
+                    style: GoogleFonts.roboto(
+                      color: accentColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 const SizedBox(
                   height: 100,
                 ),
                 const InfoDivider(),
-                const Center(
+                Center(
                   child: Text(
                     "Menu",
-                    style: TextStyle(
-                      fontSize: 25,
+                    style: GoogleFonts.roboto(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: accentColor,
                     ),
                   ),
                 ),
                 const InfoDivider(),
-                const Center(
+                Center(
                   child: Text(
                     "Reviews",
-                    style: TextStyle(fontSize: 25),
+                    style: GoogleFonts.roboto(
+                      fontSize: 34,
+                      fontWeight: FontWeight.bold,
+                      color: accentColor,
+                    ),
                   ),
                 ),
               ],

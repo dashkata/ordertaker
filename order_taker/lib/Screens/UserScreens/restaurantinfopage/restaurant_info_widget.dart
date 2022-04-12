@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Themes/themes.dart';
 
 class ButtonRow extends StatelessWidget {
@@ -44,10 +45,15 @@ class InfoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GFButton(
-      color: buttonColor,
+      color: complementaryColor,
       onPressed: func,
       type: GFButtonType.outline2x,
+      shape: GFButtonShape.pills,
       text: buttonText,
+      textStyle: GoogleFonts.roboto(
+        color: accentColor,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 }
@@ -59,12 +65,9 @@ class InfoDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(left: 10.0, right: 10),
-      child: Divider(
-        thickness: 0.5,
-        color: Colors.black54,
-      ),
+    return Divider(
+      thickness: 0.5,
+      color: accentColor,
     );
   }
 }

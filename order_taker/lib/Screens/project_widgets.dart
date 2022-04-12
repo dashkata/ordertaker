@@ -48,22 +48,18 @@ class NormalButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: constraints(),
-      child: SizedBox(
-        width: 200,
-        height: 50,
-        child: GFButton(
-          borderSide: BorderSide(color: accentColor),
-          onPressed: buttonFunc,
-          text: buttonText,
-          shape: GFButtonShape.pills,
-          size: GFSize.LARGE,
-          color: mainColor,
-          elevation: 10,
-          textStyle: GoogleFonts.roboto(
-            color: accentColor,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+      child: GFButton(
+        borderSide: BorderSide(color: accentColor),
+        onPressed: buttonFunc,
+        text: buttonText,
+        shape: GFButtonShape.pills,
+        size: GFSize.LARGE,
+        color: mainColor,
+        elevation: 10,
+        textStyle: GoogleFonts.roboto(
+          color: accentColor,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
