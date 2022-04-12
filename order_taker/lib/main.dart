@@ -2,9 +2,10 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:order_taker/Screens/ProfilePage/profile.dart';
+import 'package:order_taker/Screens/RestaurantScreens/RestaurantRegisterPage/restaurant_register.dart';
 import 'package:order_taker/Screens/UserScreens/confirmreservationpage/confirm_reservation.dart';
 import 'package:order_taker/Screens/UserScreens/reservationspage/reservations.dart';
-import 'package:order_taker/Screens/RegisterPage/register.dart';
+import 'package:order_taker/Screens/UserScreens/RegisterPage/register.dart';
 import 'package:order_taker/Screens/UserScreens/restaurantinfopage/restaurant_info.dart';
 
 import 'package:order_taker/Screens/UserScreens/restaurantpage/restaurants.dart';
@@ -28,7 +29,7 @@ class OrderTaker extends StatelessWidget {
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
-      initialRoute: '/restaurant_info',
+      initialRoute: '/restaurants',
       routes: {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
@@ -37,6 +38,7 @@ class OrderTaker extends StatelessWidget {
         '/profile': (context) => const ProfilePage(),
         '/restaurant_info': (context) => const RestaurantInfo(),
         '/confirm_reservation': (context) => const ConfirmReservation(),
+        '/restaurant_register': (context) => const RestaurantRegister(),
       },
     );
   }

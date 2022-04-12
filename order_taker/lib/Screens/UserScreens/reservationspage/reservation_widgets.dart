@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Themes/themes.dart';
 
 class ReservationCard extends StatelessWidget {
@@ -18,19 +19,32 @@ class ReservationCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Card(
-        color: cardColor,
+        color: complementaryColor,
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(40),
+        ),
         child: Column(
           children: [
             GFListTile(
               avatar: GFAvatar(
                 backgroundImage: AssetImage("Assets/$imagePath"),
+                radius: 40,
               ),
-              titleText: titleText,
+              title: Text(
+                titleText,
+                style: GoogleFonts.roboto(
+                  color: accentColor,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               description: Text(
                 date,
-                style: TextStyle(
-                  color: Colors.grey[600],
+                style: GoogleFonts.roboto(
+                  color: accentColor,
                   fontStyle: FontStyle.italic,
+                  fontSize: 15,
                 ),
               ),
             ),
@@ -46,8 +60,17 @@ class ReservationCard extends StatelessWidget {
                     onPressed: () {
                       //Remove the card with the current index
                     },
-                    color: Colors.orange[300] as Color,
-                    child: const Text("Cancel reservation"),
+                    elevation: 10,
+                    shape: GFButtonShape.pills,
+                    color: mainColor,
+                    child: Text(
+                      "Cancel reservation",
+                      style: GoogleFonts.roboto(
+                        color: accentColor,
+                        fontStyle: FontStyle.italic,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                 ],
               ),

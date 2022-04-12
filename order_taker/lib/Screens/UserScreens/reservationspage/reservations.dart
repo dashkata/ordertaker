@@ -23,7 +23,7 @@ class _ReservationPageState extends State<ReservationPage> {
             child: ListView(children: const [
               ReservationCard(
                 titleText: "Pizza Don Vito",
-                date: "Date and time",
+                date: "Friday, April 8, 15:30 PM",
                 imagePath: "PizzaDonVito.jpg",
               ),
             ]),

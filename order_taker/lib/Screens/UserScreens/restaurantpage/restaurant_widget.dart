@@ -1,87 +1,94 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:order_taker/Screens/UserScreens/restaurantpage/restaurant_class.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:order_taker/Themes/themes.dart';
 
-class RestaurantCards extends StatelessWidget {
-  const RestaurantCards({
+class RestaurantCard extends StatelessWidget {
+  const RestaurantCard({
+    required this.resTitle,
+    required this.resDesc,
     required this.imagePath,
-    required this.restaurantName,
-    required this.restaurantInfo,
     Key? key,
   }) : super(key: key);
-  final String? imagePath;
-  final String restaurantName;
-  final String restaurantInfo;
-
+  final String resTitle;
+  final String resDesc;
+  final String imagePath;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 400,
-      width: 100,
-      child: InkWell(
-        child: Card(
-          elevation: 6,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          color: cardColor,
-          child: Column(
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(30),
-                  bottom: Radius.zero,
-                ),
-                child: Image.asset("Assets/$imagePath"),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 15, 0, 0),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          restaurantName,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            letterSpacing: 1,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          restaurantInfo,
-                          style: TextStyle(
-                            color: Colors.grey[500],
-                            fontStyle: FontStyle.italic,
-                            fontSize: 12,
-                            letterSpacing: 1,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        GFButton(
-                          onPressed: () {
-                            confirmation(context);
-                          },
-                          text: "Find a table",
-                          type: GFButtonType.outline2x,
-                          color: buttonColor,
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 20,
+        right: 20,
+        top: 30,
+      ),
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
         ),
-        onTap: () {},
+        elevation: 10,
+        child: Column(
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Ink.image(
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.8), BlendMode.dstATop),
+                  image: AssetImage(
+                    "Assets/$imagePath",
+                  ),
+                  height: 100,
+                  fit: BoxFit.cover,
+                )
+              ],
+            ),
+            ListTile(
+              title: Text(
+                resTitle,
+                style: GoogleFonts.roboto(
+                    color: accentColor,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold),
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    resDesc,
+                    style: GoogleFonts.roboto(
+                      color: accentColor,
+                      fontSize: 16,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        width: 150,
+                        child: GFButton(
+                          onPressed: () {},
+                          elevation: 10,
+                          shape: GFButtonShape.pills,
+                          text: "Find a Table",
+                          color: mainColor,
+                          textStyle: GoogleFonts.roboto(
+                            color: accentColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              tileColor: complementaryColor,
+            ),
+          ],
+        ),
       ),
     );
   }

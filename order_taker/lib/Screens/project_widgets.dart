@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Themes/themes.dart';
 
 class DialogButtons extends StatelessWidget {
@@ -51,13 +52,18 @@ class NormalButtons extends StatelessWidget {
         width: 200,
         height: 50,
         child: GFButton(
+          borderSide: BorderSide(color: accentColor),
           onPressed: buttonFunc,
           text: buttonText,
           shape: GFButtonShape.pills,
           size: GFSize.LARGE,
-          color: buttonColor,
-          fullWidthButton: true,
-          elevation: 5,
+          color: mainColor,
+          elevation: 10,
+          textStyle: GoogleFonts.roboto(
+            color: accentColor,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
@@ -81,19 +87,60 @@ class TextFields extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
+      child: DoubleTextField(
+          inputType: inputType,
+          icon: icon,
+          hintText: hintText,
+          obscure: obscure),
+    );
+  }
+}
+
+class DoubleTextField extends StatelessWidget {
+  const DoubleTextField({
+    Key? key,
+    required this.inputType,
+    required this.icon,
+    required this.hintText,
+    required this.obscure,
+  }) : super(key: key);
+
+  final TextInputType inputType;
+  final IconData icon;
+  final String? hintText;
+  final bool obscure;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      borderRadius: BorderRadius.circular(30),
+      elevation: 10,
       child: ConstrainedBox(
         constraints: constraints(),
         child: TextField(
           keyboardType: inputType,
           decoration: InputDecoration(
-            icon: Icon(icon),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
+            prefixIcon: Icon(icon),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(
+                color: accentColor,
+                width: 1,
+              ),
+            ),
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(
+                color: Colors.black,
+                width: 1,
+              ),
             ),
             hintText: hintText,
             filled: true,
-            fillColor: Colors.white60,
+            fillColor: mainColor,
+            hintStyle: GoogleFonts.roboto(
+                color: accentColor, fontSize: 15, fontWeight: FontWeight.w300),
           ),
           obscureText: obscure,
           autocorrect: false,
@@ -111,7 +158,7 @@ class BackgroundWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.amber[200],
+      color: mainColor,
     );
   }
 }
@@ -147,26 +194,34 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: backgroundColor,
+      backgroundColor: mainColor,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
+            padding: const EdgeInsets.only(bottom: 0),
             decoration: BoxDecoration(
-              color: appBarColor,
+              color: complementaryColor,
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                CircleAvatar(
-                  child: Icon(Icons.person),
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const CircleAvatar(
+                  backgroundImage: AssetImage("Assets/garjo.jpg"),
                   radius: 40,
                 ),
-                SizedBox(
-                  height: 20,
+                const SizedBox(
+                  height: 10,
                 ),
-                Text("The name of the user"),
+                Text(
+                  "Alexander Georgiev",
+                  style: GoogleFonts.roboto(
+                    color: accentColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
               ],
             ),
           ),
