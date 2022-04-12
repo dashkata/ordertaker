@@ -17,7 +17,7 @@ class ReservationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(15),
       child: Card(
         color: complementaryColor,
         elevation: 10,
@@ -27,33 +27,37 @@ class ReservationCard extends StatelessWidget {
         child: Column(
           children: [
             GFListTile(
+              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+              margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
               avatar: GFAvatar(
                 backgroundImage: AssetImage("Assets/$imagePath"),
                 radius: 40,
               ),
-              title: Text(
-                titleText,
-                style: GoogleFonts.roboto(
-                  color: accentColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    titleText,
+                    style: GoogleFonts.roboto(
+                      color: accentColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    date,
+                    style: GoogleFonts.roboto(
+                      color: accentColor,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
               ),
-              description: Text(
-                date,
-                style: GoogleFonts.roboto(
-                  color: accentColor,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 15,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                right: 10,
-                bottom: 5,
-              ),
-              child: Row(
+              description: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   GFButton(
