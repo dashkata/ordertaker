@@ -7,9 +7,9 @@ import 'package:order_taker/Screens/UserScreens/confirmreservationpage/confirm_r
 import 'package:order_taker/Screens/UserScreens/reservationspage/reservations.dart';
 import 'package:order_taker/Screens/UserScreens/RegisterPage/register.dart';
 import 'package:order_taker/Screens/UserScreens/restaurantinfopage/restaurant_info.dart';
-
 import 'package:order_taker/Screens/UserScreens/restaurantpage/restaurants.dart';
 import 'package:order_taker/Screens/loginpage/login.dart';
+import 'Screens/UserScreens/menupage/menu.dart';
 
 void main() {
   runApp(DevicePreview(
@@ -29,7 +29,7 @@ class OrderTaker extends StatelessWidget {
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
-      initialRoute: '/confirm_reservation',
+      initialRoute: '/menu',
       routes: {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
@@ -39,6 +39,7 @@ class OrderTaker extends StatelessWidget {
         '/restaurant_info': (context) => const RestaurantInfo(),
         '/confirm_reservation': (context) => const ConfirmReservation(),
         '/restaurant_register': (context) => const RestaurantRegister(),
+        '/menu': (context) => const Menu(),
       },
     );
   }

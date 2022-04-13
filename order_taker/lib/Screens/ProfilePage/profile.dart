@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/avatar/gf_avatar.dart';
-import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:getwidget/size/gf_size.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Screens/project_widgets.dart';
 import 'package:order_taker/Themes/themes.dart';
-import 'profile_widgets.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -31,12 +27,12 @@ class ProfilePage extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(bottom: 50),
+                        margin: const EdgeInsets.only(bottom: 50),
                         width: double.infinity,
                         height: 200,
                         decoration: BoxDecoration(
                           color: complementaryColor,
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomRight: Radius.circular(200),
                             bottomLeft: Radius.circular(200),
                           ),
@@ -55,13 +51,13 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      CircleAvatar(
+                      const CircleAvatar(
                         backgroundImage: AssetImage("Assets/garjo.jpg"),
                         radius: 60,
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   ListTile(
@@ -70,13 +66,13 @@ class ProfilePage extends StatelessWidget {
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: accentColor)),
-                    leading: Icon(Icons.person),
+                    leading: const Icon(Icons.person),
                   ),
                   Divider(
                     thickness: 0.5,
                     color: accentColor,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   ListTile(
@@ -85,13 +81,13 @@ class ProfilePage extends StatelessWidget {
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: accentColor)),
-                    leading: Icon(Icons.phone),
+                    leading: const Icon(Icons.phone),
                   ),
                   Divider(
                     thickness: 0.5,
                     color: accentColor,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   ListTile(
@@ -100,13 +96,13 @@ class ProfilePage extends StatelessWidget {
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: accentColor)),
-                    leading: Icon(Icons.mail),
+                    leading: const Icon(Icons.mail),
                   ),
                   Divider(
                     thickness: 0.5,
                     color: accentColor,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   ListTile(
@@ -115,7 +111,7 @@ class ProfilePage extends StatelessWidget {
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: accentColor)),
-                    leading: Icon(
+                    leading: const Icon(
                       Icons.password,
                     ),
                     trailing: GFButton(
