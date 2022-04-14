@@ -19,6 +19,7 @@ class _MenuState extends State<Menu> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
       floatingActionButton: FloatingActionButton(
+        heroTag: null,
         backgroundColor: complementaryColor,
         onPressed: () {
           showDialog(
@@ -118,6 +119,11 @@ class _MenuState extends State<Menu> {
           BottomNavigationBarItem(
             icon: Icon(Icons.free_breakfast_outlined),
             label: 'Water',
+            backgroundColor: Colors.pink,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.local_atm),
+            label: 'Check',
             backgroundColor: Colors.pink,
           ),
         ],
