@@ -132,7 +132,7 @@ class _ConfirmReservationState extends State<ConfirmReservation> {
                         detailType: "Mobile Number",
                         userDetail: "089 783 4668",
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Center(
@@ -140,7 +140,7 @@ class _ConfirmReservationState extends State<ConfirmReservation> {
                             buttonText: "Confirm Reservation",
                             buttonFunc: () {}),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Center(
