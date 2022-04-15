@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:order_taker/Screens/RestaurantScreens/RestaurantOrdersPage/restaurant_order_widgets.dart';
 import 'package:order_taker/Screens/project_widgets.dart';
 import 'package:order_taker/Themes/themes.dart';
 
@@ -16,7 +18,7 @@ class _OrdersPageState extends State<OrdersPage> {
     return Scaffold(
       body: Stack(
         children: [
-          BackgroundWidget(),
+          const BackgroundWidget(),
           SafeArea(
             child: ListView(
               children: [
@@ -24,51 +26,27 @@ class _OrdersPageState extends State<OrdersPage> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 20),
                   child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: complementaryColor,
-                    ),
+                    decoration: contentContainerDecoration,
                     width: double.infinity,
-                    height: 400,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: Center(
-                            child: Text(
-                              "Order 1",
-                              style: GoogleFonts.roboto(
-                                color: accentColor,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
+                      children: const [
+                        OrderTitle(
+                          orderNumber: 1,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0, left: 30),
-                          child: Text(
-                            "- пържени картофки х2",
-                            style: GoogleFonts.roboto(
-                              color: accentColor,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
+                        MenuItem(
+                          item: "Пържени картофки х2",
                         ),
+                        MenuItem(item: "Пица Пеперони малка"),
                         Padding(
-                          padding: const EdgeInsets.only(top: 20.0, left: 30),
-                          child: Text(
-                            "- Пица Пеперони малка",
-                            style: GoogleFonts.roboto(
-                              color: accentColor,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                            ),
+                            padding: EdgeInsets.only(top: 20, bottom: 5.0),
+                            child: OrderButton(
+                                buttonText: "See additional messages")),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 20.0),
+                          child: OrderButton(
+                            buttonText: "Set status",
                           ),
                         ),
                       ],

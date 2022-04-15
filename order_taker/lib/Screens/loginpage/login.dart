@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:order_taker/Screens/LoginPage/login_widgets.dart';
 import 'package:order_taker/Screens/project_widgets.dart';
 import 'package:order_taker/Themes/themes.dart';
 
@@ -44,12 +44,7 @@ class _LoginPageState extends State<LoginPage> {
                       Radius.circular(30),
                     ),
                     child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(30),
-                        ),
-                        color: complementaryColor,
-                      ),
+                      decoration: contentContainerDecoration,
                       height: 420,
                       width: double.infinity,
                       child: Column(
@@ -82,24 +77,13 @@ class _LoginPageState extends State<LoginPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                "Don't have an Account?",
-                                style: GoogleFonts.roboto(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
+                              const LoginText(text: "Don't have an Account?"),
                               TextButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    "Register",
-                                    style: GoogleFonts.roboto(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: accentColor,
-                                    ),
-                                  ))
+                                onPressed: () {},
+                                child: const LoginText(
+                                  text: "Register",
+                                ),
+                              )
                             ],
                           )
                         ],

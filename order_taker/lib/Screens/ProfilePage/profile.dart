@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:order_taker/Screens/ProfilePage/profile_widgets.dart';
 import 'package:order_taker/Screens/project_widgets.dart';
 import 'package:order_taker/Themes/themes.dart';
 
@@ -30,9 +31,9 @@ class ProfilePage extends StatelessWidget {
                         margin: const EdgeInsets.only(bottom: 50),
                         width: double.infinity,
                         height: 200,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: complementaryColor,
-                          borderRadius: const BorderRadius.only(
+                          borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(200),
                             bottomLeft: Radius.circular(200),
                           ),
@@ -60,48 +61,27 @@ class ProfilePage extends StatelessWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                  ListTile(
-                    title: Text("Alexander Georgiev",
-                        style: GoogleFonts.roboto(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: accentColor)),
-                    leading: const Icon(Icons.person),
+                  const ProfileListTile(
+                    detail: "Alexander Georgiev",
+                    icon: Icons.person,
                   ),
-                  Divider(
-                    thickness: 0.5,
-                    color: accentColor,
-                  ),
+                  const ProfileDivider(),
                   const SizedBox(
                     height: 5,
                   ),
-                  ListTile(
-                    title: Text("089 783 4668",
-                        style: GoogleFonts.roboto(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: accentColor)),
-                    leading: const Icon(Icons.phone),
+                  const ProfileListTile(
+                    detail: "089 783 4668",
+                    icon: Icons.phone,
                   ),
-                  Divider(
-                    thickness: 0.5,
-                    color: accentColor,
-                  ),
+                  const ProfileDivider(),
                   const SizedBox(
                     height: 5,
                   ),
-                  ListTile(
-                    title: Text("alexandur04@abv.bg",
-                        style: GoogleFonts.roboto(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: accentColor)),
-                    leading: const Icon(Icons.mail),
+                  const ProfileListTile(
+                    detail: "alexandur04@abv.bg",
+                    icon: Icons.mail,
                   ),
-                  Divider(
-                    thickness: 0.5,
-                    color: accentColor,
-                  ),
+                  const ProfileDivider(),
                   const SizedBox(
                     height: 5,
                   ),
@@ -128,10 +108,7 @@ class ProfilePage extends StatelessWidget {
                       onPressed: () {},
                     ),
                   ),
-                  Divider(
-                    thickness: 0.5,
-                    color: accentColor,
-                  ),
+                  const ProfileDivider(),
                   Padding(
                     padding: const EdgeInsets.only(top: 15.0),
                     child: GFButton(

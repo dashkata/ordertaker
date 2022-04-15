@@ -20,34 +20,31 @@ class RestaurantFields extends StatelessWidget {
     return Material(
       borderRadius: BorderRadius.circular(30),
       elevation: 10,
-      child: ConstrainedBox(
-        constraints: constraints(),
-        child: TextField(
-          keyboardType: inputType,
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(30.0)),
-              borderSide: BorderSide(
-                color: accentColor,
-                width: 1,
-              ),
+      child: TextField(
+        keyboardType: inputType,
+        decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderSide: BorderSide(
+              color: accentColor,
+              width: 1,
             ),
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(30.0)),
-              borderSide: BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
-            hintText: hintText,
-            filled: true,
-            fillColor: mainColor,
-            hintStyle: GoogleFonts.roboto(
-                color: accentColor, fontSize: 15, fontWeight: FontWeight.w300),
           ),
-          obscureText: obscure,
-          autocorrect: false,
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderSide: BorderSide(
+              color: Colors.black,
+              width: 1,
+            ),
+          ),
+          hintText: hintText,
+          filled: true,
+          fillColor: mainColor,
+          hintStyle: GoogleFonts.roboto(
+              color: accentColor, fontSize: 15, fontWeight: FontWeight.w300),
         ),
+        obscureText: obscure,
+        autocorrect: false,
       ),
     );
   }

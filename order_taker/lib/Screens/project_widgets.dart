@@ -3,37 +3,6 @@ import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Themes/themes.dart';
 
-class DialogButtons extends StatelessWidget {
-  const DialogButtons({
-    Key? key,
-    required this.buttonText,
-    required this.buttonFunc,
-  }) : super(key: key);
-
-  final String? buttonText;
-  final void Function() buttonFunc;
-
-  @override
-  Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: constraints(),
-      child: SizedBox(
-        width: 100,
-        height: 30,
-        child: GFButton(
-          onPressed: buttonFunc,
-          text: buttonText,
-          shape: GFButtonShape.pills,
-          size: GFSize.LARGE,
-          color: buttonColor,
-          fullWidthButton: true,
-          elevation: 5,
-        ),
-      ),
-    );
-  }
-}
-
 class NormalButtons extends StatelessWidget {
   const NormalButtons({
     Key? key,
@@ -46,21 +15,18 @@ class NormalButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: constraints(),
-      child: GFButton(
-        borderSide: BorderSide(color: accentColor),
-        onPressed: buttonFunc,
-        text: buttonText,
-        shape: GFButtonShape.pills,
-        size: GFSize.LARGE,
-        color: mainColor,
-        elevation: 10,
-        textStyle: GoogleFonts.roboto(
-          color: accentColor,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
+    return GFButton(
+      borderSide: BorderSide(color: accentColor),
+      onPressed: buttonFunc,
+      text: buttonText,
+      shape: GFButtonShape.pills,
+      size: GFSize.LARGE,
+      color: mainColor,
+      elevation: 10,
+      textStyle: GoogleFonts.roboto(
+        color: accentColor,
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
       ),
     );
   }
@@ -112,35 +78,32 @@ class DoubleTextField extends StatelessWidget {
     return Material(
       borderRadius: BorderRadius.circular(30),
       elevation: 10,
-      child: ConstrainedBox(
-        constraints: constraints(),
-        child: TextField(
-          keyboardType: inputType,
-          decoration: InputDecoration(
-            prefixIcon: Icon(icon),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(30.0)),
-              borderSide: BorderSide(
-                color: accentColor,
-                width: 1,
-              ),
+      child: TextField(
+        keyboardType: inputType,
+        decoration: InputDecoration(
+          prefixIcon: Icon(icon),
+          enabledBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderSide: BorderSide(
+              color: accentColor,
+              width: 1,
             ),
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(30.0)),
-              borderSide: BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
-            hintText: hintText,
-            filled: true,
-            fillColor: mainColor,
-            hintStyle: GoogleFonts.roboto(
-                color: accentColor, fontSize: 15, fontWeight: FontWeight.w300),
           ),
-          obscureText: obscure,
-          autocorrect: false,
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderSide: BorderSide(
+              color: Colors.black,
+              width: 1,
+            ),
+          ),
+          hintText: hintText,
+          filled: true,
+          fillColor: mainColor,
+          hintStyle: GoogleFonts.roboto(
+              color: accentColor, fontSize: 15, fontWeight: FontWeight.w300),
         ),
+        obscureText: obscure,
+        autocorrect: false,
       ),
     );
   }

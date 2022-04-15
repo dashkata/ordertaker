@@ -33,7 +33,7 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      backgroundColor: backgroundColor,
+                      backgroundColor: mainColor,
                       actionsAlignment: MainAxisAlignment.start,
                       actions: [
                         SizedBox(
@@ -63,7 +63,7 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
                                     onPressed: () {},
                                     icon: Icon(Icons.phone),
                                     text: "restaurant phone number",
-                                    color: buttonColor,
+                                    color: complementaryColor,
                                   ),
                                 ),
                               ],
@@ -146,7 +146,7 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       actionsAlignment: MainAxisAlignment.start,
-                      backgroundColor: backgroundColor,
+                      backgroundColor: mainColor,
                       title: const Center(
                         child: Text("Make a reservation"),
                       ),
@@ -247,7 +247,7 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
                               onPressed: () {},
                               text: "Find a table",
                               size: GFSize.LARGE,
-                              color: buttonColor,
+                              color: complementaryColor,
                               type: GFButtonType.outline2x,
                             ),
                           ),
