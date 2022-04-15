@@ -131,11 +131,15 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
               },
               shape: GFButtonShape.pills,
               text: "Details",
-              color: buttonColor,
+              color: complementaryColor,
+              textStyle: GoogleFonts.roboto(
+                color: accentColor,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           FloatingActionButton(
-            backgroundColor: buttonColor,
+            backgroundColor: complementaryColor,
             onPressed: () {
               showDialog(
                   context: context,
@@ -252,7 +256,10 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
                     );
                   });
             },
-            child: const Icon(Icons.restaurant),
+            child: Icon(
+              Icons.restaurant,
+              color: accentColor,
+            ),
           ),
         ],
       ),

@@ -61,19 +61,25 @@ class _RegisterPageState extends State<RegisterPage> {
                             Row(
                               children: const [
                                 Expanded(
-                                  child: TextFields(
-                                    hintText: "First Name",
-                                    icon: Icons.person,
-                                    obscure: false,
-                                    inputType: TextInputType.name,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 20.0),
+                                    child: DoubleTextField(
+                                      hintText: "First Name",
+                                      icon: Icons.person,
+                                      obscure: false,
+                                      inputType: TextInputType.name,
+                                    ),
                                   ),
                                 ),
                                 Expanded(
-                                  child: TextFields(
-                                    hintText: "Last Name",
-                                    icon: Icons.person,
-                                    obscure: false,
-                                    inputType: TextInputType.name,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(right: 20.0),
+                                    child: DoubleTextField(
+                                      hintText: "Last Name",
+                                      icon: Icons.person,
+                                      obscure: false,
+                                      inputType: TextInputType.name,
+                                    ),
                                   ),
                                 ),
                               ],

@@ -12,37 +12,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  void _showRegisterChoice() {
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          actionsAlignment: MainAxisAlignment.center,
-          backgroundColor: backgroundColor,
-          title: Center(
-            child: Text(
-              "Register as a: ",
-              style: alertTextStyle,
-            ),
-          ),
-          actions: [
-            OverflowBar(
-              alignment: MainAxisAlignment.spaceAround,
-              children: [
-                DialogButtons(buttonText: "Customer", buttonFunc: () {}),
-                DialogButtons(buttonText: "Restaurant", buttonFunc: () {}),
-              ],
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                             inputType: TextInputType.text,
                           ),
                           const SizedBox(
-                            height: 80,
+                            height: 60,
                           ),
                           NormalButtons(buttonText: "Login", buttonFunc: () {}),
                           const SizedBox(
