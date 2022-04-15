@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:order_taker/Screens/ProfilePage/profile.dart';
+import 'package:order_taker/Screens/RestaurantScreens/RestaurantOrdersPage/restaurant_order.dart';
 import 'package:order_taker/Screens/RestaurantScreens/RestaurantRegisterPage/restaurant_register.dart';
 import 'package:order_taker/Screens/UserScreens/billpage/bill.dart';
 import 'package:order_taker/Screens/UserScreens/confirmreservationpage/confirm_reservation.dart';
@@ -30,7 +31,7 @@ class OrderTaker extends StatelessWidget {
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
-      initialRoute: '/bill',
+      initialRoute: '/restaurant_order',
       routes: {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
@@ -42,6 +43,7 @@ class OrderTaker extends StatelessWidget {
         '/restaurant_register': (context) => const RestaurantRegister(),
         '/menu': (context) => const Menu(),
         '/bill': (context) => const BillPage(),
+        '/restaurant_order': (context) => const OrdersPage(),
       },
     );
   }

@@ -38,7 +38,7 @@ class _ConfirmReservationState extends State<ConfirmReservation> {
                     children: [
                       GFListTile(
                         margin: EdgeInsets.zero,
-                        padding: const EdgeInsets.only(top: 10, left: 20),
+                        padding: const EdgeInsets.only(top: 10, left: 10),
                         avatar: GFAvatar(
                           backgroundImage:
                               const AssetImage('Assets/PizzaDonVito.jpg'),
@@ -99,9 +99,9 @@ class _ConfirmReservationState extends State<ConfirmReservation> {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
                       const InfoDivider(),
                       Row(
                         children: const [
@@ -118,34 +118,32 @@ class _ConfirmReservationState extends State<ConfirmReservation> {
                           )
                         ],
                       ),
-                      const SizedBox(
-                        height: 20,
+
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10.0),
+                        child: const UserDetail(
+                          detailType: "Email Address",
+                          userDetail: "alexandergeorgiev04@gmail.com",
+                        ),
                       ),
-                      const UserDetail(
-                        detailType: "Email Address",
-                        userDetail: "alexandergeorgiev04@gmail.com",
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+
                       const UserDetail(
                         detailType: "Mobile Number",
                         userDetail: "089 783 4668",
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+
                       Center(
                         child: NormalButtons(
                             buttonText: "Confirm Reservation",
                             buttonFunc: () {}),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Center(
-                        child: NormalButtons(
-                            buttonText: "Change Details", buttonFunc: () {}),
+
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Center(
+                          child: NormalButtons(
+                              buttonText: "Change Details", buttonFunc: () {}),
+                        ),
                       ),
                     ],
                   ),
