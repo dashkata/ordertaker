@@ -25,7 +25,7 @@ class RestaurantRegister extends StatelessWidget {
                         child: Text(
                           "Register a restaurant",
                           style: GoogleFonts.roboto(
-                            fontSize: 32,
+                            fontSize: 28,
                             fontWeight: FontWeight.bold,
                             color: accentColor,
                           ),
@@ -41,20 +41,12 @@ class RestaurantRegister extends StatelessWidget {
                         Radius.circular(30),
                       ),
                       child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(30),
-                          ),
-                          color: complementaryColor,
-                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 30),
+                        decoration: contentContainerDecoration,
                         width: double.infinity,
-                        height: 550,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                              height: 30,
-                            ),
                             Row(
                               children: const [
                                 Expanded(
@@ -149,9 +141,6 @@ class RestaurantRegister extends StatelessWidget {
                               padding: const EdgeInsets.only(top: 40.0),
                               child: NormalButtons(
                                   buttonText: "Get Started", buttonFunc: () {}),
-                            ),
-                            const SizedBox(
-                              height: 10,
                             ),
                           ],
                         ),

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Screens/RestaurantScreens/RestaurantOrdersPage/restaurant_order_widgets.dart';
 import 'package:order_taker/Screens/project_widgets.dart';
 import 'package:order_taker/Themes/themes.dart';
@@ -40,9 +38,10 @@ class _OrdersPageState extends State<OrdersPage> {
                         ),
                         MenuItem(item: "Пица Пеперони малка"),
                         Padding(
-                            padding: EdgeInsets.only(top: 20, bottom: 5.0),
-                            child: OrderButton(
-                                buttonText: "See additional messages")),
+                          padding: EdgeInsets.only(top: 20, bottom: 5.0),
+                          child: OrderButton(
+                              buttonText: "See additional messages"),
+                        ),
                         Padding(
                           padding: EdgeInsets.only(bottom: 20.0),
                           child: OrderButton(

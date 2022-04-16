@@ -36,10 +36,11 @@ class BillPage extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 25),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 25),
                   child: TextField(
                     decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
+                      enabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30.0)),
                         borderSide: BorderSide(
                           color: accentColor,

@@ -29,10 +29,7 @@ class _ConfirmReservationState extends State<ConfirmReservation> {
                 child: Container(
                   width: double.infinity,
                   height: 500,
-                  decoration: BoxDecoration(
-                    color: complementaryColor,
-                    borderRadius: BorderRadius.circular(40),
-                  ),
+                  decoration: contentContainerDecoration,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -57,7 +54,7 @@ class _ConfirmReservationState extends State<ConfirmReservation> {
                         subTitle: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.calendar_month,
                               size: 15,
                               color: accentColor,
@@ -70,7 +67,7 @@ class _ConfirmReservationState extends State<ConfirmReservation> {
                                 color: accentColor,
                               ),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.watch_later_outlined,
                               size: 15,
                               color: accentColor,
@@ -83,7 +80,7 @@ class _ConfirmReservationState extends State<ConfirmReservation> {
                                 color: accentColor,
                               ),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.person,
                               size: 15,
                               color: accentColor,
@@ -119,9 +116,9 @@ class _ConfirmReservationState extends State<ConfirmReservation> {
                         ],
                       ),
 
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10.0),
-                        child: const UserDetail(
+                      const Padding(
+                        padding: EdgeInsets.only(right: 10.0),
+                        child: UserDetail(
                           detailType: "Email Address",
                           userDetail: "alexandergeorgiev04@gmail.com",
                         ),

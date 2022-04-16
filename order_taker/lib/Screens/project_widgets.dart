@@ -75,35 +75,38 @@ class DoubleTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      borderRadius: BorderRadius.circular(30),
-      elevation: 10,
-      child: TextField(
-        keyboardType: inputType,
-        decoration: InputDecoration(
-          prefixIcon: Icon(icon),
-          enabledBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30.0)),
-            borderSide: BorderSide(
-              color: accentColor,
-              width: 1,
+    return SizedBox(
+      height: 50,
+      child: Material(
+        borderRadius: BorderRadius.circular(30),
+        elevation: 10,
+        child: TextField(
+          keyboardType: inputType,
+          decoration: InputDecoration(
+            prefixIcon: Icon(icon),
+            enabledBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(
+                color: accentColor,
+                width: 1,
+              ),
             ),
-          ),
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30.0)),
-            borderSide: BorderSide(
-              color: Colors.black,
-              width: 1,
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(
+                color: Colors.black,
+                width: 1,
+              ),
             ),
+            hintText: hintText,
+            filled: true,
+            fillColor: mainColor,
+            hintStyle: GoogleFonts.roboto(
+                color: accentColor, fontSize: 15, fontWeight: FontWeight.w300),
           ),
-          hintText: hintText,
-          filled: true,
-          fillColor: mainColor,
-          hintStyle: GoogleFonts.roboto(
-              color: accentColor, fontSize: 15, fontWeight: FontWeight.w300),
+          obscureText: obscure,
+          autocorrect: false,
         ),
-        obscureText: obscure,
-        autocorrect: false,
       ),
     );
   }

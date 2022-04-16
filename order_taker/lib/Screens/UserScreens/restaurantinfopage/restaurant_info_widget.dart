@@ -47,9 +47,9 @@ class InfoButton extends StatelessWidget {
     return GFButton(
       color: complementaryColor,
       onPressed: func,
-      type: GFButtonType.outline2x,
       shape: GFButtonShape.pills,
       text: buttonText,
+      elevation: 5,
       textStyle: GoogleFonts.roboto(
         color: accentColor,
         fontWeight: FontWeight.bold,
@@ -65,7 +65,7 @@ class InfoDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Divider(
+    return const Divider(
       thickness: 0.5,
       color: accentColor,
     );
@@ -94,13 +94,20 @@ class DetailText extends StatelessWidget {
             const SizedBox(width: 5),
             Text(
               detailTitle,
-              style: const TextStyle(
+              style: GoogleFonts.roboto(
+                color: accentColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ],
         ),
-        Text(detailDesc),
+        Text(
+          detailDesc,
+          style: GoogleFonts.roboto(
+            color: accentColor,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
       ],
     );
   }

@@ -36,67 +36,83 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
                       backgroundColor: mainColor,
                       actionsAlignment: MainAxisAlignment.start,
                       actions: [
-                        SizedBox(
-                          height: 150,
-                          width: 300,
-                          child: Card(
-                            elevation: 5,
-                            color: Colors.white54,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Center(
-                                  child: Text(
-                                    "Order delivery or takeout",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
+                        Center(
+                          child: SizedBox(
+                            height: 150,
+                            width: 300,
+                            child: Card(
+                              elevation: 10,
+                              color: complementaryColor,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: Text(
+                                      "Order delivery or takeout",
+                                      style: GoogleFonts.roboto(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: accentColor,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(height: 15),
-                                const InfoDivider(),
-                                const SizedBox(height: 10),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: GFButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.phone),
-                                    text: "restaurant phone number",
-                                    color: complementaryColor,
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 10.0, horizontal: 10),
+                                    child: InfoDivider(),
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: GFButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.phone),
+                                      text: "restaurant phone number",
+                                      textStyle: GoogleFonts.roboto(
+                                        color: accentColor,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      color: mainColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        SizedBox(
-                          height: 150,
-                          width: 300,
-                          child: Card(
-                            elevation: 5,
-                            color: Colors.white54,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Row(
-                                    children: const [
-                                      Icon(Icons.location_on),
-                                      Text("The location of the restaurant"),
-                                    ],
-                                  ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20.0),
+                          child: Center(
+                            child: SizedBox(
+                              height: 150,
+                              width: 300,
+                              child: Card(
+                                elevation: 5,
+                                color: complementaryColor,
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Icon(Icons.location_on),
+                                          Text(
+                                            "The location of the restaurant",
+                                            style: GoogleFonts.roboto(
+                                                color: accentColor,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 30,
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -154,9 +170,13 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Number of people",
-                              style: TextStyle(color: Colors.black),
+                              style: GoogleFonts.roboto(
+                                color: accentColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
                             ),
                             SizedBox(
                               height: 30,
