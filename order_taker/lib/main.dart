@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'package:order_taker/Screens/ProfilePage/profile.dart';
 import 'package:order_taker/Screens/RestaurantScreens/RestaurantOrdersPage/restaurant_order.dart';
 import 'package:order_taker/Screens/RestaurantScreens/RestaurantRegisterPage/restaurant_register.dart';
@@ -47,4 +48,3 @@ class OrderTaker extends StatelessWidget {
       },
     );
   }
-}
