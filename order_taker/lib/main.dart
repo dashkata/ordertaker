@@ -48,3 +48,4 @@ class OrderTaker extends StatelessWidget {
       },
     );
   }
+}
