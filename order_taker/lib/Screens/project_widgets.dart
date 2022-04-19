@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:order_taker/Themes/themes.dart';
+import 'package:order_taker/providers/auth_provider.dart';
+import 'package:order_taker/themes/themes.dart';
 
 class NormalButtons extends StatelessWidget {
   const NormalButtons({
@@ -16,7 +18,7 @@ class NormalButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GFButton(
-      borderSide: BorderSide(color: accentColor),
+      borderSide: const BorderSide(color: accentColor),
       onPressed: buttonFunc,
       text: buttonText,
       shape: GFButtonShape.pills,
@@ -33,24 +35,27 @@ class NormalButtons extends StatelessWidget {
 }
 
 class TextFields extends StatelessWidget {
-  const TextFields({
+  TextFields({
     Key? key,
     required this.hintText,
     required this.icon,
     required this.obscure,
     required this.inputType,
+    required this.func,
   }) : super(key: key);
 
   final String? hintText;
   final IconData icon;
   final bool obscure;
   final TextInputType inputType;
+  void Function(String)? func;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
       child: DoubleTextField(
+          func: func,
           inputType: inputType,
           icon: icon,
           hintText: hintText,
@@ -60,8 +65,9 @@ class TextFields extends StatelessWidget {
 }
 
 class DoubleTextField extends StatelessWidget {
-  const DoubleTextField({
+  DoubleTextField({
     Key? key,
+    required this.func,
     required this.inputType,
     required this.icon,
     required this.hintText,
@@ -72,6 +78,7 @@ class DoubleTextField extends StatelessWidget {
   final IconData icon;
   final String? hintText;
   final bool obscure;
+  void Function(String)? func;
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +88,7 @@ class DoubleTextField extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
         elevation: 10,
         child: TextField(
+          onChanged: func,
           keyboardType: inputType,
           decoration: InputDecoration(
             prefixIcon: Icon(icon),
@@ -148,13 +156,14 @@ class DrawerTab extends StatelessWidget {
   }
 }
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends ConsumerWidget {
   const CustomDrawer({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _auth = ref.watch(authServicesProvider);
     return Drawer(
       backgroundColor: mainColor,
       child: ListView(
@@ -210,7 +219,7 @@ class CustomDrawer extends StatelessWidget {
           DrawerTab(
             icon: Icons.exit_to_app,
             titleText: "Sign out",
-            func: () {},
+            func: () => _auth.signout(),
           ),
         ],
       ),
