@@ -30,6 +30,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   date_time_picker: ^2.1.0
   device_preview: ^1.0.0
+  firebase_auth: ^3.3.14
+  firebase_core: ^1.14.1
   flutter:
     sdk: flutter
   flutter_datetime_picker: ^1.5.1

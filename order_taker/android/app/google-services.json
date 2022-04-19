@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "802728758070",
+    "project_id": "order-taker-56b58",
+    "storage_bucket": "order-taker-56b58.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802728758070:android:f0512e11856a8234650197",
+        "android_client_info": {
+          "package_name": "com.example.order_taker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "802728758070-h16pi3v9a2aeeou8ffghlol61tr7uou5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcnZHCkXivkSKItXjGP6a47q338EuOStw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "802728758070-h16pi3v9a2aeeou8ffghlol61tr7uou5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
