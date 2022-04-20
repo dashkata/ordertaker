@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
@@ -164,6 +165,8 @@ class CustomDrawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _auth = ref.watch(authServicesProvider);
+    final User user = _auth.getCurrentUser()!;
+
     return Drawer(
       backgroundColor: mainColor,
       child: ListView(
@@ -186,7 +189,7 @@ class CustomDrawer extends ConsumerWidget {
                   height: 10,
                 ),
                 Text(
-                  "Alexander Georgiev",
+                  user.displayName!,
                   style: GoogleFonts.roboto(
                     color: accentColor,
                     fontWeight: FontWeight.bold,
@@ -219,7 +222,8 @@ class CustomDrawer extends ConsumerWidget {
           DrawerTab(
             icon: Icons.exit_to_app,
             titleText: "Sign out",
-            func: () => _auth.signout(),
+            func: () => _auth.signout().then(
+                (value) => Navigator.of(context).popAndPushNamed('/login')),
           ),
         ],
       ),

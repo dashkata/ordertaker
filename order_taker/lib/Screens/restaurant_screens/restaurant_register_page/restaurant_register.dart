@@ -10,6 +10,15 @@ class RestaurantRegister extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.popAndPushNamed(context, '/register'),
+        backgroundColor: complementaryColor,
+        child: Icon(
+          Icons.arrow_back,
+          color: accentColor,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
       body: Stack(
         children: [
           const BackgroundWidget(),

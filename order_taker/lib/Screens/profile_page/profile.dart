@@ -1,15 +1,21 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:order_taker/providers/auth_provider.dart';
 import 'package:order_taker/screens/profile_page/profile_widgets.dart';
 import 'package:order_taker/screens/project_widgets.dart';
 import 'package:order_taker/themes/themes.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends ConsumerWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _auth = ref.watch(authServicesProvider);
+    final User user = _auth.getCurrentUser()!;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appBarColor,
@@ -42,7 +48,7 @@ class ProfilePage extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 60.0),
                             child: Text(
-                              "Alexander Georgiev",
+                              user.displayName!,
                               style: GoogleFonts.roboto(
                                 fontSize: 27,
                                 fontWeight: FontWeight.bold,
@@ -61,8 +67,8 @@ class ProfilePage extends StatelessWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                  const ProfileListTile(
-                    detail: "Alexander Georgiev",
+                  ProfileListTile(
+                    detail: user.displayName!,
                     icon: Icons.person,
                   ),
                   const ProfileDivider(),
@@ -77,8 +83,8 @@ class ProfilePage extends StatelessWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                  const ProfileListTile(
-                    detail: "alexandur04@abv.bg",
+                  ProfileListTile(
+                    detail: user.email!,
                     icon: Icons.mail,
                   ),
                   const ProfileDivider(),
