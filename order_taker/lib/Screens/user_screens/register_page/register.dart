@@ -123,6 +123,9 @@ class RegisterPage extends ConsumerWidget {
                                         email: _email,
                                         password: _password,
                                       )
+                                      .then((value) => _auth
+                                          .getCurrentUser()!
+                                          .sendEmailVerification())
                                       .then((value) => _auth.updateUserName(
                                             name: _firstName + " " + _lastName,
                                           ));
