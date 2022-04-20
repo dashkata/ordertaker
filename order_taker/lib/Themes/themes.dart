@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-Color appBarColor = const Color.fromARGB(255, 235, 184, 90);
-
 // Color accentColor = Colors.black;
 // Color complementaryColor = Colors.deepOrange;
 // Color mainColor = HexColor("#EFEBD6");
-const Color accentColor = Color.fromARGB(255, 58, 49, 41);
-const Color complementaryColor = Color(0xffFAF6E9);
+const Color accentColor = Color.fromARGB(255, 71, 58, 47);
+const Color complementaryColor = Color.fromARGB(255, 223, 213, 182);
 const Color mainColor = Color.fromARGB(255, 236, 229, 191);
+Color appBarColor = accentColor;
 TextStyle alertTextStyle = const TextStyle(
   letterSpacing: 0.5,
   fontSize: 20,
