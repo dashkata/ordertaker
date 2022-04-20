@@ -129,7 +129,13 @@ class BackgroundWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: mainColor,
+      // color: mainColor,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("Assets/Background.png"),
+          fit: BoxFit.fill,
+        ),
+      ),
     );
   }
 }
