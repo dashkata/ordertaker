@@ -10,9 +10,10 @@ class AuthChecker extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _authState = ref.watch(authStateProvider);
+    final _authServices = ref.watch(authServicesProvider);
 
     return _authState.when(data: ((data) {
-      if (data != null) {
+      if (data != null && _authServices.getCurrentUser()!.emailVerified) {
         return const RestaurantPage();
       }
       return LoginPage();
