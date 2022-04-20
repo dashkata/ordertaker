@@ -36,7 +36,7 @@ class OrderTaker extends StatelessWidget {
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
-      initialRoute: '/auth_page',
+      initialRoute: '/auth',
       routes: {
         '/login': (context) => LoginPage(),
         '/register': (context) => const RegisterPage(),
@@ -49,7 +49,7 @@ class OrderTaker extends StatelessWidget {
         '/menu': (context) => const Menu(),
         '/bill': (context) => const BillPage(),
         '/restaurant_order': (context) => const OrdersPage(),
-        '/auth_page': (context) => const AuthChecker(),
+        '/auth': (context) => const AuthChecker(),
       },
     );
   }

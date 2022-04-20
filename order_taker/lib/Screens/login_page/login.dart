@@ -8,14 +8,6 @@ import 'package:order_taker/screens/project_widgets.dart';
 import 'package:order_taker/themes/themes.dart';
 
 class LoginPage extends ConsumerWidget {
-  void updateEmail(WidgetRef ref, String email) {
-    ref.read(emailProvider.state).state = email;
-  }
-
-  void updatePassowrd(WidgetRef ref, String password) {
-    ref.read(passwordProvider.state).state = password;
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _email = ref.watch(emailProvider);
@@ -61,7 +53,8 @@ class LoginPage extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           TextFields(
-                            func: (value) => updateEmail(ref, value),
+                            func: (value) =>
+                                ref.read(emailProvider.state).state = value,
                             hintText: "Email",
                             icon: Icons.email,
                             obscure: false,
@@ -69,7 +62,8 @@ class LoginPage extends ConsumerWidget {
                           ),
                           const SizedBox(height: 30),
                           TextFields(
-                            func: (value) => updatePassowrd(ref, value),
+                            func: (value) =>
+                                ref.read(passwordProvider.state).state = value,
                             hintText: "Password",
                             icon: Icons.password,
                             obscure: true,
@@ -101,7 +95,10 @@ class LoginPage extends ConsumerWidget {
                             children: [
                               const LoginText(text: "Don't have an Account?"),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.popAndPushNamed(
+                                      context, '/register');
+                                },
                                 child: const LoginText(
                                   text: "Register",
                                 ),

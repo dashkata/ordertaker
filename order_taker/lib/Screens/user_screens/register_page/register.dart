@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:order_taker/providers/auth_provider.dart';
+import 'package:order_taker/providers/user_register_provider.dart';
 import 'package:order_taker/screens/project_widgets.dart';
 import 'package:order_taker/themes/themes.dart';
 
-class RegisterPage extends StatefulWidget {
+class RegisterPage extends ConsumerWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _email = ref.watch(emailProvider);
+    final _password = ref.watch(passwordProvider);
+    final _firstName = ref.watch(firstNameProvider);
+    final _lastName = ref.watch(lastNameProvider);
+    final _phoneNumber = ref.watch(numberProvider);
+    final _auth = ref.watch(authServicesProvider);
 
-class _RegisterPageState extends State<RegisterPage> {
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
@@ -44,27 +49,21 @@ class _RegisterPageState extends State<RegisterPage> {
                         Radius.circular(30),
                       ),
                       child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(30),
-                          ),
-                          color: complementaryColor,
-                        ),
+                        decoration: contentContainerDecoration,
                         width: double.infinity,
-                        height: 550,
+                        padding: EdgeInsets.symmetric(vertical: 40),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                              height: 30,
-                            ),
                             Row(
                               children: [
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.only(left: 20.0),
+                                    padding: const EdgeInsets.only(left: 20.0),
                                     child: DoubleTextField(
-                                      func: (value) {},
+                                      func: (value) => ref
+                                          .read(firstNameProvider.state)
+                                          .state = value,
                                       hintText: "First Name",
                                       icon: Icons.person,
                                       obscure: false,
@@ -74,9 +73,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.only(right: 20.0),
+                                    padding: const EdgeInsets.only(right: 20.0),
                                     child: DoubleTextField(
-                                      func: (value) {},
+                                      func: (value) => ref
+                                          .read(lastNameProvider.state)
+                                          .state = value,
                                       hintText: "Last Name",
                                       icon: Icons.person,
                                       obscure: false,
@@ -87,21 +88,26 @@ class _RegisterPageState extends State<RegisterPage> {
                               ],
                             ),
                             TextFields(
-                              func: (value) {},
+                              func: (value) {
+                                ref.read(emailProvider.state).state = value;
+                              },
                               hintText: "Email Address",
                               icon: Icons.mail,
                               obscure: false,
                               inputType: TextInputType.emailAddress,
                             ),
                             TextFields(
-                              func: (value) {},
+                              func: (value) {
+                                ref.read(passwordProvider.state).state = value;
+                              },
                               hintText: "Password",
                               icon: Icons.lock,
                               obscure: true,
                               inputType: TextInputType.text,
                             ),
                             TextFields(
-                              func: (value) {},
+                              func: (value) =>
+                                  ref.read(numberProvider.state).state,
                               hintText: "Mobile Number",
                               icon: Icons.phone,
                               obscure: false,
@@ -110,10 +116,19 @@ class _RegisterPageState extends State<RegisterPage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 40.0),
                               child: NormalButtons(
-                                  buttonText: "Sign up", buttonFunc: () {}),
-                            ),
-                            const SizedBox(
-                              height: 10,
+                                buttonText: "Sign up",
+                                buttonFunc: () {
+                                  _auth
+                                      .signUp(
+                                        email: _email,
+                                        password: _password,
+                                      )
+                                      .then((value) => _auth.updateUserName(
+                                            name: _firstName + " " + _lastName,
+                                          ));
+                                  Navigator.popAndPushNamed(context, '/auth');
+                                },
+                              ),
                             ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -130,7 +145,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                       ),
                                     ),
                                     TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.popAndPushNamed(
+                                            context, '/login');
+                                      },
                                       child: Text(
                                         "Sign in",
                                         style: GoogleFonts.roboto(
@@ -154,7 +172,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                       ),
                                     ),
                                     TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.popAndPushNamed(
+                                          context,
+                                          '/restaurant_register',
+                                        );
+                                      },
                                       child: Text(
                                         "Click here",
                                         style: GoogleFonts.roboto(
