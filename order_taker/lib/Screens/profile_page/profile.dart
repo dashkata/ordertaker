@@ -92,11 +92,14 @@ class ProfilePage extends ConsumerWidget {
                     height: 5,
                   ),
                   ListTile(
-                    title: Text("**********",
-                        style: GoogleFonts.roboto(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: accentColor)),
+                    title: Text(
+                      "**********",
+                      style: GoogleFonts.roboto(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: accentColor,
+                      ),
+                    ),
                     leading: const Icon(
                       Icons.password,
                     ),
@@ -111,7 +114,9 @@ class ProfilePage extends ConsumerWidget {
                         ),
                       ),
                       color: complementaryColor,
-                      onPressed: () {},
+                      onPressed: () {
+                        // _auth.getCurrentUser().updatePassword(newPassword)
+                      },
                     ),
                   ),
                   const ProfileDivider(),
