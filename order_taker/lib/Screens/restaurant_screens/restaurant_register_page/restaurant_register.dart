@@ -21,7 +21,7 @@ class RestaurantRegister extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
       body: Stack(
         children: [
-          const BackgroundWidget(),
+          const BackgroundWidgetAuthPages(),
           SafeArea(
             child: Center(
               child: Column(

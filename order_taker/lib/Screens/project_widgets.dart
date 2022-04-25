@@ -121,6 +121,25 @@ class DoubleTextField extends StatelessWidget {
   }
 }
 
+class BackgroundWidgetAuthPages extends StatelessWidget {
+  const BackgroundWidgetAuthPages({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // color: mainColor,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("Assets/Background2.png"),
+          fit: BoxFit.fill,
+        ),
+      ),
+    );
+  }
+}
+
 class BackgroundWidget extends StatelessWidget {
   const BackgroundWidget({
     Key? key,

@@ -21,7 +21,7 @@ class RegisterPage extends ConsumerWidget {
     return Scaffold(
       body: Stack(
         children: [
-          const BackgroundWidget(),
+          const BackgroundWidgetAuthPages(),
           SafeArea(
             child: Center(
               child: Column(

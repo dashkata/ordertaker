@@ -26,9 +26,10 @@ class RestaurantPage extends ConsumerWidget {
               itemBuilder: (context, index) {
                 return restaurants.when(data: (restaurant) {
                   return RestaurantCard(
-                      resTitle: restaurant.elementAt(index).resTitle,
-                      resDesc: restaurant.elementAt(index).resDesc,
-                      imagePath: restaurant.elementAt(index).imagePath);
+                    resTitle: restaurant.elementAt(index).title,
+                    resDesc: restaurant.elementAt(index).desc,
+                    imagePath: restaurant.elementAt(index).imagepath,
+                  );
                 }, error: (e, s) {
                   return Center(
                     child: Text("An error accured"),

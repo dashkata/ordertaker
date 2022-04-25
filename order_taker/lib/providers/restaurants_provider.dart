@@ -1,8 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/services/firestore_services.dart';
+import 'package:order_taker/providers/common_providers.dart';
 
-final databaseProvider = Provider<DatabaseService>((ref) => DatabaseService());
-
-final restaurantProvider = FutureProvider((ref) async {
+final restaurantProvider = StreamProvider((ref) {
   return ref.read(databaseProvider).fetchRestaurants();
 });

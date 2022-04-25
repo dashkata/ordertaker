@@ -43,7 +43,7 @@ class OrderTaker extends StatelessWidget {
         '/restaurants': (context) => const RestaurantPage(),
         '/reservations': (context) => const ReservationPage(),
         '/profile': (context) => const ProfilePage(),
-        '/restaurant_info': (context) => const RestaurantInfo(),
+        '/restaurant_info': (context) => RestaurantInfo(),
         '/confirm_reservation': (context) => const ConfirmReservation(),
         '/restaurant_register': (context) => const RestaurantRegister(),
         '/menu': (context) => const Menu(),

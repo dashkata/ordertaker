@@ -17,12 +17,16 @@ class LoginPage extends ConsumerWidget {
 
     return Scaffold(
       body: Stack(children: [
-        const BackgroundWidget(),
+        const BackgroundWidgetAuthPages(),
         SafeArea(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // Image(
+                //   image: AssetImage('assets/black.png'),
+                //   fit: BoxFit.cover,
+                // ),
                 Row(
                   children: [
                     Padding(
@@ -30,8 +34,9 @@ class LoginPage extends ConsumerWidget {
                       child: Text(
                         "Welcome",
                         style: GoogleFonts.roboto(
-                          fontSize: 32,
+                          fontSize: 28,
                           fontWeight: FontWeight.bold,
+                          color: complementaryColor,
                         ),
                       ),
                     ),
@@ -70,7 +75,7 @@ class LoginPage extends ConsumerWidget {
                             inputType: TextInputType.text,
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 10,
                           ),
                           Text(
                             " ",

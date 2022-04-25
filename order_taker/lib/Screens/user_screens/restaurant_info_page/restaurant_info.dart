@@ -1,22 +1,20 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:order_taker/providers/common_providers.dart';
 import 'package:order_taker/screens/user_screens/restaurant_info_page/restaurant_info_widget.dart';
 import 'package:order_taker/screens/project_widgets.dart';
+import 'package:order_taker/services/firestore_services.dart';
 import 'package:order_taker/themes/themes.dart';
 import 'package:readmore/readmore.dart';
 
-class RestaurantInfo extends StatefulWidget {
-  const RestaurantInfo({Key? key}) : super(key: key);
-
+class RestaurantInfo extends ConsumerWidget {
   @override
-  State<RestaurantInfo> createState() => _RestaurantInfoState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final database = ref.watch(databaseProvider);
 
-class _RestaurantInfoState extends State<RestaurantInfo> {
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appBarColor,
