@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:order_taker/models/restaurant_info_model.dart';
 import 'package:order_taker/providers/common_providers.dart';
 import 'package:order_taker/screens/user_screens/restaurant_info_page/restaurant_info_widget.dart';
 import 'package:order_taker/screens/project_widgets.dart';
@@ -13,6 +14,8 @@ import 'package:readmore/readmore.dart';
 class RestaurantInfo extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final arg = ModalRoute.of(context)!.settings.arguments as Map;
+    final restaurantTitle = arg["restaurant"];
     final database = ref.watch(databaseProvider);
 
     return Scaffold(

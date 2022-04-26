@@ -29,7 +29,11 @@ class RestaurantCard extends ConsumerWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, '/restaurant_info');
+          Navigator.pushNamed(
+            context,
+            '/restaurant_info',
+            arguments: {"restaurant": resTitle},
+          );
         },
         child: Card(
           clipBehavior: Clip.antiAlias,

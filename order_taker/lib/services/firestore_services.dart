@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:order_taker/models/reservation_model.dart';
+import 'package:order_taker/models/restaurant_info_model.dart';
 import 'package:order_taker/models/restaurant_model.dart';
+import 'package:order_taker/screens/user_screens/restaurant_info_page/restaurant_info.dart';
 
 class DatabaseService {
   Stream<List<Restaurant>> fetchRestaurants() {
@@ -47,23 +49,6 @@ class DatabaseService {
         .set({"title": title, "date": date, "imagepath": imagePath}));
   }
 
-  Stream<DocumentSnapshot<Map<String, dynamic>>> fetchRestaurantInfo(
-      String restaurantTitle) {
-    return FirebaseFirestore.instance
-        .collection('Restaurants')
-        .doc(restaurantTitle)
-        .snapshots();
-  }
-
-  // void updateReservations(String uid){
-  //   final reservationRef = FirebaseFirestore.instance
-  //       .collection('Users')
-  //       .doc(uid)
-  //       .collection('Reservations').get();
-  //   for(DocumentReference doc in reservationRef.)
-
-  // }
-
   Future<void> deleteReservation(String uid, String id) async {
     final reservationRef = FirebaseFirestore.instance
         .collection('Users')
@@ -73,5 +58,18 @@ class DatabaseService {
     await reservationRef.doc(id).delete();
   }
 
-  // }
+  Future<RestaurantInformation> fetchRestaurantInfo(String restaurant) async {
+    final reservationRef =
+        FirebaseFirestore.instance.collection('Restaurants').doc(restaurant);
+
+    return reservationRef.get().then(
+          (restaurantInfo) => RestaurantInformation(
+              title: restaurantInfo["title"],
+              overview: restaurantInfo["overview"],
+              openhours: restaurantInfo["openhours"],
+              paymentOptions: restaurantInfo["paymentOptions"],
+              phoneNumber: restaurantInfo["phoneNumber"],
+              location: restaurantInfo["location"]),
+        );
+  }
 }

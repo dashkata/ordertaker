@@ -69,8 +69,6 @@ class ReservationCard extends ConsumerWidget {
                 children: [
                   GFButton(
                     onPressed: () {
-                      print(titleText);
-                      print(date);
                       _database.deleteReservation(
                           _auth.getCurrentUser()!.uid, id);
                     },
