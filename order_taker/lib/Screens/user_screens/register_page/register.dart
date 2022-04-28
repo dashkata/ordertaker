@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/providers/auth_provider.dart';
 import 'package:order_taker/providers/user_register_provider.dart';
+
 import 'package:order_taker/screens/project_widgets.dart';
 import 'package:order_taker/themes/themes.dart';
 
@@ -17,6 +18,7 @@ class RegisterPage extends ConsumerWidget {
     final _lastName = ref.watch(lastNameProvider);
     final _phoneNumber = ref.watch(numberProvider);
     final _auth = ref.watch(authServicesProvider);
+    final _errorMessage = ref.watch(errorProvider);
 
     return Scaffold(
       body: Stack(
@@ -113,22 +115,34 @@ class RegisterPage extends ConsumerWidget {
                               obscure: false,
                               inputType: TextInputType.number,
                             ),
+                            Text(
+                              _errorMessage,
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.roboto(
+                                color: Colors.red,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(top: 40.0),
                               child: NormalButtons(
                                 buttonText: "Sign up",
-                                buttonFunc: () {
-                                  _auth
-                                      .signUp(
-                                        email: _email,
-                                        password: _password,
-                                      )
-                                      .then((value) => _auth
-                                          .getCurrentUser()!
-                                          .sendEmailVerification())
-                                      .then((value) => _auth.updateUserName(
-                                            name: _firstName + " " + _lastName,
-                                          ));
+                                buttonFunc: () async {
+                                  ref.read(errorProvider.state).state =
+                                      await _auth
+                                          .signUp(
+                                            email: _email,
+                                            password: _password,
+                                          )
+                                          .then((value) => _auth
+                                              .getCurrentUser()!
+                                              .sendEmailVerification())
+                                          .then((value) => _auth.updateUserName(
+                                                name: _firstName +
+                                                    " " +
+                                                    _lastName,
+                                              ));
                                   Navigator.popAndPushNamed(context, '/auth');
                                 },
                               ),

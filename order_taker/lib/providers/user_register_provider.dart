@@ -19,3 +19,5 @@ final lastNameProvider = StateProvider.autoDispose<String>(
 final numberProvider = StateProvider.autoDispose<String>(
   (ref) => '',
 );
+
+final errorProvider = StateProvider.autoDispose<String>((ref) => '');

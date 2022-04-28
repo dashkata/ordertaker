@@ -12,6 +12,7 @@ class LoginPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _email = ref.watch(emailProvider);
     final _password = ref.watch(passwordProvider);
+    final _errorMessage = ref.watch(errorProvider);
 
     final _auth = ref.watch(authServicesProvider);
 
@@ -75,13 +76,14 @@ class LoginPage extends ConsumerWidget {
                             inputType: TextInputType.text,
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 20,
                           ),
                           Text(
-                            " ",
+                            _errorMessage,
+                            textAlign: TextAlign.center,
                             style: GoogleFonts.roboto(
-                              color: accentColor,
-                              fontSize: 20,
+                              color: Colors.red,
+                              fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -90,10 +92,14 @@ class LoginPage extends ConsumerWidget {
                                 const EdgeInsets.only(top: 30.0, bottom: 20),
                             child: NormalButtons(
                                 buttonText: "Login",
-                                buttonFunc: () => _auth.signIn(
-                                      email: _email,
-                                      password: _password,
-                                    )),
+                                buttonFunc: () async {
+                                  ref.read(errorProvider.state).state =
+                                      await _auth.signIn(
+                                    email: _email,
+                                    password: _password,
+                                  );
+                                  Navigator.popAndPushNamed(context, '/auth');
+                                }),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
