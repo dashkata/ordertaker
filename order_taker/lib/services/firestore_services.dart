@@ -60,7 +60,7 @@ class DatabaseService {
 
   Future<RestaurantInformation> fetchRestaurantInfo(String restaurant) async {
     final reservationRef =
-        FirebaseFirestore.instance.collection('Restaurants').doc(restaurant);
+        FirebaseFirestore.instance.collection("Restaurants").doc(restaurant);
 
     return reservationRef.get().then(
           (restaurantInfo) => RestaurantInformation(
