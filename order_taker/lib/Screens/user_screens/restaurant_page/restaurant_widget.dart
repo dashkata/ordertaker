@@ -1,11 +1,12 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/auth_provider.dart';
 import 'package:order_taker/providers/common_providers.dart';
-
-import 'package:order_taker/themes/themes.dart';
 
 class RestaurantCard extends ConsumerWidget {
   const RestaurantCard({
@@ -83,11 +84,62 @@ class RestaurantCard extends ConsumerWidget {
                           width: 150,
                           child: GFButton(
                             onPressed: () {
-                              database.addReservation(
-                                  _auth.getCurrentUser()!.uid,
-                                  resTitle,
-                                  "Friday, April 8, 15:30 PM",
-                                  imagePath);
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    String value = "";
+                                    return AlertDialog(
+                                      backgroundColor: mainColor,
+                                      content: DateTimePicker(
+                                        calendarTitle:
+                                            "Select the date for your reservation",
+                                        type: DateTimePickerType.dateTime,
+                                        firstDate: DateTime.now(),
+                                        lastDate: DateTime(2100),
+                                        dateMask: 'EEEE, MMMM d, y - H:m a',
+                                        dateLabelText: "Date",
+                                        timeLabelText: "Time",
+                                        style: GoogleFonts.roboto(
+                                          color: accentColor,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        onChanged: (val) {
+                                          value = val;
+                                        },
+                                      ),
+                                      actions: [
+                                        Center(
+                                          child: GFButton(
+                                            color: complementaryColor,
+                                            shape: GFButtonShape.pills,
+                                            text: "Confirm reservation",
+                                            textStyle: GoogleFonts.roboto(
+                                              color: accentColor,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            elevation: 10,
+                                            onPressed: () {
+                                              if (value.isNotEmpty) {
+                                                database.addReservation(
+                                                  _auth.getCurrentUser()!.uid,
+                                                  resTitle,
+                                                  DateFormat(
+                                                    'EEEE, MMMM d, y - H:m a',
+                                                  ).format(
+                                                      DateTime.parse(value)),
+                                                  imagePath,
+
+                                                );
+                                              }
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  });
                             },
                             elevation: 10,
                             shape: GFButtonShape.pills,

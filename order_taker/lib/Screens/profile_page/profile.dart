@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:order_taker/Screens/profile_page/profile_widgets.dart';
+
 import 'package:order_taker/providers/auth_provider.dart';
-import 'package:order_taker/screens/profile_page/profile_widgets.dart';
+import 'package:order_taker/providers/profile_provider.dart';
+
 import 'package:order_taker/screens/project_widgets.dart';
 import 'package:order_taker/themes/themes.dart';
 
@@ -68,16 +71,19 @@ class ProfilePage extends ConsumerWidget {
                     height: 5,
                   ),
                   ProfileListTile(
-                    detail: user.displayName!,
-                    icon: Icons.person,
-                  ),
+                      detail: user.displayName!,
+                      icon: Icons.person,
+                      hintText: "Change name",
+                      changeProvider: nameChangeProvider),
                   const ProfileDivider(),
                   const SizedBox(
                     height: 5,
                   ),
-                  const ProfileListTile(
+                  ProfileListTile(
                     detail: "089 783 4668",
                     icon: Icons.phone,
+                    hintText: "Change mobile number",
+                    changeProvider: phoneChangeProvider,
                   ),
                   const ProfileDivider(),
                   const SizedBox(
@@ -86,56 +92,57 @@ class ProfilePage extends ConsumerWidget {
                   ProfileListTile(
                     detail: user.email!,
                     icon: Icons.mail,
+                    hintText: "Change email addresss",
+                    changeProvider: emailChangeProvider,
                   ),
                   const ProfileDivider(),
                   const SizedBox(
                     height: 5,
                   ),
                   ListTile(
-                    title: Text(
-                      "**********",
-                      style: GoogleFonts.roboto(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: accentColor,
+                    title: AnimatedCrossFade(
+                      firstChild: Text(
+                        "**********",
+                        style: GoogleFonts.roboto(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: accentColor,
+                        ),
                       ),
+                      secondChild: TextField(
+                        decoration: InputDecoration(
+                          hintText: "Enter your new password",
+                          // filled: true,
+                          // fillColor: mainColor,
+                          hintStyle: GoogleFonts.roboto(
+                            color: accentColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                        obscureText: true,
+                        autocorrect: false,
+                      ),
+                      crossFadeState: ref.watch(passwordChangeProvider)
+                          ? CrossFadeState.showSecond
+                          : CrossFadeState.showFirst,
+                      duration: const Duration(milliseconds: 200),
                     ),
                     leading: const Icon(
                       Icons.password,
                     ),
-                    trailing: GFButton(
-                      elevation: 10,
-                      shape: GFButtonShape.pills,
-                      child: Text(
-                        "Change Password",
-                        style: GoogleFonts.roboto(
-                          color: accentColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      color: complementaryColor,
+                    trailing: GFIconButton(
+                      icon: const Icon(Icons.edit),
+                      size: GFSize.SMALL,
+                      type: GFButtonType.transparent,
+                      shape: GFIconButtonShape.pills,
+                      color: Colors.white,
                       onPressed: () {
-                        // _auth.getCurrentUser().updatePassword(newPassword)
+                        ref.watch(passwordChangeProvider.state).state =
+                            ref.watch(passwordChangeProvider.state).state
+                                ? false
+                                : true;
                       },
-                    ),
-                  ),
-                  const ProfileDivider(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15.0),
-                    child: GFButton(
-                      padding: const EdgeInsets.symmetric(horizontal: 40),
-                      elevation: 10,
-                      shape: GFButtonShape.pills,
-                      child: Text(
-                        "Edit Profile",
-                        style: GoogleFonts.roboto(
-                          fontSize: 15,
-                          color: accentColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      color: complementaryColor,
-                      onPressed: () {},
                     ),
                   ),
                 ],

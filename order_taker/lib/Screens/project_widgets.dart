@@ -56,11 +56,12 @@ class TextFields extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
       child: DoubleTextField(
-          func: func,
-          inputType: inputType,
-          icon: icon,
-          hintText: hintText,
-          obscure: obscure),
+        func: func,
+        inputType: inputType,
+        icon: icon,
+        hintText: hintText,
+        obscure: obscure,
+      ),
     );
   }
 }
@@ -130,7 +131,7 @@ class BackgroundWidgetAuthPages extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // color: mainColor,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("Assets/Background2.png"),
           fit: BoxFit.fill,
@@ -149,7 +150,7 @@ class BackgroundWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // color: mainColor,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("Assets/Background.png"),
           fit: BoxFit.fill,
@@ -199,7 +200,7 @@ class CustomDrawer extends ConsumerWidget {
         children: [
           DrawerHeader(
             padding: const EdgeInsets.only(bottom: 0),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: complementaryColor,
             ),
             child: Column(

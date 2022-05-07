@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:order_taker/models/reservation_model.dart';
 import 'package:order_taker/models/restaurant_info_model.dart';
 import 'package:order_taker/models/restaurant_model.dart';
-import 'package:order_taker/screens/user_screens/restaurant_info_page/restaurant_info.dart';
 
 class DatabaseService {
   Stream<List<Restaurant>> fetchRestaurants() {
@@ -40,11 +39,25 @@ class DatabaseService {
   }
 
   void addReservation(String uid, String title, String date, String imagePath) {
-    final reservationRef = FirebaseFirestore.instance
+    final userReservationRef = FirebaseFirestore.instance
         .collection('Users')
         .doc(uid)
         .collection('Reservations');
-    reservationRef.get().then((value) => reservationRef
+    final restaurantReservationRef = FirebaseFirestore.instance
+        .collection("Restaurants")
+        .doc(title)
+        .collection("Reservations");
+    restaurantReservationRef.get().then((value) => {
+          for (DocumentSnapshot doc in value.docs)
+            {
+              if (doc.data() != date)
+                {
+                  restaurantReservationRef.doc(doc.id).set({"Resrvation": date})
+                }
+            }
+        });
+
+    userReservationRef.get().then((value) => userReservationRef
         .doc(value.docs.length.toString())
         .set({"title": title, "date": date, "imagepath": imagePath}));
   }
