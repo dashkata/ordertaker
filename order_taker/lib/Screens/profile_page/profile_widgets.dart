@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:order_taker/themes/themes.dart';
+import 'package:order_taker/Themes/themes.dart';
+import 'package:order_taker/providers/auth_provider.dart';
+import 'package:order_taker/providers/profile_provider.dart';
 
 class ProfileDivider extends StatelessWidget {
   const ProfileDivider({
@@ -24,15 +26,20 @@ class ProfileListTile extends ConsumerWidget {
     required this.icon,
     required this.hintText,
     required this.changeProvider,
+    required this.obscure,
+    required this.detailType,
     Key? key,
   }) : super(key: key);
   final String detail;
   final IconData icon;
   final String hintText;
   final StateProvider<bool> changeProvider;
-
+  final String detailType;
+  final bool obscure;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final _auth = ref.watch(authServicesProvider);
+    final newDetail = ref.watch(changeControllerProvider);
     return ListTile(
       leading: Icon(icon),
       title: AnimatedCrossFade(
@@ -45,6 +52,8 @@ class ProfileListTile extends ConsumerWidget {
           ),
         ),
         secondChild: TextField(
+          onChanged: (value) =>
+              ref.read(changeControllerProvider.state).state = value,
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: GoogleFonts.roboto(
@@ -53,6 +62,7 @@ class ProfileListTile extends ConsumerWidget {
               fontWeight: FontWeight.w300,
             ),
           ),
+          obscureText: obscure,
           autocorrect: false,
         ),
         crossFadeState: ref.watch(changeProvider)
@@ -66,9 +76,67 @@ class ProfileListTile extends ConsumerWidget {
         type: GFButtonType.transparent,
         shape: GFIconButtonShape.pills,
         color: Colors.white,
-        onPressed: () {
-          ref.watch(changeProvider.state).state =
-              ref.watch(changeProvider.state).state ? false : true;
+        onPressed: () async {
+          if (ref.watch(changeProvider.state).state == true) {
+            if (detail != newDetail) {
+              switch (detailType) {
+                case "Name":
+                  ref.read(messageProvider.state).state =
+                      await _auth.updateUserName(name: newDetail);
+                  break;
+                case "Email":
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          backgroundColor: mainColor,
+                          title: Text(
+                            "Your email will be changed to: $newDetail."
+                            "\n"
+                            "If you are sure about the change, go to the new email and verify it.",
+                            style: GoogleFonts.roboto(
+                              color: accentColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          actions: [
+                            Center(
+                              child: GFButton(
+                                shape: GFButtonShape.pills,
+                                color: complementaryColor,
+                                onPressed: () async {
+                                  ref.read(messageProvider.state).state =
+                                      await _auth.updateEmail(email: newDetail);
+                                  await _auth.signout();
+                                  Navigator.popAndPushNamed(context, '/auth');
+                                },
+                                text: "OK",
+                                textStyle: GoogleFonts.roboto(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                  color: accentColor,
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      });
+                  break;
+                case "Mobile Number":
+                  print("Soon");
+                  break;
+                case "Password":
+                  ref.read(messageProvider.state).state =
+                      await _auth.updatePassword(passowrd: newDetail);
+
+                  break;
+              }
+            }
+            ref.watch(changeProvider.state).state = false;
+          } else {
+            ref.watch(changeProvider.state).state = true;
+          }
         },
       ),
     );

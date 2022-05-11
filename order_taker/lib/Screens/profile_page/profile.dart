@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Screens/profile_page/profile_widgets.dart';
 
@@ -17,6 +16,8 @@ class ProfilePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _auth = ref.watch(authServicesProvider);
+    final _message = ref.watch(messageProvider);
+
     final User user = _auth.getCurrentUser()!;
 
     return Scaffold(
@@ -71,10 +72,13 @@ class ProfilePage extends ConsumerWidget {
                     height: 5,
                   ),
                   ProfileListTile(
-                      detail: user.displayName!,
-                      icon: Icons.person,
-                      hintText: "Change name",
-                      changeProvider: nameChangeProvider),
+                    detail: user.displayName!,
+                    icon: Icons.person,
+                    hintText: "Change name",
+                    changeProvider: nameChangeProvider,
+                    detailType: "Name",
+                    obscure: false,
+                  ),
                   const ProfileDivider(),
                   const SizedBox(
                     height: 5,
@@ -84,6 +88,8 @@ class ProfilePage extends ConsumerWidget {
                     icon: Icons.phone,
                     hintText: "Change mobile number",
                     changeProvider: phoneChangeProvider,
+                    detailType: "Mobile Number",
+                    obscure: false,
                   ),
                   const ProfileDivider(),
                   const SizedBox(
@@ -93,56 +99,33 @@ class ProfilePage extends ConsumerWidget {
                     detail: user.email!,
                     icon: Icons.mail,
                     hintText: "Change email addresss",
+                    detailType: "Email",
                     changeProvider: emailChangeProvider,
+                    obscure: false,
                   ),
                   const ProfileDivider(),
                   const SizedBox(
                     height: 5,
                   ),
-                  ListTile(
-                    title: AnimatedCrossFade(
-                      firstChild: Text(
-                        "**********",
+                  ProfileListTile(
+                    detail: "*********",
+                    icon: Icons.password,
+                    hintText: "Enter your new password",
+                    changeProvider: passwordChangeProvider,
+                    detailType: "Password",
+                    obscure: true,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: Center(
+                      child: Text(
+                        _message,
                         style: GoogleFonts.roboto(
+                          color: accentColor,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: accentColor,
                         ),
                       ),
-                      secondChild: TextField(
-                        decoration: InputDecoration(
-                          hintText: "Enter your new password",
-                          // filled: true,
-                          // fillColor: mainColor,
-                          hintStyle: GoogleFonts.roboto(
-                            color: accentColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
-                        obscureText: true,
-                        autocorrect: false,
-                      ),
-                      crossFadeState: ref.watch(passwordChangeProvider)
-                          ? CrossFadeState.showSecond
-                          : CrossFadeState.showFirst,
-                      duration: const Duration(milliseconds: 200),
-                    ),
-                    leading: const Icon(
-                      Icons.password,
-                    ),
-                    trailing: GFIconButton(
-                      icon: const Icon(Icons.edit),
-                      size: GFSize.SMALL,
-                      type: GFButtonType.transparent,
-                      shape: GFIconButtonShape.pills,
-                      color: Colors.white,
-                      onPressed: () {
-                        ref.watch(passwordChangeProvider.state).state =
-                            ref.watch(passwordChangeProvider.state).state
-                                ? false
-                                : true;
-                      },
                     ),
                   ),
                 ],
