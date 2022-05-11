@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
@@ -73,8 +72,23 @@ class AuthenticationService {
     required String name,
   }) async {
     await _firebaseAuth.currentUser?.updateDisplayName(name);
-    return "Changed succesfully";
+    return "Name changed succesfully";
   }
+
+  Future<String> updatePassword({required String passowrd}) async {
+    await _firebaseAuth.currentUser?.updatePassword(passowrd);
+    return "Password changed Succsefully";
+  }
+
+  Future<String> updateEmail({required String email}) async {
+    await _firebaseAuth.currentUser?.verifyBeforeUpdateEmail(email);
+    return "Changed succesfully, please verify the new email address.";
+  }
+
+  // Future<String> updateMobileNumber({required String mobileNumber}) async {
+  //   await _firebaseAuth.currentUser?.updatePhoneNumber(mobileNumber);
+  //   return "Changed succesfully";
+  // }
 
   User? getCurrentUser() {
     return _firebaseAuth.currentUser;

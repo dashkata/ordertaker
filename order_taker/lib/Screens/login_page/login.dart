@@ -13,7 +13,6 @@ class LoginPage extends ConsumerWidget {
     final _email = ref.watch(emailProvider);
     final _password = ref.watch(passwordProvider);
     final _errorMessage = ref.watch(errorProvider);
-
     final _auth = ref.watch(authServicesProvider);
 
     return Scaffold(
@@ -24,10 +23,6 @@ class LoginPage extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Image(
-                //   image: AssetImage('assets/black.png'),
-                //   fit: BoxFit.cover,
-                // ),
                 Row(
                   children: [
                     Padding(
@@ -51,7 +46,7 @@ class LoginPage extends ConsumerWidget {
                       Radius.circular(30),
                     ),
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 30),
+                      padding: const EdgeInsets.symmetric(vertical: 30),
                       decoration: contentContainerDecoration,
                       width: double.infinity,
                       child: Column(
@@ -75,7 +70,7 @@ class LoginPage extends ConsumerWidget {
                             obscure: true,
                             inputType: TextInputType.text,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Text(
