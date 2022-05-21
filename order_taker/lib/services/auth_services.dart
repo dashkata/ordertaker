@@ -82,13 +82,8 @@ class AuthenticationService {
 
   Future<String> updateEmail({required String email}) async {
     await _firebaseAuth.currentUser?.verifyBeforeUpdateEmail(email);
-    return "Changed succesfully, please verify the new email address.";
+    return "Email changed succesfully to: $email, please verify the new email address.";
   }
-
-  // Future<String> updateMobileNumber({required String mobileNumber}) async {
-  //   await _firebaseAuth.currentUser?.updatePhoneNumber(mobileNumber);
-  //   return "Changed succesfully";
-  // }
 
   User? getCurrentUser() {
     return _firebaseAuth.currentUser;

@@ -62,6 +62,21 @@ class DatabaseService {
         .set({"title": title, "date": date, "imagepath": imagePath}));
   }
 
+  String fetchMobileNumber({required String uid}) {
+    final currentUserRef =
+        FirebaseFirestore.instance.collection('Users').doc(uid);
+    currentUserRef.get().then((value) => value['Mobile Number']);
+    return "Mobile number not set";
+  }
+
+  Future<String> updateMobileNumber(
+      {required String uid, required String mobileNumber}) async {
+    final currentUserRef =
+        FirebaseFirestore.instance.collection('Users').doc(uid);
+    currentUserRef.set({'Mobile Number': mobileNumber});
+    return "Mobile number changed succesfully!";
+  }
+
   Future<void> deleteReservation(String uid, String id) async {
     final reservationRef = FirebaseFirestore.instance
         .collection('Users')
