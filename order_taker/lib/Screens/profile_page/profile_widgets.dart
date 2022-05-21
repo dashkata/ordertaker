@@ -4,6 +4,7 @@ import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/auth_provider.dart';
+import 'package:order_taker/providers/common_providers.dart';
 import 'package:order_taker/providers/profile_provider.dart';
 
 class ProfileDivider extends StatelessWidget {
@@ -39,6 +40,7 @@ class ProfileListTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _auth = ref.watch(authServicesProvider);
+    final _database = ref.watch(databaseProvider);
     final newDetail = ref.watch(changeControllerProvider);
     return ListTile(
       leading: Icon(icon),
@@ -78,11 +80,15 @@ class ProfileListTile extends ConsumerWidget {
         color: Colors.white,
         onPressed: () async {
           if (ref.watch(changeProvider.state).state == true) {
-            if (detail != newDetail) {
+            if (detail != newDetail && newDetail != "") {
               switch (detailType) {
                 case "Name":
-                  ref.read(messageProvider.state).state =
-                      await _auth.updateUserName(name: newDetail);
+                  GFToast.showToast(
+                    await _auth.updateUserName(name: newDetail),
+                    context,
+                    toastDuration: 5,
+                  );
+                  Navigator.popAndPushNamed(context, '/auth');
                   break;
                 case "Email":
                   showDialog(
@@ -106,9 +112,13 @@ class ProfileListTile extends ConsumerWidget {
                                 shape: GFButtonShape.pills,
                                 color: complementaryColor,
                                 onPressed: () async {
-                                  ref.read(messageProvider.state).state =
-                                      await _auth.updateEmail(email: newDetail);
+                                  GFToast.showToast(
+                                    await _auth.updateEmail(email: newDetail),
+                                    context,
+                                    toastDuration: 5,
+                                  );
                                   await _auth.signout();
+
                                   Navigator.popAndPushNamed(context, '/auth');
                                 },
                                 text: "OK",
@@ -124,11 +134,23 @@ class ProfileListTile extends ConsumerWidget {
                       });
                   break;
                 case "Mobile Number":
-                  print("Soon");
+                  GFToast.showToast(
+                    await _database.updateMobileNumber(
+                      uid: _auth.getCurrentUser()!.uid,
+                      mobileNumber: newDetail,
+                    ),
+                    context,
+                    toastDuration: 5,
+                  );
+                  Navigator.popAndPushNamed(context, '/auth');
+
                   break;
                 case "Password":
-                  ref.read(messageProvider.state).state =
-                      await _auth.updatePassword(passowrd: newDetail);
+                  GFToast.showToast(
+                    await _auth.updatePassword(passowrd: newDetail),
+                    context,
+                    toastDuration: 5,
+                  );
 
                   break;
               }

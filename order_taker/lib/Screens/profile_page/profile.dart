@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Screens/profile_page/profile_widgets.dart';
-
 import 'package:order_taker/providers/auth_provider.dart';
 import 'package:order_taker/providers/profile_provider.dart';
-
 import 'package:order_taker/screens/project_widgets.dart';
 import 'package:order_taker/themes/themes.dart';
 
@@ -16,8 +14,7 @@ class ProfilePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _auth = ref.watch(authServicesProvider);
-    final _message = ref.watch(messageProvider);
-
+    final _mobileNumber = ref.watch(phoneNumberProvider);
     final User user = _auth.getCurrentUser()!;
 
     return Scaffold(
@@ -84,7 +81,7 @@ class ProfilePage extends ConsumerWidget {
                     height: 5,
                   ),
                   ProfileListTile(
-                    detail: "089 783 4668",
+                    detail: _mobileNumber,
                     icon: Icons.phone,
                     hintText: "Change mobile number",
                     changeProvider: phoneChangeProvider,
@@ -114,19 +111,6 @@ class ProfilePage extends ConsumerWidget {
                     changeProvider: passwordChangeProvider,
                     detailType: "Password",
                     obscure: true,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: Center(
-                      child: Text(
-                        _message,
-                        style: GoogleFonts.roboto(
-                          color: accentColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
                   ),
                 ],
               ),
