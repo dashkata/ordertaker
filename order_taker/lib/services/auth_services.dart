@@ -45,7 +45,7 @@ class AuthenticationService {
         email: email,
         password: password,
       );
-      return "Register succesful";
+      return "Register succesful, please verify your email address.";
     } on FirebaseAuthException catch (e) {
       String errorMessage;
       switch (e.code) {

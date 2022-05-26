@@ -112,7 +112,10 @@ class DoubleTextField extends StatelessWidget {
             filled: true,
             fillColor: mainColor,
             hintStyle: GoogleFonts.roboto(
-                color: accentColor, fontSize: 15, fontWeight: FontWeight.w300),
+              color: accentColor,
+              fontSize: 15,
+              fontWeight: FontWeight.w300,
+            ),
           ),
           obscureText: obscure,
           autocorrect: false,
@@ -229,27 +232,28 @@ class CustomDrawer extends ConsumerWidget {
               icon: Icons.local_pizza,
               titleText: "Restaurants",
               func: () {
-                Navigator.of(context).popAndPushNamed('/restaurants');
+                Navigator.popAndPushNamed(context, '/restaurants');
               }),
           DrawerTab(
             icon: Icons.edit_note,
             titleText: "Reservations",
             func: () {
-              Navigator.of(context).popAndPushNamed('/reservations');
+              Navigator.popAndPushNamed(context, '/reservations');
             },
           ),
           DrawerTab(
             icon: Icons.person,
             titleText: "Profile",
             func: () {
-              Navigator.of(context).popAndPushNamed('/profile');
+              Navigator.popAndPushNamed(context, '/profile');
             },
           ),
           DrawerTab(
             icon: Icons.exit_to_app,
             titleText: "Sign out",
-            func: () => _auth.signout().then(
-                (value) => Navigator.of(context).popAndPushNamed('/login')),
+            func: () => _auth
+                .signout()
+                .then((value) => Navigator.popAndPushNamed(context, '/login')),
           ),
         ],
       ),
