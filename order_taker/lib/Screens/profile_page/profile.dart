@@ -1,12 +1,15 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:order_taker/Screens/profile_page/profile_widgets.dart';
+import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/auth_provider.dart';
 import 'package:order_taker/providers/profile_provider.dart';
 import 'package:order_taker/screens/project_widgets.dart';
-import 'package:order_taker/themes/themes.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -16,7 +19,8 @@ class ProfilePage extends ConsumerWidget {
     final _auth = ref.watch(authServicesProvider);
     final _mobileNumber = ref.watch(phoneNumberProvider);
     final User user = _auth.getCurrentUser()!;
-
+    final ImagePicker _imagePicker = ImagePicker();
+    final _profileImage = ref.watch(profilePicProvider);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appBarColor,
@@ -59,9 +63,62 @@ class ProfilePage extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      const CircleAvatar(
-                        backgroundImage: AssetImage("Assets/garjo.jpg"),
-                        radius: 60,
+                      InkWell(
+                        child: CircleAvatar(
+                          backgroundImage: _profileImage == null
+                              ? null
+                              : FileImage(File(_profileImage.path)),
+                          radius: 60,
+                        ),
+                        onTap: () {
+                          // _profileImage = await _imagePicker.pickImage(source: ImageSource.camera)
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  backgroundColor: complementaryColor,
+                                  title: Center(
+                                    child: (Text(
+                                      "Choose an option",
+                                      style: GoogleFonts.roboto(
+                                        color: accentColor,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )),
+                                  ),
+                                  content: SingleChildScrollView(
+                                    child: ListBody(
+                                      children: [
+                                        ListTile(
+                                          leading: const Icon(Icons.camera),
+                                          title: const Text("Camera"),
+                                          onTap: () async {
+                                            ref
+                                                    .read(profilePicProvider.state)
+                                                    .state =
+                                                await _imagePicker.pickImage(
+                                                    source: ImageSource.camera);
+                                          },
+                                        ),
+                                        ListTile(
+                                          leading:
+                                              const Icon(Icons.browse_gallery),
+                                          title: const Text("Browse gallery"),
+                                          onTap: () async {
+                                            ref
+                                                    .read(profilePicProvider.state)
+                                                    .state =
+                                                await _imagePicker.pickImage(
+                                                    source:
+                                                        ImageSource.gallery);
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              });
+                        },
                       ),
                     ],
                   ),

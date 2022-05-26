@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/auth_provider.dart';
+import 'package:order_taker/providers/common_providers.dart';
 import 'package:order_taker/providers/user_register_provider.dart';
 
 import 'package:order_taker/screens/project_widgets.dart';
-import 'package:order_taker/themes/themes.dart';
 
 class RegisterPage extends ConsumerWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -18,8 +18,9 @@ class RegisterPage extends ConsumerWidget {
     final _password = ref.watch(passwordProvider);
     final _firstName = ref.watch(firstNameProvider);
     final _lastName = ref.watch(lastNameProvider);
-    final _phoneNumber = ref.watch(numberProvider);
+    final _phoneNumber = ref.watch(phoneNumberProvider);
     final _auth = ref.watch(authServicesProvider);
+    final _db = ref.watch(databaseProvider);
 
     return Scaffold(
       body: Stack(
@@ -108,40 +109,61 @@ class RegisterPage extends ConsumerWidget {
                               obscure: true,
                               inputType: TextInputType.text,
                             ),
-                            InternationalPhoneNumberInput(
-                                onInputChanged: ((value) =>
-                                    ref.read(numberProvider.state).state)),
-
-                            // TextFields(
-                            //   func: (value) =>
-                            //       ref.read(numberProvider.state).state,
-                            //   hintText: "Mobile Number",
-                            //   icon: Icons.phone,
-                            //   obscure: false,
-                            //   inputType: TextInputType.number,
-                            // ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                              child: InternationalPhoneNumberInput(
+                                selectorConfig: const SelectorConfig(
+                                    selectorType:
+                                        PhoneInputSelectorType.BOTTOM_SHEET),
+                                onInputChanged: (value) {
+                                  ref.read(phoneNumberProvider.state).state =
+                                      value as String;
+                                },
+                                inputBorder: const OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30.0)),
+                                  borderSide: BorderSide(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                ),
+                                textStyle: GoogleFonts.roboto(
+                                  color: accentColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(top: 40.0),
                               child: NormalButtons(
                                 buttonText: "Sign up",
                                 buttonFunc: () async {
-                                  GFToast.showToast(
-                                      await _auth
-                                          .signUp(
-                                            email: _email,
-                                            password: _password,
-                                          )
-                                          .then((value) => _auth
-                                              .getCurrentUser()!
-                                              .sendEmailVerification())
-                                          .then((value) => _auth.updateUserName(
-                                                name: _firstName +
-                                                    " " +
-                                                    _lastName,
-                                              )),
-                                      context);
+                                  print(_phoneNumber);
+                                  // GFToast.showToast(
+                                  //     await _auth
+                                  //         .signUp(
+                                  //           email: _email,
+                                  //           password: _password,
+                                  //         )
+                                  //         .then((value) => _auth
+                                  //             .getCurrentUser()!
+                                  //             .sendEmailVerification())
+                                  //         .then(
+                                  //           (value) => _auth.updateUserName(
+                                  //             name:
+                                  //                 _firstName + " " + _lastName,
+                                  //           ),
+                                  //         )
+                                  //         .then(
+                                  //           (value) => _db.updateMobileNumber(
+                                  //             uid: _auth.getCurrentUser()!.uid,
+                                  //             mobileNumber: _phoneNumber,
+                                  //           ),
+                                  //         ),
+                                  //     context);
 
-                                  Navigator.popAndPushNamed(context, '/auth');
+                                  // Navigator.popAndPushNamed(context, '/auth');
                                 },
                               ),
                             ),
