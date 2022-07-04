@@ -37,6 +37,7 @@ class ProfileListTile extends ConsumerWidget {
   final StateProvider<bool> changeProvider;
   final String detailType;
   final bool obscure;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _auth = ref.watch(authServicesProvider);
@@ -135,9 +136,9 @@ class ProfileListTile extends ConsumerWidget {
                   break;
                 case "Mobile Number":
                   GFToast.showToast(
-                    await _database.updateMobileNumber(
-                      uid: _auth.getCurrentUser()!.uid,
-                      mobileNumber: newDetail,
+                    await _database.setMobileNumber(
+                      _auth.getCurrentUser()!.uid,
+                      newDetail,
                     ),
                     context,
                     toastDuration: 5,

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:getwidget/components/toast/gf_toast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/auth_provider.dart';
 import 'package:order_taker/providers/common_providers.dart';
 import 'package:order_taker/providers/user_register_provider.dart';
-
 import 'package:order_taker/screens/project_widgets.dart';
 
 class RegisterPage extends ConsumerWidget {
@@ -109,61 +108,67 @@ class RegisterPage extends ConsumerWidget {
                               obscure: true,
                               inputType: TextInputType.text,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                              child: InternationalPhoneNumberInput(
-                                selectorConfig: const SelectorConfig(
-                                    selectorType:
-                                        PhoneInputSelectorType.BOTTOM_SHEET),
-                                onInputChanged: (value) {
-                                  ref.read(phoneNumberProvider.state).state =
-                                      value as String;
-                                },
-                                inputBorder: const OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(30.0)),
-                                  borderSide: BorderSide(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                ),
-                                textStyle: GoogleFonts.roboto(
-                                  color: accentColor,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+                            TextFields(
+                              func: (value) {
+                                ref.read(phoneNumberProvider.state).state =
+                                    value;
+                              },
+                              hintText: "Mobile Number",
+                              icon: Icons.phone,
+                              obscure: false,
+                              inputType: TextInputType.phone,
                             ),
+
+                            // Padding(
+                            //   padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                            //   child: InternationalPhoneNumberInput(
+                            //     selectorConfig: const SelectorConfig(
+                            //         selectorType:
+                            //             PhoneInputSelectorType.BOTTOM_SHEET),
+                            //     onInputChanged: (value) {
+                            //       ref.read(phoneNumberProvider.state).state =
+                            //           value as String;
+                            //     },
+                            //     inputBorder: const OutlineInputBorder(
+                            //       borderRadius:
+                            //           BorderRadius.all(Radius.circular(30.0)),
+                            //       borderSide: BorderSide(
+                            //         color: Colors.black,
+                            //         width: 1,
+                            //       ),
+                            //     ),
+                            //     textStyle: GoogleFonts.roboto(
+                            //       color: accentColor,
+                            //       fontSize: 15,
+                            //       fontWeight: FontWeight.w500,
+                            //     ),
+                            //   ),
+                            // ),
                             Padding(
                               padding: const EdgeInsets.only(top: 40.0),
                               child: NormalButtons(
                                 buttonText: "Sign up",
                                 buttonFunc: () async {
-                                  print(_phoneNumber);
-                                  // GFToast.showToast(
-                                  //     await _auth
-                                  //         .signUp(
-                                  //           email: _email,
-                                  //           password: _password,
-                                  //         )
-                                  //         .then((value) => _auth
-                                  //             .getCurrentUser()!
-                                  //             .sendEmailVerification())
-                                  //         .then(
-                                  //           (value) => _auth.updateUserName(
-                                  //             name:
-                                  //                 _firstName + " " + _lastName,
-                                  //           ),
-                                  //         )
-                                  //         .then(
-                                  //           (value) => _db.updateMobileNumber(
-                                  //             uid: _auth.getCurrentUser()!.uid,
-                                  //             mobileNumber: _phoneNumber,
-                                  //           ),
-                                  //         ),
-                                  //     context);
-
-                                  // Navigator.popAndPushNamed(context, '/auth');
+                                  GFToast.showToast(
+                                    await _auth
+                                        .signUp(
+                                          email: _email,
+                                          password: _password,
+                                        )
+                                        .then((value) => _auth
+                                            .getCurrentUser()!
+                                            .sendEmailVerification())
+                                        .then((value) => _db.setMobileNumber(
+                                            _auth.getCurrentUser()!.uid,
+                                            _phoneNumber))
+                                        .then(
+                                          (value) => _auth.updateUserName(
+                                            name: _firstName + " " + _lastName,
+                                          ),
+                                        ),
+                                    context,
+                                  );
+                                  Navigator.popAndPushNamed(context, '/auth');
                                 },
                               ),
                             ),
@@ -190,7 +195,7 @@ class RegisterPage extends ConsumerWidget {
                                         "Sign in",
                                         style: GoogleFonts.roboto(
                                           color: accentColor,
-                                          fontSize: 16,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -216,16 +221,16 @@ class RegisterPage extends ConsumerWidget {
                                         );
                                       },
                                       child: Text(
-                                        "Click here",
+                                        "click here",
                                         style: GoogleFonts.roboto(
                                           color: accentColor,
-                                          fontSize: 16,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
                                     Text(
-                                      "to Register a Restaurant",
+                                      "to register a restaurant",
                                       style: GoogleFonts.roboto(
                                         color: Colors.black,
                                         fontSize: 18,

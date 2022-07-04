@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
+
   AuthenticationService(this._firebaseAuth);
 
   Stream<User?> get authStateChange => _firebaseAuth.authStateChanges();
@@ -66,6 +67,12 @@ class AuthenticationService {
       }
       return errorMessage;
     }
+  }
+
+  Future<String> updateProfilePic({required String photoURL}) async {
+    await _firebaseAuth.currentUser?.updatePhotoURL(photoURL);
+
+    return "Picture chaned succesfully";
   }
 
   Future<String> updateUserName({

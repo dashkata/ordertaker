@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:order_taker/Screens/profile_page/profile_widgets.dart';
 import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/auth_provider.dart';
+import 'package:order_taker/providers/common_providers.dart';
 import 'package:order_taker/providers/profile_provider.dart';
 import 'package:order_taker/screens/project_widgets.dart';
 
@@ -17,10 +19,10 @@ class ProfilePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _auth = ref.watch(authServicesProvider);
-    final _mobileNumber = ref.watch(phoneNumberProvider);
     final User user = _auth.getCurrentUser()!;
     final ImagePicker _imagePicker = ImagePicker();
-    final _profileImage = ref.watch(profilePicProvider);
+    final _storage = ref.watch(storageProvider);
+    AsyncValue _mobileNumber = ref.watch(phoneNumberProvider);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appBarColor,
@@ -64,14 +66,10 @@ class ProfilePage extends ConsumerWidget {
                         ),
                       ),
                       InkWell(
-                        child: CircleAvatar(
-                          backgroundImage: _profileImage == null
-                              ? null
-                              : FileImage(File(_profileImage.path)),
+                        child: const ProfilePicture(
                           radius: 60,
                         ),
                         onTap: () {
-                          // _profileImage = await _imagePicker.pickImage(source: ImageSource.camera)
                           showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -93,11 +91,29 @@ class ProfilePage extends ConsumerWidget {
                                           leading: const Icon(Icons.camera),
                                           title: const Text("Camera"),
                                           onTap: () async {
-                                            ref
-                                                    .read(profilePicProvider.state)
-                                                    .state =
-                                                await _imagePicker.pickImage(
-                                                    source: ImageSource.camera);
+                                            await _imagePicker
+                                                .pickImage(
+                                              source: ImageSource.camera,
+                                            )
+                                                .then((value) async {
+                                              if (value != null) {
+                                                GFToast.showToast(
+                                                  await _storage
+                                                      .uploadProfilePic(
+                                                    photoFile: File(value.path),
+                                                    email: _auth
+                                                        .getCurrentUser()!
+                                                        .email!,
+                                                  ),
+                                                  context,
+                                                );
+                                                Navigator.pop(context);
+                                                Navigator.popAndPushNamed(
+                                                  context,
+                                                  '/auth',
+                                                );
+                                              }
+                                            });
                                           },
                                         ),
                                         ListTile(
@@ -105,12 +121,31 @@ class ProfilePage extends ConsumerWidget {
                                               const Icon(Icons.browse_gallery),
                                           title: const Text("Browse gallery"),
                                           onTap: () async {
-                                            ref
-                                                    .read(profilePicProvider.state)
-                                                    .state =
-                                                await _imagePicker.pickImage(
-                                                    source:
-                                                        ImageSource.gallery);
+                                            await _imagePicker
+                                                .pickImage(
+                                              source: ImageSource.gallery,
+                                            )
+                                                .then(
+                                              (value) async {
+                                                if (value != null) {
+                                                  GFToast.showToast(
+                                                      await _storage
+                                                          .uploadProfilePic(
+                                                        photoFile:
+                                                            File(value.path),
+                                                        email: _auth
+                                                            .getCurrentUser()!
+                                                            .email!,
+                                                      ),
+                                                      context);
+                                                  Navigator.pop(context);
+                                                  Navigator.popAndPushNamed(
+                                                    context,
+                                                    '/auth',
+                                                  );
+                                                }
+                                              },
+                                            );
                                           },
                                         ),
                                       ],
@@ -138,7 +173,10 @@ class ProfilePage extends ConsumerWidget {
                     height: 5,
                   ),
                   ProfileListTile(
-                    detail: _mobileNumber,
+                    detail: _mobileNumber.when(
+                        data: (mobileNumber) => mobileNumber,
+                        error: (e, s) => "Mobile number not set",
+                        loading: () => " "),
                     icon: Icons.phone,
                     hintText: "Change mobile number",
                     changeProvider: phoneChangeProvider,
