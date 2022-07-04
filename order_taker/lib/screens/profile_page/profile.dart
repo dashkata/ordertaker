@@ -65,70 +65,53 @@ class ProfilePage extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      InkWell(
-                        child: const ProfilePicture(
-                          radius: 60,
-                        ),
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  backgroundColor: complementaryColor,
-                                  title: Center(
-                                    child: (Text(
-                                      "Choose an option",
-                                      style: GoogleFonts.roboto(
-                                        color: accentColor,
-                                        fontWeight: FontWeight.bold,
+                      Stack(
+                        alignment: AlignmentDirectional.bottomEnd,
+                        children: [
+                          const ProfilePicture(
+                            radius: 60,
+                          ),
+                          GFIconButton(
+                            color: GFColors.WHITE,
+                            size: GFSize.SMALL,
+                            borderSide: const BorderSide(
+                              color: Colors.black,
+                              width: 1.5,
+                            ),
+                            shape: GFIconButtonShape.circle,
+                            icon: const Icon(
+                              Icons.camera_alt,
+                              color: Colors.black,
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      backgroundColor: complementaryColor,
+                                      title: Center(
+                                        child: (Text(
+                                          "Choose an option",
+                                          style: GoogleFonts.roboto(
+                                            color: accentColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )),
                                       ),
-                                    )),
-                                  ),
-                                  content: SingleChildScrollView(
-                                    child: ListBody(
-                                      children: [
-                                        ListTile(
-                                          leading: const Icon(Icons.camera),
-                                          title: const Text("Camera"),
-                                          onTap: () async {
-                                            await _imagePicker
-                                                .pickImage(
-                                              source: ImageSource.camera,
-                                            )
-                                                .then((value) async {
-                                              if (value != null) {
-                                                GFToast.showToast(
-                                                  await _storage
-                                                      .uploadProfilePic(
-                                                    photoFile: File(value.path),
-                                                    email: _auth
-                                                        .getCurrentUser()!
-                                                        .email!,
-                                                  ),
-                                                  context,
-                                                );
-                                                Navigator.pop(context);
-                                                Navigator.popAndPushNamed(
-                                                  context,
-                                                  '/auth',
-                                                );
-                                              }
-                                            });
-                                          },
-                                        ),
-                                        ListTile(
-                                          leading:
-                                              const Icon(Icons.browse_gallery),
-                                          title: const Text("Browse gallery"),
-                                          onTap: () async {
-                                            await _imagePicker
-                                                .pickImage(
-                                              source: ImageSource.gallery,
-                                            )
-                                                .then(
-                                              (value) async {
-                                                if (value != null) {
-                                                  GFToast.showToast(
+                                      content: SingleChildScrollView(
+                                        child: ListBody(
+                                          children: [
+                                            ListTile(
+                                              leading: const Icon(Icons.camera),
+                                              title: const Text("Camera"),
+                                              onTap: () async {
+                                                await _imagePicker
+                                                    .pickImage(
+                                                  source: ImageSource.camera,
+                                                )
+                                                    .then((value) async {
+                                                  if (value != null) {
+                                                    GFToast.showToast(
                                                       await _storage
                                                           .uploadProfilePic(
                                                         photoFile:
@@ -137,23 +120,58 @@ class ProfilePage extends ConsumerWidget {
                                                             .getCurrentUser()!
                                                             .email!,
                                                       ),
-                                                      context);
-                                                  Navigator.pop(context);
-                                                  Navigator.popAndPushNamed(
-                                                    context,
-                                                    '/auth',
-                                                  );
-                                                }
+                                                      context,
+                                                    );
+                                                    Navigator.pop(context);
+                                                    Navigator.popAndPushNamed(
+                                                      context,
+                                                      '/auth',
+                                                    );
+                                                  }
+                                                });
                                               },
-                                            );
-                                          },
+                                            ),
+                                            ListTile(
+                                              leading: const Icon(
+                                                  Icons.browse_gallery),
+                                              title:
+                                                  const Text("Browse gallery"),
+                                              onTap: () async {
+                                                await _imagePicker
+                                                    .pickImage(
+                                                  source: ImageSource.gallery,
+                                                )
+                                                    .then(
+                                                  (value) async {
+                                                    if (value != null) {
+                                                      GFToast.showToast(
+                                                          await _storage
+                                                              .uploadProfilePic(
+                                                            photoFile: File(
+                                                                value.path),
+                                                            email: _auth
+                                                                .getCurrentUser()!
+                                                                .email!,
+                                                          ),
+                                                          context);
+                                                      Navigator.pop(context);
+                                                      Navigator.popAndPushNamed(
+                                                        context,
+                                                        '/auth',
+                                                      );
+                                                    }
+                                                  },
+                                                );
+                                              },
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              });
-                        },
+                                      ),
+                                    );
+                                  });
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),
