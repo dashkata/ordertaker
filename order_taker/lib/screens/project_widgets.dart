@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,6 +6,8 @@ import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/providers/auth_provider.dart';
 import 'package:order_taker/themes/themes.dart';
+
+import '../providers/profile_provider.dart';
 
 class NormalButtons extends StatelessWidget {
   const NormalButtons({
@@ -32,6 +35,34 @@ class NormalButtons extends StatelessWidget {
         fontWeight: FontWeight.bold,
       ),
     );
+  }
+}
+
+class ProfilePicture extends ConsumerWidget {
+  const ProfilePicture({
+    Key? key,
+    required this.radius,
+  }) : super(key: key);
+  final double radius;
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    AsyncValue picUrl = ref.watch(picProvider);
+    return picUrl.when(
+      data: (data) {
+        return CachedNetworkImage(
+          imageUrl: data,
+          imageBuilder: (context, url) => CircleAvatar(
+            backgroundImage: url,
+            radius: radius,
+          ),
+          placeholder: (context, url) => const CircularProgressIndicator(),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
+        );
+      },
+      loading: () => const CircularProgressIndicator(),
+      error: (e, s) => Text("Error $e"),
+    );
+    // return const Text("Error when loading profile picture");
   }
 }
 
@@ -210,10 +241,7 @@ class CustomDrawer extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const CircleAvatar(
-                  backgroundImage: AssetImage("Assets/garjo.jpg"),
-                  radius: 40,
-                ),
+                const ProfilePicture(radius: 45),
                 const SizedBox(
                   height: 10,
                 ),
@@ -232,12 +260,14 @@ class CustomDrawer extends ConsumerWidget {
               icon: Icons.local_pizza,
               titleText: "Restaurants",
               func: () {
+                Navigator.pop(context);
                 Navigator.popAndPushNamed(context, '/restaurants');
               }),
           DrawerTab(
             icon: Icons.edit_note,
             titleText: "Reservations",
             func: () {
+              Navigator.pop(context);
               Navigator.popAndPushNamed(context, '/reservations');
             },
           ),
@@ -245,6 +275,7 @@ class CustomDrawer extends ConsumerWidget {
             icon: Icons.person,
             titleText: "Profile",
             func: () {
+              Navigator.pop(context);
               Navigator.popAndPushNamed(context, '/profile');
             },
           ),
@@ -253,6 +284,7 @@ class CustomDrawer extends ConsumerWidget {
             titleText: "Sign out",
             func: () => _auth
                 .signout()
+                .then((value) => Navigator.pop(context))
                 .then((value) => Navigator.popAndPushNamed(context, '/login')),
           ),
         ],

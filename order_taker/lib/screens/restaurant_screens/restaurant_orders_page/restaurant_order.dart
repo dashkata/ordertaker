@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:order_taker/screens/restaurant_screens/restaurant_orders_page/restaurant_order_widgets.dart';
 import 'package:order_taker/screens/project_widgets.dart';
+import 'package:order_taker/screens/restaurant_screens/restaurant_orders_page/restaurant_order_widgets.dart';
 import 'package:order_taker/themes/themes.dart';
 
 class OrdersPage extends StatefulWidget {
@@ -33,10 +33,12 @@ class _OrdersPageState extends State<OrdersPage> {
                         OrderTitle(
                           orderNumber: 1,
                         ),
-                        MenuItem(
+                        ItemFromMenu(
                           item: "Пържени картофки х2",
                         ),
-                        MenuItem(item: "Пица Пеперони малка"),
+                        ItemFromMenu(
+                          item: "Пица Пеперони малка",
+                        ),
                         Padding(
                           padding: EdgeInsets.only(top: 20, bottom: 5.0),
                           child: OrderButton(

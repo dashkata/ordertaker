@@ -31,11 +31,11 @@ class RestaurantPage extends ConsumerWidget {
                     imagePath: restaurant.elementAt(index).imagepath,
                   );
                 }, error: (e, s) {
-                  return Center(
+                  return const Center(
                     child: Text("An error accured"),
                   );
                 }, loading: () {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 });
               },
             ),
