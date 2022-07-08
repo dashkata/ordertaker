@@ -33,10 +33,10 @@ class _OrdersPageState extends State<OrdersPage> {
                         OrderTitle(
                           orderNumber: 1,
                         ),
-                        MenuItem(
+                        RestaurantMenuItem(
                           item: "Пържени картофки х2",
                         ),
-                        MenuItem(item: "Пица Пеперони малка"),
+                        RestaurantMenuItem(item: "Пица Пеперони малка"),
                         Padding(
                           padding: EdgeInsets.only(top: 20, bottom: 5.0),
                           child: OrderButton(
