@@ -14,6 +14,7 @@ class AuthChecker extends ConsumerWidget {
 
     return _authState.when(data: ((data) {
       if (data != null && _authServices.getCurrentUser()!.emailVerified) {
+        print(_authServices.getCurrentUser()!.phoneNumber);
         return const RestaurantPage();
       }
       return LoginPage();

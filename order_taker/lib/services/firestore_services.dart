@@ -71,6 +71,21 @@ class DatabaseService {
     await reservationRef.doc(id).delete();
   }
 
+  Future<String> fetchMobileNumber(String uid) async {
+    final userCollection =
+        FirebaseFirestore.instance.collection("Users").doc(uid);
+    return userCollection.get().then((value) => value["Mobile Number"]);
+  }
+
+  Future<String> setMobileNumber(String uid, String mobileNumber) async {
+    final userCollection =
+        FirebaseFirestore.instance.collection("Users").doc(uid);
+    userCollection.set({
+      "Mobile Number": mobileNumber,
+    });
+    return "Mobile number changed successfully";
+  }
+
   Future<RestaurantInformation> fetchRestaurantInfo(String restaurant) async {
     final reservationRef =
         FirebaseFirestore.instance.collection("Restaurants").doc(restaurant);

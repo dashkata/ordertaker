@@ -52,8 +52,8 @@ class OrderButton extends StatelessWidget {
   }
 }
 
-class MenuItem extends StatelessWidget {
-  const MenuItem({
+class RestaurantMenuItem extends StatelessWidget {
+  const RestaurantMenuItem({
     required this.item,
     Key? key,
   }) : super(key: key);

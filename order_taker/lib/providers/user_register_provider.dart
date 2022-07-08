@@ -16,8 +16,6 @@ final lastNameProvider = StateProvider.autoDispose<String>(
   (ref) => '',
 );
 
-final numberProvider = StateProvider.autoDispose<String>(
+final phoneNumberProvider = StateProvider.autoDispose(
   (ref) => '',
 );
-
-final errorProvider = StateProvider.autoDispose<String>((ref) => '');

@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
+
   AuthenticationService(this._firebaseAuth);
 
   Stream<User?> get authStateChange => _firebaseAuth.authStateChanges();
@@ -46,7 +46,7 @@ class AuthenticationService {
         email: email,
         password: password,
       );
-      return "Register succesful";
+      return "Register succesful, please verify your email address.";
     } on FirebaseAuthException catch (e) {
       String errorMessage;
       switch (e.code) {
@@ -69,11 +69,27 @@ class AuthenticationService {
     }
   }
 
+  Future<String> updateProfilePic({required String photoURL}) async {
+    await _firebaseAuth.currentUser?.updatePhotoURL(photoURL);
+
+    return "Picture chaned succesfully";
+  }
+
   Future<String> updateUserName({
     required String name,
   }) async {
     await _firebaseAuth.currentUser?.updateDisplayName(name);
-    return "Changed succesfully";
+    return "Name changed succesfully";
+  }
+
+  Future<String> updatePassword({required String passowrd}) async {
+    await _firebaseAuth.currentUser?.updatePassword(passowrd);
+    return "Password changed Succsefully";
+  }
+
+  Future<String> updateEmail({required String email}) async {
+    await _firebaseAuth.currentUser?.verifyBeforeUpdateEmail(email);
+    return "Email changed succesfully to: $email, please verify the new email address.";
   }
 
   User? getCurrentUser() {
