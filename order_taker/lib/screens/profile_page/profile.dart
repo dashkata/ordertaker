@@ -7,11 +7,11 @@ import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:order_taker/Screens/profile_page/profile_widgets.dart';
-import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/auth_provider.dart';
 import 'package:order_taker/providers/common_providers.dart';
 import 'package:order_taker/providers/profile_provider.dart';
 import 'package:order_taker/screens/project_widgets.dart';
+import 'package:order_taker/themes/themes.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -72,16 +72,16 @@ class ProfilePage extends ConsumerWidget {
                             radius: 60,
                           ),
                           GFIconButton(
-                            color: GFColors.WHITE,
+                            color: complementaryColor,
                             size: GFSize.SMALL,
                             borderSide: const BorderSide(
-                              color: Colors.black,
+                              color: accentColor,
                               width: 1.5,
                             ),
                             shape: GFIconButtonShape.circle,
                             icon: const Icon(
                               Icons.camera_alt,
-                              color: Colors.black,
+                              color: accentColor,
                             ),
                             onPressed: () {
                               showDialog(

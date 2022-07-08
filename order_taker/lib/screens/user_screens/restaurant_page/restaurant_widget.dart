@@ -1,12 +1,12 @@
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:order_taker/Themes/themes.dart';
+
 import 'package:order_taker/providers/auth_provider.dart';
 import 'package:order_taker/providers/common_providers.dart';
+import 'package:order_taker/themes/themes.dart';
 
 class RestaurantCard extends ConsumerWidget {
   const RestaurantCard({
@@ -83,63 +83,75 @@ class RestaurantCard extends ConsumerWidget {
                         SizedBox(
                           width: 150,
                           child: GFButton(
-                            onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    String value = "";
-                                    return AlertDialog(
-                                      backgroundColor: mainColor,
-                                      content: DateTimePicker(
-                                        calendarTitle:
-                                            "Select the date for your reservation",
-                                        type: DateTimePickerType.dateTime,
-                                        firstDate: DateTime.now(),
-                                        lastDate: DateTime(2100),
-                                        dateMask: 'EEEE, MMMM d, y - H:m a',
-                                        dateLabelText: "Date",
-                                        timeLabelText: "Time",
-                                        style: GoogleFonts.roboto(
-                                          color: accentColor,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        onChanged: (val) {
-                                          value = val;
-                                        },
-                                      ),
-                                      actions: [
-                                        Center(
-                                          child: GFButton(
-                                            color: complementaryColor,
-                                            shape: GFButtonShape.pills,
-                                            text: "Confirm reservation",
-                                            textStyle: GoogleFonts.roboto(
-                                              color: accentColor,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            elevation: 10,
-                                            onPressed: () {
-                                              if (value.isNotEmpty) {
-                                                database.addReservation(
-                                                  _auth.getCurrentUser()!.uid,
-                                                  resTitle,
-                                                  DateFormat(
-                                                    'EEEE, MMMM d, y - H:m a',
-                                                  ).format(
-                                                      DateTime.parse(value)),
-                                                  imagePath,
+                            onPressed: () async {
+                              final DateTime? date = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime(2100),
+                                builder: (BuildContext context, Widget? child) {
+                                  return Theme(
+                                    data: Theme.of(context).copyWith(
+                                      colorScheme: const ColorScheme.light(
+                                        // background: complementaryColor,
+                                        primary: mainColor, // <-- SEE HERE
+                                        secondary: complementaryColor,
 
-                                                );
-                                              }
-                                              Navigator.pop(context);
-                                            },
-                                          ),
+                                        onPrimary: accentColor, // <-- SEE HERE
+                                        onSurface: accentColor, // <-- SEE HERE
+                                      ),
+                                      textButtonTheme: TextButtonThemeData(
+                                        style: TextButton.styleFrom(
+                                          primary:
+                                              accentColor, // button text color
                                         ),
-                                      ],
+                                      ),
+                                    ),
+                                    child: child!,
+                                  );
+                                },
+                              );
+                              if (date != null) {
+                                final TimeOfDay? time = await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now(),
+                                  builder:
+                                      (BuildContext context, Widget? child) {
+                                    return Theme(
+                                      data: Theme.of(context).copyWith(
+                                        timePickerTheme:
+                                            const TimePickerThemeData(
+                                          dayPeriodTextColor: accentColor,
+                                          hourMinuteColor: complementaryColor,
+                                          hourMinuteTextColor: accentColor,
+                                          dialTextColor: accentColor,
+                                          dialHandColor: mainColor,
+                                        ),
+                                      ),
+                                      child: child!,
                                     );
-                                  });
+                                  },
+                                );
+                                if (time != null) {
+                                  DateTime finalDate = DateTime(
+                                    date.year,
+                                    date.month,
+                                    date.day,
+                                    time.hour,
+                                    time.minute,
+                                  );
+                                  database.addReservation(
+                                    _auth.getCurrentUser()!.uid,
+                                    resTitle,
+                                    DateFormat(
+                                      'EEEE, MMMM d, y - H:m a',
+                                    ).format(finalDate),
+                                    imagePath,
+                                  );
+                                }
+                              } else {
+                                return;
+                              }
                             },
                             elevation: 10,
                             shape: GFButtonShape.pills,
