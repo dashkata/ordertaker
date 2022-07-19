@@ -1,14 +1,13 @@
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:order_taker/Themes/themes.dart';
-import 'package:order_taker/providers/auth_provider.dart';
-import 'package:order_taker/providers/common_providers.dart';
+import 'package:order_taker/providers/confirm_reservation_providers.dart';
+import 'package:order_taker/providers/restaurants_provider.dart';
+import 'package:order_taker/themes/themes.dart';
 
-class RestaurantCard extends ConsumerWidget {
+class RestaurantCard extends StatelessWidget {
   const RestaurantCard({
     required this.resTitle,
     required this.resDesc,
@@ -18,10 +17,9 @@ class RestaurantCard extends ConsumerWidget {
   final String resTitle;
   final String resDesc;
   final String imagePath;
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final database = ref.watch(databaseProvider);
-    final _auth = ref.watch(authServicesProvider);
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
@@ -80,77 +78,9 @@ class RestaurantCard extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        SizedBox(
-                          width: 150,
-                          child: GFButton(
-                            onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    String value = "";
-                                    return AlertDialog(
-                                      backgroundColor: mainColor,
-                                      content: DateTimePicker(
-                                        calendarTitle:
-                                            "Select the date for your reservation",
-                                        type: DateTimePickerType.dateTime,
-                                        firstDate: DateTime.now(),
-                                        lastDate: DateTime(2100),
-                                        dateMask: 'EEEE, MMMM d, y - H:m a',
-                                        dateLabelText: "Date",
-                                        timeLabelText: "Time",
-                                        style: GoogleFonts.roboto(
-                                          color: accentColor,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        onChanged: (val) {
-                                          value = val;
-                                        },
-                                      ),
-                                      actions: [
-                                        Center(
-                                          child: GFButton(
-                                            color: complementaryColor,
-                                            shape: GFButtonShape.pills,
-                                            text: "Confirm reservation",
-                                            textStyle: GoogleFonts.roboto(
-                                              color: accentColor,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            elevation: 10,
-                                            onPressed: () {
-                                              if (value.isNotEmpty) {
-                                                database.addReservation(
-                                                  _auth.getCurrentUser()!.uid,
-                                                  resTitle,
-                                                  DateFormat(
-                                                    'EEEE, MMMM d, y - H:m a',
-                                                  ).format(
-                                                      DateTime.parse(value)),
-                                                  imagePath,
-
-                                                );
-                                              }
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  });
-                            },
-                            elevation: 10,
-                            shape: GFButtonShape.pills,
-                            text: "Find a Table",
-                            color: mainColor,
-                            textStyle: GoogleFonts.roboto(
-                              color: accentColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                        FindATableButton(
+                          resTitle: resTitle,
+                          imagePath: imagePath,
                         ),
                       ],
                     ),
@@ -161,6 +91,206 @@ class RestaurantCard extends ConsumerWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class FindATableButton extends StatelessWidget {
+  const FindATableButton({
+    Key? key,
+    required this.resTitle,
+    required this.imagePath,
+  }) : super(key: key);
+
+  final String resTitle;
+  final String imagePath;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 150,
+      child: GFButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  backgroundColor: mainColor,
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      SelectDateWidget(),
+                      NumberOfPeopleWidget(),
+                    ],
+                  ),
+                  actions: [
+                    Center(
+                      child: Consumer(builder: (context, ref, child) {
+                        return GFButton(
+                          color: complementaryColor,
+                          shape: GFButtonShape.pills,
+                          text: "Confirm reservation",
+                          textStyle: GoogleFonts.roboto(
+                            color: accentColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          elevation: 10,
+                          onPressed: () {
+                            if (ref.read(userDateProvider) != "" &&
+                                ref.read(peopleProvider) != 0) {
+                              Navigator.popAndPushNamed(
+                                  context, "/confirm_reservation",
+                                  arguments: {
+                                    "restaurantTitle": resTitle,
+                                    "restaurantImagePath": imagePath,
+                                    "userDate": ref.read(userDateProvider),
+                                    "numberOfPeople": ref.read(peopleProvider)
+                                  });
+                              // Navigator.pop(context);
+                            }
+                          },
+                        );
+                      }),
+                    ),
+                  ],
+                );
+              });
+        },
+        elevation: 10,
+        shape: GFButtonShape.pills,
+        text: "Find a Table",
+        color: mainColor,
+        textStyle: GoogleFonts.roboto(
+          color: accentColor,
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
+
+class NumberOfPeopleWidget extends ConsumerWidget {
+  const NumberOfPeopleWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10.0),
+      child: SizedBox(
+        height: 60,
+        child: TextField(
+          onChanged: (value) => ref
+              .watch(peopleProvider.notifier)
+              .update((state) => int.parse(value)),
+          decoration: const InputDecoration(
+            contentPadding: EdgeInsets.symmetric(horizontal: 10),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.grey,
+              ),
+            ),
+            helperText: "Enter the number of people.",
+          ),
+          keyboardType: TextInputType.number,
+        ),
+      ),
+    );
+  }
+}
+
+class SelectDateWidget extends ConsumerWidget {
+  const SelectDateWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return SizedBox(
+      height: 60,
+      child: TextField(
+        readOnly: true,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey,
+            ),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey,
+            ),
+          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+          helperText: "Select a date for your reservation",
+          hintText: ref.watch(userDateProvider),
+        ),
+        onTap: () async {
+          var userDate = await showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime.now(),
+              lastDate: DateTime(2100),
+              builder: (BuildContext content, child) {
+                return Theme(
+                  data: ThemeData.light().copyWith(
+                    primaryColor: complementaryColor,
+                    buttonTheme: const ButtonThemeData(
+                        textTheme: ButtonTextTheme.primary),
+                    colorScheme:
+                        const ColorScheme.light(primary: complementaryColor)
+                            .copyWith(secondary: complementaryColor),
+                  ),
+                  child: child!,
+                );
+              });
+
+          if (userDate != null) {
+            var userTime = await showTimePicker(
+              builder: (context, child) {
+                return Theme(
+                  data: ThemeData.light().copyWith(
+                    colorScheme: const ColorScheme.light(
+                      // change the border color
+                      primary: mainColor,
+                      // change the text color
+                      onSurface: accentColor,
+                    ),
+                    // button colors
+                    buttonTheme: const ButtonThemeData(
+                      colorScheme: ColorScheme.light(
+                        primary: accentColor,
+                      ),
+                    ),
+                  ),
+                  child: child!,
+                );
+              },
+              context: context,
+              initialTime: TimeOfDay.now(),
+            );
+            if (userTime != null) {
+              ref
+                  .read(confirmDateProvider.notifier)
+                  .update((state) => DateFormat("E, MMM d").format(userDate));
+              ref
+                  .read(confirmTimeProvider.notifier)
+                  .update((state) => userTime.format(context));
+              ref.read(userDateProvider.notifier).update((state) =>
+                  DateFormat('EEEE, MMMM d, y - HH:mm a').format(DateTime(
+                      userDate.year,
+                      userDate.month,
+                      userDate.day,
+                      userTime.hour,
+                      userTime.minute)));
+            }
+          }
+          return;
+        },
       ),
     );
   }

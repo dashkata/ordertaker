@@ -6,7 +6,6 @@ import 'package:order_taker/models/restaurant_model.dart';
 class DatabaseService {
   Stream<List<Restaurant>> fetchRestaurants() {
     final restaurantRef = FirebaseFirestore.instance.collection('Restaurants');
-
     final restaurantSnapshot = restaurantRef.snapshots();
     return restaurantSnapshot.map(
       (QuerySnapshot querySnapshot) => querySnapshot.docs
@@ -28,17 +27,20 @@ class DatabaseService {
         .collection('Reservations');
 
     final reservationsSnapshot = reservationRef.snapshots();
-    return reservationsSnapshot.map((QuerySnapshot querySnapshot) =>
-        querySnapshot.docs
+    return reservationsSnapshot
+        .map((QuerySnapshot querySnapshot) => querySnapshot.docs
             .map((order) => Reservation(
-                id: order.id,
-                restaurant: order["title"],
-                date: order["date"],
-                imagepath: order["imagepath"]))
+                  id: order.id,
+                  restaurant: order["title"],
+                  date: order["date"],
+                  imagepath: order["imagePath"],
+                  numberOfPeople: order["numberOfPeople"],
+                ))
             .toList());
   }
 
-  void addReservation(String uid, String title, String date, String imagePath) {
+  void addReservation(String uid, String title, String date, String imagePath,
+      int numberOfPeople) {
     final userReservationRef = FirebaseFirestore.instance
         .collection('Users')
         .doc(uid)
@@ -57,9 +59,13 @@ class DatabaseService {
             }
         });
 
-    userReservationRef.get().then((value) => userReservationRef
-        .doc(value.docs.length.toString())
-        .set({"title": title, "date": date, "imagepath": imagePath}));
+    userReservationRef.get().then(
+        (value) => userReservationRef.doc(value.docs.length.toString()).set({
+              "title": title,
+              "date": date,
+              "imagePath": imagePath,
+              "numberOfPeople": numberOfPeople
+            }));
   }
 
   Future<void> deleteReservation(String uid, String id) async {

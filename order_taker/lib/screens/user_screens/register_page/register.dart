@@ -13,14 +13,6 @@ class RegisterPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _email = ref.watch(emailProvider);
-    final _password = ref.watch(passwordProvider);
-    final _firstName = ref.watch(firstNameProvider);
-    final _lastName = ref.watch(lastNameProvider);
-    final _phoneNumber = ref.watch(phoneNumberProvider);
-    final _auth = ref.watch(authServicesProvider);
-    final _db = ref.watch(databaseProvider);
-
     return Scaffold(
       body: Stack(
         children: [
@@ -65,8 +57,8 @@ class RegisterPage extends ConsumerWidget {
                                     padding: const EdgeInsets.only(left: 20.0),
                                     child: DoubleTextField(
                                       func: (value) => ref
-                                          .read(firstNameProvider.state)
-                                          .state = value,
+                                          .read(firstNameProvider.notifier)
+                                          .update((state) => value),
                                       hintText: "First Name",
                                       icon: Icons.person,
                                       obscure: false,
@@ -79,8 +71,8 @@ class RegisterPage extends ConsumerWidget {
                                     padding: const EdgeInsets.only(right: 20.0),
                                     child: DoubleTextField(
                                       func: (value) => ref
-                                          .read(lastNameProvider.state)
-                                          .state = value,
+                                          .read(lastNameProvider.notifier)
+                                          .update((state) => value),
                                       hintText: "Last Name",
                                       icon: Icons.person,
                                       obscure: false,
@@ -92,7 +84,9 @@ class RegisterPage extends ConsumerWidget {
                             ),
                             TextFields(
                               func: (value) {
-                                ref.read(emailProvider.state).state = value;
+                                ref
+                                    .read(emailProvider.notifier)
+                                    .update((state) => value);
                               },
                               hintText: "Email Address",
                               icon: Icons.mail,
@@ -101,7 +95,9 @@ class RegisterPage extends ConsumerWidget {
                             ),
                             TextFields(
                               func: (value) {
-                                ref.read(passwordProvider.state).state = value;
+                                ref
+                                    .read(passwordProvider.notifier)
+                                    .update((state) => value);
                               },
                               hintText: "Password",
                               icon: Icons.lock,
@@ -110,68 +106,54 @@ class RegisterPage extends ConsumerWidget {
                             ),
                             TextFields(
                               func: (value) {
-                                ref.read(phoneNumberProvider.state).state =
-                                    value;
+                                ref
+                                    .read(phoneNumberProvider.notifier)
+                                    .update((state) => value);
                               },
                               hintText: "Mobile Number",
                               icon: Icons.phone,
                               obscure: false,
                               inputType: TextInputType.phone,
                             ),
-
-                            // Padding(
-                            //   padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                            //   child: InternationalPhoneNumberInput(
-                            //     selectorConfig: const SelectorConfig(
-                            //         selectorType:
-                            //             PhoneInputSelectorType.BOTTOM_SHEET),
-                            //     onInputChanged: (value) {
-                            //       ref.read(phoneNumberProvider.state).state =
-                            //           value as String;
-                            //     },
-                            //     inputBorder: const OutlineInputBorder(
-                            //       borderRadius:
-                            //           BorderRadius.all(Radius.circular(30.0)),
-                            //       borderSide: BorderSide(
-                            //         color: Colors.black,
-                            //         width: 1,
-                            //       ),
-                            //     ),
-                            //     textStyle: GoogleFonts.roboto(
-                            //       color: accentColor,
-                            //       fontSize: 15,
-                            //       fontWeight: FontWeight.w500,
-                            //     ),
-                            //   ),
-                            // ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 40.0),
-                              child: NormalButtons(
-                                buttonText: "Sign up",
-                                buttonFunc: () async {
-                                  GFToast.showToast(
-                                    await _auth
-                                        .signUp(
-                                          email: _email,
-                                          password: _password,
-                                        )
-                                        .then((value) => _auth
-                                            .getCurrentUser()!
-                                            .sendEmailVerification())
-                                        .then((value) => _db.setMobileNumber(
-                                            _auth.getCurrentUser()!.uid,
-                                            _phoneNumber))
-                                        .then(
-                                          (value) => _auth.updateUserName(
-                                            name: _firstName + " " + _lastName,
+                            Consumer(builder: (context, ref, child) {
+                              final _email = ref.watch(emailProvider);
+                              final _password = ref.watch(passwordProvider);
+                              final _firstName = ref.watch(firstNameProvider);
+                              final _lastName = ref.watch(lastNameProvider);
+                              final _phoneNumber =
+                                  ref.watch(phoneNumberProvider);
+                              final _auth = ref.watch(authServicesProvider);
+                              final _db = ref.watch(databaseProvider);
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 40.0),
+                                child: NormalButtons(
+                                  buttonText: "Sign up",
+                                  buttonFunc: () async {
+                                    GFToast.showToast(
+                                      await _auth
+                                          .signUp(
+                                            email: _email,
+                                            password: _password,
+                                          )
+                                          .then((value) => _auth
+                                              .getCurrentUser()!
+                                              .sendEmailVerification())
+                                          .then((value) => _db.setMobileNumber(
+                                              _auth.getCurrentUser()!.uid,
+                                              _phoneNumber))
+                                          .then(
+                                            (value) => _auth.updateUserName(
+                                              name:
+                                                  _firstName + " " + _lastName,
+                                            ),
                                           ),
-                                        ),
-                                    context,
-                                  );
-                                  Navigator.popAndPushNamed(context, '/auth');
-                                },
-                              ),
-                            ),
+                                      context,
+                                    );
+                                    Navigator.popAndPushNamed(context, '/auth');
+                                  },
+                                ),
+                              );
+                            }),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [

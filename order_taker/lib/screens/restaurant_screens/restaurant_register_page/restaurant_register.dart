@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:order_taker/screens/restaurant_screens/restaurant_register_page/restaurant_register_widgets.dart';
 import 'package:order_taker/screens/project_widgets.dart';
 import 'package:order_taker/themes/themes.dart';
 
@@ -98,57 +97,23 @@ class RestaurantRegister extends StatelessWidget {
                               obscure: false,
                               inputType: TextInputType.number,
                             ),
-                            Row(
-                              children: const [
-                                Expanded(
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 20.0, top: 15),
-                                    child: RestaurantFields(
-                                      hintText: "Restaurant Name",
-                                      obscure: false,
-                                      inputType: TextInputType.name,
+                            Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 20.0, left: 10, right: 10),
+                                child: TextButton(
+                                  onPressed: () {},
+                                  child: const Text(
+                                    "Click here to submit the excel file with the restaurant's details.",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: accentColor,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.only(right: 20.0, top: 15),
-                                    child: RestaurantFields(
-                                      hintText: "Restaurant City",
-                                      obscure: false,
-                                      inputType: TextInputType.name,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: const [
-                                Expanded(
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 20.0, top: 15),
-                                    child: RestaurantFields(
-                                      hintText: "Restaurant Zip",
-                                      obscure: false,
-                                      inputType: TextInputType.name,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.only(right: 20.0, top: 15),
-                                    child: RestaurantFields(
-                                      hintText: "Restaurant Country",
-                                      obscure: false,
-                                      inputType: TextInputType.name,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 40.0),

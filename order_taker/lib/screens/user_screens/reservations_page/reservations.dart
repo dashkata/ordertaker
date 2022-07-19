@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/providers/reservations_provider.dart';
 import 'package:order_taker/screens/project_widgets.dart';
 import 'package:order_taker/themes/themes.dart';
+
 import 'reservation_widgets.dart';
 
 class ReservationPage extends ConsumerWidget {
@@ -11,7 +12,6 @@ class ReservationPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final orders = ref.watch(reservations_provider);
-
     return Scaffold(
       appBar: AppBar(backgroundColor: appBarColor),
       drawer: const CustomDrawer(),
@@ -28,6 +28,7 @@ class ReservationPage extends ConsumerWidget {
                     titleText: order[index].restaurant,
                     date: order[index].date,
                     imagePath: order[index].imagepath,
+                    numberOfPeople: order[index].numberOfPeople,
                   );
                 }, error: (e, s) {
                   return const Center(
