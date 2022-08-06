@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:order_taker/providers/auth_provider.dart';
+import 'package:order_taker/providers/common_providers.dart';
+import 'package:order_taker/providers/restaurant_register_provider.dart';
 import 'package:order_taker/screens/project_widgets.dart';
 import 'package:order_taker/themes/themes.dart';
 
-class RestaurantRegister extends StatelessWidget {
+class RestaurantRegister extends ConsumerWidget {
   const RestaurantRegister({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final firstName = ref.watch(restaurantFirstNameProvider);
+    final lastName = ref.watch(restaurantLastNameProvider);
+    final email = ref.watch(restaurantEmailProvider);
+    final password = ref.watch(restaurantPasswordProvider);
+    final phoneNumber = ref.watch(restaurantPhoneProvider);
+    final restaurantName = ref.watch(restaurantNameProvider);
+    final auth = ref.watch(authServicesProvider);
+    final db = ref.watch(databaseProvider);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.popAndPushNamed(context, '/register'),
         backgroundColor: complementaryColor,
-        child: Icon(
+        child: const Icon(
           Icons.arrow_back,
           color: accentColor,
         ),
@@ -61,7 +74,12 @@ class RestaurantRegister extends StatelessWidget {
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 20.0),
                                     child: DoubleTextField(
-                                      func: (value) {},
+                                      func: (value) {
+                                        ref
+                                            .read(restaurantFirstNameProvider
+                                                .notifier)
+                                            .update((state) => value);
+                                      },
                                       hintText: "First Name",
                                       icon: Icons.person,
                                       obscure: false,
@@ -73,7 +91,12 @@ class RestaurantRegister extends StatelessWidget {
                                   child: Padding(
                                     padding: EdgeInsets.only(right: 20.0),
                                     child: DoubleTextField(
-                                      func: (value) {},
+                                      func: (value) {
+                                        ref
+                                            .read(restaurantLastNameProvider
+                                                .notifier)
+                                            .update((state) => value);
+                                      },
                                       hintText: "Last Name",
                                       icon: Icons.person,
                                       obscure: false,
@@ -84,41 +107,75 @@ class RestaurantRegister extends StatelessWidget {
                               ],
                             ),
                             TextFields(
-                              func: (value) {},
+                              func: (value) {
+                                ref
+                                    .read(restaurantEmailProvider.notifier)
+                                    .update((state) => value);
+                              },
                               hintText: "Email Address",
                               icon: Icons.mail,
                               obscure: false,
                               inputType: TextInputType.emailAddress,
                             ),
                             TextFields(
-                              func: (value) {},
+                              hintText: "Password",
+                              icon: Icons.password,
+                              obscure: true,
+                              inputType: TextInputType.text,
+                              func: (value) {
+                                ref
+                                    .read(restaurantPasswordProvider.notifier)
+                                    .update((state) => value);
+                              },
+                            ),
+                            TextFields(
+                              func: (value) {
+                                ref
+                                    .read(restaurantPhoneProvider.notifier)
+                                    .update((state) => value);
+                              },
                               hintText: "Mobile Number",
                               icon: Icons.phone,
                               obscure: false,
                               inputType: TextInputType.number,
                             ),
-                            Center(
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 20.0, left: 10, right: 10),
-                                child: TextButton(
-                                  onPressed: () {},
-                                  child: const Text(
-                                    "Click here to submit the excel file with the restaurant's details.",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: accentColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                            TextFields(
+                              hintText: 'Restaurant name',
+                              inputType: TextInputType.text,
+                              icon: Icons.restaurant,
+                              obscure: false,
+                              func: (value) {
+                                ref
+                                    .read(restaurantNameProvider.notifier)
+                                    .update((state) => value);
+                              },
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 40.0),
                               child: NormalButtons(
-                                  buttonText: "Get Started", buttonFunc: () {}),
+                                  buttonText: "Get Started",
+                                  buttonFunc: () async {
+                                    await auth
+                                        .signUp(
+                                          email: email,
+                                          password: password,
+                                        )
+                                        .then((value) => auth
+                                            .getCurrentUser()!
+                                            .sendEmailVerification())
+                                        .then((value) => db.setMobileNumber(
+                                            auth.getCurrentUser()!.uid,
+                                            phoneNumber))
+                                        .then((value) => db
+                                            .setRestaurantName(restaurantName))
+                                        .then((value) => db.setUserType("Admin",
+                                            auth.getCurrentUser()!.uid))
+                                        .then((value) => auth.updateUserName(
+                                              name: firstName + " " + lastName,
+                                            ));
+                                    Navigator.popAndPushNamed(
+                                        context, "/login");
+                                  }),
                             ),
                           ],
                         ),

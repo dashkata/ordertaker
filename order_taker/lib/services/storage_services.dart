@@ -5,7 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 class StorageServices {
   Future<String?> uploadProfilePic(
       {required File photoFile, required String email}) async {
-    final storageRef = FirebaseStorage.instance.ref("Images");
+    final storageRef = FirebaseStorage.instance.ref("Images/Users/");
     final imagesRef = storageRef.child(email);
 
     try {
@@ -17,7 +17,20 @@ class StorageServices {
   }
 
   Future<String?> fetchProfilePic({required String email}) async {
-    final storageRef = FirebaseStorage.instance.ref("Images").child(email);
+    final storageRef = FirebaseStorage.instance.ref();
+    final profilePicRef = storageRef.child("Images/Users/$email");
+    try {
+      return await profilePicRef.getDownloadURL();
+    } on FirebaseException catch (e) {
+      return e.message;
+    }
+  }
+
+  Future<String?> fetchRestaurantPic({required String restaurantName}) async {
+    final parsedRestaurant = restaurantName.replaceAll(" ", "");
+    final storageRef = FirebaseStorage.instance
+        .ref()
+        .child("Images/Restaurants/$parsedRestaurant.jpg");
     try {
       return await storageRef.getDownloadURL();
     } on FirebaseException catch (e) {

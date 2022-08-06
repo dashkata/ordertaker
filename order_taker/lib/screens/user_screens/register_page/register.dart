@@ -141,6 +141,9 @@ class RegisterPage extends ConsumerWidget {
                                           .then((value) => _db.setMobileNumber(
                                               _auth.getCurrentUser()!.uid,
                                               _phoneNumber))
+                                          .then((value) => _db.setUserType(
+                                              "Customer",
+                                              _auth.getCurrentUser()!.uid))
                                           .then(
                                             (value) => _auth.updateUserName(
                                               name:
@@ -171,7 +174,9 @@ class RegisterPage extends ConsumerWidget {
                                     TextButton(
                                       onPressed: () {
                                         Navigator.popAndPushNamed(
-                                            context, '/login');
+                                          context,
+                                          '/login',
+                                        );
                                       },
                                       child: Text(
                                         "Sign in",

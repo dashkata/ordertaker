@@ -29,7 +29,7 @@ class RestaurantPage extends StatelessWidget {
                       return RestaurantCard(
                         resTitle: restaurant.elementAt(index).title,
                         resDesc: restaurant.elementAt(index).desc,
-                        imagePath: restaurant.elementAt(index).imagepath,
+                        openHours: restaurant.elementAt(index).openHours,
                       );
                     },
                     error: (e, s) {

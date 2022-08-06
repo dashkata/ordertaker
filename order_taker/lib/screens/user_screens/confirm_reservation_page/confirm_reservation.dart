@@ -24,6 +24,8 @@ class ConfirmReservation extends ConsumerWidget {
     final _db = ref.watch(databaseProvider);
     final _auth = ref.watch(authServicesProvider);
     final reservationInfo = ModalRoute.of(context)!.settings.arguments as Map;
+    AsyncValue restaurantPic = ref
+        .watch(restaurantPictureProvider(reservationInfo["restaurantTitle"]));
     return Scaffold(
       body: Stack(
         children: [
@@ -47,8 +49,8 @@ class ConfirmReservation extends ConsumerWidget {
                                 padding:
                                     const EdgeInsets.only(top: 10, left: 10),
                                 avatar: GFAvatar(
-                                  backgroundImage: AssetImage(
-                                      'Assets/${reservationInfo["restaurantImagePath"]}'),
+                                  backgroundImage:
+                                      NetworkImage(restaurantPic.value),
                                   shape: GFAvatarShape.square,
                                   borderRadius: BorderRadius.circular(10),
                                   radius: 30,
@@ -141,8 +143,6 @@ class ConfirmReservation extends ConsumerWidget {
                                           _auth.getCurrentUser()!.uid,
                                           reservationInfo["restaurantTitle"],
                                           reservationInfo["userDate"],
-                                          reservationInfo[
-                                              "restaurantImagePath"],
                                           reservationInfo["numberOfPeople"]);
                                       Navigator.popAndPushNamed(
                                           context, "/reservations");
@@ -158,7 +158,7 @@ class ConfirmReservation extends ConsumerWidget {
                               ),
                             ],
                           ),
-                      error: (e, s) => const Text("Error"),
+                      error: (e, s) => Text(e.toString()),
                       loading: () =>
                           Center(child: const CircularProgressIndicator())),
                 ),

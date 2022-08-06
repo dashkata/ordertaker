@@ -6,12 +6,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:order_taker/Screens/profile_page/profile_widgets.dart';
 import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/auth_provider.dart';
 import 'package:order_taker/providers/common_providers.dart';
 import 'package:order_taker/providers/profile_provider.dart';
 import 'package:order_taker/screens/project_widgets.dart';
+import 'package:order_taker/screens/user_screens/profile_page/profile_widgets.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({Key? key}) : super(key: key);
