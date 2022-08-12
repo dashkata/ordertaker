@@ -1,22 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/providers/common_providers.dart';
-import 'package:order_taker/services/auth_services.dart';
+import 'package:order_taker/providers/repository_providers.dart';
 
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
   return FirebaseAuth.instance;
 });
-
-final authServicesProvider = Provider<AuthenticationService>(
-  (ref) {
-    return AuthenticationService(ref.read(firebaseAuthProvider));
-  },
-);
-
 final authStateProvider = StreamProvider<User?>((ref) {
-  return ref.watch(authServicesProvider).authStateChange;
+  return ref.watch(authRepositoryProvider).authStateChange;
 });
 
 final userTypeProvider = FutureProvider((ref) => ref
-    .watch(databaseProvider)
-    .fetchUserType(ref.read(authServicesProvider).getCurrentUser()!.uid));
+    .watch(firestoreRepositoryProvider)
+    .fetchUserType(ref.read(authRepositoryProvider).getCurrentUser()!.uid));

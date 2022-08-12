@@ -3,18 +3,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/screens/auth_page/auth_checker_page.dart';
-import 'package:order_taker/screens/login_page/login.dart';
-import 'package:order_taker/screens/restaurant_screens/restaurant_orders_page/restaurant_order.dart';
-import 'package:order_taker/screens/restaurant_screens/restaurant_register_page/restaurant_register.dart';
-import 'package:order_taker/screens/user_screens/bill_page/bill.dart';
-import 'package:order_taker/screens/user_screens/confirm_reservation_page/confirm_reservation.dart';
-import 'package:order_taker/screens/user_screens/menu_page/menu.dart';
-import 'package:order_taker/screens/user_screens/profile_page/profile.dart';
-import 'package:order_taker/screens/user_screens/register_page/register.dart';
-import 'package:order_taker/screens/user_screens/reservations_page/reservations.dart';
-import 'package:order_taker/screens/user_screens/restaurant_info_page/restaurant_info.dart';
-import 'package:order_taker/screens/user_screens/restaurant_page/restaurants.dart';
+import 'package:order_taker/views/auth_screen/auth_checker_screen.dart';
+import 'package:order_taker/views/login_screen/login.dart';
+import 'package:order_taker/views/restaurant_screens/restaurant_orders_screen/restaurant_order.dart';
+import 'package:order_taker/views/restaurant_screens/restaurant_register_screen/restaurant_register.dart';
+import 'package:order_taker/views/user_screens/bill_screen/bill.dart';
+import 'package:order_taker/views/user_screens/confirm_reservation_screen/confirm_reservation.dart';
+import 'package:order_taker/views/user_screens/menu_screen/menu.dart';
+import 'package:order_taker/views/user_screens/profile_screen/profile.dart';
+import 'package:order_taker/views/user_screens/register_screen/register.dart';
+import 'package:order_taker/views/user_screens/reservations_screen/reservations.dart';
+import 'package:order_taker/views/user_screens/restaurant_info_screen/restaurant_info.dart';
+import 'package:order_taker/views/user_screens/restaurant_screen/restaurants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +36,7 @@ class OrderTaker extends StatelessWidget {
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
-      initialRoute: '/auth',
+      initialRoute: '/login',
       routes: {
         '/login': (context) => LoginPage(),
         '/register': (context) => const RegisterPage(),

@@ -8,4 +8,11 @@ class Restaurant {
     required this.desc,
     required this.openHours,
   });
+
+  factory Restaurant.fromMap(Map data) {
+    return Restaurant(
+        title: data['title'],
+        desc: data['description'],
+        openHours: data['openHours']);
+  }
 }
