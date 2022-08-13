@@ -3,16 +3,15 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class StorageRepository {
-  Future<String?> uploadProfilePic(
+  Future<String> uploadProfilePic(
       {required File photoFile, required String email}) async {
     final storageRef = FirebaseStorage.instance.ref("Images/Users/");
     final imagesRef = storageRef.child(email);
-
     try {
       imagesRef.putFile(photoFile);
       return "Picture changed succesfully";
     } on FirebaseException catch (e) {
-      return e.message;
+      return e.message.toString();
     }
   }
 
@@ -26,7 +25,7 @@ class StorageRepository {
     }
   }
 
-  Future<String?> fetchRestaurantPic({required String restaurantName}) async {
+  Future<String> fetchRestaurantPic({required String restaurantName}) async {
     final parsedRestaurant = restaurantName.replaceAll(" ", "");
     final storageRef = FirebaseStorage.instance
         .ref()
@@ -34,7 +33,7 @@ class StorageRepository {
     try {
       return await storageRef.getDownloadURL();
     } on FirebaseException catch (e) {
-      return e.message;
+      return e.message.toString();
     }
   }
 }

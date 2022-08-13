@@ -4,7 +4,7 @@ class FirestorePath {
   static String userReservations(String uid) => "Users/$uid/Reservations";
 
   static String restaurantReservations(String restaurantTitle) =>
-      "Users/$restaurantTitle/Reservations";
+      "Restaurants/$restaurantTitle/Reservations";
 
   static String user(String uid) => "Users/$uid";
 

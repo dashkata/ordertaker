@@ -11,7 +11,7 @@ import 'firestore_paths.dart';
 class FirestoreRepository {
   Future<List<Restaurant>> fetchRestaurants() async {
     final restaurantRef =
-    FirebaseFirestore.instance.collection(FirestorePath.restaurants());
+        FirebaseFirestore.instance.collection(FirestorePath.restaurants());
     final restaurantSnapshot = await restaurantRef.get();
 
     return restaurantSnapshot.docs
@@ -24,8 +24,7 @@ class FirestoreRepository {
         .collection(FirestorePath.userReservations(uid))
         .get();
     return reservationsSnapshot.docs
-        .map((reservation) =>
-        Reservation.fromMap(reservation.data(), reservation.id, '0'))
+        .map((reservation) => Reservation.fromMap(reservation.data()))
         .toList();
   }
 
@@ -34,35 +33,36 @@ class FirestoreRepository {
         .collection(FirestorePath.userReservations(uid));
     final restaurantReservationRef = FirebaseFirestore.instance.collection(
         FirestorePath.restaurantReservations(reservation.restaurant));
-    restaurantReservationRef.get().then((value) =>
-        restaurantReservationRef
-            .doc(value.docs.length.toString())
-            .set(reservation.toMap()));
-    userReservationRef.get().then((value) =>
-        userReservationRef
-            .doc(value.docs.length.toString())
-            .set(reservation.toMap()));
+    print(reservation.restaurant);
+    restaurantReservationRef.get().then((value) => restaurantReservationRef
+        .doc('$uid - ${reservation.date}')
+        .set(reservation.toMap()));
+    userReservationRef.get().then((value) => userReservationRef
+        .doc('${reservation.restaurant} - ${reservation.date}')
+        .set(reservation.toMap()));
   }
 
-  Future<void> deleteReservation(String uid, String userId,
-      String restaurantTitle, String restaurantId) async {
-    final restaurantReservationRef = FirebaseFirestore.instance
-        .collection(FirestorePath.restaurantReservations(restaurantTitle));
+  Future<void> deleteReservation(String uid, Reservation reservation) async {
+    final restaurantReservationRef = FirebaseFirestore.instance.collection(
+        FirestorePath.restaurantReservations(reservation.restaurant));
+    restaurantReservationRef.doc('$uid - ${reservation.date}').delete();
 
     final reservationRef = FirebaseFirestore.instance
         .collection(FirestorePath.userReservations(uid));
-    await reservationRef.doc(restaurantId).delete();
+    await reservationRef
+        .doc('${reservation.restaurant} - ${reservation.date}')
+        .delete();
   }
 
   Future<String> fetchMobileNumber(String uid) async {
     final userCollection =
-    FirebaseFirestore.instance.doc(FirestorePath.user(uid));
+        FirebaseFirestore.instance.doc(FirestorePath.user(uid));
     return userCollection.get().then((value) => value["Mobile Number"]);
   }
 
   Future<String> setMobileNumber(String uid, String mobileNumber) async {
     final userCollection =
-    FirebaseFirestore.instance.doc(FirestorePath.user(uid));
+        FirebaseFirestore.instance.doc(FirestorePath.user(uid));
     userCollection.set({
       "Mobile Number": mobileNumber,
     }, SetOptions(merge: true));
@@ -71,18 +71,17 @@ class FirestoreRepository {
 
   Future<RestaurantInformation> fetchRestaurantInfo(String restaurant) async {
     final reservationRef =
-    FirebaseFirestore.instance.doc(FirestorePath.restaurant(restaurant));
+        FirebaseFirestore.instance.doc(FirestorePath.restaurant(restaurant));
 
     return reservationRef.get().then(
-          (restaurantInfo) =>
-          RestaurantInformation(
+          (restaurantInfo) => RestaurantInformation(
               title: restaurantInfo["title"],
               overview: restaurantInfo["overview"],
               openhours: restaurantInfo["openhours"],
               paymentOptions: restaurantInfo["paymentOptions"],
               phoneNumber: restaurantInfo["phoneNumber"],
               location: restaurantInfo["location"]),
-    );
+        );
   }
 
   Future<void> setUserType(String type, String uid) async {
@@ -92,13 +91,13 @@ class FirestoreRepository {
 
   Future<String> fetchUserType(String uid) async {
     final userRef =
-    await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).get();
+        await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).get();
     return userRef.get("type");
   }
 
   Future<void> setRestaurantName(String restaurantName) async {
     final restuarantRef =
-    FirebaseFirestore.instance.collection(FirestorePath.restaurants());
+        FirebaseFirestore.instance.collection(FirestorePath.restaurants());
     restuarantRef.doc(restaurantName);
   }
 

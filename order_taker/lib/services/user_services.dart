@@ -16,4 +16,14 @@ class UserServices {
   Future<List<Reservation>> fetchReservations(String uid) {
     return ref.read(firestoreRepositoryProvider).fetchReservations(uid);
   }
+
+  void addReservation(String uid, Reservation reservation) {
+    ref.read(firestoreRepositoryProvider).addReservation(uid, reservation);
+  }
+
+  Future<void> deleteReservation(String uid, Reservation reservation) async {
+    await ref
+        .read(firestoreRepositoryProvider)
+        .deleteReservation(uid, reservation);
+  }
 }

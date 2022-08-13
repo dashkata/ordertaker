@@ -50,9 +50,7 @@ class _RestaurantPageState extends ConsumerState<RestaurantPage> {
                   itemCount: state.restaurants.length,
                   itemBuilder: (context, index) {
                     return RestaurantCard(
-                      resTitle: state.restaurants.elementAt(index).title,
-                      resDesc: state.restaurants.elementAt(index).desc,
-                      openHours: state.restaurants.elementAt(index).openHours,
+                      restaurant: state.restaurants[index],
                     );
                   },
                 );

@@ -1,29 +1,26 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:order_taker/providers/controller_providers.dart';
 import 'package:order_taker/providers/repository_providers.dart';
+import 'package:order_taker/providers/services_provider.dart';
 import 'package:order_taker/themes/themes.dart';
+
+import '../../../models/reservation_model.dart';
+import '../../../providers/common_providers.dart';
+import '../../project_widgets.dart';
 
 class ReservationCard extends ConsumerWidget {
   const ReservationCard({
-    required this.titleText,
-    required this.date,
-    required this.userId,
-    required this.restaurantId,
-    required this.numberOfPeople,
+    required this.reservation,
     Key? key,
   }) : super(key: key);
-  final String titleText;
-  final String date;
-  final String userId;
-  final String restaurantId;
-  final int numberOfPeople;
+  final Reservation reservation;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _database = ref.watch(firestoreRepositoryProvider);
-    final _auth = ref.watch(authRepositoryProvider);
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Card(
@@ -37,15 +34,25 @@ class ReservationCard extends ConsumerWidget {
             GFListTile(
               padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
               margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-              avatar: GFAvatar(
-                // backgroundImage: AssetImage("Assets/$imagePath"),
-                radius: 40,
-              ),
+              avatar: Consumer(builder: (context, ref, child) {
+                AsyncValue restaurantPic = ref
+                    .watch(restaurantPictureProvider(reservation.restaurant));
+                return restaurantPic.when(
+                    data: (imageUrl) => CachedNetworkImage(
+                        imageUrl: restaurantPic.value,
+                        imageBuilder: (context, url) => GFAvatar(
+                              backgroundImage: url,
+                              radius: 40,
+                            )),
+                    error: (e, s) => GFToast.showToast(e.toString(), context),
+                    loading: () => const LoadingIndicator());
+                // return Container();
+              }),
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    titleText,
+                    reservation.restaurant,
                     style: GoogleFonts.roboto(
                       color: accentColor,
                       fontSize: 20,
@@ -56,7 +63,7 @@ class ReservationCard extends ConsumerWidget {
                     height: 5,
                   ),
                   Text(
-                    date,
+                    reservation.date,
                     style: GoogleFonts.roboto(
                       color: accentColor,
                       fontStyle: FontStyle.italic,
@@ -64,7 +71,7 @@ class ReservationCard extends ConsumerWidget {
                     ),
                   ),
                   Text(
-                    "${numberOfPeople.toString()} people",
+                    "${reservation.numberOfPeople.toString()} people",
                     style: GoogleFonts.roboto(
                       color: accentColor,
                       fontStyle: FontStyle.italic,
@@ -78,8 +85,15 @@ class ReservationCard extends ConsumerWidget {
                 children: [
                   GFButton(
                     onPressed: () {
-                      // _database.deleteReservation(
-                      //     _auth.getCurrentUser()!.uid, id);
+                      ref.read(userServicesProvider).deleteReservation(
+                          ref
+                              .read(authRepositoryProvider)
+                              .getCurrentUser()!
+                              .uid,
+                          reservation);
+                      ref
+                          .read(reservationStateNotifierProvider.notifier)
+                          .fetchReservations();
                     },
                     elevation: 10,
                     shape: GFButtonShape.pills,

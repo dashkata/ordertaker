@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:order_taker/providers/controller_providers.dart';
 import 'package:order_taker/themes/themes.dart';
 
 import '../../project_widgets.dart';
+import 'menu_widgets.dart';
 
 class Menu extends StatefulWidget {
   const Menu({Key? key}) : super(key: key);
@@ -17,87 +20,107 @@ class _MenuState extends State<Menu> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
-      floatingActionButton: FloatingActionButton(
-        heroTag: null,
-        backgroundColor: complementaryColor,
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Center(
-                  child: Text(
-                    "Complete the order",
-                    style: GoogleFonts.roboto(
-                      color: accentColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                content: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 15.0),
-                        child: Text(
-                          "Салата Моцарела с авокадо, 300гр: 10.49 лв.",
-                          style: GoogleFonts.roboto(
-                            color: accentColor,
-                            fontStyle: FontStyle.italic,
-                            fontSize: 15,
-                          ),
-                          maxLines: 3,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 15.0),
-                        child: Text(
-                          "Салата Моцарела с авокадо, 300гр: 10.49 лв.",
-                          style: GoogleFonts.roboto(
-                            color: accentColor,
-                            fontStyle: FontStyle.italic,
-                            fontSize: 15,
-                          ),
-                          maxLines: 3,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                actions: [
-                  Center(
-                    child: GFButton(
-                      onPressed: () {},
-                      shape: GFButtonShape.pills,
-                      color: mainColor,
-                      elevation: 10,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      text: "Complete order",
-                      textStyle: GoogleFonts.roboto(
+      floatingActionButton:
+          Stack(alignment: AlignmentDirectional.bottomStart, children: [
+        FloatingActionButton(
+          heroTag: null,
+          backgroundColor: complementaryColor,
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Center(
+                    child: Text(
+                      "Complete the order",
+                      style: GoogleFonts.roboto(
                         color: accentColor,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        fontSize: 15,
                       ),
                     ),
                   ),
-                ],
-              );
-            },
-          );
-        },
-        elevation: 10,
-        child: Text(
-          "Order",
-          style: GoogleFonts.roboto(
-            color: accentColor,
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
+                  content: Consumer(
+                    builder:
+                        (BuildContext context, WidgetRef ref, Widget? child) {
+                      final menuCards = ref.watch(menuCardsControllerProvider);
+                      return SizedBox(
+                        width: double.maxFinite,
+                        height: 200,
+                        child: ListView.builder(
+                            itemCount: menuCards.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Card(
+                                  color: complementaryColor,
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        '${menuCards[index].foodTitle} - ${menuCards[index].foodPrice}',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          ref
+                                              .read(menuCardsControllerProvider
+                                                  .notifier)
+                                              .removeMenuCard(menuCards[index]);
+                                        },
+                                        icon:
+                                            const Icon(Icons.exposure_minus_1),
+                                        iconSize: 20,
+                                      ),
+                                    ],
+                                  ));
+                            }),
+                      );
+                    },
+                  ),
+                  actions: [
+                    Center(
+                      child: GFButton(
+                        onPressed: () {},
+                        shape: GFButtonShape.pills,
+                        color: mainColor,
+                        elevation: 10,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        text: "Complete order",
+                        textStyle: GoogleFonts.roboto(
+                          color: accentColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          elevation: 10,
+          child: Text(
+            "Order",
+            style: GoogleFonts.roboto(
+              color: accentColor,
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-      ),
+        Container(
+          height: 20,
+          width: 20,
+          child: Center(
+              child: Text(
+            '0',
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+          )),
+          decoration: const BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+        )
+      ]),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -286,74 +309,6 @@ class _MenuState extends State<Menu> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class MenuCard extends StatelessWidget {
-  const MenuCard({
-    required this.imagePath,
-    required this.foodIngr,
-    required this.foodPrice,
-    required this.foodTitle,
-    Key? key,
-  }) : super(key: key);
-  final String imagePath;
-  final String foodTitle;
-  final String foodPrice;
-  final String foodIngr;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-      child: Card(
-        color: mainColor,
-        elevation: 10,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40),
-        ),
-        child: GFListTile(
-          padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-          margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-          avatar: GFAvatar(
-            backgroundImage: AssetImage("Assets/$imagePath"),
-            radius: 40,
-          ),
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                foodTitle,
-                style: GoogleFonts.roboto(
-                  color: accentColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                foodPrice,
-                style: GoogleFonts.roboto(
-                  color: accentColor,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 15,
-                ),
-              ),
-            ],
-          ),
-          description: Text(
-            foodIngr,
-            style: GoogleFonts.roboto(
-              color: accentColor,
-              fontStyle: FontStyle.italic,
-              fontSize: 10,
-            ),
-          ),
-        ),
       ),
     );
   }

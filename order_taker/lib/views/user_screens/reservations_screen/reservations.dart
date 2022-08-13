@@ -47,11 +47,7 @@ class _ReservationPageState extends ConsumerState<ReservationPage> {
                   itemCount: state.reservations.length,
                   itemBuilder: (context, index) {
                     return ReservationCard(
-                      userId: state.reservations[index].userId,
-                      titleText: state.reservations[index].restaurant,
-                      date: state.reservations[index].date,
-                      numberOfPeople: state.reservations[index].numberOfPeople,
-                      restaurantId: state.reservations[index].restaurantId,
+                      reservation: state.reservations[index],
                     );
                   },
                 );

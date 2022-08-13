@@ -7,100 +7,95 @@ import 'package:order_taker/providers/common_providers.dart';
 import 'package:order_taker/providers/controller_providers.dart';
 import 'package:order_taker/providers/user_restaurant_providers.dart';
 import 'package:order_taker/themes/themes.dart';
+import 'package:order_taker/views/project_widgets.dart';
 import 'package:order_taker/views/resources/padding_manager.dart';
 
-class RestaurantCard extends ConsumerWidget {
-  const RestaurantCard({
-    required this.resTitle,
-    required this.resDesc,
-    required this.openHours,
-    Key? key,
-  }) : super(key: key);
-  final String resTitle;
-  final String resDesc;
-  final String openHours;
+import '../../../models/restaurant_model.dart';
+
+class RestaurantCard extends StatelessWidget {
+  const RestaurantCard({Key? key, required this.restaurant}) : super(key: key);
+  final Restaurant restaurant;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    AsyncValue restaurantPic = ref.watch(restaurantPictureProvider(resTitle));
-    return restaurantPic.when(
-      data: (data) {
-        return Padding(
-          padding: PaddingManager.p1,
-          child: InkWell(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                '/restaurant_info',
-                arguments: {"restaurant": resTitle},
-              );
-            },
-            child: Card(
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-              elevation: 10,
-              child: Column(
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: PaddingManager.p1,
+      child: InkWell(
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            '/restaurant_info',
+            arguments: {"restaurant": restaurant.title},
+          );
+        },
+        child: Card(
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          elevation: 10,
+          child: Column(
+            children: [
+              Stack(
+                alignment: Alignment.center,
                 children: [
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      CachedNetworkImage(
-                        imageUrl: data,
-                        imageBuilder: (context, url) => Ink.image(
-                          colorFilter: ColorFilter.mode(
-                              Colors.black.withOpacity(0.8), BlendMode.dstATop),
-                          image: url,
-                          fit: BoxFit.cover,
-                          height: 100,
-                        ),
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      ),
-                    ],
-                  ),
-                  ListTile(
-                    title: Text(
-                      resTitle,
-                      style: GoogleFonts.roboto(
-                          color: accentColor,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          resDesc,
-                          style: GoogleFonts.roboto(
-                            color: accentColor,
-                            fontSize: 16,
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            FindATableButton(
-                              resTitle: resTitle,
+                  Consumer(builder: (context, ref, child) {
+                    AsyncValue restaurantPic =
+                        ref.watch(restaurantPictureProvider(restaurant.title));
+                    return restaurantPic.when(
+                        data: (imageUrl) => CachedNetworkImage(
+                              imageUrl: restaurantPic.value,
+                              imageBuilder: (context, url) => Ink.image(
+                                colorFilter: ColorFilter.mode(
+                                    Colors.black.withOpacity(0.8),
+                                    BlendMode.dstATop),
+                                image: url,
+                                fit: BoxFit.cover,
+                                height: 100,
+                              ),
                             ),
-                          ],
+                        error: (e, s) =>
+                            GFToast.showToast(e.toString(), context),
+                        loading: () => const LoadingIndicator());
+                    // return Container();
+                  }),
+                ],
+              ),
+              ListTile(
+                title: Text(
+                  restaurant.title,
+                  style: GoogleFonts.roboto(
+                      color: accentColor,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold),
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      restaurant.desc,
+                      style: GoogleFonts.roboto(
+                        color: accentColor,
+                        fontSize: 16,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        FindATableButton(
+                          resTitle: restaurant.title,
                         ),
                       ],
                     ),
-                    tileColor: complementaryColor,
-                  ),
-                ],
+                  ],
+                ),
+                tileColor: complementaryColor,
               ),
-            ),
+            ],
           ),
-        );
-      },
-      error: (e, s) => Text(e.toString()),
-      loading: () => const CircularProgressIndicator(),
+        ),
+      ),
     );
   }
 }
@@ -152,10 +147,11 @@ class NumberOfPeopleWidget extends ConsumerWidget {
           onChanged: (value) => ref
               .watch(peopleProvider.notifier)
               .update((state) => int.parse(value)),
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             contentPadding: PaddingManager.p3,
             border: OutlineInputBorder(
-              borderSide: BorderSide(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: const BorderSide(
                 color: Colors.grey,
               ),
             ),
@@ -180,8 +176,9 @@ class SelectDateWidget extends ConsumerWidget {
       child: TextField(
         readOnly: true,
         decoration: InputDecoration(
-          border: const OutlineInputBorder(
-            borderSide: BorderSide(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(
               color: Colors.grey,
             ),
           ),

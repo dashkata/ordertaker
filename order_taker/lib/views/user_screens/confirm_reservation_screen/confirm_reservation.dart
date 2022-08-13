@@ -3,9 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Themes/themes.dart';
+import 'package:order_taker/models/reservation_model.dart';
 import 'package:order_taker/providers/common_providers.dart';
 import 'package:order_taker/providers/confirm_reservation_providers.dart';
 import 'package:order_taker/providers/repository_providers.dart';
+import 'package:order_taker/providers/services_provider.dart';
 
 import '../../project_widgets.dart';
 import '../../user_screens/restaurant_info_screen/restaurant_info_widget.dart';
@@ -22,8 +24,6 @@ class ConfirmReservation extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AsyncValue userDetails = ref.watch(detailsProvider);
-    final _db = ref.watch(firestoreRepositoryProvider);
-    final _auth = ref.watch(authRepositoryProvider);
     final reservationInfo = ModalRoute.of(context)!.settings.arguments as Map;
     AsyncValue restaurantPic = ref
         .watch(restaurantPictureProvider(reservationInfo["restaurantTitle"]));
@@ -114,15 +114,11 @@ class ConfirmReservation extends ConsumerWidget {
                                   },
                                 ),
                               ),
-                              // SizedBox(
-                              //   height: 10,
-                              // ),
                               const InfoDivider(),
                               UserDetail(
                                 detailType: "Name",
                                 userDetail: data["name"],
                               ),
-
                               Padding(
                                 padding: const EdgeInsets.only(right: 10.0),
                                 child: UserDetail(
@@ -130,21 +126,28 @@ class ConfirmReservation extends ConsumerWidget {
                                   userDetail: data["email"],
                                 ),
                               ),
-
                               UserDetail(
                                 detailType: "Mobile Number",
                                 userDetail: data["phoneNumber"],
                               ),
-
                               Center(
                                 child: NormalButtons(
                                     buttonText: "Confirm Reservation",
                                     buttonFunc: () {
-                                      // _db.addReservation(
-                                      //     _auth.getCurrentUser()!.uid,
-                                      //     reservationInfo["restaurantTitle"],
-                                      //     reservationInfo["userDate"],
-                                      //     reservationInfo["numberOfPeople"]);
+                                      ref.read(userServicesProvider).addReservation(
+                                          ref
+                                              .read(authRepositoryProvider)
+                                              .getCurrentUser()!
+                                              .uid,
+                                          Reservation(
+                                              name: data["name"],
+                                              restaurant: reservationInfo[
+                                                  "restaurantTitle"],
+                                              date:
+                                                  '${ref.read(confirmDateProvider)} - ${ref.read(confirmTimeProvider)}',
+                                              numberOfPeople: reservationInfo[
+                                                  "numberOfPeople"]));
+
                                       Navigator.popAndPushNamed(
                                           context, "/reservations");
                                     }),
@@ -154,14 +157,16 @@ class ConfirmReservation extends ConsumerWidget {
                                 child: Center(
                                   child: NormalButtons(
                                       buttonText: "Change Details",
-                                      buttonFunc: () {}),
+                                      buttonFunc: () {
+                                        //TODO change details
+                                      }),
                                 ),
                               ),
                             ],
                           ),
                       error: (e, s) => Text(e.toString()),
                       loading: () =>
-                          Center(child: const CircularProgressIndicator())),
+                          const Center(child: CircularProgressIndicator())),
                 ),
               ),
             ),
