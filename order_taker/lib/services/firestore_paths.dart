@@ -1,4 +1,13 @@
 class FirestorePath {
-  static String restaurants(String uid, String jobId) => 'Restaurants';
-  static String orders(String uid) => 'users/$uid/jobs';
+  static String restaurants() => "Restaurants";
+
+  static String userReservations(String uid) => "Users/$uid/Reservations";
+
+  static String restaurantReservations(String restaurantTitle) =>
+      "Users/$restaurantTitle/Reservations";
+
+  static String user(String uid) => "Users/$uid";
+
+  static String restaurant(String restaurantTitle) =>
+      "Restaurants/$restaurantTitle";
 }

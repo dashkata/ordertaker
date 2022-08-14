@@ -12,12 +12,15 @@ class ReservationCard extends ConsumerWidget {
     required this.date,
     required this.imagePath,
     required this.id,
+
+    required this.numberOfPeople,
     Key? key,
   }) : super(key: key);
   final String titleText;
   final String date;
   final String imagePath;
   final String id;
+  final int numberOfPeople;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -56,6 +59,14 @@ class ReservationCard extends ConsumerWidget {
                   ),
                   Text(
                     date,
+                    style: GoogleFonts.roboto(
+                      color: accentColor,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 15,
+                    ),
+                  ),
+                  Text(
+                    "${numberOfPeople.toString()} people",
                     style: GoogleFonts.roboto(
                       color: accentColor,
                       fontStyle: FontStyle.italic,

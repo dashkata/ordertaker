@@ -34,7 +34,6 @@ class OrderButton extends StatelessWidget {
     Key? key,
   }) : super(key: key);
   final String buttonText;
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -53,8 +52,9 @@ class OrderButton extends StatelessWidget {
   }
 }
 
-class ItemFromMenu extends StatelessWidget {
-  const ItemFromMenu({
+
+class RestaurantMenuItem extends StatelessWidget {
+  const RestaurantMenuItem({
     required this.item,
     Key? key,
   }) : super(key: key);

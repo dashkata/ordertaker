@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Color accentColor = Colors.black;
-// Color complementaryColor = Colors.deepOrange;
-// Color mainColor = HexColor("#EFEBD6");
 const Color accentColor = Color.fromARGB(255, 71, 58, 47);
 const Color complementaryColor = Color.fromARGB(255, 223, 213, 182);
 const Color mainColor = Color.fromARGB(255, 236, 229, 191);

@@ -32,13 +32,10 @@ class _OrdersPageState extends State<OrdersPage> {
                       children: const [
                         OrderTitle(
                           orderNumber: 1,
-                        ),
-                        ItemFromMenu(
+                        RestaurantMenuItem(
                           item: "Пържени картофки х2",
                         ),
-                        ItemFromMenu(
-                          item: "Пица Пеперони малка",
-                        ),
+                        RestaurantMenuItem(item: "Пица Пеперони малка"),
                         Padding(
                           padding: EdgeInsets.only(top: 20, bottom: 5.0),
                           child: OrderButton(

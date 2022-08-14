@@ -11,7 +11,6 @@ class ReservationPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final orders = ref.watch(reservations_provider);
-
     return Scaffold(
       appBar: AppBar(backgroundColor: appBarColor),
       drawer: const CustomDrawer(),
@@ -28,6 +27,7 @@ class ReservationPage extends ConsumerWidget {
                     titleText: order[index].restaurant,
                     date: order[index].date,
                     imagePath: order[index].imagepath,
+                    numberOfPeople: order[index].numberOfPeople,
                   );
                 }, error: (e, s) {
                   return const Center(

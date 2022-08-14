@@ -13,9 +13,7 @@ class LoginPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _email = ref.watch(emailProvider);
     final _password = ref.watch(passwordProvider);
-
     final _auth = ref.watch(authServicesProvider);
-
     return Scaffold(
       body: Stack(
         children: [
@@ -56,8 +54,10 @@ class LoginPage extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             TextFields(
-                              func: (value) =>
-                                  ref.read(emailProvider.state).state = value,
+
+                              func: (value) => ref
+                                  .read(emailProvider.notifier)
+                                  .update((state) => value),
                               hintText: "Email",
                               icon: Icons.email,
                               obscure: false,
@@ -66,8 +66,8 @@ class LoginPage extends ConsumerWidget {
                             const SizedBox(height: 30),
                             TextFields(
                               func: (value) => ref
-                                  .read(passwordProvider.state)
-                                  .state = value,
+                                  .read(passwordProvider.notifier)
+                                  .update((state) => value),
                               hintText: "Password",
                               icon: Icons.password,
                               obscure: true,
