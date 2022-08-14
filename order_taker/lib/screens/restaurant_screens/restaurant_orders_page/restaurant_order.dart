@@ -32,6 +32,7 @@ class _OrdersPageState extends State<OrdersPage> {
                       children: const [
                         OrderTitle(
                           orderNumber: 1,
+                        ),
                         RestaurantMenuItem(
                           item: "Пържени картофки х2",
                         ),
