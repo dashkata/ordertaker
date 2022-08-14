@@ -175,9 +175,7 @@ class RegisterPage extends ConsumerWidget {
                                     TextButton(
                                       onPressed: () {
                                         Navigator.popAndPushNamed(
-                                          context,
-                                          '/login',
-                                        );
+                                            context, '/login');
                                       },
                                       child: Text(
                                         "Sign in",
