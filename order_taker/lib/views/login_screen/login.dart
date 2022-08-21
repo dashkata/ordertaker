@@ -8,6 +8,8 @@ import '../project_widgets.dart';
 import 'login_widgets.dart';
 
 class LoginPage extends ConsumerWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _email = ref.watch(emailProvider);

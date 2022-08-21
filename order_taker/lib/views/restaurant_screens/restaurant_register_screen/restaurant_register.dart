@@ -72,7 +72,7 @@ class RestaurantRegister extends ConsumerWidget {
                               children: [
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.only(left: 20.0),
+                                    padding: const EdgeInsets.only(left: 20.0),
                                     child: DoubleTextField(
                                       func: (value) {
                                         ref
@@ -89,7 +89,7 @@ class RestaurantRegister extends ConsumerWidget {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.only(right: 20.0),
+                                    padding: const EdgeInsets.only(right: 20.0),
                                     child: DoubleTextField(
                                       func: (value) {
                                         ref

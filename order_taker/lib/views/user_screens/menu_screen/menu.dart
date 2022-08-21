@@ -56,7 +56,7 @@ class _MenuState extends State<Menu> {
                                     children: [
                                       Text(
                                         '${menuCards[index].foodTitle} - ${menuCards[index].foodPrice}',
-                                        style: TextStyle(fontSize: 12),
+                                        style: const TextStyle(fontSize: 12),
                                       ),
                                       IconButton(
                                         onPressed: () {
@@ -82,7 +82,7 @@ class _MenuState extends State<Menu> {
                         shape: GFButtonShape.pills,
                         color: mainColor,
                         elevation: 10,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         text: "Complete order",
@@ -111,7 +111,7 @@ class _MenuState extends State<Menu> {
         Container(
           height: 20,
           width: 20,
-          child: Center(
+          child: const Center(
               child: Text(
             '0',
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
@@ -183,9 +183,9 @@ class _MenuState extends State<Menu> {
                     elevation: 10,
                     child: Container(
                       width: double.infinity,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: complementaryColor,
-                        borderRadius: const BorderRadius.all(
+                        borderRadius: BorderRadius.all(
                           Radius.circular(40),
                         ),
                       ),
@@ -257,9 +257,9 @@ class _MenuState extends State<Menu> {
                     elevation: 10,
                     child: Container(
                       width: double.infinity,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: complementaryColor,
-                        borderRadius: const BorderRadius.all(
+                        borderRadius: BorderRadius.all(
                           Radius.circular(40),
                         ),
                       ),

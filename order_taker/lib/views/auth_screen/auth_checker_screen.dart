@@ -15,14 +15,12 @@ class AuthChecker extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _authState = ref.watch(authStateProvider);
     final _authServices = ref.watch(authRepositoryProvider);
-    final db = ref.watch(firestoreRepositoryProvider);
     AsyncValue userType = ref.watch(userTypeProvider);
     return _authState.when(data: ((data) {
       if (data != null) {
         return userType.when(
             data: (value) {
-              if (data != null &&
-                  _authServices.getCurrentUser()!.emailVerified &&
+              if (_authServices.getCurrentUser()!.emailVerified &&
                   value != null) {
                 if (value == "Customer") {
                   return const RestaurantPage();
@@ -32,7 +30,7 @@ class AuthChecker extends ConsumerWidget {
                   return const OrdersPage();
                 }
               } else {
-                return LoginPage();
+                return const LoginPage();
               }
             },
             loading: () => const Scaffold(
@@ -42,7 +40,7 @@ class AuthChecker extends ConsumerWidget {
                   body: Center(child: Text(error.toString())),
                 ));
       }
-      return LoginPage();
+      return const LoginPage();
     }), error: (e, s) {
       return Scaffold(
         body: Center(child: Text(e.toString())),

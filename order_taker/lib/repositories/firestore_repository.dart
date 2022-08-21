@@ -6,26 +6,29 @@ import 'package:order_taker/models/restaurant_model.dart';
 import 'package:order_taker/repositories/auth_repository.dart';
 
 import '../models/user_model.dart';
+import '../views/user_screens/menu_screen/menu_widgets.dart';
 import 'firestore_paths.dart';
 
 class FirestoreRepository {
-  Future<List<Restaurant>> fetchRestaurants() async {
+  Stream<List<Restaurant>> fetchRestaurants() {
     final restaurantRef =
         FirebaseFirestore.instance.collection(FirestorePath.restaurants());
-    final restaurantSnapshot = await restaurantRef.get();
+    final restaurantSnapshot = restaurantRef.snapshots();
 
-    return restaurantSnapshot.docs
-        .map((restaurant) => Restaurant.fromMap(restaurant.data()))
-        .toList();
+    return restaurantSnapshot.map((QuerySnapshot querySnapshot) => querySnapshot
+        .docs
+        .map((restaurant) =>
+            Restaurant.fromMap(restaurant.data() as Map<String, dynamic>))
+        .toList());
   }
 
-  Future<List<Reservation>> fetchReservations(String uid) async {
-    final reservationsSnapshot = await FirebaseFirestore.instance
+  Stream<List<Reservation>> fetchReservations(String uid) {
+    final reservationsSnapshot = FirebaseFirestore.instance
         .collection(FirestorePath.userReservations(uid))
-        .get();
-    return reservationsSnapshot.docs
+        .snapshots();
+    return reservationsSnapshot.map((reservations) => reservations.docs
         .map((reservation) => Reservation.fromMap(reservation.data()))
-        .toList();
+        .toList());
   }
 
   void addReservation(String uid, Reservation reservation) {
@@ -33,7 +36,6 @@ class FirestoreRepository {
         .collection(FirestorePath.userReservations(uid));
     final restaurantReservationRef = FirebaseFirestore.instance.collection(
         FirestorePath.restaurantReservations(reservation.restaurant));
-    print(reservation.restaurant);
     restaurantReservationRef.get().then((value) => restaurantReservationRef
         .doc('$uid - ${reservation.date}')
         .set(reservation.toMap()));
@@ -109,5 +111,12 @@ class FirestoreRepository {
         username: user.displayName!,
         email: user.email!,
         mobileNumber: mobileNumber);
+  }
+
+  Future<void> completeOrder(
+      String restaurantName, String table, List<MenuCard> orders) async {
+    final tableRef = FirebaseFirestore.instance
+        .doc(FirestorePath.restaurantOrders(restaurantName, table));
+    await tableRef.set({'order 1': orders});
   }
 }

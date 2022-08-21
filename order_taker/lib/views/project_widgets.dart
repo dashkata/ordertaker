@@ -68,7 +68,7 @@ class ProfilePicture extends ConsumerWidget {
 }
 
 class TextFields extends StatelessWidget {
-  TextFields({
+  const TextFields({
     Key? key,
     required this.hintText,
     required this.icon,
@@ -81,7 +81,7 @@ class TextFields extends StatelessWidget {
   final IconData icon;
   final bool obscure;
   final TextInputType inputType;
-  void Function(String)? func;
+  final void Function(String)? func;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +99,7 @@ class TextFields extends StatelessWidget {
 }
 
 class DoubleTextField extends StatelessWidget {
-  DoubleTextField({
+  const DoubleTextField({
     Key? key,
     required this.func,
     required this.inputType,
@@ -112,7 +112,7 @@ class DoubleTextField extends StatelessWidget {
   final IconData icon;
   final String? hintText;
   final bool obscure;
-  void Function(String)? func;
+  final void Function(String)? func;
 
   @override
   Widget build(BuildContext context) {

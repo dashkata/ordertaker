@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:order_taker/providers/controller_providers.dart';
 import 'package:order_taker/providers/repository_providers.dart';
 import 'package:order_taker/providers/services_provider.dart';
 import 'package:order_taker/themes/themes.dart';
@@ -91,9 +90,6 @@ class ReservationCard extends ConsumerWidget {
                               .getCurrentUser()!
                               .uid,
                           reservation);
-                      ref
-                          .read(reservationStateNotifierProvider.notifier)
-                          .fetchReservations();
                     },
                     elevation: 10,
                     shape: GFButtonShape.pills,

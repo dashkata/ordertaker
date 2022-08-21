@@ -17,7 +17,7 @@ class RestaurantInfo extends ConsumerWidget {
     final restaurantTitle = arg["restaurant"];
     final restaurantInfo = ref.watch(restaurantInfoProvider(restaurantTitle));
     return restaurantInfo.when(
-      loading: () => CircularProgressIndicator(),
+      loading: () => const CircularProgressIndicator(),
       error: (error, stackTrace) => Text(error.toString()),
       data: (restaurant) => Scaffold(
         appBar: AppBar(
@@ -99,7 +99,7 @@ class RestaurantInfo extends ConsumerWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.end,
                                           children: [
-                                            Icon(Icons.location_on),
+                                            const Icon(Icons.location_on),
                                             Text(
                                               restaurant.location,
                                               style: GoogleFonts.roboto(
@@ -119,26 +119,26 @@ class RestaurantInfo extends ConsumerWidget {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              DetailText(
+                              const DetailText(
                                 detailTitle: "Neighborhood",
                                 detailTitleIcon: Icon(Icons.location_city),
                                 detailDesc: "Neighborhood",
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               DetailText(
                                 detailTitle: "Open hours",
                                 detailTitleIcon:
-                                    Icon(Icons.watch_later_outlined),
+                                    const Icon(Icons.watch_later_outlined),
                                 detailDesc: restaurant.openhours,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               DetailText(
                                 detailTitle: "Payment options",
-                                detailTitleIcon: Icon(Icons.credit_card),
+                                detailTitleIcon: const Icon(Icons.credit_card),
                                 detailDesc: restaurant.paymentOptions,
                               ),
                             ],
@@ -280,7 +280,7 @@ class RestaurantInfo extends ConsumerWidget {
                       );
                     });
               },
-              child: Icon(
+              child: const Icon(
                 Icons.restaurant,
                 color: accentColor,
               ),
@@ -298,7 +298,8 @@ class RestaurantInfo extends ConsumerWidget {
                   const ButtonRow(),
                   const InfoDivider(),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 30, top: 30, left: 10),
+                    padding:
+                        const EdgeInsets.only(bottom: 30, top: 30, left: 10),
                     child: Text(
                       restaurant.title,
                       style: GoogleFonts.roboto(

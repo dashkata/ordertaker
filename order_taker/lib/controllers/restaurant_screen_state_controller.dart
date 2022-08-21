@@ -4,29 +4,12 @@ import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/shape/gf_button_shape.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:order_taker/repositories/firestore_repository.dart';
-import 'package:order_taker/views/user_screens/restaurant_screen/restaurant_state.dart';
 
 import '../Themes/themes.dart';
 import '../providers/confirm_reservation_providers.dart';
 import '../providers/controller_providers.dart';
 import '../providers/user_restaurant_providers.dart';
 import '../views/user_screens/restaurant_screen/restaurant_widget.dart';
-
-class RestaurantStateNotifier extends StateNotifier<RestaurantState> {
-  RestaurantStateNotifier(this._firestoreRepository)
-      : super(const RestaurantLoading());
-  final FirestoreRepository _firestoreRepository;
-
-  Future<void> fetchRestaurants() async {
-    try {
-      final restaurants = await _firestoreRepository.fetchRestaurants();
-      state = RestaurantLoaded(restaurants);
-    } catch (e) {
-      state = RestaurantError(e.toString());
-    }
-  }
-}
 
 class RestaurantDialogNotifier extends StateNotifier<void> {
   RestaurantDialogNotifier() : super(null);

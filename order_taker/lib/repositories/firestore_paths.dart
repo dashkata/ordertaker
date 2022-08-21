@@ -10,4 +10,7 @@ class FirestorePath {
 
   static String restaurant(String restaurantTitle) =>
       "Restaurants/$restaurantTitle";
+
+  static String restaurantOrders(String restaurantName, String table) =>
+      "Restaurants/$restaurantName/Tables/$table";
 }
