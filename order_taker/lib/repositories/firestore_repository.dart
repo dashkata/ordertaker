@@ -35,7 +35,8 @@ class FirestoreRepository {
     final userReservationRef = FirebaseFirestore.instance
         .collection(FirestorePath.userReservations(uid));
     final restaurantReservationRef = FirebaseFirestore.instance.collection(
-        FirestorePath.restaurantReservations(reservation.restaurant));
+        FirestorePath.restaurantReservations(
+            reservation.restaurant, reservation.selectedTable));
     restaurantReservationRef.get().then((value) => restaurantReservationRef
         .doc('$uid - ${reservation.date}')
         .set(reservation.toMap()));
@@ -46,7 +47,8 @@ class FirestoreRepository {
 
   Future<void> deleteReservation(String uid, Reservation reservation) async {
     final restaurantReservationRef = FirebaseFirestore.instance.collection(
-        FirestorePath.restaurantReservations(reservation.restaurant));
+        FirestorePath.restaurantReservations(
+            reservation.restaurant, reservation.selectedTable));
     restaurantReservationRef.doc('$uid - ${reservation.date}').delete();
 
     final reservationRef = FirebaseFirestore.instance
@@ -114,17 +116,16 @@ class FirestoreRepository {
   }
 
   Future<void> completeOrder(
-      String restaurantName, String table, Order orders) async {
-    final tableRef = FirebaseFirestore.instance.doc(
-      FirestorePath.restaurantOrders(restaurantName, table),
+      Order orders, String uid, Reservation reservation) async {
+    final orderRef = FirebaseFirestore.instance.doc(
+      FirestorePath.restaurantOrders(reservation, uid),
     );
-    final tableSnapshot = await tableRef.get();
-
+    final tableSnapshot = await orderRef.get();
     int orderCount = 1;
     if (tableSnapshot.data()?.length != null) {
-      orderCount = tableSnapshot.data()!.length + 1;
+      orderCount = tableSnapshot.data()!.length - 4;
     }
-    await tableRef.set(
+    await orderRef.set(
       {
         'order $orderCount': orders.ordersToList(),
       },

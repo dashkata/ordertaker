@@ -6,6 +6,7 @@ import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 import 'package:getwidget/shape/gf_button_shape.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/models/menu_item_model.dart';
+import 'package:order_taker/models/reservation_model.dart';
 import 'package:order_taker/providers/controller_providers.dart';
 import 'package:order_taker/providers/menu_screen_providers.dart';
 
@@ -79,7 +80,9 @@ class MenuCard extends ConsumerWidget {
 class OrderFAB extends StatelessWidget {
   const OrderFAB({
     Key? key,
+    required this.reservation,
   }) : super(key: key);
+  final Reservation reservation;
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +164,7 @@ class OrderFAB extends StatelessWidget {
                             onPressed: () {
                               ref
                                   .read(menuCardsControllerProvider.notifier)
-                                  .completeOrder();
+                                  .completeOrder(reservation);
                               Navigator.pop(context);
                             },
                             shape: GFButtonShape.pills,

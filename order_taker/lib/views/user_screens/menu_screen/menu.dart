@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:order_taker/models/reservation_model.dart';
 import '../../project_widgets.dart';
 import 'menu_widgets.dart';
 
@@ -16,9 +17,14 @@ class _MenuState extends State<Menu> {
   final drinksKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    final reservation =
+        ModalRoute.of(context)!.settings.arguments as Reservation;
+
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
-      floatingActionButton: const OrderFAB(),
+      floatingActionButton: OrderFAB(
+        reservation: reservation,
+      ),
       bottomNavigationBar: SectionNavBar(
         appetizersKey: appetizersKey,
         dishesKey: dishesKey,

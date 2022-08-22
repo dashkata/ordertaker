@@ -134,19 +134,24 @@ class ConfirmReservation extends ConsumerWidget {
                                 child: NormalButtons(
                                     buttonText: "Confirm Reservation",
                                     buttonFunc: () {
-                                      ref.read(userServicesProvider).addReservation(
-                                          ref
-                                              .read(authRepositoryProvider)
-                                              .getCurrentUser()!
-                                              .uid,
-                                          Reservation(
+                                      ref
+                                          .read(userServicesProvider)
+                                          .addReservation(
+                                            ref
+                                                .read(authRepositoryProvider)
+                                                .getCurrentUser()!
+                                                .uid,
+                                            Reservation(
                                               name: data["name"],
                                               restaurant: reservationInfo[
                                                   "restaurantTitle"],
                                               date:
                                                   '${ref.read(confirmDateProvider)} - ${ref.read(confirmTimeProvider)}',
                                               numberOfPeople: reservationInfo[
-                                                  "numberOfPeople"]));
+                                                  "numberOfPeople"],
+                                              selectedTable: 2,
+                                            ),
+                                          );
 
                                       Navigator.popAndPushNamed(
                                           context, "/reservations");
