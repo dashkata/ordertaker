@@ -2,9 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/controllers/menu_screen_state_controller.dart';
 import 'package:order_taker/controllers/restaurant_screen_state_controller.dart';
 import 'package:order_taker/controllers/storage_state_notifier.dart';
+import 'package:order_taker/models/menu_item_model.dart';
 import 'package:order_taker/providers/services_provider.dart';
-
-import '../views/user_screens/menu_screen/menu_widgets.dart';
 
 final restaurantDialogNotifierProvider =
     StateNotifierProvider<RestaurantDialogNotifier, void>((ref) {
@@ -17,6 +16,6 @@ final storageStateNotifierProvider =
   return StorageStateNotifier(ref.watch(storageServicesProvider));
 });
 final menuCardsControllerProvider =
-    StateNotifierProvider<MenuScreenNotifier, List<MenuCard>>((ref) {
-  return MenuScreenNotifier();
+    StateNotifierProvider<MenuScreenNotifier, List<OrderItem>>((ref) {
+  return MenuScreenNotifier(ref);
 });

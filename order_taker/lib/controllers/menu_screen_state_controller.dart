@@ -1,17 +1,33 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/views/user_screens/menu_screen/menu_widgets.dart';
+import 'package:order_taker/models/menu_item_model.dart';
+import 'package:order_taker/models/order_model.dart';
 
-class MenuScreenNotifier extends StateNotifier<List<MenuCard>> {
-  MenuScreenNotifier() : super([]);
+import '../providers/repository_providers.dart';
 
-  void addMenuCard(MenuCard menuCard) {
-    state = [...state, menuCard];
+class MenuScreenNotifier extends StateNotifier<List<OrderItem>> {
+  MenuScreenNotifier(this.ref) : super([]);
+  final Ref ref;
+
+  void addMenuCard(OrderItem orderItem) {
+    state = [...state, orderItem];
   }
 
-  void removeMenuCard(MenuCard menuCard) {
+  void removeMenuCard(OrderItem orderItem) {
     state = [
       for (final card in state)
-        if (card != menuCard) card,
+        if (card != orderItem) card,
     ];
+  }
+
+  void completeOrder() {
+    ref.read(firestoreRepositoryProvider).completeOrder(
+          'Pizza Don Vito',
+          '1',
+          Order(
+            id: 1,
+            menuItems: state,
+          ),
+        );
+    state = [];
   }
 }
