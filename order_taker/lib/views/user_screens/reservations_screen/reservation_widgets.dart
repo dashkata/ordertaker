@@ -86,14 +86,14 @@ class ReservationCard extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     GFButton(
-                      onPressed: () {
-                        ref.read(userServicesProvider).deleteReservation(
-                            ref
-                                .read(authRepositoryProvider)
-                                .getCurrentUser()!
-                                .uid,
-                            reservation);
-                      },
+                      onPressed: () => ref
+                          .read(userServicesProvider)
+                          .deleteReservation(
+                              ref
+                                  .read(authRepositoryProvider)
+                                  .getCurrentUser()!
+                                  .uid,
+                              reservation),
                       elevation: 10,
                       shape: GFButtonShape.pills,
                       color: mainColor,

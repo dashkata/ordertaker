@@ -226,18 +226,20 @@ class OrderFAB extends StatelessWidget {
 }
 
 class SectionNavBar extends ConsumerWidget {
-  const SectionNavBar({
-    Key? key,
-    required this.appetizersKey,
-    required this.dishesKey,
-    required this.desertsKey,
-    required this.drinksKey,
-  }) : super(key: key);
+  const SectionNavBar(
+      {Key? key,
+      required this.appetizersKey,
+      required this.dishesKey,
+      required this.desertsKey,
+      required this.drinksKey,
+      required this.reservation})
+      : super(key: key);
 
   final GlobalKey<State<StatefulWidget>> appetizersKey;
   final GlobalKey<State<StatefulWidget>> dishesKey;
   final GlobalKey<State<StatefulWidget>> desertsKey;
   final GlobalKey<State<StatefulWidget>> drinksKey;
+  final Reservation reservation;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -299,7 +301,7 @@ class SectionNavBar extends ConsumerWidget {
                 Scrollable.ensureVisible(appetizersKey.currentContext!);
               }
               ref.refresh(navBarIndexProvider);
-              Navigator.pushNamed(context, '/bill');
+              Navigator.pushNamed(context, '/bill', arguments: reservation);
 
               break;
             default:

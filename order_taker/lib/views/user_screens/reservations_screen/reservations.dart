@@ -22,7 +22,6 @@ class ReservationPage extends StatelessWidget {
             child: Consumer(builder: (context, ref, child) {
               AsyncValue<List<Reservation>> reservations =
                   ref.watch(fetchReservationProvider);
-
               return reservations.when(
                   data: (data) => ListView.builder(
                       itemCount: data.length,

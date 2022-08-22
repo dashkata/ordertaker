@@ -19,7 +19,6 @@ class _MenuState extends State<Menu> {
   Widget build(BuildContext context) {
     final reservation =
         ModalRoute.of(context)!.settings.arguments as Reservation;
-
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
       floatingActionButton: OrderFAB(
@@ -30,6 +29,7 @@ class _MenuState extends State<Menu> {
         dishesKey: dishesKey,
         desertsKey: desertsKey,
         drinksKey: drinksKey,
+        reservation: reservation,
       ),
       body: Stack(
         children: [

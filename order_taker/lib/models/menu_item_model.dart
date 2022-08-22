@@ -15,4 +15,12 @@ class OrderItem {
       'itemPrice': itemPrice,
     };
   }
+
+  factory OrderItem.fromMap(Map data) {
+    return OrderItem(
+      itemTitle: data['itemTitle'],
+      itemIngredients: data['itemIngredients'],
+      itemPrice: data['itemPrice'],
+    );
+  }
 }

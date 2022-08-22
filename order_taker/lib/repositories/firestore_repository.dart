@@ -134,4 +134,23 @@ class FirestoreRepository {
       ),
     );
   }
+
+  Future<List<Order>> fetchOrders(Reservation reservation, String uid) async {
+    final orderRef = await FirebaseFirestore.instance
+        .doc(FirestorePath.restaurantOrders(reservation, uid))
+        .get();
+    List<Order> orders = [];
+    if (orderRef.data()?.keys != null) {
+      for (final field in orderRef.data()!.keys) {
+        if (field.contains('order')) {
+          orders.add(
+            Order.fromMap(
+              orderRef.get(field),
+            ),
+          );
+        }
+      }
+    }
+    return orders;
+  }
 }

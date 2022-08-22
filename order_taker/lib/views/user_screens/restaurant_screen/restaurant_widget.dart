@@ -191,11 +191,9 @@ class SelectDateWidget extends ConsumerWidget {
           helperText: "Select a date for your reservation",
           hintText: ref.watch(userDateProvider),
         ),
-        onTap: () async {
-          ref
-              .read(restaurantDialogNotifierProvider.notifier)
-              .showDateTimePicker(context, ref);
-        },
+        onTap: () async => ref
+            .read(restaurantDialogNotifierProvider.notifier)
+            .showDateTimePicker(context, ref),
       ),
     );
   }

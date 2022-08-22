@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:order_taker/models/order_model.dart';
+import 'package:order_taker/providers/bill_screen_providers.dart';
 import 'package:order_taker/themes/themes.dart';
 
+import '../../../models/reservation_model.dart';
 import '../../project_widgets.dart';
 
 class BillPage extends StatelessWidget {
@@ -10,6 +14,8 @@ class BillPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final reservation =
+        ModalRoute.of(context)!.settings.arguments as Reservation;
     return Scaffold(
       floatingActionButton: IconButton(
           onPressed: () => Navigator.pop(context),
@@ -24,18 +30,43 @@ class BillPage extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 20),
-                  child: SingleChildScrollView(
-                    child: Material(
-                      elevation: 10,
-                      borderRadius: BorderRadius.circular(40),
-                      child: Container(
-                        width: double.infinity,
-                        height: 300,
-                        decoration: BoxDecoration(
-                          color: complementaryColor,
-                          borderRadius: BorderRadius.circular(40),
-                        ),
+                    horizontal: 20.0,
+                    vertical: 20,
+                  ),
+                  child: Material(
+                    elevation: 10,
+                    borderRadius: BorderRadius.circular(40),
+                    child: Container(
+                      width: double.infinity,
+                      height: 300,
+                      decoration: BoxDecoration(
+                        color: complementaryColor,
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      child: Consumer(
+                        builder: (BuildContext context, WidgetRef ref,
+                            Widget? child) {
+                          AsyncValue<List<Order>> futureOrders =
+                              ref.watch(fetchOrdersProvider(reservation));
+                          return futureOrders.when(
+                              data: (orders) => ListView.builder(
+                                    itemCount: orders.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) =>
+                                            Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        for (var menuItem
+                                            in orders[index].menuItems)
+                                          Text(
+                                              '${menuItem.itemTitle} - ${menuItem.itemPrice}')
+                                      ],
+                                    ),
+                                  ),
+                              error: (e, s) => Text(e.toString()),
+                              loading: () => const LoadingIndicator());
+                        },
                       ),
                     ),
                   ),
