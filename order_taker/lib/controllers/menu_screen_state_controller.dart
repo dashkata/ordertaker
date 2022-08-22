@@ -23,7 +23,6 @@ class MenuScreenNotifier extends StateNotifier<List<OrderItem>> {
   void completeOrder(Reservation reservation) {
     ref.read(firestoreRepositoryProvider).completeOrder(
           Order(
-            id: 1,
             menuItems: state,
           ),
           ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
