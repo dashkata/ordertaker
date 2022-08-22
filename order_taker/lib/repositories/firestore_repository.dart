@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:order_taker/models/order_model.dart';
 import 'package:order_taker/models/reservation_model.dart';
 import 'package:order_taker/models/restaurant_info_model.dart';
 import 'package:order_taker/models/restaurant_model.dart';
 import 'package:order_taker/repositories/auth_repository.dart';
 
 import '../models/user_model.dart';
-import '../views/user_screens/menu_screen/menu_widgets.dart';
 import 'firestore_paths.dart';
 
 class FirestoreRepository {
@@ -114,9 +114,23 @@ class FirestoreRepository {
   }
 
   Future<void> completeOrder(
-      String restaurantName, String table, List<MenuCard> orders) async {
-    final tableRef = FirebaseFirestore.instance
-        .doc(FirestorePath.restaurantOrders(restaurantName, table));
-    await tableRef.set({'order 1': orders});
+      String restaurantName, String table, Order orders) async {
+    final tableRef = FirebaseFirestore.instance.doc(
+      FirestorePath.restaurantOrders(restaurantName, table),
+    );
+    final tableSnapshot = await tableRef.get();
+
+    int orderCount = 1;
+    if (tableSnapshot.data()?.length != null) {
+      orderCount = tableSnapshot.data()!.length + 1;
+    }
+    await tableRef.set(
+      {
+        'order $orderCount': orders.ordersToList(),
+      },
+      SetOptions(
+        merge: true,
+      ),
+    );
   }
 }

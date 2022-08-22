@@ -11,6 +11,8 @@ import '../../project_widgets.dart';
 import 'restaurant_info_widget.dart';
 
 class RestaurantInfo extends ConsumerWidget {
+  const RestaurantInfo({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final arg = ModalRoute.of(context)!.settings.arguments as Map;

@@ -1,10 +1,18 @@
-class MenuItem {
+class OrderItem {
   final String itemTitle;
   final String itemIngredients;
-  final String foodPrice;
+  final String itemPrice;
 
-  MenuItem(
-      {required this.itemTitle,
-      required this.itemIngredients,
-      required this.foodPrice});
+  OrderItem({
+    required this.itemTitle,
+    required this.itemIngredients,
+    required this.itemPrice,
+  });
+  Map<String, dynamic> orderItemToMap() {
+    return {
+      'itemTitle': itemTitle,
+      'itemIngredients': itemIngredients,
+      'itemPrice': itemPrice,
+    };
+  }
 }
