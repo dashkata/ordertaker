@@ -9,8 +9,8 @@ import 'package:order_taker/themes/themes.dart';
 import '../../../models/reservation_model.dart';
 import '../../project_widgets.dart';
 
-class BillPage extends StatelessWidget {
-  const BillPage({Key? key}) : super(key: key);
+class BillScreen extends StatelessWidget {
+  const BillScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,23 +49,26 @@ class BillPage extends StatelessWidget {
                           AsyncValue<List<Order>> futureOrders =
                               ref.watch(fetchOrdersProvider(reservation));
                           return futureOrders.when(
-                              data: (orders) => ListView.builder(
-                                    itemCount: orders.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) =>
-                                            Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        for (var menuItem
-                                            in orders[index].menuItems)
-                                          Text(
-                                              '${menuItem.itemTitle} - ${menuItem.itemPrice}')
-                                      ],
-                                    ),
+                            data: (orders) => ListView.builder(
+                              itemCount: orders.length,
+                              itemBuilder:
+                                  (BuildContext context, int ordersIndex) =>
+                                      Column(
+                                children: List.generate(
+                                  orders[ordersIndex].menuItems.length,
+                                  (menuIndex) => Text(
+                                    orders[ordersIndex]
+                                        .menuItems[menuIndex]
+                                        .itemIngredients,
                                   ),
-                              error: (e, s) => Text(e.toString()),
-                              loading: () => const LoadingIndicator());
+                                ),
+                              ),
+                            ),
+                            error: (e, s) => Text(
+                              e.toString(),
+                            ),
+                            loading: () => const LoadingIndicator(),
+                          );
                         },
                       ),
                     ),

@@ -23,14 +23,14 @@ class AuthChecker extends ConsumerWidget {
               if (_authServices.getCurrentUser()!.emailVerified &&
                   value != null) {
                 if (value == "Customer") {
-                  return const RestaurantPage();
+                  return const RestaurantScreen();
                 } else if (value == "Admin") {
                   return const EditMenu();
                 } else {
                   return const OrdersPage();
                 }
               } else {
-                return const LoginPage();
+                return const LoginScreen();
               }
             },
             loading: () => const Scaffold(
@@ -40,7 +40,7 @@ class AuthChecker extends ConsumerWidget {
                   body: Center(child: Text(error.toString())),
                 ));
       }
-      return const LoginPage();
+      return const LoginScreen();
     }), error: (e, s) {
       return Scaffold(
         body: Center(child: Text(e.toString())),

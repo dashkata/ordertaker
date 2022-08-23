@@ -8,8 +8,8 @@ import 'package:order_taker/views/user_screens/restaurant_screen/restaurant_widg
 import '../../../models/restaurant_model.dart';
 import '../../project_widgets.dart';
 
-class RestaurantPage extends StatelessWidget {
-  const RestaurantPage({Key? key}) : super(key: key);
+class RestaurantScreen extends StatelessWidget {
+  const RestaurantScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

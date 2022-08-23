@@ -10,8 +10,8 @@ import 'package:readmore/readmore.dart';
 import '../../project_widgets.dart';
 import 'restaurant_info_widget.dart';
 
-class RestaurantInfo extends ConsumerWidget {
-  const RestaurantInfo({Key? key}) : super(key: key);
+class RestaurantInfoScreen extends ConsumerWidget {
+  const RestaurantInfoScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

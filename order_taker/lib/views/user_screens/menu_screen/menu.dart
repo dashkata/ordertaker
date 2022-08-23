@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:order_taker/models/reservation_model.dart';
+import 'package:order_taker/views/resources/string_manager.dart';
+import 'package:order_taker/views/user_screens/menu_screen/widgets/bottom_navbar.dart';
+import 'package:order_taker/views/user_screens/menu_screen/widgets/menu_section.dart';
+import 'package:order_taker/views/user_screens/menu_screen/widgets/order_fab.dart';
 import '../../project_widgets.dart';
-import 'menu_widgets.dart';
 
-class Menu extends StatefulWidget {
-  const Menu({Key? key}) : super(key: key);
+class MenuScreen extends StatefulWidget {
+  const MenuScreen({Key? key}) : super(key: key);
 
   @override
-  State<Menu> createState() => _MenuState();
+  State<MenuScreen> createState() => _MenuScreenState();
 }
 
-class _MenuState extends State<Menu> {
+class _MenuScreenState extends State<MenuScreen> {
   final appetizersKey = GlobalKey();
   final dishesKey = GlobalKey();
   final desertsKey = GlobalKey();
   final drinksKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     final reservation =
@@ -43,28 +47,28 @@ class _MenuState extends State<Menu> {
                   ),
                   MenuSection(
                     sectionKey: appetizersKey,
-                    sectionTitle: 'Appetizers',
+                    sectionTitle: StringManager.appetizers,
                   ),
                   const SizedBox(
                     height: 50,
                   ),
                   MenuSection(
                     sectionKey: dishesKey,
-                    sectionTitle: 'Dishes',
+                    sectionTitle: StringManager.dishes,
                   ),
                   const SizedBox(
                     height: 50,
                   ),
                   MenuSection(
                     sectionKey: desertsKey,
-                    sectionTitle: 'Deserts',
+                    sectionTitle: StringManager.deserts,
                   ),
                   const SizedBox(
                     height: 50,
                   ),
                   MenuSection(
                     sectionKey: drinksKey,
-                    sectionTitle: 'Drinks',
+                    sectionTitle: StringManager.drinks,
                   ),
                 ],
               ),

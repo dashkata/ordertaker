@@ -8,8 +8,8 @@ import 'package:order_taker/providers/user_register_provider.dart';
 import '../../../providers/repository_providers.dart';
 import '../../project_widgets.dart';
 
-class RegisterPage extends ConsumerWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+class RegisterScreen extends ConsumerWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
