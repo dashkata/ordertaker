@@ -7,8 +7,8 @@ import 'package:order_taker/views/user_screens/reservations_screen/reservation_w
 
 import '../../project_widgets.dart';
 
-class ReservationPage extends StatelessWidget {
-  const ReservationPage({Key? key}) : super(key: key);
+class ReservationScreen extends StatelessWidget {
+  const ReservationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

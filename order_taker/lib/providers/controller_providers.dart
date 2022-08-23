@@ -19,3 +19,6 @@ final menuCardsControllerProvider =
     StateNotifierProvider<MenuScreenNotifier, List<OrderItem>>((ref) {
   return MenuScreenNotifier(ref);
 });
+
+final menuDialogProvider = StateNotifierProvider<MenuDialogsNotifier, void>(
+    (ref) => MenuDialogsNotifier());

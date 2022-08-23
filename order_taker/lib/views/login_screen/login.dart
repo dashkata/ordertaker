@@ -7,8 +7,8 @@ import '../../providers/repository_providers.dart';
 import '../project_widgets.dart';
 import 'login_widgets.dart';
 
-class LoginPage extends ConsumerWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginScreen extends ConsumerWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -18,8 +18,8 @@ import 'confirm_reservation_widget.dart';
 
 
 */
-class ConfirmReservation extends ConsumerWidget {
-  const ConfirmReservation({Key? key}) : super(key: key);
+class ConfirmReservationScreen extends ConsumerWidget {
+  const ConfirmReservationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

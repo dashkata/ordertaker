@@ -13,8 +13,8 @@ import '../../../providers/repository_providers.dart';
 import '../../project_widgets.dart';
 import 'profile_widgets.dart';
 
-class ProfilePage extends ConsumerWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+class ProfileScreen extends ConsumerWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
