@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/providers/login_provider.dart';
 import 'package:order_taker/themes/themes.dart';
+import 'package:order_taker/views/resources/padding_manager.dart';
 
 import '../../providers/repository_providers.dart';
 import '../project_widgets.dart';
@@ -27,7 +28,7 @@ class LoginScreen extends ConsumerWidget {
                 children: [
                   const WelcomeTextWidget(),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20.0, right: 20),
+                    padding: PaddingManager.p10,
                     child: Material(
                       elevation: 10,
                       borderRadius: const BorderRadius.all(
@@ -48,9 +49,10 @@ class LoginScreen extends ConsumerWidget {
                               height: 20,
                             ),
                             LoginButton(
-                                auth: _auth,
-                                email: _email,
-                                password: _password),
+                              auth: _auth,
+                              email: _email,
+                              password: _password,
+                              ),
                             const RegisterButton()
                           ],
                         ),

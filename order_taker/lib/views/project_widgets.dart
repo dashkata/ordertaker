@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/themes/themes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:order_taker/views/resources/route_manager.dart';
+import 'package:order_taker/views/resources/style_manager.dart';
 import '../providers/profile_provider.dart';
 import '../providers/repository_providers.dart';
 
@@ -30,11 +31,7 @@ class NormalButtons extends StatelessWidget {
       size: GFSize.LARGE,
       color: mainColor,
       elevation: 10,
-      textStyle: GoogleFonts.roboto(
-        color: accentColor,
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-      ),
+      textStyle: Theme.of(context).textTheme.headline4,
     );
   }
 }
@@ -120,35 +117,25 @@ class DoubleTextField extends StatelessWidget {
     return SizedBox(
       height: 50,
       child: Material(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: Styles.buildBorderRadius(30),
         elevation: 10,
         child: TextField(
           onChanged: func,
           keyboardType: inputType,
           decoration: InputDecoration(
             prefixIcon: Icon(icon),
-            enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(30.0)),
-              borderSide: BorderSide(
-                color: accentColor,
-                width: 1,
-              ),
+            enabledBorder: Styles.buildOutlineBorder(
+              accentColor,
+              30,
             ),
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(30.0)),
-              borderSide: BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
+            border: Styles.buildOutlineBorder(
+              accentColor,
+              30,
             ),
             hintText: hintText,
             filled: true,
             fillColor: mainColor,
-            hintStyle: GoogleFonts.roboto(
-              color: accentColor,
-              fontSize: 15,
-              fontWeight: FontWeight.w300,
-            ),
+            hintStyle: Theme.of(context).textTheme.headline1,
           ),
           obscureText: obscure,
           autocorrect: false,
@@ -302,6 +289,8 @@ class LoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CircularProgressIndicator();
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
   }
 }

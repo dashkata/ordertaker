@@ -4,6 +4,7 @@ import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/shape/gf_button_shape.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:order_taker/views/resources/route_manager.dart';
 
 import '../Themes/themes.dart';
 import '../providers/confirm_reservation_providers.dart';
@@ -16,6 +17,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 part '../views/user_screens/restaurant_screen/widgets/number_of_people.dart';
 
 part '../views/user_screens/restaurant_screen/widgets/select_date.dart';
+
 class RestaurantDialogNotifier extends StateNotifier<void> {
   RestaurantDialogNotifier() : super(null);
 
@@ -132,6 +134,13 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
           ],
         );
       },
+    );
+  }
+
+  void navigateToRestaurantInfo(String restaurantTitle) {
+    navigatorKey.currentState!.pushNamed(
+      Routes.userRestaurantInfo,
+      arguments: restaurantTitle,
     );
   }
 }

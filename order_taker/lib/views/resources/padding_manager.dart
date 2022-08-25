@@ -16,4 +16,7 @@ class PaddingManager {
   static const EdgeInsetsGeometry p11 = EdgeInsets.all(20);
   static const EdgeInsetsGeometry p12 =
       EdgeInsets.symmetric(horizontal: 20.0, vertical: 25);
+  static const EdgeInsetsGeometry p13 = EdgeInsets.only(left: 30.0, bottom: 15);
+  static const EdgeInsetsGeometry p14 = EdgeInsets.only(left: 20);
+  static const EdgeInsetsGeometry p15 = EdgeInsets.only(right: 20);
 }

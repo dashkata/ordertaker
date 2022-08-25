@@ -26,15 +26,19 @@ class RestaurantScreen extends StatelessWidget {
               AsyncValue<List<Restaurant>> restaurants =
                   ref.watch(fetchRestaurantsProvider);
               return restaurants.when(
-                  data: (data) => ListView.builder(
-                        itemCount: data.length,
-                        itemBuilder: (BuildContext context, int index) =>
-                            RestaurantCard(
-                          restaurant: data[index],
-                        ),
-                      ),
-                  error: (e, s) => GFToast.showToast(e.toString(), context),
-                  loading: () => const LoadingIndicator());
+                data: (data) => ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      RestaurantCard(
+                    restaurant: data[index],
+                  ),
+                ),
+                error: (e, s) => GFToast.showToast(
+                  e.toString(),
+                  context,
+                ),
+                loading: () => const LoadingIndicator(),
+              );
             }),
           ),
         ],

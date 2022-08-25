@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:getwidget/components/toast/gf_toast.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Themes/themes.dart';
+import 'package:order_taker/providers/controller_providers.dart';
 import 'package:order_taker/providers/user_register_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:order_taker/views/resources/route_manager.dart';
-import '../../../providers/repository_providers.dart';
+import 'package:order_taker/views/resources/padding_manager.dart';
+import 'package:order_taker/views/resources/style_manager.dart';
+import 'package:order_taker/views/user_screens/register_screen/widgets/bottom_texts.dart';
+import 'package:order_taker/views/user_screens/register_screen/widgets/name_row.dart';
 import '../../project_widgets.dart';
 
 class RegisterScreen extends ConsumerWidget {
@@ -27,210 +28,80 @@ class RegisterScreen extends ConsumerWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 30.0, bottom: 5),
+                        padding: PaddingManager.p13,
                         child: Text(
                           text.register,
-                          style: GoogleFonts.roboto(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.headline2,
                         ),
                       ),
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20.0, right: 20),
+                    padding: PaddingManager.p10,
                     child: Material(
                       elevation: 10,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(30),
-                      ),
+                      borderRadius: Styles.buildBorderRadius(30),
                       child: Container(
                         decoration: contentContainerDecoration,
                         width: double.infinity,
-                        padding: const EdgeInsets.symmetric(vertical: 40),
+                        padding: PaddingManager.p8,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 20.0),
-                                    child: DoubleTextField(
-                                      func: (value) => ref
-                                          .read(firstNameProvider.notifier)
-                                          .update((state) => value),
-                                      hintText: text.first_name,
-                                      icon: Icons.person,
-                                      obscure: false,
-                                      inputType: TextInputType.name,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 20.0),
-                                    child: DoubleTextField(
-                                      func: (value) => ref
-                                          .read(lastNameProvider.notifier)
-                                          .update((state) => value),
-                                      hintText: text.last_name,
-                                      icon: Icons.person,
-                                      obscure: false,
-                                      inputType: TextInputType.name,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            NameRow(text: text),
                             TextFields(
-                              func: (value) {
-                                ref
-                                    .read(emailProvider.notifier)
-                                    .update((state) => value);
-                              },
+                              func: (value) => ref
+                                  .read(emailProvider.notifier)
+                                  .update((state) => value),
                               hintText: text.email_address,
                               icon: Icons.mail,
                               obscure: false,
                               inputType: TextInputType.emailAddress,
                             ),
                             TextFields(
-                              func: (value) {
-                                ref
-                                    .read(passwordProvider.notifier)
-                                    .update((state) => value);
-                              },
+                              func: (value) => ref
+                                  .read(passwordProvider.notifier)
+                                  .update((state) => value),
                               hintText: text.password,
                               icon: Icons.lock,
                               obscure: true,
                               inputType: TextInputType.text,
                             ),
                             TextFields(
-                              func: (value) {
-                                ref
-                                    .read(phoneNumberProvider.notifier)
-                                    .update((state) => value);
-                              },
+                              func: (value) => ref
+                                  .read(phoneNumberProvider.notifier)
+                                  .update((state) => value),
                               hintText: text.mobile_number,
                               icon: Icons.phone,
                               obscure: false,
                               inputType: TextInputType.phone,
                             ),
-                            Consumer(builder: (context, ref, child) {
-                              final _email = ref.watch(emailProvider);
-                              final _password = ref.watch(passwordProvider);
-                              final _firstName = ref.watch(firstNameProvider);
-                              final _lastName = ref.watch(lastNameProvider);
-                              final _phoneNumber =
-                                  ref.watch(phoneNumberProvider);
-                              final _auth = ref.watch(authRepositoryProvider);
-                              final _db =
-                                  ref.watch(firestoreRepositoryProvider);
-                              return Padding(
-                                padding: const EdgeInsets.only(top: 40.0),
-                                child: NormalButtons(
-                                  buttonText: text.email_address,
-                                  buttonFunc: () async {
-                                    GFToast.showToast(
-                                      await _auth
-                                          .signUp(
-                                            email: _email,
-                                            password: _password,
-                                          )
-                                          .then((value) => _auth
-                                              .getCurrentUser()!
-                                              .sendEmailVerification())
-                                          .then((value) => _db.setMobileNumber(
-                                              _auth.getCurrentUser()!.uid,
-                                              _phoneNumber))
-                                          .then((value) => _db.setUserType(
-                                              "Customer",
-                                              _auth.getCurrentUser()!.uid))
-                                          .then(
-                                            (value) => _auth.updateUserName(
-                                              name:
-                                                  _firstName + " " + _lastName,
-                                            ),
-                                          ),
-                                      context,
-                                    );
-                                    Navigator.popAndPushNamed(context, Routes.auth);
-                                  },
-                                ),
-                              );
-                            }),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      text.already_a_member,
-                                      style: GoogleFonts.roboto(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.popAndPushNamed(
-                                          context,
-                                          Routes.login,
-                                        );
-                                      },
-                                      child: Text(
-                                        text.login,
-                                        style: GoogleFonts.roboto(
-                                          color: accentColor,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
+                            Consumer(
+                              builder: (context, ref, child) {
+                                final _email = ref.watch(emailProvider);
+                                final _password = ref.watch(passwordProvider);
+                                final _firstName = ref.watch(firstNameProvider);
+                                final _lastName = ref.watch(lastNameProvider);
+                                final _mobileNumber =
+                                    ref.watch(phoneNumberProvider);
+                                return Padding(
+                                  padding: const EdgeInsets.only(top: 40.0),
+                                  child: NormalButtons(
+                                    buttonText: text.register,
+                                    buttonFunc: () => ref
+                                        .read(userRegisterProvider.notifier)
+                                        .register(
+                                          _email,
+                                          _password,
+                                          _mobileNumber,
+                                          _firstName,
+                                          _lastName,
                                         ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      text.or,
-                                      style: GoogleFonts.roboto(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.popAndPushNamed(
-                                          context,
-                                          '/restaurant_register',
-                                        );
-                                      },
-                                      child: Text(
-                                        text.click_here,
-                                        style: GoogleFonts.roboto(
-                                          color: accentColor,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      text.to_register_a_restaurant,
-                                      style: GoogleFonts.roboto(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                  ),
+                                );
+                              },
                             ),
+                            BottomTexts(text: text),
                           ],
                         ),
                       ),

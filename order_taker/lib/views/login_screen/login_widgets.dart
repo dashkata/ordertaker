@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/components/toast/gf_toast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/themes/themes.dart';
+import 'package:order_taker/views/resources/padding_manager.dart';
+import 'package:order_taker/views/resources/route_manager.dart';
 
 import '../../providers/login_provider.dart';
 import '../../repositories/auth_repository.dart';
@@ -20,11 +22,7 @@ class LoginText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: GoogleFonts.roboto(
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-        color: accentColor,
-      ),
+      style: Theme.of(context).textTheme.headline3,
     );
   }
 }
@@ -76,15 +74,15 @@ class RegisterButton extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-         LoginText(text: text.no_account),
+        LoginText(text: text.no_account),
         TextButton(
           onPressed: () {
             Navigator.popAndPushNamed(
               context,
-              '/register',
+              Routes.register,
             );
           },
-          child:  LoginText(
+          child: LoginText(
             text: text.register,
           ),
         )
@@ -104,14 +102,10 @@ class WelcomeTextWidget extends StatelessWidget {
     return Row(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 30.0, bottom: 15),
+          padding: PaddingManager.p13,
           child: Text(
             text.welcome,
-            style: GoogleFonts.roboto(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: complementaryColor,
-            ),
+            style: Theme.of(context).textTheme.headline2,
           ),
         ),
       ],

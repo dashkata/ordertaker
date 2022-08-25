@@ -28,12 +28,7 @@ class FindATableButton extends ConsumerWidget {
         shape: GFButtonShape.pills,
         text: text.find_a_table,
         color: mainColor,
-        textStyle: Styles.buildTextStyle(
-          accentColor,
-          15,
-          FontWeight.bold,
-          FontStyle.normal,
-        ),
+        textStyle: Theme.of(context).textTheme.headline4
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/providers/common_providers.dart';
+import 'package:order_taker/providers/controller_providers.dart';
 import 'package:order_taker/themes/themes.dart';
 import 'package:order_taker/views/project_widgets.dart';
 import 'package:order_taker/views/resources/padding_manager.dart';
@@ -12,20 +13,18 @@ import 'package:order_taker/views/resources/style_manager.dart';
 import '../../../../models/restaurant_model.dart';
 import 'find_a_table.dart';
 
-class RestaurantCard extends StatelessWidget {
+class RestaurantCard extends ConsumerWidget {
   const RestaurantCard({Key? key, required this.restaurant}) : super(key: key);
   final Restaurant restaurant;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: PaddingManager.p1,
       child: InkWell(
-        onTap: () => Navigator.pushNamed(
-          context,
-          Routes.userRestaurantInfo,
-          arguments: {"restaurant": restaurant.title},
-        ),
+        onTap: () => ref
+            .read(restaurantDialogNotifierProvider.notifier)
+            .navigateToRestaurantInfo(restaurant.title),
         child: Card(
           clipBehavior: Clip.antiAlias,
           shape: Styles.buildRoundedBorder(30),
@@ -35,6 +34,7 @@ class RestaurantCard extends StatelessWidget {
               Stack(
                 alignment: Alignment.center,
                 children: [
+                  //TODO update this
                   Consumer(builder: (context, ref, child) {
                     AsyncValue restaurantPic = ref.watch(
                       restaurantPictureProvider(
@@ -63,24 +63,14 @@ class RestaurantCard extends StatelessWidget {
               ListTile(
                 title: Text(
                   restaurant.title,
-                  style: Styles.buildTextStyle(
-                    accentColor,
-                    24,
-                    FontWeight.bold,
-                    FontStyle.normal,
-                  ),
+                  style: Theme.of(context).textTheme.headline5,
                 ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       restaurant.desc,
-                      style: Styles.buildTextStyle(
-                        accentColor,
-                        16,
-                        FontWeight.normal,
-                        FontStyle.italic,
-                      ),
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
