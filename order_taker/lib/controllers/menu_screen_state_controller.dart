@@ -7,8 +7,8 @@ import 'package:order_taker/models/reservation_model.dart';
 import '../Themes/themes.dart';
 import '../providers/repository_providers.dart';
 import '../views/resources/padding_manager.dart';
-import '../views/resources/string_manager.dart';
 import '../views/resources/style_manager.dart';
+
 
 class MenuScreenNotifier extends StateNotifier<List<OrderItem>> {
   MenuScreenNotifier(this.ref) : super([]);

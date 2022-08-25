@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/providers/repository_providers.dart';
 import 'package:order_taker/providers/services_provider.dart';
 import 'package:order_taker/themes/themes.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../models/reservation_model.dart';
 import '../../../providers/common_providers.dart';
 import '../../project_widgets.dart';
@@ -20,6 +20,8 @@ class ReservationCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final text = AppLocalizations.of(context)!;
+
     return Padding(
       padding: const EdgeInsets.all(15),
       child: GestureDetector(
@@ -73,7 +75,7 @@ class ReservationCard extends ConsumerWidget {
                       ),
                     ),
                     Text(
-                      "${reservation.numberOfPeople.toString()} people",
+                      "${reservation.numberOfPeople.toString()} ${text.people}",
                       style: GoogleFonts.roboto(
                         color: accentColor,
                         fontStyle: FontStyle.italic,
@@ -98,7 +100,7 @@ class ReservationCard extends ConsumerWidget {
                       shape: GFButtonShape.pills,
                       color: mainColor,
                       child: Text(
-                        "Cancel reservation",
+                        text.cancel_reservation,
                         style: GoogleFonts.roboto(
                           color: accentColor,
                           fontStyle: FontStyle.italic,

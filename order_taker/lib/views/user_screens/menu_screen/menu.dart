@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:order_taker/models/reservation_model.dart';
-import 'package:order_taker/views/resources/string_manager.dart';
 import 'package:order_taker/views/user_screens/menu_screen/widgets/bottom_navbar.dart';
 import 'package:order_taker/views/user_screens/menu_screen/widgets/menu_section.dart';
 import 'package:order_taker/views/user_screens/menu_screen/widgets/order_fab.dart';
 import '../../project_widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
@@ -21,6 +21,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
     final reservation =
         ModalRoute.of(context)!.settings.arguments as Reservation;
     return Scaffold(
@@ -47,28 +48,28 @@ class _MenuScreenState extends State<MenuScreen> {
                   ),
                   MenuSection(
                     sectionKey: appetizersKey,
-                    sectionTitle: StringManager.appetizers,
+                    sectionTitle: text.appetizers,
                   ),
                   const SizedBox(
                     height: 50,
                   ),
                   MenuSection(
                     sectionKey: dishesKey,
-                    sectionTitle: StringManager.dishes,
+                    sectionTitle: text.dishes,
                   ),
                   const SizedBox(
                     height: 50,
                   ),
                   MenuSection(
                     sectionKey: desertsKey,
-                    sectionTitle: StringManager.deserts,
+                    sectionTitle: text.deserts,
                   ),
                   const SizedBox(
                     height: 50,
                   ),
                   MenuSection(
                     sectionKey: drinksKey,
-                    sectionTitle: StringManager.drinks,
+                    sectionTitle: text.drinks,
                   ),
                 ],
               ),

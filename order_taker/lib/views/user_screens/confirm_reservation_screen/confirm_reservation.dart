@@ -8,7 +8,7 @@ import 'package:order_taker/providers/common_providers.dart';
 import 'package:order_taker/providers/confirm_reservation_providers.dart';
 import 'package:order_taker/providers/repository_providers.dart';
 import 'package:order_taker/providers/services_provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../project_widgets.dart';
 import '../../user_screens/restaurant_info_screen/restaurant_info_widget.dart';
 import 'confirm_reservation_widget.dart';
@@ -23,6 +23,7 @@ class ConfirmReservationScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final text = AppLocalizations.of(context)!;
     AsyncValue userDetails = ref.watch(detailsProvider);
     final reservationInfo = ModalRoute.of(context)!.settings.arguments as Map;
     AsyncValue restaurantPic = ref
@@ -102,7 +103,7 @@ class ConfirmReservationScreen extends ConsumerWidget {
                                           color: accentColor,
                                         ),
                                         Text(
-                                          "${reservationInfo["numberOfPeople"]} people",
+                                          "${reservationInfo["numberOfPeople"]} ${text.people}",
                                           style: GoogleFonts.roboto(
                                             fontSize: 15,
                                             fontStyle: FontStyle.italic,
@@ -116,23 +117,23 @@ class ConfirmReservationScreen extends ConsumerWidget {
                               ),
                               const InfoDivider(),
                               UserDetail(
-                                detailType: "Name",
+                                detailType: text.name,
                                 userDetail: data["name"],
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(right: 10.0),
                                 child: UserDetail(
-                                  detailType: "Email Address",
+                                  detailType: text.email_address,
                                   userDetail: data["email"],
                                 ),
                               ),
                               UserDetail(
-                                detailType: "Mobile Number",
+                                detailType: text.mobile_number,
                                 userDetail: data["phoneNumber"],
                               ),
                               Center(
                                 child: NormalButtons(
-                                    buttonText: "Confirm Reservation",
+                                    buttonText: text.confirm_reservation,
                                     buttonFunc: () {
                                       ref
                                           .read(userServicesProvider)
@@ -161,7 +162,7 @@ class ConfirmReservationScreen extends ConsumerWidget {
                                 padding: const EdgeInsets.only(top: 10.0),
                                 child: Center(
                                   child: NormalButtons(
-                                      buttonText: "Change Details",
+                                      buttonText: text.change_details,
                                       buttonFunc: () {
                                         //TODO change details
                                       }),

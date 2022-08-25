@@ -7,6 +7,7 @@ class _NumberOfPeopleWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final text = AppLocalizations.of(context)!;
     return Padding(
       padding: PaddingManager.p2,
       child: SizedBox(
@@ -21,7 +22,7 @@ class _NumberOfPeopleWidget extends ConsumerWidget {
               Colors.grey,
               20,
             ),
-            helperText: "Enter the number of people.",
+            helperText: text.enter_the_number_of_people,
           ),
           keyboardType: TextInputType.number,
         ),

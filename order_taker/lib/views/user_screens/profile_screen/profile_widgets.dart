@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/profile_provider.dart';
 import 'package:order_taker/providers/repository_providers.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileDivider extends StatelessWidget {
   const ProfileDivider({
@@ -39,6 +40,7 @@ class ProfileListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final text = AppLocalizations.of(context)!;
     final _auth = ref.watch(authRepositoryProvider);
     final _database = ref.watch(firestoreRepositoryProvider);
     final newDetail = ref.watch(changeControllerProvider);
@@ -97,9 +99,9 @@ class ProfileListTile extends ConsumerWidget {
                         return AlertDialog(
                           backgroundColor: mainColor,
                           title: Text(
-                            "Your email will be changed to: $newDetail."
+                            "${text.email_changed_to}: $newDetail."
                             "\n"
-                            "If you are sure about the change, go to the new email and verify it.",
+                            "${text.verify_email}",
                             style: GoogleFonts.roboto(
                               color: accentColor,
                               fontWeight: FontWeight.bold,

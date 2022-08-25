@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/themes/themes.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../providers/profile_provider.dart';
 import '../providers/repository_providers.dart';
 
@@ -225,6 +225,7 @@ class CustomDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final text = AppLocalizations.of(context)!;
     final _auth = ref.watch(authRepositoryProvider);
     final User user = _auth.getCurrentUser()!;
 
@@ -259,14 +260,14 @@ class CustomDrawer extends ConsumerWidget {
           ),
           DrawerTab(
               icon: Icons.local_pizza,
-              titleText: "Restaurants",
+              titleText: text.restaurants,
               func: () {
                 Navigator.pop(context);
                 Navigator.popAndPushNamed(context, '/restaurants');
               }),
           DrawerTab(
             icon: Icons.edit_note,
-            titleText: "Reservations",
+            titleText: text.reservations,
             func: () {
               Navigator.pop(context);
               Navigator.popAndPushNamed(context, '/reservations');
@@ -274,7 +275,7 @@ class CustomDrawer extends ConsumerWidget {
           ),
           DrawerTab(
             icon: Icons.person,
-            titleText: "Profile",
+            titleText: text.profile,
             func: () {
               Navigator.pop(context);
               Navigator.popAndPushNamed(context, '/profile');
@@ -282,7 +283,7 @@ class CustomDrawer extends ConsumerWidget {
           ),
           DrawerTab(
             icon: Icons.exit_to_app,
-            titleText: "Sign out",
+            titleText: text.log_out,
             func: () => _auth
                 .signout()
                 .then((value) => Navigator.pop(context))
