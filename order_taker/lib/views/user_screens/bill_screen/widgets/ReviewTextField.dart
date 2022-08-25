@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:order_taker/views/resources/string_manager.dart';
 import 'package:order_taker/views/resources/style_manager.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../themes/themes.dart';
 
 class ReviewTextField extends StatelessWidget {
@@ -11,6 +10,7 @@ class ReviewTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
     return TextField(
       decoration: InputDecoration(
         enabledBorder: Styles.buildOutlineBorder(
@@ -21,7 +21,7 @@ class ReviewTextField extends StatelessWidget {
           complementaryColor,
           30,
         ),
-        hintText: StringManager.writeAReview,
+        hintText: text.write_a_review,
         filled: true,
         fillColor: mainColor,
         hintStyle: Styles.buildTextStyle(

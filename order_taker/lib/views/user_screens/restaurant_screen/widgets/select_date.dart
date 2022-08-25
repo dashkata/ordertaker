@@ -7,6 +7,7 @@ class _SelectDateWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final text = AppLocalizations.of(context)!;
     return SizedBox(
       height: 60,
       child: TextField(
@@ -21,7 +22,7 @@ class _SelectDateWidget extends ConsumerWidget {
             20,
           ),
           contentPadding: PaddingManager.p3,
-          helperText: "Select a date for your reservation",
+          helperText: text.select_date,
           hintText: ref.watch(userDateProvider),
         ),
         onTap: () => ref

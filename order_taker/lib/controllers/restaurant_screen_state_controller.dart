@@ -11,11 +11,11 @@ import '../providers/controller_providers.dart';
 import '../providers/user_restaurant_providers.dart';
 import '../views/resources/padding_manager.dart';
 import '../views/resources/style_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part '../views/user_screens/restaurant_screen/widgets/number_of_people.dart';
 
 part '../views/user_screens/restaurant_screen/widgets/select_date.dart';
-
 class RestaurantDialogNotifier extends StateNotifier<void> {
   RestaurantDialogNotifier() : super(null);
 

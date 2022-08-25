@@ -7,6 +7,7 @@ import 'package:order_taker/themes/themes.dart';
 import '../../providers/login_provider.dart';
 import '../../repositories/auth_repository.dart';
 import '../project_widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginText extends StatelessWidget {
   const LoginText({
@@ -48,7 +49,7 @@ class LoginButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 30.0, bottom: 20),
       child: NormalButtons(
-          buttonText: "Login",
+          buttonText: AppLocalizations.of(context)!.login,
           buttonFunc: () async {
             GFToast.showToast(
               await _auth.signIn(
@@ -71,10 +72,11 @@ class RegisterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const LoginText(text: "Don't have an Account?"),
+         LoginText(text: text.no_account),
         TextButton(
           onPressed: () {
             Navigator.popAndPushNamed(
@@ -82,8 +84,8 @@ class RegisterButton extends StatelessWidget {
               '/register',
             );
           },
-          child: const LoginText(
-            text: "Register",
+          child:  LoginText(
+            text: text.register,
           ),
         )
       ],
@@ -98,12 +100,13 @@ class WelcomeTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
     return Row(
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 30.0, bottom: 15),
           child: Text(
-            "Welcome",
+            text.welcome,
             style: GoogleFonts.roboto(
               fontSize: 28,
               fontWeight: FontWeight.bold,
@@ -123,10 +126,11 @@ class EmailTextField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final text = AppLocalizations.of(context)!;
     return TextFields(
       func: (value) =>
           ref.read(emailProvider.notifier).update((state) => value),
-      hintText: "Email",
+      hintText: text.email,
       icon: Icons.email,
       obscure: false,
       inputType: TextInputType.emailAddress,
@@ -141,10 +145,11 @@ class PasswordTextField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final text = AppLocalizations.of(context)!;
     return TextFields(
       func: (value) =>
           ref.read(passwordProvider.notifier).update((state) => value),
-      hintText: "Password",
+      hintText: text.password,
       icon: Icons.password,
       obscure: true,
       inputType: TextInputType.text,

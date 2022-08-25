@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/controller_providers.dart';
 import 'package:order_taker/views/resources/style_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FindATableButton extends ConsumerWidget {
   const FindATableButton({
@@ -16,6 +17,7 @@ class FindATableButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final text = AppLocalizations.of(context)!;
     return SizedBox(
       width: 150,
       child: GFButton(
@@ -24,7 +26,7 @@ class FindATableButton extends ConsumerWidget {
             .showDetailsDialog(context, resTitle, ref),
         elevation: 10,
         shape: GFButtonShape.pills,
-        text: "Find a Table",
+        text: text.find_a_table,
         color: mainColor,
         textStyle: Styles.buildTextStyle(
           accentColor,

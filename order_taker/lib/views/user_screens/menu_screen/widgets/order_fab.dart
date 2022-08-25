@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/views/resources/padding_manager.dart';
-import 'package:order_taker/views/resources/string_manager.dart';
 import 'package:order_taker/views/resources/style_manager.dart';
 import '../../../../Themes/themes.dart';
 import '../../../../models/reservation_model.dart';
 import '../../../../providers/controller_providers.dart';
 import 'package:getwidget/getwidget.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class OrderFAB extends StatelessWidget {
   const OrderFAB({
     Key? key,
@@ -18,6 +16,7 @@ class OrderFAB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
     return Stack(
       alignment: AlignmentDirectional.bottomStart,
       children: [
@@ -36,7 +35,7 @@ class OrderFAB extends StatelessWidget {
                     ),
             elevation: 10,
             child: Text(
-              StringManager.order,
+              text.order,
               style: Styles.buildTextStyle(
                 accentColor,
                 15,
@@ -99,7 +98,7 @@ class _OrderFABActions extends StatelessWidget {
           color: mainColor,
           elevation: 10,
           padding: PaddingManager.p10,
-          text: StringManager.completeOrder,
+          // text: StringManager.completeOrder,
           textStyle: Styles.buildTextStyle(
             accentColor,
             15,
@@ -169,9 +168,10 @@ class _OrderFABTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
     return Center(
       child: Text(
-        StringManager.completeOrder,
+        text.complete_order,
         style: Styles.buildTextStyle(
           accentColor,
           20,

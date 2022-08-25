@@ -4,7 +4,7 @@ import 'package:getwidget/components/toast/gf_toast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/user_register_provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../providers/repository_providers.dart';
 import '../../project_widgets.dart';
 
@@ -13,6 +13,7 @@ class RegisterScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final text = AppLocalizations.of(context)!;
     return Scaffold(
       body: Stack(
         children: [
@@ -27,7 +28,7 @@ class RegisterScreen extends ConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 30.0, bottom: 5),
                         child: Text(
-                          "Register",
+                          text.register,
                           style: GoogleFonts.roboto(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
@@ -59,7 +60,7 @@ class RegisterScreen extends ConsumerWidget {
                                       func: (value) => ref
                                           .read(firstNameProvider.notifier)
                                           .update((state) => value),
-                                      hintText: "First Name",
+                                      hintText: text.first_name,
                                       icon: Icons.person,
                                       obscure: false,
                                       inputType: TextInputType.name,
@@ -73,7 +74,7 @@ class RegisterScreen extends ConsumerWidget {
                                       func: (value) => ref
                                           .read(lastNameProvider.notifier)
                                           .update((state) => value),
-                                      hintText: "Last Name",
+                                      hintText: text.last_name,
                                       icon: Icons.person,
                                       obscure: false,
                                       inputType: TextInputType.name,
@@ -88,7 +89,7 @@ class RegisterScreen extends ConsumerWidget {
                                     .read(emailProvider.notifier)
                                     .update((state) => value);
                               },
-                              hintText: "Email Address",
+                              hintText: text.email_address,
                               icon: Icons.mail,
                               obscure: false,
                               inputType: TextInputType.emailAddress,
@@ -99,7 +100,7 @@ class RegisterScreen extends ConsumerWidget {
                                     .read(passwordProvider.notifier)
                                     .update((state) => value);
                               },
-                              hintText: "Password",
+                              hintText: text.password,
                               icon: Icons.lock,
                               obscure: true,
                               inputType: TextInputType.text,
@@ -110,7 +111,7 @@ class RegisterScreen extends ConsumerWidget {
                                     .read(phoneNumberProvider.notifier)
                                     .update((state) => value);
                               },
-                              hintText: "Mobile Number",
+                              hintText: text.mobile_number,
                               icon: Icons.phone,
                               obscure: false,
                               inputType: TextInputType.phone,
@@ -128,7 +129,7 @@ class RegisterScreen extends ConsumerWidget {
                               return Padding(
                                 padding: const EdgeInsets.only(top: 40.0),
                                 child: NormalButtons(
-                                  buttonText: "Sign up",
+                                  buttonText: text.email_address,
                                   buttonFunc: () async {
                                     GFToast.showToast(
                                       await _auth
@@ -165,7 +166,7 @@ class RegisterScreen extends ConsumerWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Already a Member?",
+                                      text.already_a_member,
                                       style: GoogleFonts.roboto(
                                         color: Colors.black,
                                         fontSize: 18,
@@ -178,7 +179,7 @@ class RegisterScreen extends ConsumerWidget {
                                             context, '/login');
                                       },
                                       child: Text(
-                                        "Sign in",
+                                        text.login,
                                         style: GoogleFonts.roboto(
                                           color: accentColor,
                                           fontSize: 18,
@@ -192,7 +193,7 @@ class RegisterScreen extends ConsumerWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Or",
+                                      text.or,
                                       style: GoogleFonts.roboto(
                                         color: Colors.black,
                                         fontSize: 18,
@@ -216,7 +217,7 @@ class RegisterScreen extends ConsumerWidget {
                                       ),
                                     ),
                                     Text(
-                                      "to register a restaurant",
+                                      text.to_register_a_restaurant,
                                       style: GoogleFonts.roboto(
                                         color: Colors.black,
                                         fontSize: 18,

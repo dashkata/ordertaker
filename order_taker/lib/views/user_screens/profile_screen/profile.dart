@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/profile_provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../providers/repository_providers.dart';
 import '../../project_widgets.dart';
 import 'profile_widgets.dart';
@@ -18,6 +18,7 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final text = AppLocalizations.of(context)!;
     final _auth = ref.watch(authRepositoryProvider);
     final User user = _auth.getCurrentUser()!;
     final ImagePicker _imagePicker = ImagePicker();
@@ -91,7 +92,7 @@ class ProfileScreen extends ConsumerWidget {
                                       backgroundColor: complementaryColor,
                                       title: Center(
                                         child: (Text(
-                                          "Choose an option",
+                                          text.choose_an_option,
                                           style: GoogleFonts.roboto(
                                             color: accentColor,
                                             fontWeight: FontWeight.bold,
@@ -103,7 +104,7 @@ class ProfileScreen extends ConsumerWidget {
                                           children: [
                                             ListTile(
                                               leading: const Icon(Icons.camera),
-                                              title: const Text("Camera"),
+                                              title: Text(text.camera),
                                               onTap: () async {
                                                 await _imagePicker
                                                     .pickImage(
@@ -134,8 +135,7 @@ class ProfileScreen extends ConsumerWidget {
                                             ListTile(
                                               leading: const Icon(
                                                   Icons.browse_gallery),
-                                              title:
-                                                  const Text("Browse gallery"),
+                                              title: Text(text.browse_gallery),
                                               onTap: () async {
                                                 await _imagePicker
                                                     .pickImage(
@@ -181,9 +181,9 @@ class ProfileScreen extends ConsumerWidget {
                   ProfileListTile(
                     detail: user.displayName!,
                     icon: Icons.person,
-                    hintText: "Change name",
+                    hintText: text.change_name,
                     changeProvider: nameChangeProvider,
-                    detailType: "Name",
+                    detailType: text.name,
                     obscure: false,
                   ),
                   const ProfileDivider(),
@@ -196,9 +196,9 @@ class ProfileScreen extends ConsumerWidget {
                         error: (e, s) => "Mobile number not set",
                         loading: () => " "),
                     icon: Icons.phone,
-                    hintText: "Change mobile number",
+                    hintText: text.change_mobile_number,
                     changeProvider: phoneChangeProvider,
-                    detailType: "Mobile Number",
+                    detailType: text.mobile_number,
                     obscure: false,
                   ),
                   const ProfileDivider(),
@@ -208,8 +208,8 @@ class ProfileScreen extends ConsumerWidget {
                   ProfileListTile(
                     detail: user.email!,
                     icon: Icons.mail,
-                    hintText: "Change email addresss",
-                    detailType: "Email",
+                    hintText: text.change_email_address,
+                    detailType: text.email,
                     changeProvider: emailChangeProvider,
                     obscure: false,
                   ),
@@ -220,9 +220,9 @@ class ProfileScreen extends ConsumerWidget {
                   ProfileListTile(
                     detail: "*********",
                     icon: Icons.password,
-                    hintText: "Enter your new password",
+                    hintText: text.enter_your_new_password,
                     changeProvider: passwordChangeProvider,
-                    detailType: "Password",
+                    detailType: text.password,
                     obscure: true,
                   ),
                 ],

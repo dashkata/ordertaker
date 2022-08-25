@@ -1,12 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:order_taker/models/order_model.dart';
-import 'package:order_taker/providers/bill_screen_providers.dart';
-import 'package:order_taker/themes/themes.dart';
-import 'package:order_taker/views/resources/string_manager.dart';
-import 'package:order_taker/views/resources/style_manager.dart';
 import 'package:order_taker/views/user_screens/bill_screen/widgets/ReviewTextField.dart';
 import 'package:order_taker/views/user_screens/bill_screen/widgets/order_list.dart';
 import 'package:order_taker/views/user_screens/bill_screen/widgets/pay_button.dart';

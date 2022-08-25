@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../Themes/themes.dart';
-import '../../../resources/string_manager.dart';
 import '../../../resources/style_manager.dart';
 
 class PayButton extends StatelessWidget {
@@ -12,13 +11,14 @@ class PayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
     return SizedBox(
       width: 150,
       child: GFButton(
         onPressed: () {},
         shape: GFButtonShape.pills,
         color: complementaryColor,
-        text: StringManager.pay,
+        text: text.pay,
         textStyle: Styles.buildTextStyle(
           accentColor,
           15,
