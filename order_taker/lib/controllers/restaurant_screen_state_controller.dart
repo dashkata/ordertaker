@@ -9,7 +9,12 @@ import '../Themes/themes.dart';
 import '../providers/confirm_reservation_providers.dart';
 import '../providers/controller_providers.dart';
 import '../providers/user_restaurant_providers.dart';
-import '../views/user_screens/restaurant_screen/restaurant_widget.dart';
+import '../views/resources/padding_manager.dart';
+import '../views/resources/style_manager.dart';
+
+part '../views/user_screens/restaurant_screen/widgets/number_of_people.dart';
+
+part '../views/user_screens/restaurant_screen/widgets/select_date.dart';
 
 class RestaurantDialogNotifier extends StateNotifier<void> {
   RestaurantDialogNotifier() : super(null);
@@ -90,20 +95,21 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
 
   void showDetailsDialog(BuildContext context, String resTitle, WidgetRef ref) {
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            backgroundColor: mainColor,
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                SelectDateWidget(),
-                NumberOfPeopleWidget(),
-              ],
-            ),
-            actions: [
-              Center(
-                child: Consumer(builder: (context, ref, child) {
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: mainColor,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              _SelectDateWidget(),
+              _NumberOfPeopleWidget(),
+            ],
+          ),
+          actions: [
+            Center(
+              child: Consumer(
+                builder: (context, ref, child) {
                   return GFButton(
                     color: complementaryColor,
                     shape: GFButtonShape.pills,
@@ -120,10 +126,12 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
                           .confirmReservation(context, ref, resTitle);
                     },
                   );
-                }),
+                },
               ),
-            ],
-          );
-        });
+            ),
+          ],
+        );
+      },
+    );
   }
 }

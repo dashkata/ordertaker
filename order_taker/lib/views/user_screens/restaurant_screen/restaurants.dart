@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/restaurant_screen_providers.dart';
-import 'package:order_taker/views/user_screens/restaurant_screen/restaurant_widget.dart';
+import 'package:order_taker/views/user_screens/restaurant_screen/widgets/restaurant_card.dart';
 
 import '../../../models/restaurant_model.dart';
 import '../../project_widgets.dart';
