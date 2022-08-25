@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:order_taker/views/resources/route_manager.dart';
 import '../../../../Themes/themes.dart';
 import '../../../../models/reservation_model.dart';
 import '../../../../providers/menu_screen_providers.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class SectionNavBar extends ConsumerWidget {
   const SectionNavBar({
     Key? key,
@@ -42,7 +44,11 @@ class SectionNavBar extends ConsumerWidget {
         case 4:
           Scrollable.ensureVisible(appetizersKey.currentContext!);
           ref.refresh(navBarIndexProvider);
-          Navigator.pushNamed(context, '/bill', arguments: reservation);
+          Navigator.pushNamed(
+            context,
+            Routes.userBill,
+            arguments: reservation,
+          );
           break;
       }
     }
@@ -52,7 +58,7 @@ class SectionNavBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final text = AppLocalizations.of(context)!;
     return BottomNavigationBar(
-      items:  <BottomNavigationBarItem>[
+      items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.food_bank),
           label: text.appetizers,

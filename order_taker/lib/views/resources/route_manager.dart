@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:order_taker/views/auth_screen/auth_checker_screen.dart';
 import 'package:order_taker/views/login_screen/login.dart';
+import 'package:order_taker/views/user_screens/bill_screen/bill.dart';
 import 'package:order_taker/views/user_screens/confirm_reservation_screen/confirm_reservation.dart';
 import 'package:order_taker/views/user_screens/menu_screen/menu.dart';
 import 'package:order_taker/views/user_screens/profile_screen/profile.dart';
@@ -19,6 +20,7 @@ class Routes {
   static const String userRestaurantInfo = 'user_restaurant_info';
   static const String userMenu = 'user_menu';
   static const String userConfirmReserveration = 'user_confirm_reservation';
+  static const String userBill = 'bill';
 }
 
 class AppRouter {
@@ -51,6 +53,7 @@ class AppRouter {
       case Routes.userRestaurantInfo:
         return MaterialPageRoute(
           builder: (_) => const RestaurantInfoScreen(),
+          settings: settings,
         );
       case Routes.userMenu:
         return MaterialPageRoute(
@@ -59,6 +62,10 @@ class AppRouter {
       case Routes.userConfirmReserveration:
         return MaterialPageRoute(
           builder: (_) => const ConfirmReservationScreen(),
+        );
+      case Routes.userBill:
+        return MaterialPageRoute(
+          builder: (_) => const BillScreen(),
         );
 
       default:

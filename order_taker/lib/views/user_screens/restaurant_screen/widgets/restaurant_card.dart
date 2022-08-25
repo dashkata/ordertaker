@@ -7,6 +7,7 @@ import 'package:order_taker/providers/common_providers.dart';
 import 'package:order_taker/themes/themes.dart';
 import 'package:order_taker/views/project_widgets.dart';
 import 'package:order_taker/views/resources/padding_manager.dart';
+import 'package:order_taker/views/resources/route_manager.dart';
 import 'package:order_taker/views/resources/style_manager.dart';
 import '../../../../models/restaurant_model.dart';
 import 'find_a_table.dart';
@@ -22,7 +23,7 @@ class RestaurantCard extends StatelessWidget {
       child: InkWell(
         onTap: () => Navigator.pushNamed(
           context,
-          '/restaurant_info',
+          Routes.userRestaurantInfo,
           arguments: {"restaurant": restaurant.title},
         ),
         child: Card(

@@ -6,6 +6,7 @@ import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/profile_provider.dart';
 import 'package:order_taker/providers/repository_providers.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:order_taker/views/resources/route_manager.dart';
 
 class ProfileDivider extends StatelessWidget {
   const ProfileDivider({
@@ -90,7 +91,10 @@ class ProfileListTile extends ConsumerWidget {
                     context,
                     toastDuration: 5,
                   );
-                  Navigator.popAndPushNamed(context, '/auth');
+                  Navigator.popAndPushNamed(
+                    context,
+                    Routes.auth,
+                  );
                   break;
                 case "Email":
                   showDialog(
@@ -121,7 +125,10 @@ class ProfileListTile extends ConsumerWidget {
                                   );
                                   await _auth.signout();
 
-                                  Navigator.popAndPushNamed(context, '/auth');
+                                  Navigator.popAndPushNamed(
+                                    context,
+                                    Routes.auth,
+                                  );
                                 },
                                 text: "OK",
                                 textStyle: GoogleFonts.roboto(
@@ -144,7 +151,7 @@ class ProfileListTile extends ConsumerWidget {
                     context,
                     toastDuration: 5,
                   );
-                  Navigator.popAndPushNamed(context, '/auth');
+                  Navigator.popAndPushNamed(context, Routes.auth);
 
                   break;
                 case "Password":

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/themes/themes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ButtonRow extends StatelessWidget {
   const ButtonRow({
@@ -10,23 +11,24 @@ class ButtonRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         InfoButton(
-          buttonText: "Overview",
+          buttonText: text.overview,
           func: () {},
         ),
         InfoButton(
-          buttonText: "Photos",
+          buttonText: text.photos,
           func: () {},
         ),
         InfoButton(
-          buttonText: "Menu",
+          buttonText: text.menu,
           func: () {},
         ),
         InfoButton(
-          buttonText: "Reviews",
+          buttonText: text.reviews,
           func: () {},
         ),
       ],

@@ -7,6 +7,7 @@ import 'package:order_taker/providers/repository_providers.dart';
 import 'package:order_taker/providers/services_provider.dart';
 import 'package:order_taker/themes/themes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:order_taker/views/resources/route_manager.dart';
 import '../../../models/reservation_model.dart';
 import '../../../providers/common_providers.dart';
 import '../../project_widgets.dart';
@@ -25,8 +26,11 @@ class ReservationCard extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.all(15),
       child: GestureDetector(
-        onTap: () =>
-            Navigator.popAndPushNamed(context, '/menu', arguments: reservation),
+        onTap: () => Navigator.popAndPushNamed(
+          context,
+          Routes.userMenu,
+          arguments: reservation,
+        ),
         child: Card(
           color: complementaryColor,
           elevation: 10,

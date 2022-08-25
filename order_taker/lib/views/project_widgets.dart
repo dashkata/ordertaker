@@ -6,6 +6,7 @@ import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/themes/themes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:order_taker/views/resources/route_manager.dart';
 import '../providers/profile_provider.dart';
 import '../providers/repository_providers.dart';
 
@@ -263,14 +264,14 @@ class CustomDrawer extends ConsumerWidget {
               titleText: text.restaurants,
               func: () {
                 Navigator.pop(context);
-                Navigator.popAndPushNamed(context, '/restaurants');
+                Navigator.popAndPushNamed(context, Routes.userRestaurants);
               }),
           DrawerTab(
             icon: Icons.edit_note,
             titleText: text.reservations,
             func: () {
               Navigator.pop(context);
-              Navigator.popAndPushNamed(context, '/reservations');
+              Navigator.popAndPushNamed(context, Routes.userReservations);
             },
           ),
           DrawerTab(
@@ -278,16 +279,17 @@ class CustomDrawer extends ConsumerWidget {
             titleText: text.profile,
             func: () {
               Navigator.pop(context);
-              Navigator.popAndPushNamed(context, '/profile');
+              Navigator.popAndPushNamed(context, Routes.profile);
             },
           ),
           DrawerTab(
             icon: Icons.exit_to_app,
             titleText: text.log_out,
-            func: () => _auth
-                .signout()
-                .then((value) => Navigator.pop(context))
-                .then((value) => Navigator.popAndPushNamed(context, '/login')),
+            func: () =>
+                _auth.signout().then((value) => Navigator.pop(context)).then(
+                      (value) =>
+                          Navigator.popAndPushNamed(context, Routes.login),
+                    ),
           ),
         ],
       ),

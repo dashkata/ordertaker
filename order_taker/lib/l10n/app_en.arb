@@ -35,12 +35,16 @@
     "or" : "Or",
     "click_here" : "click here",
     "to_register_a_restaurant" : "to register a restaurant",
-     "cancel_reservation" : "Cancel reservation",
-     "find_a_table" : "Find a Table",
-     "enter_the_number_of_people" : "Enter the number of people.",
-     "select_date" : "Select a date for your reservation",
-     "restaurants" : "Restaurants",
-     "reservations" : "Reservations",
-     "profile" : "Profile",
-     "log_out" : "Log out"
-     }
+    "cancel_reservation" : "Cancel reservation",
+    "find_a_table" : "Find a Table",
+    "enter_the_number_of_people" : "Enter the number of people.",
+    "select_date" : "Select a date for your reservation",
+    "restaurants" : "Restaurants",
+    "reservations" : "Reservations",
+    "profile" : "Profile",
+    "log_out" : "Log out"
+    "overview" : "Overview",
+    "photos" : "Photos",
+    "menu" : "Menu",
+    "reviews" : "Reviews"
+}

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/user_register_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:order_taker/views/resources/route_manager.dart';
 import '../../../providers/repository_providers.dart';
 import '../../project_widgets.dart';
 
@@ -154,7 +155,7 @@ class RegisterScreen extends ConsumerWidget {
                                           ),
                                       context,
                                     );
-                                    Navigator.popAndPushNamed(context, '/auth');
+                                    Navigator.popAndPushNamed(context, Routes.auth);
                                   },
                                 ),
                               );
@@ -176,7 +177,9 @@ class RegisterScreen extends ConsumerWidget {
                                     TextButton(
                                       onPressed: () {
                                         Navigator.popAndPushNamed(
-                                            context, '/login');
+                                          context,
+                                          Routes.login,
+                                        );
                                       },
                                       child: Text(
                                         text.login,
@@ -208,7 +211,7 @@ class RegisterScreen extends ConsumerWidget {
                                         );
                                       },
                                       child: Text(
-                                        "click here",
+                                        text.click_here,
                                         style: GoogleFonts.roboto(
                                           color: accentColor,
                                           fontSize: 18,

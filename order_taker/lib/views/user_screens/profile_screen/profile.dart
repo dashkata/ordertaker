@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/providers/profile_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:order_taker/views/resources/route_manager.dart';
 import '../../../providers/repository_providers.dart';
 import '../../project_widgets.dart';
 import 'profile_widgets.dart';
@@ -126,7 +127,7 @@ class ProfileScreen extends ConsumerWidget {
                                                     Navigator.pop(context);
                                                     Navigator.popAndPushNamed(
                                                       context,
-                                                      '/auth',
+                                                      Routes.auth,
                                                     );
                                                   }
                                                 });
@@ -157,7 +158,7 @@ class ProfileScreen extends ConsumerWidget {
                                                       Navigator.pop(context);
                                                       Navigator.popAndPushNamed(
                                                         context,
-                                                        '/auth',
+                                                        Routes.auth,
                                                       );
                                                     }
                                                   },
