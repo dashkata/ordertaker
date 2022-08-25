@@ -37,8 +37,8 @@ class MenuScreenNotifier extends StateNotifier<List<OrderItem>> {
   }
 }
 
-class MenuDialogsNotifier extends StateNotifier<void> {
-  MenuDialogsNotifier() : super(null);
+class MenuFunctionsNotifier extends StateNotifier<void> {
+  MenuFunctionsNotifier() : super(null);
 
   Future<void> showOrderFABDialog(
     Widget content,

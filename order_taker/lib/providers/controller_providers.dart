@@ -20,5 +20,5 @@ final menuCardsControllerProvider =
   return MenuScreenNotifier(ref);
 });
 
-final menuDialogProvider = StateNotifierProvider<MenuDialogsNotifier, void>(
-    (ref) => MenuDialogsNotifier());
+final menuDialogProvider = StateNotifierProvider<MenuFunctionsNotifier, void>(
+    (ref) => MenuFunctionsNotifier());

@@ -5,9 +5,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/models/order_model.dart';
 import 'package:order_taker/providers/bill_screen_providers.dart';
 import 'package:order_taker/themes/themes.dart';
+import 'package:order_taker/views/resources/string_manager.dart';
+import 'package:order_taker/views/resources/style_manager.dart';
+import 'package:order_taker/views/user_screens/bill_screen/widgets/ReviewTextField.dart';
+import 'package:order_taker/views/user_screens/bill_screen/widgets/order_list.dart';
+import 'package:order_taker/views/user_screens/bill_screen/widgets/pay_button.dart';
 
 import '../../../models/reservation_model.dart';
 import '../../project_widgets.dart';
+import '../../resources/padding_manager.dart';
 
 class BillScreen extends StatelessWidget {
   const BillScreen({Key? key}) : super(key: key);
@@ -18,8 +24,9 @@ class BillScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as Reservation;
     return Scaffold(
       floatingActionButton: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios)),
+        onPressed: () => Navigator.pop(context),
+        icon: const Icon(Icons.arrow_back_ios),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: Stack(
         children: [
@@ -29,98 +36,16 @@ class BillScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 20,
-                  ),
-                  child: Material(
-                    elevation: 10,
-                    borderRadius: BorderRadius.circular(40),
-                    child: Container(
-                      width: double.infinity,
-                      height: 300,
-                      decoration: BoxDecoration(
-                        color: complementaryColor,
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: Consumer(
-                        builder: (BuildContext context, WidgetRef ref,
-                            Widget? child) {
-                          AsyncValue<List<Order>> futureOrders =
-                              ref.watch(fetchOrdersProvider(reservation));
-                          return futureOrders.when(
-                            data: (orders) => ListView.builder(
-                              itemCount: orders.length,
-                              itemBuilder:
-                                  (BuildContext context, int ordersIndex) =>
-                                      Column(
-                                children: List.generate(
-                                  orders[ordersIndex].menuItems.length,
-                                  (menuIndex) => Text(
-                                    orders[ordersIndex]
-                                        .menuItems[menuIndex]
-                                        .itemIngredients,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            error: (e, s) => Text(
-                              e.toString(),
-                            ),
-                            loading: () => const LoadingIndicator(),
-                          );
-                        },
-                      ),
-                    ),
+                  padding: PaddingManager.p11,
+                  child: OrdersList(
+                    reservation: reservation,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 25),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      enabledBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                        borderSide: BorderSide(
-                          color: accentColor,
-                          width: 1,
-                        ),
-                      ),
-                      border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                        borderSide: BorderSide(
-                          color: Colors.black,
-                          width: 1,
-                        ),
-                      ),
-                      hintText: "Write a review (optional)",
-                      filled: true,
-                      fillColor: mainColor,
-                      hintStyle: GoogleFonts.roboto(
-                          color: accentColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w300),
-                    ),
-                    autocorrect: false,
-                    maxLength: 200,
-                    maxLines: 4,
-                  ),
+                const Padding(
+                  padding: PaddingManager.p12,
+                  child: ReviewTextField(),
                 ),
-                SizedBox(
-                  width: 150,
-                  child: GFButton(
-                    onPressed: () {},
-                    shape: GFButtonShape.pills,
-                    color: complementaryColor,
-                    text: "Pay",
-                    textStyle: GoogleFonts.roboto(
-                      color: accentColor,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    elevation: 10,
-                  ),
-                ),
+                const PayButton(),
               ],
             ),
           ),

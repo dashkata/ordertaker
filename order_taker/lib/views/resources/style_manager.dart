@@ -17,7 +17,7 @@ class Styles {
     );
   }
 
-  static BorderRadiusGeometry buildBorderRadius(double radius) {
+  static BorderRadius buildBorderRadius(double radius) {
     return BorderRadius.all(
       Radius.circular(radius),
     );
@@ -27,6 +27,16 @@ class Styles {
     return BoxDecoration(
       color: color,
       borderRadius: buildBorderRadius(radius),
+    );
+  }
+
+  static InputBorder buildOutlineBorder(Color color, double radius) {
+    return OutlineInputBorder(
+      borderRadius: buildBorderRadius(radius),
+      borderSide: BorderSide(
+        color: color,
+        width: 1,
+      ),
     );
   }
 }
