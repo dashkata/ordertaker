@@ -35,35 +35,20 @@ class MenuCard extends ConsumerWidget {
             children: [
               Text(
                 orderItem.itemTitle,
-                style: Styles.buildTextStyle(
-                  accentColor,
-                  16,
-                  FontWeight.bold,
-                  FontStyle.italic,
-                ),
+                style: Theme.of(context).textTheme.headline3,
               ),
               const SizedBox(
                 height: 5,
               ),
               Text(
                 orderItem.itemPrice,
-                style: Styles.buildTextStyle(
-                  accentColor,
-                  15,
-                  FontWeight.normal,
-                  FontStyle.italic,
-                ),
+                style: Theme.of(context).textTheme.headline3,
               ),
             ],
           ),
           description: Text(
             orderItem.itemIngredients,
-            style: Styles.buildTextStyle(
-              accentColor,
-              10,
-              FontWeight.normal,
-              FontStyle.italic,
-            ),
+            style: Theme.of(context).textTheme.headline1,
           ),
           onTap: () => ref
               .read(menuCardsControllerProvider.notifier)

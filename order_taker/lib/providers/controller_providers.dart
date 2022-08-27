@@ -5,7 +5,9 @@ import 'package:order_taker/controllers/storage_state_notifier.dart';
 import 'package:order_taker/models/menu_item_model.dart';
 import 'package:order_taker/providers/repository_providers.dart';
 import 'package:order_taker/providers/services_provider.dart';
+import 'package:order_taker/views/user_screens/profile_screen/controllers/user_profile_controller.dart';
 import 'package:order_taker/views/user_screens/register_screen/controllers/user_register_controller.dart';
+import 'package:order_taker/views/user_screens/reservations_screen/controllers/user_reservation_state.dart';
 
 final restaurantDialogNotifierProvider =
     StateNotifierProvider<RestaurantDialogNotifier, void>((ref) {
@@ -30,5 +32,25 @@ final userRegisterProvider =
   (ref) => UserRegisterScreenNotifier(
     authRepository: ref.watch(authRepositoryProvider),
     firestoreRepository: ref.watch(firestoreRepositoryProvider),
+  ),
+);
+
+final userReservationProvider =
+    StateNotifierProvider<UserReservationStateNotifier, void>(
+  (ref) => UserReservationStateNotifier(
+    firestoreRepository: ref.watch(firestoreRepositoryProvider),
+    authRepository: ref.watch(authRepositoryProvider),
+  ),
+);
+
+final userProfileProvider = StateNotifierProvider<UserProfileNotifier, void>(
+  (ref) => UserProfileNotifier(
+    authRepository: ref.watch(authRepositoryProvider),
+    firestoreRepository: ref.watch(
+      firestoreRepositoryProvider,
+    ),
+    storageRepository: ref.watch(
+      storageRepositoryProvider,
+    ),
   ),
 );

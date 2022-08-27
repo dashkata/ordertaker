@@ -23,7 +23,9 @@ class _SelectDateWidget extends ConsumerWidget {
           ),
           contentPadding: PaddingManager.p3,
           helperText: text.select_date,
-          hintText: ref.watch(userDateProvider),
+          hintText: ref.watch(
+            userDateProvider,
+          ),
         ),
         onTap: () => ref
             .read(restaurantDialogNotifierProvider.notifier)

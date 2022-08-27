@@ -7,6 +7,7 @@ import '../../../../models/reservation_model.dart';
 import '../../../../providers/controller_providers.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class OrderFAB extends StatelessWidget {
   const OrderFAB({
     Key? key,
@@ -36,12 +37,7 @@ class OrderFAB extends StatelessWidget {
             elevation: 10,
             child: Text(
               text.order,
-              style: Styles.buildTextStyle(
-                accentColor,
-                15,
-                FontWeight.bold,
-                FontStyle.normal,
-              ),
+              style: Theme.of(context).textTheme.headline3,
             ),
           ),
         ),
@@ -54,12 +50,7 @@ class OrderFAB extends StatelessWidget {
               child: Center(
                 child: Text(
                   menuList.length.toString(),
-                  style: Styles.buildTextStyle(
-                    accentColor,
-                    15,
-                    FontWeight.bold,
-                    FontStyle.normal,
-                  ),
+                  style: Theme.of(context).textTheme.headline3,
                 ),
               ),
               decoration: Styles.buildBoxDecoration(
@@ -92,7 +83,7 @@ class _OrderFABActions extends StatelessWidget {
             ref
                 .read(menuCardsControllerProvider.notifier)
                 .completeOrder(reservation);
-            Navigator.pop(context);
+
           },
           shape: GFButtonShape.pills,
           color: mainColor,

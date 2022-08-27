@@ -57,7 +57,10 @@ class LoginButton extends StatelessWidget {
               context,
               toastDuration: 5,
             );
-            Navigator.popAndPushNamed(context, '/auth');
+            Navigator.popAndPushNamed(
+              context,
+              Routes.auth,
+            );
           }),
     );
   }

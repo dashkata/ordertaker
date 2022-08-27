@@ -60,27 +60,27 @@ class SectionNavBar extends ConsumerWidget {
     return BottomNavigationBar(
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.food_bank),
+          icon: const Icon(Icons.food_bank),
           label: text.appetizers,
           backgroundColor: mainColor,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.local_pizza),
+          icon: const Icon(Icons.local_pizza),
           label: text.dishes,
           backgroundColor: mainColor,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.icecream),
+          icon: const Icon(Icons.icecream),
           label: text.deserts,
           backgroundColor: mainColor,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.free_breakfast_outlined),
+          icon: const Icon(Icons.free_breakfast_outlined),
           label: text.drinks,
           backgroundColor: mainColor,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.local_atm),
+          icon: const Icon(Icons.local_atm),
           label: text.check,
           backgroundColor: mainColor,
         ),

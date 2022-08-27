@@ -25,12 +25,7 @@ class MenuSection extends StatelessWidget {
           padding: PaddingManager.p6,
           child: Text(
             sectionTitle,
-            style: Styles.buildTextStyle(
-              accentColor,
-              20,
-              FontWeight.bold,
-              FontStyle.normal,
-            ),
+            style: Theme.of(context).textTheme.headline4,
           ),
           key: sectionKey,
         ),

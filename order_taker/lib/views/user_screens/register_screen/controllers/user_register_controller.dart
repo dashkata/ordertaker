@@ -5,11 +5,13 @@ import 'package:order_taker/views/resources/route_manager.dart';
 
 class UserRegisterScreenNotifier extends StateNotifier<void> {
   UserRegisterScreenNotifier({
-    required this.authRepository,
-    required this.firestoreRepository,
-  }) : super(null);
-  final AuthRepository authRepository;
-  final FirestoreRepository firestoreRepository;
+    required AuthRepository authRepository,
+    required FirestoreRepository firestoreRepository,
+  })  : _authRepository = authRepository,
+        _firestoreRepository = firestoreRepository,
+        super(null);
+  final AuthRepository _authRepository;
+  final FirestoreRepository _firestoreRepository;
 
   void navigateToAuth() {
     navigatorKey.currentState!.popAndPushNamed(Routes.auth);
@@ -30,19 +32,19 @@ class UserRegisterScreenNotifier extends StateNotifier<void> {
     String firstName,
     String lastName,
   ) async {
-    await authRepository
+    await _authRepository
         .signUp(
           email: email,
           password: password,
         )
+        .then((value) =>
+            _authRepository.getCurrentUser()!.sendEmailVerification())
+        .then((value) => _firestoreRepository.setMobileNumber(
+            _authRepository.getCurrentUser()!.uid, mobileNumber))
+        .then((value) => _firestoreRepository.setUserType(
+            "Customer", _authRepository.getCurrentUser()!.uid))
         .then(
-            (value) => authRepository.getCurrentUser()!.sendEmailVerification())
-        .then((value) => firestoreRepository.setMobileNumber(
-            authRepository.getCurrentUser()!.uid, mobileNumber))
-        .then((value) => firestoreRepository.setUserType(
-            "Customer", authRepository.getCurrentUser()!.uid))
-        .then(
-          (value) => authRepository.updateUserName(
+          (value) => _authRepository.updateUserName(
             name: firstName + " " + lastName,
           ),
         );

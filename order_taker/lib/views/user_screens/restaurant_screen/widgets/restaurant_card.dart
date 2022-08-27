@@ -46,8 +46,9 @@ class RestaurantCard extends ConsumerWidget {
                               imageUrl: restaurantPic.value,
                               imageBuilder: (context, url) => Ink.image(
                                 colorFilter: ColorFilter.mode(
-                                    Colors.black.withOpacity(0.8),
-                                    BlendMode.dstATop),
+                                  Colors.black.withOpacity(0.8),
+                                  BlendMode.dstATop,
+                                ),
                                 image: url,
                                 fit: BoxFit.cover,
                                 height: 100,

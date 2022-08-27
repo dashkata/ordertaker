@@ -12,7 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:order_taker/views/resources/route_manager.dart';
 import '../../project_widgets.dart';
 import '../../user_screens/restaurant_info_screen/restaurant_info_widget.dart';
-import 'confirm_reservation_widget.dart';
+import 'widgets/user_detail.dart';
 
 /*
   We need the user details and we need the user picked date and number of people

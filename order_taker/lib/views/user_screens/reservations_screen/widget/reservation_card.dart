@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:order_taker/models/reservation_model.dart';
 import 'package:order_taker/providers/common_providers.dart';
+import 'package:order_taker/providers/controller_providers.dart';
 import 'package:order_taker/providers/repository_providers.dart';
 import 'package:order_taker/providers/services_provider.dart';
 import 'package:order_taker/themes/themes.dart';
@@ -28,11 +29,9 @@ class ReservationCard extends ConsumerWidget {
       padding: PaddingManager.p11,
       child: GestureDetector(
         //TODO maybe update
-        onTap: () => Navigator.popAndPushNamed(
-          context,
-          Routes.userMenu,
-          arguments: reservation,
-        ),
+        onTap: () => ref
+            .read(userReservationProvider.notifier)
+            .navigateToMenu(reservation),
         child: Card(
           color: complementaryColor,
           elevation: 10,
@@ -69,14 +68,9 @@ class ReservationCard extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     GFButton(
-                      onPressed: () =>
-                          ref.read(userServicesProvider).deleteReservation(
-                                ref
-                                    .read(authRepositoryProvider)
-                                    .getCurrentUser()!
-                                    .uid,
-                                reservation,
-                              ),
+                      onPressed: () => ref
+                          .read(userReservationProvider.notifier)
+                          .deleteReservation(reservation),
                       elevation: 10,
                       shape: GFButtonShape.pills,
                       color: mainColor,
