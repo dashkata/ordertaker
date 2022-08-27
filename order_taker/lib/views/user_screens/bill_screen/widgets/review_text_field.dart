@@ -24,12 +24,7 @@ class ReviewTextField extends StatelessWidget {
         hintText: text.write_a_review,
         filled: true,
         fillColor: mainColor,
-        hintStyle: Styles.buildTextStyle(
-          accentColor,
-          15,
-          FontWeight.w300,
-          FontStyle.normal,
-        ),
+        hintStyle: Theme.of(context).textTheme.headline1,
       ),
       autocorrect: false,
       maxLength: 200,

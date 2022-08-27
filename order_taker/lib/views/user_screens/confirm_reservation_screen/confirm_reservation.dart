@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Themes/themes.dart';
 import 'package:order_taker/models/reservation_model.dart';
 import 'package:order_taker/providers/common_providers.dart';
 import 'package:order_taker/providers/confirm_reservation_providers.dart';
+import 'package:order_taker/providers/controller_providers.dart';
 import 'package:order_taker/providers/repository_providers.dart';
 import 'package:order_taker/providers/services_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:order_taker/views/resources/padding_manager.dart';
 import 'package:order_taker/views/resources/route_manager.dart';
 import '../../project_widgets.dart';
 import '../../user_screens/restaurant_info_screen/restaurant_info_widget.dart';
+import 'widgets/detail_row.dart';
 import 'widgets/user_detail.dart';
 
 /*
@@ -36,9 +38,7 @@ class ConfirmReservationScreen extends ConsumerWidget {
           SafeArea(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 15,
-                ),
+                padding: PaddingManager.p7,
                 child: Container(
                   width: double.infinity,
                   height: 500,
@@ -49,8 +49,7 @@ class ConfirmReservationScreen extends ConsumerWidget {
                             children: [
                               GFListTile(
                                 margin: EdgeInsets.zero,
-                                padding:
-                                    const EdgeInsets.only(top: 10, left: 10),
+                                padding: PaddingManager.p19,
                                 avatar: GFAvatar(
                                   backgroundImage:
                                       NetworkImage(restaurantPic.value),
@@ -60,60 +59,11 @@ class ConfirmReservationScreen extends ConsumerWidget {
                                 ),
                                 title: Text(
                                   reservationInfo["restaurantTitle"],
-                                  style: GoogleFonts.roboto(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 30,
-                                    color: accentColor,
-                                  ),
+                                  style: Theme.of(context).textTheme.headline5,
                                 ),
-                                subTitle: Consumer(
-                                  builder: (context, ref, child) {
-                                    return Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        const Icon(
-                                          Icons.calendar_month,
-                                          size: 15,
-                                          color: accentColor,
-                                        ),
-                                        Text(
-                                          ref.watch(confirmDateProvider),
-                                          style: GoogleFonts.roboto(
-                                            fontSize: 15,
-                                            fontStyle: FontStyle.italic,
-                                            color: accentColor,
-                                          ),
-                                        ),
-                                        const Icon(
-                                          Icons.watch_later_outlined,
-                                          size: 15,
-                                          color: accentColor,
-                                        ),
-                                        Text(
-                                          ref.watch(confirmTimeProvider),
-                                          style: GoogleFonts.roboto(
-                                            fontSize: 15,
-                                            fontStyle: FontStyle.italic,
-                                            color: accentColor,
-                                          ),
-                                        ),
-                                        const Icon(
-                                          Icons.person,
-                                          size: 15,
-                                          color: accentColor,
-                                        ),
-                                        Text(
-                                          "${reservationInfo["numberOfPeople"]} ${text.people}",
-                                          style: GoogleFonts.roboto(
-                                            fontSize: 15,
-                                            fontStyle: FontStyle.italic,
-                                            color: accentColor,
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  },
+                                subTitle: DetailRow(
+                                  reservationInfo: reservationInfo,
+                                  text: text,
                                 ),
                               ),
                               const InfoDivider(),
@@ -134,35 +84,26 @@ class ConfirmReservationScreen extends ConsumerWidget {
                               ),
                               Center(
                                 child: NormalButtons(
-                                    buttonText: text.confirm_reservation,
-                                    buttonFunc: () {
-                                      ref
-                                          .read(userServicesProvider)
-                                          .addReservation(
-                                            ref
-                                                .read(authRepositoryProvider)
-                                                .getCurrentUser()!
-                                                .uid,
-                                            Reservation(
-                                              name: data["name"],
-                                              restaurant: reservationInfo[
-                                                  "restaurantTitle"],
-                                              date:
-                                                  '${ref.read(confirmDateProvider)} - ${ref.read(confirmTimeProvider)}',
-                                              numberOfPeople: reservationInfo[
-                                                  "numberOfPeople"],
-                                              selectedTable: 2,
-                                            ),
-                                          );
-
-                                      Navigator.popAndPushNamed(
-                                        context,
-                                        Routes.userReservations,
-                                      );
-                                    }),
+                                  buttonText: text.confirm_reservation,
+                                  buttonFunc: () => ref
+                                      .read(userConfirmReservationProvider
+                                          .notifier)
+                                      .addReservation(
+                                        Reservation(
+                                          name: data["name"],
+                                          restaurant: reservationInfo[
+                                              "restaurantTitle"],
+                                          date:
+                                              '${ref.read(confirmDateProvider)} - ${ref.read(confirmTimeProvider)}',
+                                          numberOfPeople:
+                                              reservationInfo["numberOfPeople"],
+                                          selectedTable: 2,
+                                        ),
+                                      ),
+                                ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 10.0),
+                                padding: PaddingManager.p2,
                                 child: Center(
                                   child: NormalButtons(
                                       buttonText: text.change_details,

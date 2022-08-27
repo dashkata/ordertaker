@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/themes/themes.dart';
+import 'package:order_taker/views/resources/padding_manager.dart';
+import 'package:order_taker/views/resources/style_manager.dart';
 
 class UserDetail extends StatelessWidget {
   const UserDetail({
@@ -14,43 +16,29 @@ class UserDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20.0, bottom: 20),
+      padding: PaddingManager.p16,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(
-              bottom: 5.0,
-              left: 10,
-            ),
+            padding: PaddingManager.p17,
             child: Text(
               detailType,
-              style: GoogleFonts.roboto(
-                color: accentColor,
-                fontSize: 20,
-                fontStyle: FontStyle.italic,
-              ),
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
           Material(
             elevation: 10,
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: Styles.buildBorderRadius(40),
             child: Container(
-              decoration: BoxDecoration(
-                color: mainColor,
-                borderRadius: BorderRadius.circular(40),
+              decoration: Styles.buildBoxDecoration(
+                40,
+                mainColor,
               ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 30,
-                vertical: 10,
-              ),
+              padding: PaddingManager.p18,
               child: Text(
                 userDetail,
-                style: GoogleFonts.roboto(
-                  color: accentColor,
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).textTheme.headline4,
               ),
             ),
           ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:order_taker/views/user_screens/bill_screen/widgets/ReviewTextField.dart';
+import 'package:order_taker/views/user_screens/bill_screen/widgets/review_text_field.dart';
 import 'package:order_taker/views/user_screens/bill_screen/widgets/order_list.dart';
 import 'package:order_taker/views/user_screens/bill_screen/widgets/pay_button.dart';
 

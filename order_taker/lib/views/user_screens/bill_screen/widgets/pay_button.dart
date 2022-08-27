@@ -19,12 +19,7 @@ class PayButton extends StatelessWidget {
         shape: GFButtonShape.pills,
         color: complementaryColor,
         text: text.pay,
-        textStyle: Styles.buildTextStyle(
-          accentColor,
-          15,
-          FontWeight.bold,
-          FontStyle.normal,
-        ),
+        textStyle: Theme.of(context).textTheme.headline3,
         elevation: 10,
       ),
     );
