@@ -31,13 +31,26 @@ class OrdersList extends StatelessWidget {
             AsyncValue<List<Order>> futureOrders =
                 ref.watch(fetchOrdersProvider(reservation));
             return futureOrders.when(
-              data: (orders) => ListView.builder(
-                itemCount: orders.length,
-                itemBuilder: (BuildContext context, int ordersIndex) => Column(
-                  children: List.generate(
-                    orders[ordersIndex].menuItems.length,
-                    (menuIndex) => Text(
-                      orders[ordersIndex].menuItems[menuIndex].itemIngredients,
+              data: (orders) => Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ListView.builder(
+                  itemCount: orders.length,
+                  itemBuilder: (BuildContext context, int ordersIndex) =>
+                      Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: Column(
+                      children: List.generate(
+                        orders[ordersIndex].menuItems.length,
+                        (menuIndex) => Padding(
+                          padding: const EdgeInsets.only(
+                            top: 10.0,
+                          ),
+                          child: Text(
+                            '${orders[ordersIndex].menuItems[menuIndex].itemTitle} - ${orders[ordersIndex].menuItems[menuIndex].itemPrice}',
+                            style: Theme.of(context).textTheme.headline1,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),

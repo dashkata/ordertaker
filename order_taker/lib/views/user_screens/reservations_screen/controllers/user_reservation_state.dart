@@ -21,6 +21,7 @@ class UserReservationStateNotifier extends StateNotifier<void> {
   }
 
   void navigateToMenu(Reservation reservation) {
+
     navigatorKey.currentState!.popAndPushNamed(
       Routes.userMenu,
       arguments: reservation,

@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/Themes/themes.dart';
+import 'package:order_taker/enums/user_details.dart';
 import 'package:order_taker/providers/controller_providers.dart';
 import 'package:order_taker/providers/profile_provider.dart';
 import 'package:order_taker/providers/repository_providers.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:order_taker/user_details.dart';
 import 'package:order_taker/views/resources/route_manager.dart';
 
 class ProfileListTile extends ConsumerWidget {

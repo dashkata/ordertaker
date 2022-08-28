@@ -1,7 +1,13 @@
-part of '/controllers/restaurant_screen_state_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:order_taker/providers/controller_providers.dart';
+import 'package:order_taker/providers/user_restaurant_providers.dart';
+import 'package:order_taker/views/resources/padding_manager.dart';
+import 'package:order_taker/views/resources/style_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class _SelectDateWidget extends ConsumerWidget {
-  const _SelectDateWidget({
+class SelectDateWidget extends ConsumerWidget {
+  const SelectDateWidget({
     Key? key,
   }) : super(key: key);
 

@@ -28,7 +28,6 @@ class ReservationCard extends ConsumerWidget {
     return Padding(
       padding: PaddingManager.p11,
       child: GestureDetector(
-        //TODO maybe update
         onTap: () => ref
             .read(userReservationProvider.notifier)
             .navigateToMenu(reservation),

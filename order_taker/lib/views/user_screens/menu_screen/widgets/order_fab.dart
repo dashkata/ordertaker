@@ -26,7 +26,7 @@ class OrderFAB extends StatelessWidget {
             heroTag: null,
             backgroundColor: complementaryColor,
             onPressed: () =>
-                ref.read(menuDialogProvider.notifier).showOrderFABDialog(
+                ref.read(menuFunctionsProvider.notifier).showOrderFABDialog(
                       const _OrderFABContent(),
                       [
                         _OrderFABActions(reservation: reservation),
@@ -75,27 +75,20 @@ class _OrderFABActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
     return Center(
       child: Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) =>
             GFButton(
-          onPressed: () {
-            ref
-                .read(menuCardsControllerProvider.notifier)
-                .completeOrder(reservation);
-
-          },
+          onPressed: () => ref
+              .read(menuCardsControllerProvider.notifier)
+              .completeOrder(reservation),
           shape: GFButtonShape.pills,
           color: mainColor,
           elevation: 10,
           padding: PaddingManager.p10,
-          // text: StringManager.completeOrder,
-          textStyle: Styles.buildTextStyle(
-            accentColor,
-            15,
-            FontWeight.bold,
-            FontStyle.normal,
-          ),
+          text: text.complete_order,
+          textStyle: Theme.of(context).textTheme.headline3,
         ),
       ),
     );
@@ -117,7 +110,6 @@ class _OrderFABContent extends ConsumerWidget {
         itemCount: menuCards.length,
         itemBuilder: (BuildContext context, int index) {
           return Card(
-            // margin: const EdgeInsets.all(15),
             elevation: 10,
             color: complementaryColor,
             child: Padding(
@@ -163,12 +155,7 @@ class _OrderFABTitle extends StatelessWidget {
     return Center(
       child: Text(
         text.complete_order,
-        style: Styles.buildTextStyle(
-          accentColor,
-          20,
-          FontWeight.bold,
-          FontStyle.normal,
-        ),
+        style: Theme.of(context).textTheme.headline4,
       ),
     );
   }

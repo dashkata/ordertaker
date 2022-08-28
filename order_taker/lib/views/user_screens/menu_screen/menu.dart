@@ -6,14 +6,8 @@ import 'package:order_taker/views/user_screens/menu_screen/widgets/order_fab.dar
 import '../../project_widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class MenuScreen extends StatefulWidget {
-  const MenuScreen({Key? key}) : super(key: key);
-
-  @override
-  State<MenuScreen> createState() => _MenuScreenState();
-}
-
-class _MenuScreenState extends State<MenuScreen> {
+class MenuScreen extends StatelessWidget {
+  MenuScreen({Key? key}) : super(key: key);
   final appetizersKey = GlobalKey();
   final dishesKey = GlobalKey();
   final desertsKey = GlobalKey();

@@ -61,15 +61,18 @@ class AppRouter {
         );
       case Routes.userMenu:
         return MaterialPageRoute(
-          builder: (_) => const MenuScreen(),
+          builder: (_) => MenuScreen(),
+          settings: settings,
         );
       case Routes.userConfirmReserveration:
         return MaterialPageRoute(
           builder: (_) => const ConfirmReservationScreen(),
+          settings: settings,
         );
       case Routes.userBill:
         return MaterialPageRoute(
           builder: (_) => const BillScreen(),
+          settings: settings,
         );
       case Routes.restaurantRegister:
         return MaterialPageRoute(

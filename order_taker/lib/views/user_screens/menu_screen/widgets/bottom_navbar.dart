@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:order_taker/providers/controller_providers.dart';
 import 'package:order_taker/views/resources/route_manager.dart';
 import '../../../../Themes/themes.dart';
 import '../../../../models/reservation_model.dart';
@@ -44,11 +45,7 @@ class SectionNavBar extends ConsumerWidget {
         case 4:
           Scrollable.ensureVisible(appetizersKey.currentContext!);
           ref.refresh(navBarIndexProvider);
-          Navigator.pushNamed(
-            context,
-            Routes.userBill,
-            arguments: reservation,
-          );
+          ref.read(menuFunctionsProvider.notifier).navigateToBill(reservation);
           break;
       }
     }
