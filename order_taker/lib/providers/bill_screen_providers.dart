@@ -4,8 +4,8 @@ import 'package:order_taker/providers/repository_providers.dart';
 
 import '../models/order_model.dart';
 
-final fetchOrdersProvider =
-    FutureProvider.family<List<Order>, Reservation>((ref, reservation) async {
-  return ref.watch(firestoreRepositoryProvider).fetchOrders(
-      reservation, ref.watch(authRepositoryProvider).getCurrentUser()!.uid);
-});
+final fetchOrdersProvider = FutureProvider.family<List<Order>, Reservation>(
+    (ref, reservation) async => ref
+        .watch(firestoreRepositoryProvider)
+        .fetchOrders(reservation,
+            ref.watch(authRepositoryProvider).getCurrentUser()!.uid));
