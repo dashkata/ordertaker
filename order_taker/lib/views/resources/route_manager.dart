@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:order_taker/views/auth_screen/auth_checker_screen.dart';
 import 'package:order_taker/views/login_screen/login.dart';
 import 'package:order_taker/views/owner_screens/owner_onboarding/onboarding.dart';
-import 'package:order_taker/views/restaurant_screens/restaurant_register_screen/restaurant_register.dart';
+import 'package:order_taker/views/owner_screens/restaurant_register_screen/restaurant_register.dart';
 import 'package:order_taker/views/user_screens/bill_screen/bill.dart';
 import 'package:order_taker/views/user_screens/confirm_reservation_screen/confirm_reservation.dart';
 import 'package:order_taker/views/user_screens/menu_screen/menu.dart';
@@ -11,6 +11,8 @@ import 'package:order_taker/views/user_screens/register_screen/register.dart';
 import 'package:order_taker/views/user_screens/reservations_screen/reservations.dart';
 import 'package:order_taker/views/user_screens/restaurant_info_screen/restaurant_info.dart';
 import 'package:order_taker/views/user_screens/restaurant_screen/restaurants.dart';
+
+
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 

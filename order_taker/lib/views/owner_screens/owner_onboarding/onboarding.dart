@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:order_taker/themes/themes.dart';
-import 'package:order_taker/views/project_widgets.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -10,19 +8,6 @@ class OnboardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return IntroductionScreen(
       pages: [
-        PageViewModel(
-          image: Center(
-            child: Image.asset(
-              'assets/Logo2.0.png',
-              height: 400,
-            ),
-          ),
-          titleWidget: Text(
-            'Welcome to order taker!',
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          body: '',
-        ),
         PageViewModel(
           image: Center(
             child: Image.asset(
@@ -47,7 +32,9 @@ class OnboardingScreen extends StatelessWidget {
               ),
             ),
           ),
-          body: 'text fieldove',
+          bodyWidget: Column(
+
+          ),
         ),
       ],
       done: const Text(

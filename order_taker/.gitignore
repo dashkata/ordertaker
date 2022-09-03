@@ -1,4 +1,4 @@
-# Miscellaneous
+ Miscellaneous
 *.class
 *.log
 *.pyc
@@ -44,3 +44,13 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Android Specific
+*.iml
+.gradle
+/local.properties
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
