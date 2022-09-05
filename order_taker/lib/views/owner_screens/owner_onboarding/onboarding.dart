@@ -83,6 +83,7 @@ class OnboardingScreen extends StatelessWidget {
           ),
           bodyWidget: Column(
             children: [
+              // Spacer(),
               NormalButtons(
                 buttonText: 'Add a menu item',
                 buttonFunc: () => showDialog(
@@ -95,7 +96,50 @@ class OnboardingScreen extends StatelessWidget {
                       ),
                     ),
                     content: Column(
-
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextFields(
+                          hintText: 'Type of menu item',
+                          icon: Icons.restaurant,
+                          obscure: false,
+                          inputType: TextInputType.text,
+                          func: (value) {},
+                        ),
+                        TextFields(
+                          hintText: 'Menu item title',
+                          icon: Icons.restaurant,
+                          obscure: false,
+                          inputType: TextInputType.text,
+                          func: (value) {},
+                        ),
+                        TextFields(
+                          hintText: 'Menu item description',
+                          icon: Icons.restaurant,
+                          obscure: false,
+                          inputType: TextInputType.text,
+                          func: (value) {},
+                        ),
+                        TextFields(
+                          hintText: 'Menu item price',
+                          icon: Icons.restaurant,
+                          obscure: false,
+                          inputType: TextInputType.text,
+                          func: (value) {},
+                        ),
+                        Center(
+                          child: TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Add menu item picture',
+                              style: Theme.of(context).textTheme.headline3,
+                            ),
+                          ),
+                        ),
+                        NormalButtons(
+                          buttonText: 'Submit',
+                          buttonFunc: () {},
+                        ),
+                      ],
                     ),
                   ),
                 ),
