@@ -10,7 +10,7 @@ final firestoreRepositoryProvider =
 final storageRepositoryProvider =
     Provider<StorageRepository>((ref) => StorageRepository());
 final authRepositoryProvider = Provider<AuthRepository>(
-  (ref) {
-    return AuthRepository(ref.read(firebaseAuthProvider));
-  },
+  (ref) => AuthRepository(
+    ref.read(firebaseAuthProvider),
+  ),
 );

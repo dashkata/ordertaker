@@ -16,7 +16,7 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final text = AppLocalizations.of(context)!;
-    AsyncValue _mobileNumber = ref.watch(phoneNumberProvider);
+    final AsyncValue mobileNumber = ref.watch(phoneNumberProvider);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appBarColor,
@@ -28,8 +28,6 @@ class ProfileScreen extends ConsumerWidget {
           SafeArea(
             child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ContainerPicture(text: text),
                   const SizedBox(
@@ -53,10 +51,11 @@ class ProfileScreen extends ConsumerWidget {
                     height: 5,
                   ),
                   ProfileListTile(
-                    detail: _mobileNumber.when(
-                        data: (mobileNumber) => mobileNumber,
-                        error: (e, s) => "Mobile number not set",
-                        loading: () => " "),
+                    detail: mobileNumber.when(
+                      data: (mobileNumber) => mobileNumber,
+                      error: (e, s) => 'Mobile number not set',
+                      loading: () => ' ',
+                    ),
                     icon: Icons.phone,
                     hintText: text.change_mobile_number,
                     changeProvider: phoneChangeProvider,
@@ -85,7 +84,7 @@ class ProfileScreen extends ConsumerWidget {
                     height: 5,
                   ),
                   ProfileListTile(
-                    detail: "*********",
+                    detail: '*********',
                     icon: Icons.password,
                     hintText: text.enter_your_new_password,
                     changeProvider: passwordChangeProvider,
@@ -101,4 +100,3 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 }
-

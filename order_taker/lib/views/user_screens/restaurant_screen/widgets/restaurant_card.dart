@@ -18,77 +18,78 @@ class RestaurantCard extends ConsumerWidget {
   final Restaurant restaurant;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: PaddingManager.p1,
-      child: InkWell(
-        onTap: () => ref
-            .read(restaurantDialogNotifierProvider.notifier)
-            .navigateToRestaurantInfo(restaurant.title),
-        child: Card(
-          clipBehavior: Clip.antiAlias,
-          shape: Styles.buildRoundedBorder(30),
-          elevation: 10,
-          child: Column(
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  //TODO update this
-                  Consumer(builder: (context, ref, child) {
-                    AsyncValue restaurantPic = ref.watch(
-                      restaurantPictureProvider(
-                        restaurant.title,
-                      ),
-                    );
-                    return restaurantPic.when(
-                        data: (imageUrl) => CachedNetworkImage(
-                              imageUrl: restaurantPic.value,
-                              imageBuilder: (context, url) => Ink.image(
-                                colorFilter: ColorFilter.mode(
-                                  Colors.black.withOpacity(0.8),
-                                  BlendMode.dstATop,
-                                ),
-                                image: url,
-                                fit: BoxFit.cover,
-                                height: 100,
-                              ),
-                            ),
-                        error: (e, s) =>
-                            GFToast.showToast(e.toString(), context),
-                        loading: () => const LoadingIndicator());
-                    // return Container();
-                  }),
-                ],
-              ),
-              ListTile(
-                title: Text(
-                  restaurant.title,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+  Widget build(BuildContext context, WidgetRef ref) => Padding(
+        padding: PaddingManager.p1,
+        child: InkWell(
+          onTap: () => ref
+              .read(restaurantDialogNotifierProvider.notifier)
+              .navigateToRestaurantInfo(restaurant.title),
+          child: Card(
+            clipBehavior: Clip.antiAlias,
+            shape: Styles.buildRoundedBorder(30),
+            elevation: 10,
+            child: Column(
+              children: [
+                Stack(
+                  alignment: Alignment.center,
                   children: [
-                    Text(
-                      restaurant.desc,
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        FindATableButton(
-                          resTitle: restaurant.title,
-                        ),
-                      ],
+                    //TODO update this
+                    Consumer(
+                      builder: (context, ref, child) {
+                        final AsyncValue restaurantPic = ref.watch(
+                          restaurantPictureProvider(
+                            restaurant.title,
+                          ),
+                        );
+                        return restaurantPic.when(
+                          data: (imageUrl) => CachedNetworkImage(
+                            imageUrl: restaurantPic.value,
+                            imageBuilder: (context, url) => Ink.image(
+                              colorFilter: ColorFilter.mode(
+                                Colors.black.withOpacity(0.8),
+                                BlendMode.dstATop,
+                              ),
+                              image: url,
+                              fit: BoxFit.cover,
+                              height: 100,
+                            ),
+                          ),
+                          error: (e, s) =>
+                              GFToast.showToast(e.toString(), context),
+                          loading: () => const LoadingIndicator(),
+                        );
+                        // return Container();
+                      },
                     ),
                   ],
                 ),
-                tileColor: complementaryColor,
-              ),
-            ],
+                ListTile(
+                  title: Text(
+                    restaurant.title,
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        restaurant.desc,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          FindATableButton(
+                            resTitle: restaurant.title,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  tileColor: complementaryColor,
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:order_taker/repositories/auth_repository.dart';
-import 'package:order_taker/views/resources/route_manager.dart';
+import '../../../repositories/auth_repository.dart';
+import '../../resources/route_manager.dart';
 
 class LoginStateNotifier extends StateNotifier<void> {
   LoginStateNotifier({required AuthRepository authRepository})
@@ -14,7 +14,7 @@ class LoginStateNotifier extends StateNotifier<void> {
     navigatorKey.currentState!.popAndPushNamed(Routes.register);
   }
 
-  void login(String email, String password, BuildContext context) async {
+  Future<void> login(String email, String password, BuildContext context) async {
     GFToast.showToast(
       await _authRepository.signIn(
         email: email,
@@ -23,6 +23,6 @@ class LoginStateNotifier extends StateNotifier<void> {
       context,
       toastDuration: 5,
     );
-    navigatorKey.currentState!.popAndPushNamed(Routes.auth);
+    await navigatorKey.currentState!.popAndPushNamed(Routes.auth);
   }
 }

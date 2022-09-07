@@ -13,23 +13,19 @@ class Reservation {
     required this.selectedTable,
   });
 
-  factory Reservation.fromMap(Map fetchedReservation) {
-    return Reservation(
-      name: fetchedReservation['personName'],
-      restaurant: fetchedReservation['reservationTitle'],
-      date: fetchedReservation['reservationDate'],
-      numberOfPeople: fetchedReservation['reservationPeopleCount'],
-      selectedTable: fetchedReservation['selectedTable'],
-    );
-  }
+  factory Reservation.fromMap(Map fetchedReservation) => Reservation(
+        name: fetchedReservation['personName'],
+        restaurant: fetchedReservation['reservationTitle'],
+        date: fetchedReservation['reservationDate'],
+        numberOfPeople: fetchedReservation['reservationPeopleCount'],
+        selectedTable: fetchedReservation['selectedTable'],
+      );
 
-  Map<String, dynamic> toMap() {
-    return ({
-      'reservationTitle': restaurant,
-      'reservationDate': date,
-      'personName': name,
-      'reservationPeopleCount': numberOfPeople,
-      'selectedTable': selectedTable,
-    });
-  }
+  Map<String, dynamic> toMap() => {
+        'reservationTitle': restaurant,
+        'reservationDate': date,
+        'personName': name,
+        'reservationPeopleCount': numberOfPeople,
+        'selectedTable': selectedTable,
+      };
 }

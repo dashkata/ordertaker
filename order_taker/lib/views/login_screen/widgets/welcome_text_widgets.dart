@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:order_taker/views/resources/padding_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../resources/padding_manager.dart';
 
 class WelcomeTextWidget extends StatelessWidget {
   const WelcomeTextWidget({

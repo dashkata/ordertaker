@@ -37,15 +37,24 @@ class UserRegisterScreenNotifier extends StateNotifier<void> {
           email: email,
           password: password,
         )
-        .then((value) =>
-            _authRepository.getCurrentUser()!.sendEmailVerification())
-        .then((value) => _firestoreRepository.setMobileNumber(
-            _authRepository.getCurrentUser()!.uid, mobileNumber))
-        .then((value) => _firestoreRepository.setUserType(
-            "Customer", _authRepository.getCurrentUser()!.uid))
+        .then(
+          (value) => _authRepository.getCurrentUser()!.sendEmailVerification(),
+        )
+        .then(
+          (value) => _firestoreRepository.setMobileNumber(
+            _authRepository.getCurrentUser()!.uid,
+            mobileNumber,
+          ),
+        )
+        .then(
+          (value) => _firestoreRepository.setUserType(
+            'Customer',
+            _authRepository.getCurrentUser()!.uid,
+          ),
+        )
         .then(
           (value) => _authRepository.updateUserName(
-            name: firstName + " " + lastName,
+            name: '$firstName $lastName',
           ),
         );
     navigateToAuth();

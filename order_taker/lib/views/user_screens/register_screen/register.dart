@@ -46,7 +46,6 @@ class RegisterScreen extends ConsumerWidget {
                         width: double.infinity,
                         padding: PaddingManager.p8,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             NameRow(text: text),
                             TextFields(
@@ -78,11 +77,11 @@ class RegisterScreen extends ConsumerWidget {
                             ),
                             Consumer(
                               builder: (context, ref, child) {
-                                final _email = ref.watch(emailProvider);
-                                final _password = ref.watch(passwordProvider);
-                                final _firstName = ref.watch(firstNameProvider);
-                                final _lastName = ref.watch(lastNameProvider);
-                                final _mobileNumber =
+                                final email = ref.watch(emailProvider);
+                                final password = ref.watch(passwordProvider);
+                                final firstName = ref.watch(firstNameProvider);
+                                final lastName = ref.watch(lastNameProvider);
+                                final mobileNumber =
                                     ref.watch(phoneNumberProvider);
                                 return Padding(
                                   padding: const EdgeInsets.only(top: 40.0),
@@ -91,11 +90,11 @@ class RegisterScreen extends ConsumerWidget {
                                     buttonFunc: () => ref
                                         .read(userRegisterProvider.notifier)
                                         .register(
-                                          _email,
-                                          _password,
-                                          _mobileNumber,
-                                          _firstName,
-                                          _lastName,
+                                          email,
+                                          password,
+                                          mobileNumber,
+                                          firstName,
+                                          lastName,
                                         ),
                                   ),
                                 );

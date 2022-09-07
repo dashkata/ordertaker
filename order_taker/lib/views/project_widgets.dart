@@ -1,65 +1,62 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:order_taker/themes/themes.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:order_taker/views/resources/route_manager.dart';
-import 'package:order_taker/views/resources/style_manager.dart';
+
 import '../providers/profile_provider.dart';
 import '../providers/repository_providers.dart';
+import '../themes/themes.dart';
+import 'resources/route_manager.dart';
+import 'resources/style_manager.dart';
 
 class NormalButtons extends StatelessWidget {
   const NormalButtons({
-    Key? key,
     required this.buttonText,
     required this.buttonFunc,
+    Key? key,
   }) : super(key: key);
 
   final String? buttonText;
   final void Function() buttonFunc;
 
   @override
-  Widget build(BuildContext context) {
-    return GFButton(
-      borderSide: const BorderSide(color: accentColor),
-      onPressed: buttonFunc,
-      text: buttonText,
-      shape: GFButtonShape.pills,
-      size: GFSize.LARGE,
-      color: mainColor,
-      elevation: 10,
-      textStyle: Theme.of(context).textTheme.headline4,
-    );
-  }
+  Widget build(BuildContext context) => GFButton(
+        borderSide: const BorderSide(color: accentColor),
+        onPressed: buttonFunc,
+        text: buttonText,
+        shape: GFButtonShape.pills,
+        size: GFSize.LARGE,
+        color: mainColor,
+        elevation: 10,
+        textStyle: Theme.of(context).textTheme.headline4,
+      );
 }
 
 class ProfilePicture extends ConsumerWidget {
   const ProfilePicture({
-    Key? key,
     required this.radius,
+    Key? key,
   }) : super(key: key);
   final double radius;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    AsyncValue picUrl = ref.watch(picProvider);
+    final AsyncValue picUrl = ref.watch(picProvider);
     return picUrl.when(
-      data: (data) {
-        return CachedNetworkImage(
-          imageUrl: data,
-          imageBuilder: (context, url) => CircleAvatar(
-            backgroundImage: url,
-            radius: radius,
-          ),
-          placeholder: (context, url) => const CircularProgressIndicator(),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
-        );
-      },
+      data: (data) => CachedNetworkImage(
+        imageUrl: data,
+        imageBuilder: (context, url) => CircleAvatar(
+          backgroundImage: url,
+          radius: radius,
+        ),
+        placeholder: (context, url) => const CircularProgressIndicator(),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      ),
       loading: () => const CircularProgressIndicator(),
-      error: (e, s) => Text("Error $e"),
+      error: (e, s) => Text('Error $e'),
     );
     // return const Text("Error when loading profile picture");
   }
@@ -67,12 +64,12 @@ class ProfilePicture extends ConsumerWidget {
 
 class TextFields extends StatelessWidget {
   const TextFields({
-    Key? key,
     required this.hintText,
     required this.icon,
     required this.obscure,
     required this.inputType,
     required this.func,
+    Key? key,
   }) : super(key: key);
 
   final String? hintText;
@@ -82,28 +79,26 @@ class TextFields extends StatelessWidget {
   final void Function(String)? func;
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
-      child: DoubleTextField(
-        func: func,
-        inputType: inputType,
-        icon: icon,
-        hintText: hintText,
-        obscure: obscure,
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
+        child: DoubleTextField(
+          func: func,
+          inputType: inputType,
+          icon: icon,
+          hintText: hintText,
+          obscure: obscure,
+        ),
+      );
 }
 
 class DoubleTextField extends StatelessWidget {
   const DoubleTextField({
-    Key? key,
     required this.func,
     required this.inputType,
     required this.icon,
     required this.hintText,
     required this.obscure,
+    Key? key,
   }) : super(key: key);
 
   final TextInputType inputType;
@@ -113,36 +108,34 @@ class DoubleTextField extends StatelessWidget {
   final void Function(String)? func;
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: Material(
-        borderRadius: Styles.buildBorderRadius(30),
-        elevation: 10,
-        child: TextField(
-          onChanged: func,
-          keyboardType: inputType,
-          decoration: InputDecoration(
-            prefixIcon: Icon(icon),
-            enabledBorder: Styles.buildOutlineBorder(
-              accentColor,
-              30,
+  Widget build(BuildContext context) => SizedBox(
+        height: 50,
+        child: Material(
+          borderRadius: Styles.buildBorderRadius(30),
+          elevation: 10,
+          child: TextField(
+            onChanged: func,
+            keyboardType: inputType,
+            decoration: InputDecoration(
+              prefixIcon: Icon(icon),
+              enabledBorder: Styles.buildOutlineBorder(
+                accentColor,
+                30,
+              ),
+              border: Styles.buildOutlineBorder(
+                accentColor,
+                30,
+              ),
+              hintText: hintText,
+              filled: true,
+              fillColor: mainColor,
+              hintStyle: Theme.of(context).textTheme.headline1,
             ),
-            border: Styles.buildOutlineBorder(
-              accentColor,
-              30,
-            ),
-            hintText: hintText,
-            filled: true,
-            fillColor: mainColor,
-            hintStyle: Theme.of(context).textTheme.headline1,
+            obscureText: obscure,
+            autocorrect: false,
           ),
-          obscureText: obscure,
-          autocorrect: false,
         ),
-      ),
-    );
-  }
+      );
 }
 
 class BackgroundWidgetAuthPages extends StatelessWidget {
@@ -151,17 +144,15 @@ class BackgroundWidgetAuthPages extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      // color: mainColor,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("Assets/Background2.png"),
-          fit: BoxFit.fill,
+  Widget build(BuildContext context) => Container(
+        // color: mainColor,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/Background2.png'),
+            fit: BoxFit.fill,
+          ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class BackgroundWidget extends StatelessWidget {
@@ -170,40 +161,36 @@ class BackgroundWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      // color: mainColor,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("Assets/Background.png"),
-          fit: BoxFit.fill,
+  Widget build(BuildContext context) => Container(
+        // color: mainColor,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/Background.png'),
+            fit: BoxFit.fill,
+          ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class DrawerTab extends StatelessWidget {
   const DrawerTab({
-    Key? key,
     required this.icon,
     required this.titleText,
     required this.func,
+    Key? key,
   }) : super(key: key);
   final IconData icon;
   final String titleText;
   final void Function() func;
 
   @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(
-        icon,
-      ),
-      title: Text(titleText),
-      onTap: func,
-    );
-  }
+  Widget build(BuildContext context) => ListTile(
+        leading: Icon(
+          icon,
+        ),
+        title: Text(titleText),
+        onTap: func,
+      );
 }
 
 class CustomDrawer extends ConsumerWidget {
@@ -214,8 +201,8 @@ class CustomDrawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final text = AppLocalizations.of(context)!;
-    final _auth = ref.watch(authRepositoryProvider);
-    final User user = _auth.getCurrentUser()!;
+    final auth = ref.watch(authRepositoryProvider);
+    final User user = auth.getCurrentUser()!;
 
     return Drawer(
       backgroundColor: mainColor,
@@ -223,13 +210,12 @@ class CustomDrawer extends ConsumerWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            padding: const EdgeInsets.only(bottom: 0),
+            padding: EdgeInsets.zero,
             decoration: const BoxDecoration(
               color: complementaryColor,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const ProfilePicture(radius: 45),
                 const SizedBox(
@@ -247,12 +233,13 @@ class CustomDrawer extends ConsumerWidget {
             ),
           ),
           DrawerTab(
-              icon: Icons.local_pizza,
-              titleText: text.restaurants,
-              func: () {
-                Navigator.pop(context);
-                Navigator.popAndPushNamed(context, Routes.userRestaurants);
-              }),
+            icon: Icons.local_pizza,
+            titleText: text.restaurants,
+            func: () {
+              Navigator.pop(context);
+              Navigator.popAndPushNamed(context, Routes.userRestaurants);
+            },
+          ),
           DrawerTab(
             icon: Icons.edit_note,
             titleText: text.reservations,
@@ -273,7 +260,7 @@ class CustomDrawer extends ConsumerWidget {
             icon: Icons.exit_to_app,
             titleText: text.log_out,
             func: () =>
-                _auth.signout().then((value) => Navigator.pop(context)).then(
+                auth.signout().then((value) => Navigator.pop(context)).then(
                       (value) =>
                           Navigator.popAndPushNamed(context, Routes.login),
                     ),
@@ -288,9 +275,7 @@ class LoadingIndicator extends StatelessWidget {
   const LoadingIndicator({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
-  }
+  Widget build(BuildContext context) => const Center(
+        child: CircularProgressIndicator(),
+      );
 }

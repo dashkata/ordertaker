@@ -5,10 +5,10 @@ import 'package:order_taker/repositories/firestore_repository.dart';
 import 'package:order_taker/views/resources/route_manager.dart';
 
 class UserConfirmReservationNotifier extends StateNotifier<void> {
-  UserConfirmReservationNotifier(
-      {required FirestoreRepository firestoreRepository,
-      required AuthRepository authRepository})
-      : _firestoreRepository = firestoreRepository,
+  UserConfirmReservationNotifier({
+    required FirestoreRepository firestoreRepository,
+    required AuthRepository authRepository,
+  })  : _firestoreRepository = firestoreRepository,
         _authRepository = authRepository,
         super(null);
   final FirestoreRepository _firestoreRepository;

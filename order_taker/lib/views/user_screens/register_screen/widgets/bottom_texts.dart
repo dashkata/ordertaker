@@ -13,9 +13,7 @@ class BottomTexts extends ConsumerWidget {
   final AppLocalizations text;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+  Widget build(BuildContext context, WidgetRef ref) => Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -58,5 +56,4 @@ class BottomTexts extends ConsumerWidget {
         ),
       ],
     );
-  }
 }

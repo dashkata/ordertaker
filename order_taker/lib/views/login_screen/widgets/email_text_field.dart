@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/providers/login_provider.dart';
-import 'package:order_taker/views/project_widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../providers/login_provider.dart';
+import '../../project_widgets.dart';
 
 class EmailTextField extends ConsumerWidget {
   const EmailTextField({

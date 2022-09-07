@@ -41,24 +41,27 @@ class ReservationCard extends ConsumerWidget {
             children: [
               GFListTile(
                 padding: PaddingManager.p5,
-                avatar: Consumer(builder: (context, ref, child) {
-                  AsyncValue restaurantPic = ref
-                      .watch(restaurantPictureProvider(reservation.restaurant));
-                  return restaurantPic.when(
-                    data: (imageUrl) => CachedNetworkImage(
-                      imageUrl: restaurantPic.value,
-                      imageBuilder: (context, url) => GFAvatar(
-                        backgroundImage: url,
-                        radius: 40,
+                avatar: Consumer(
+                  builder: (context, ref, child) {
+                    final AsyncValue restaurantPic = ref.watch(
+                      restaurantPictureProvider(reservation.restaurant),
+                    );
+                    return restaurantPic.when(
+                      data: (imageUrl) => CachedNetworkImage(
+                        imageUrl: restaurantPic.value,
+                        imageBuilder: (context, url) => GFAvatar(
+                          backgroundImage: url,
+                          radius: 40,
+                        ),
                       ),
-                    ),
-                    error: (e, s) => GFToast.showToast(
-                      e.toString(),
-                      context,
-                    ),
-                    loading: () => const LoadingIndicator(),
-                  );
-                }),
+                      error: (e, s) => GFToast.showToast(
+                        e.toString(),
+                        context,
+                      ),
+                      loading: () => const LoadingIndicator(),
+                    );
+                  },
+                ),
                 title: TitleColumn(
                   reservation: reservation,
                   text: text,

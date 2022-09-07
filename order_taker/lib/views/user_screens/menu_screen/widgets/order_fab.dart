@@ -47,15 +47,15 @@ class OrderFAB extends StatelessWidget {
             return Container(
               height: 20,
               width: 20,
+              decoration: Styles.buildBoxDecoration(
+                20,
+                Colors.red,
+              ),
               child: Center(
                 child: Text(
                   menuList.length.toString(),
                   style: Theme.of(context).textTheme.headline3,
                 ),
-              ),
-              decoration: Styles.buildBoxDecoration(
-                20,
-                Colors.red,
               ),
             );
           },
@@ -108,37 +108,35 @@ class _OrderFABContent extends ConsumerWidget {
       height: double.maxFinite,
       child: ListView.builder(
         itemCount: menuCards.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Card(
-            elevation: 10,
-            color: complementaryColor,
-            child: Padding(
-              padding: PaddingManager.p9,
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Text(
-                      '${menuCards[index].itemTitle} - ${menuCards[index].itemPrice}',
-                      style: const TextStyle(
-                        fontSize: 12,
-                      ),
+        itemBuilder: (BuildContext context, int index) => Card(
+          elevation: 10,
+          color: complementaryColor,
+          shape: Styles.buildRoundedBorder(25),
+          child: Padding(
+            padding: PaddingManager.p9,
+            child: Row(
+              children: [
+                Flexible(
+                  child: Text(
+                    '${menuCards[index].itemTitle} - ${menuCards[index].itemPrice}',
+                    style: const TextStyle(
+                      fontSize: 12,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () => ref
-                        .read(menuCardsControllerProvider.notifier)
-                        .removeMenuCard(menuCards[index]),
-                    icon: const Icon(
-                      Icons.exposure_minus_1,
-                    ),
-                    iconSize: 20,
+                ),
+                IconButton(
+                  onPressed: () => ref
+                      .read(menuCardsControllerProvider.notifier)
+                      .removeMenuCard(menuCards[index]),
+                  icon: const Icon(
+                    Icons.exposure_minus_1,
                   ),
-                ],
-              ),
+                  iconSize: 20,
+                ),
+              ],
             ),
-            shape: Styles.buildRoundedBorder(25),
-          );
-        },
+          ),
+        ),
       ),
     );
   }

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:order_taker/providers/repository_providers.dart';
-import 'package:order_taker/providers/restaurant_register_provider.dart';
-import 'package:order_taker/themes/themes.dart';
+import '../../../providers/repository_providers.dart';
+import '../../../providers/restaurant_register_provider.dart';
+import '../../../themes/themes.dart';
 
 import '../../project_widgets.dart';
-
-
 
 class RestaurantRegister extends ConsumerWidget {
   const RestaurantRegister({Key? key}) : super(key: key);
@@ -45,7 +43,7 @@ class RestaurantRegister extends ConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 30.0, bottom: 5),
                         child: Text(
-                          "Register a restaurant",
+                          'Register a restaurant',
                           style: GoogleFonts.roboto(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -67,7 +65,6 @@ class RestaurantRegister extends ConsumerWidget {
                         decoration: contentContainerDecoration,
                         width: double.infinity,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Row(
                               children: [
@@ -77,11 +74,13 @@ class RestaurantRegister extends ConsumerWidget {
                                     child: DoubleTextField(
                                       func: (value) {
                                         ref
-                                            .read(restaurantFirstNameProvider
-                                                .notifier)
+                                            .read(
+                                              restaurantFirstNameProvider
+                                                  .notifier,
+                                            )
                                             .update((state) => value);
                                       },
-                                      hintText: "First Name",
+                                      hintText: 'First Name',
                                       icon: Icons.person,
                                       obscure: false,
                                       inputType: TextInputType.name,
@@ -94,11 +93,13 @@ class RestaurantRegister extends ConsumerWidget {
                                     child: DoubleTextField(
                                       func: (value) {
                                         ref
-                                            .read(restaurantLastNameProvider
-                                                .notifier)
+                                            .read(
+                                              restaurantLastNameProvider
+                                                  .notifier,
+                                            )
                                             .update((state) => value);
                                       },
-                                      hintText: "Last Name",
+                                      hintText: 'Last Name',
                                       icon: Icons.person,
                                       obscure: false,
                                       inputType: TextInputType.name,
@@ -113,13 +114,13 @@ class RestaurantRegister extends ConsumerWidget {
                                     .read(restaurantEmailProvider.notifier)
                                     .update((state) => value);
                               },
-                              hintText: "Email Address",
+                              hintText: 'Email Address',
                               icon: Icons.mail,
                               obscure: false,
                               inputType: TextInputType.emailAddress,
                             ),
                             TextFields(
-                              hintText: "Password",
+                              hintText: 'Password',
                               icon: Icons.password,
                               obscure: true,
                               inputType: TextInputType.text,
@@ -135,7 +136,7 @@ class RestaurantRegister extends ConsumerWidget {
                                     .read(restaurantPhoneProvider.notifier)
                                     .update((state) => value);
                               },
-                              hintText: "Mobile Number",
+                              hintText: 'Mobile Number',
                               icon: Icons.phone,
                               obscure: false,
                               inputType: TextInputType.number,
@@ -154,29 +155,45 @@ class RestaurantRegister extends ConsumerWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 40.0),
                               child: NormalButtons(
-                                  buttonText: "Get Started",
-                                  buttonFunc: () async {
-                                    await auth
-                                        .signUp(
-                                          email: email,
-                                          password: password,
-                                        )
-                                        .then((value) => auth
+                                buttonText: 'Get Started',
+                                buttonFunc: () async {
+                                  await auth
+                                      .signUp(
+                                        email: email,
+                                        password: password,
+                                      )
+                                      .then(
+                                        (value) => auth
                                             .getCurrentUser()!
-                                            .sendEmailVerification())
-                                        .then((value) => db.setMobileNumber(
-                                            auth.getCurrentUser()!.uid,
-                                            phoneNumber))
-                                        .then((value) => db
-                                            .setRestaurantName(restaurantName))
-                                        .then((value) => db.setUserType("Admin",
-                                            auth.getCurrentUser()!.uid))
-                                        .then((value) => auth.updateUserName(
-                                              name: firstName + " " + lastName,
-                                            ));
-                                    Navigator.popAndPushNamed(
-                                        context, "/login");
-                                  }),
+                                            .sendEmailVerification(),
+                                      )
+                                      .then(
+                                        (value) => db.setMobileNumber(
+                                          auth.getCurrentUser()!.uid,
+                                          phoneNumber,
+                                        ),
+                                      )
+                                      .then(
+                                        (value) => db
+                                            .setRestaurantName(restaurantName),
+                                      )
+                                      .then(
+                                        (value) => db.setUserType(
+                                          'Admin',
+                                          auth.getCurrentUser()!.uid,
+                                        ),
+                                      )
+                                      .then(
+                                        (value) => auth.updateUserName(
+                                          name: '$firstName $lastName',
+                                        ),
+                                      );
+                                  await Navigator.popAndPushNamed(
+                                    context,
+                                    '/login',
+                                  );
+                                },
+                              ),
                             ),
                           ],
                         ),
