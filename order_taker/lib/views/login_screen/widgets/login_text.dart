@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 
 class LoginText extends StatelessWidget {
   const LoginText({
-    Key? key,
     required this.text,
+    Key? key,
   }) : super(key: key);
   final String text;
 
   @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: Theme.of(context).textTheme.headline3,
-    );
-  }
+  Widget build(BuildContext context) => Text(
+        text,
+        style: Theme.of(context).textTheme.headline3,
+      );
 }

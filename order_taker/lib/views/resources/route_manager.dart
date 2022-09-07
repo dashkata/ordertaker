@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:order_taker/views/auth_screen/auth_checker_screen.dart';
-import 'package:order_taker/views/login_screen/login.dart';
-import 'package:order_taker/views/owner_screens/owner_onboarding/onboarding.dart';
-import 'package:order_taker/views/owner_screens/restaurant_register_screen/restaurant_register.dart';
-import 'package:order_taker/views/user_screens/bill_screen/bill.dart';
-import 'package:order_taker/views/user_screens/confirm_reservation_screen/confirm_reservation.dart';
-import 'package:order_taker/views/user_screens/menu_screen/menu.dart';
-import 'package:order_taker/views/user_screens/profile_screen/profile.dart';
-import 'package:order_taker/views/user_screens/register_screen/register.dart';
-import 'package:order_taker/views/user_screens/reservations_screen/reservations.dart';
-import 'package:order_taker/views/user_screens/restaurant_info_screen/restaurant_info.dart';
-import 'package:order_taker/views/user_screens/restaurant_screen/restaurants.dart';
-
-
+import '../auth_screen/auth_checker_screen.dart';
+import '../login_screen/login.dart';
+import '../owner_screens/owner_onboarding/onboarding.dart';
+import '../owner_screens/restaurant_register_screen/restaurant_register.dart';
+import '../restaurant_screens/restaurant_orders_screen/restaurant_order.dart';
+import '../user_screens/bill_screen/bill.dart';
+import '../user_screens/confirm_reservation_screen/confirm_reservation.dart';
+import '../user_screens/menu_screen/menu.dart';
+import '../user_screens/profile_screen/profile.dart';
+import '../user_screens/register_screen/register.dart';
+import '../user_screens/reservations_screen/reservations.dart';
+import '../user_screens/restaurant_info_screen/restaurant_info.dart';
+import '../user_screens/restaurant_screen/restaurants.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -28,6 +27,7 @@ class Routes {
   static const String userConfirmReserveration = 'user_confirm_reservation';
   static const String userBill = 'bill';
   static const String restaurantRegister = 'restaurant_register';
+  static const String restuarantOrders = 'restaurant_orders';
   static const String ownerOnboarding = 'onboarding';
 }
 
@@ -81,6 +81,10 @@ class AppRouter {
       case Routes.restaurantRegister:
         return MaterialPageRoute(
           builder: (_) => const RestaurantRegister(),
+        );
+      case Routes.restuarantOrders:
+        return MaterialPageRoute(
+          builder: (_) => const RestaurantOrders(),
         );
       case Routes.ownerOnboarding:
         return MaterialPageRoute(

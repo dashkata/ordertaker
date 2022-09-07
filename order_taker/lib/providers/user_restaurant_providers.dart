@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final userDateProvider = StateProvider.autoDispose<String>((ref) => "");
+final userDateProvider = StateProvider.autoDispose<String>((ref) => '');
 
 final peopleProvider = StateProvider<int>((ref) => 0);
 

@@ -18,16 +18,15 @@ class MenuSection extends StatelessWidget {
   final String sectionTitle;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => Column(
       children: [
         Padding(
           padding: PaddingManager.p6,
+          key: sectionKey,
           child: Text(
             sectionTitle,
             style: Theme.of(context).textTheme.headline4,
           ),
-          key: sectionKey,
         ),
         Padding(
           padding: PaddingManager.p7,
@@ -94,5 +93,4 @@ class MenuSection extends StatelessWidget {
         ),
       ],
     );
-  }
 }

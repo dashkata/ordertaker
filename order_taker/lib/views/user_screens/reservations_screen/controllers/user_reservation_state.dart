@@ -8,20 +8,21 @@ class UserReservationStateNotifier extends StateNotifier<void> {
   final FirestoreRepository _firestoreRepository;
   final AuthRepository _authRepository;
 
-  UserReservationStateNotifier(
-      {required FirestoreRepository firestoreRepository,
-      required AuthRepository authRepository})
-      : _firestoreRepository = firestoreRepository,
+  UserReservationStateNotifier({
+    required FirestoreRepository firestoreRepository,
+    required AuthRepository authRepository,
+  })  : _firestoreRepository = firestoreRepository,
         _authRepository = authRepository,
         super(null);
 
-  void deleteReservation(Reservation reservation) async {
+  Future<void> deleteReservation(Reservation reservation) async {
     await _firestoreRepository.deleteReservation(
-        _authRepository.getCurrentUser()!.uid, reservation);
+      _authRepository.getCurrentUser()!.uid,
+      reservation,
+    );
   }
 
   void navigateToMenu(Reservation reservation) {
-
     navigatorKey.currentState!.popAndPushNamed(
       Routes.userMenu,
       arguments: reservation,

@@ -11,28 +11,30 @@ class ReservationScreen extends StatelessWidget {
   const ReservationScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(backgroundColor: appBarColor),
-      drawer: const CustomDrawer(),
-      body: Stack(
-        children: [
-          const BackgroundWidget(),
-          SafeArea(
-            child: Consumer(builder: (context, ref, child) {
-              AsyncValue<List<Reservation>> reservations =
-                  ref.watch(fetchReservationProvider);
-              return reservations.when(
-                  data: (data) => ListView.builder(
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(backgroundColor: appBarColor),
+        drawer: const CustomDrawer(),
+        body: Stack(
+          children: [
+            const BackgroundWidget(),
+            SafeArea(
+              child: Consumer(
+                builder: (context, ref, child) {
+                  final AsyncValue<List<Reservation>> reservations =
+                      ref.watch(fetchReservationProvider);
+                  return reservations.when(
+                    data: (data) => ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (BuildContext context, int index) =>
-                          ReservationCard(reservation: data[index])),
-                  error: (e, s) => Text(e.toString()),
-                  loading: () => const LoadingIndicator());
-            }),
-          ),
-        ],
-      ),
-    );
-  }
+                          ReservationCard(reservation: data[index]),
+                    ),
+                    error: (e, s) => Text(e.toString()),
+                    loading: () => const LoadingIndicator(),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      );
 }

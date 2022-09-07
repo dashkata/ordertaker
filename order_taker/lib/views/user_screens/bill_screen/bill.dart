@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:order_taker/views/user_screens/bill_screen/widgets/review_text_field.dart';
-import 'package:order_taker/views/user_screens/bill_screen/widgets/order_list.dart';
-import 'package:order_taker/views/user_screens/bill_screen/widgets/pay_button.dart';
 
 import '../../../models/reservation_model.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
+import 'widgets/order_list.dart';
+import 'widgets/pay_button.dart';
+import 'widgets/review_text_field.dart';
 
 class BillScreen extends StatelessWidget {
   const BillScreen({Key? key}) : super(key: key);

@@ -1,5 +1,3 @@
-
-
 enum UserDetails{
   name,
   email,

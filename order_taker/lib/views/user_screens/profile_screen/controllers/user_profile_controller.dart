@@ -16,11 +16,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../providers/profile_provider.dart';
 
 class UserProfileNotifier extends StateNotifier<void> {
-  UserProfileNotifier(
-      {required AuthRepository authRepository,
-      required FirestoreRepository firestoreRepository,
-      required StorageRepository storageRepository})
-      : _authRepository = authRepository,
+  UserProfileNotifier({
+    required AuthRepository authRepository,
+    required FirestoreRepository firestoreRepository,
+    required StorageRepository storageRepository,
+  })  : _authRepository = authRepository,
         _firestoreRepository = firestoreRepository,
         _storageRepository = storageRepository,
         super(null);
@@ -31,17 +31,15 @@ class UserProfileNotifier extends StateNotifier<void> {
   void showPicDialog(Widget title, Widget content, BuildContext context) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: complementaryColor,
-          title: title,
-          content: content,
-        );
-      },
+      builder: (BuildContext context) => AlertDialog(
+        backgroundColor: complementaryColor,
+        title: title,
+        content: content,
+      ),
     );
   }
 
-  void updateUserDetails(
+  Future<void> updateUserDetails(
     WidgetRef ref,
     String detail,
     BuildContext context,
@@ -51,7 +49,7 @@ class UserProfileNotifier extends StateNotifier<void> {
   ) async {
     final newDetail = ref.watch(changeControllerProvider);
     if (ref.watch(changeProvider)) {
-      if (detail != newDetail && newDetail != "") {
+      if (detail != newDetail && newDetail != '') {
         switch (detailType) {
           case UserDetails.name:
             GFToast.showToast(
@@ -59,46 +57,46 @@ class UserProfileNotifier extends StateNotifier<void> {
               context,
               toastDuration: 5,
             );
-            navigatorKey.currentState!.popAndPushNamed(
+            await navigatorKey.currentState!.popAndPushNamed(
               Routes.auth,
             );
             break;
           case UserDetails.email:
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    backgroundColor: mainColor,
-                    title: Text(
-                      "${text.email_changed_to}: $newDetail."
-                      "\n"
-                      "${text.verify_email}",
-                      style: Theme.of(context).textTheme.headline4,
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                backgroundColor: mainColor,
+                title: Text(
+                  '${text.email_changed_to}: $newDetail.'
+                  '\n'
+                  '${text.verify_email}',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+                actions: [
+                  Center(
+                    child: GFButton(
+                      shape: GFButtonShape.pills,
+                      color: complementaryColor,
+                      onPressed: () async {
+                        GFToast.showToast(
+                          await _authRepository.updateEmail(
+                            email: newDetail,
+                          ),
+                          context,
+                          toastDuration: 5,
+                        );
+                        await _authRepository.signout();
+                        await navigatorKey.currentState!.popAndPushNamed(
+                          Routes.auth,
+                        );
+                      },
+                      text: 'OK',
+                      textStyle: Theme.of(context).textTheme.headline1,
                     ),
-                    actions: [
-                      Center(
-                        child: GFButton(
-                          shape: GFButtonShape.pills,
-                          color: complementaryColor,
-                          onPressed: () async {
-                            GFToast.showToast(
-                              await _authRepository.updateEmail(
-                                  email: newDetail),
-                              context,
-                              toastDuration: 5,
-                            );
-                            await _authRepository.signout();
-                            navigatorKey.currentState!.popAndPushNamed(
-                              Routes.auth,
-                            );
-                          },
-                          text: "OK",
-                          textStyle: Theme.of(context).textTheme.headline1,
-                        ),
-                      )
-                    ],
-                  );
-                });
+                  )
+                ],
+              ),
+            );
             break;
           case UserDetails.password:
             GFToast.showToast(
@@ -127,17 +125,20 @@ class UserProfileNotifier extends StateNotifier<void> {
         .update((state) => !ref.read(changeProvider));
   }
 
-  void changeProfileImage(BuildContext context, ImageTypes imageType) async {
-    final ImagePicker _imagePicker = ImagePicker();
+  Future<void> changeProfileImage(
+    BuildContext context,
+    ImageTypes imageType,
+  ) async {
+    final ImagePicker imagePicker = ImagePicker();
     XFile? image;
     switch (imageType) {
       case ImageTypes.camera:
-        image = await _imagePicker.pickImage(
+        image = await imagePicker.pickImage(
           source: ImageSource.camera,
         );
         break;
       case ImageTypes.gallery:
-        image = await _imagePicker.pickImage(
+        image = await imagePicker.pickImage(
           source: ImageSource.gallery,
         );
         break;
@@ -151,7 +152,7 @@ class UserProfileNotifier extends StateNotifier<void> {
         context,
       );
       navigatorKey.currentState!.pop();
-      navigatorKey.currentState!.popAndPushNamed(
+      await navigatorKey.currentState!.popAndPushNamed(
         Routes.auth,
       );
     }

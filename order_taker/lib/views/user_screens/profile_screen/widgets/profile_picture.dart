@@ -17,8 +17,7 @@ class ContainerPicture extends StatelessWidget {
   final AppLocalizations text;
 
   @override
-  Widget build(BuildContext context) {
-    return Stack(
+  Widget build(BuildContext context) => Stack(
       alignment: Alignment.bottomCenter,
       children: [
         Container(
@@ -58,7 +57,6 @@ class ContainerPicture extends StatelessWidget {
                 color: GFColors.WHITE,
                 size: GFSize.SMALL,
                 borderSide: const BorderSide(
-                  color: Colors.black,
                   width: 1.5,
                 ),
                 shape: GFIconButtonShape.circle,
@@ -78,5 +76,4 @@ class ContainerPicture extends StatelessWidget {
         ),
       ],
     );
-  }
 }

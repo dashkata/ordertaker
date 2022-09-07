@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:getwidget/getwidget.dart';
+
 import '../../../../Themes/themes.dart';
-import '../../../resources/style_manager.dart';
 
 class PayButton extends StatelessWidget {
   const PayButton({

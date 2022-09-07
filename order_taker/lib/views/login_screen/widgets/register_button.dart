@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/providers/controller_providers.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:order_taker/views/login_screen/widgets/login_text.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../providers/controller_providers.dart';
+import 'login_text.dart';
 
 class RegisterButton extends ConsumerWidget {
   const RegisterButton({

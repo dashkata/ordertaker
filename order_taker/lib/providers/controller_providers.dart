@@ -1,34 +1,37 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/controllers/storage_state_notifier.dart';
-import 'package:order_taker/models/menu_item_model.dart';
-import 'package:order_taker/providers/repository_providers.dart';
-import 'package:order_taker/providers/services_provider.dart';
-import 'package:order_taker/views/login_screen/controllers/login_state_controller.dart';
-import 'package:order_taker/views/user_screens/confirm_reservation_screen/controllers/user_confirm_reservation_controller.dart';
-import 'package:order_taker/views/user_screens/menu_screen/controllers/menu_function_notifier.dart';
-import 'package:order_taker/views/user_screens/menu_screen/controllers/menu_screen_notifier.dart';
-import 'package:order_taker/views/user_screens/profile_screen/controllers/user_profile_controller.dart';
-import 'package:order_taker/views/user_screens/register_screen/controllers/user_register_controller.dart';
-import 'package:order_taker/views/user_screens/reservations_screen/controllers/user_reservation_state.dart';
-import 'package:order_taker/views/user_screens/restaurant_screen/controllers/restaurant_state_controller.dart';
+
+import '../controllers/storage_state_notifier.dart';
+import '../models/menu_item_model.dart';
+import '../views/login_screen/controllers/login_state_controller.dart';
+import '../views/restaurant_screens/restaurant_orders_screen/controllers/restaurant_order_controller.dart';
+import '../views/user_screens/confirm_reservation_screen/controllers/user_confirm_reservation_controller.dart';
+import '../views/user_screens/menu_screen/controllers/menu_function_notifier.dart';
+import '../views/user_screens/menu_screen/controllers/menu_screen_notifier.dart';
+import '../views/user_screens/profile_screen/controllers/user_profile_controller.dart';
+import '../views/user_screens/register_screen/controllers/user_register_controller.dart';
+import '../views/user_screens/reservations_screen/controllers/user_reservation_state.dart';
+import '../views/user_screens/restaurant_screen/controllers/restaurant_state_controller.dart';
+import 'repository_providers.dart';
+import 'services_provider.dart';
 
 final restaurantDialogNotifierProvider =
-    StateNotifierProvider<RestaurantDialogNotifier, void>((ref) {
-  return RestaurantDialogNotifier();
-});
+    StateNotifierProvider<RestaurantDialogNotifier, void>(
+  (ref) => RestaurantDialogNotifier(),
+);
 
 final storageStateNotifierProvider =
     StateNotifierProvider.autoDispose<StorageStateNotifier, AsyncValue<String>>(
-        (ref) {
-  return StorageStateNotifier(ref.watch(storageServicesProvider));
-});
+  (ref) => StorageStateNotifier(ref.watch(storageServicesProvider)),
+);
 final menuCardsControllerProvider =
-    StateNotifierProvider<MenuScreenNotifier, List<OrderItem>>((ref) {
-  return MenuScreenNotifier(ref);
-});
+    StateNotifierProvider<MenuScreenNotifier, List<OrderItem>>(
+  MenuScreenNotifier.new,
+);
 
-final menuFunctionsProvider = StateNotifierProvider<MenuFunctionsNotifier, void>(
-    (ref) => MenuFunctionsNotifier());
+final menuFunctionsProvider =
+    StateNotifierProvider<MenuFunctionsNotifier, void>(
+  (ref) => MenuFunctionsNotifier(),
+);
 
 final userRegisterProvider =
     StateNotifierProvider<UserRegisterScreenNotifier, void>(
@@ -72,4 +75,8 @@ final loginStateProvider = StateNotifierProvider<LoginStateNotifier, void>(
       authRepositoryProvider,
     ),
   ),
+);
+final restaurantOrderNotifierProvider =
+    StateNotifierProvider<RestaurantOrderNotifier, void>(
+  (ref) => RestaurantOrderNotifier(),
 );
