@@ -25,42 +25,43 @@ class OrdersList extends StatelessWidget {
             40,
             complementaryColor,
           ),
-          child: Consumer(
-            builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              final AsyncValue<List<Order>> futureOrders =
-                  ref.watch(fetchOrdersProvider(reservation));
-              return futureOrders.when(
-                data: (orders) => Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: ListView.builder(
-                    itemCount: orders.length,
-                    itemBuilder: (BuildContext context, int ordersIndex) =>
-                        Padding(
-                      padding: const EdgeInsets.only(bottom: 20.0),
-                      child: Column(
-                        children: List.generate(
-                          orders[ordersIndex].menuItems.length,
-                          (menuIndex) => Padding(
-                            padding: const EdgeInsets.only(
-                              top: 10.0,
-                            ),
-                            child: Text(
-                              '${orders[ordersIndex].menuItems[menuIndex].itemTitle} - ${orders[ordersIndex].menuItems[menuIndex].itemPrice}',
-                              style: Theme.of(context).textTheme.headline1,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                error: (e, s) => Text(
-                  e.toString(),
-                ),
-                loading: () => const LoadingIndicator(),
-              );
-            },
-          ),
+          child: Container(),
+          // Consumer(
+          //   builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          //     final AsyncValue<List<Order>> futureOrders =
+          //         ref.watch(fetchOrdersProvider(reservation));
+          //     return futureOrders.when(
+          //       data: (orders) => Padding(
+          //         padding: const EdgeInsets.all(20.0),
+          //         child: ListView.builder(
+          //           itemCount: orders.length,
+          //           itemBuilder: (BuildContext context, int ordersIndex) =>
+          //               Padding(
+          //             padding: const EdgeInsets.only(bottom: 20.0),
+          //             child: Column(
+          //               children: List.generate(
+          //                 orders[ordersIndex].menuItems.length,
+          //                 (menuIndex) => Padding(
+          //                   padding: const EdgeInsets.only(
+          //                     top: 10.0,
+          //                   ),
+          //                   child: Text(
+          //                     '${orders[ordersIndex].menuItems[menuIndex].itemTitle} - ${orders[ordersIndex].menuItems[menuIndex].itemPrice}',
+          //                     style: Theme.of(context).textTheme.headline1,
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //       error: (e, s) => Text(
+          //         e.toString(),
+          //       ),
+          //       loading: () => const LoadingIndicator(),
+          //     );
+          //   },
+          // ),
         ),
       );
 }

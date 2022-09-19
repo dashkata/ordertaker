@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../models/order_model.dart';
 import '../models/reservation_model.dart';
@@ -140,69 +141,71 @@ class FirestoreRepository {
     String uid,
     Reservation reservation,
   ) async {
-    final orderRef = FirebaseFirestore.instance.doc(
+    final ordersRef = FirebaseFirestore.instance.collection(
       FirestorePath.restaurantOrders(reservation, uid),
     );
-    final tableSnapshot = await orderRef.get();
-    int orderCount = 1;
-    if (tableSnapshot.data()?.length != null) {
-      orderCount = tableSnapshot.data()!.length - 4;
-    }
-    await orderRef.set(
-      {
-        'order $orderCount': orders.ordersToList(),
-      },
-      SetOptions(
-        merge: true,
-      ),
-    );
+    await ordersRef.get().then(
+          (value) async =>
+              await ordersRef.doc('order ${value.docs.length + 1}').set(
+            {
+              'order': orders.ordersToList(),
+              'time_stamp': DateTime.now(),
+            },
+            SetOptions(merge: true),
+          ),
+        );
   }
 
-  Future<List<Order>> fetchOrdersUser(
-    Reservation reservation,
-    String uid,
-  ) async {
-    final orderRef = await FirebaseFirestore.instance
-        .doc(FirestorePath.restaurantOrders(reservation, uid))
-        .get();
-    final List<Order> orders = [];
-    if (orderRef.data()?.keys != null) {
-      for (final field in orderRef.data()!.keys) {
-        if (field.contains('order')) {
-          orders.add(
-            Order.fromMap(
-              orderRef.get(field),
-            ),
-          );
-        }
-      }
-    }
-    return orders;
-  }
+  // Future<List<Order>> fetchOrdersUser(
+  //   Reservation reservation,
+  //   String uid,
+  // ) async {
+  //   final orderRef = await FirebaseFirestore.instance
+  //       .doc(FirestorePath.restaurantOrders(reservation, uid))
+  //       .get();
+  //   // final List<Order> orders = [];
+  //   // if (orderRef.data()?.keys != null) {
+  //   //   for (final field in orderRef.data()!.keys) {
+  //   //     if (field.contains('order')) {
+  //   //       orders.add(
+  //   //         Order.fromMap(
+  //   //           orderRef.get(field),
+  //   //         ),
+  //   //       );
+  //   //     }
+  //   //   }
+  //   // }
+  //   // return orders;
+  // }
 
   Stream<List<Order>> fetchOrdersRestaurant(
     String tableId,
     String restaurant,
   ) async* {
-    final tablesRef = FirebaseFirestore.instance
+    final tablesRef = await FirebaseFirestore.instance
         .collection(FirestorePath.restaurantTable(tableId, restaurant))
         .where('currentOrder', isEqualTo: true)
-        .snapshots();
-    final List<Order> orders = [];
-    tablesRef.listen(
-      (snapshot) {
-        for (final field in snapshot.docs[0].data().keys) {
-          if (field.contains('order')) {
-            orders.add(
-              Order.fromMap(
-                snapshot.docs[0].get(field),
-              ),
-            );
-          }
-        }
-      },
-    );
+        .limit(1)
+        .get();
+    final ordersCollection =
+        tablesRef.docs[0].reference.collection('Orders').snapshots();
 
-    yield orders;
+    yield* ordersCollection.map(
+      (tables) => tables.docs
+          .map((table) => Order.fromMap(table['order'] as List<dynamic>))
+          .toList(),
+    );
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> listenForOrders(
+      String restaurantTitle, String tableId) async* {
+    final tablerRef = await FirebaseFirestore.instance
+        .collection(FirestorePath.restaurantTable(tableId, restaurantTitle))
+        .where('currentOrder', isEqualTo: true)
+        .get();
+    yield* tablerRef.docs[0].reference
+        .collection('Orders')
+        .where('time_stamp', isGreaterThanOrEqualTo: DateTime.now())
+        .snapshots();
   }
 }
