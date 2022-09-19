@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:order_taker/models/reservation_model.dart';
-import 'package:order_taker/views/user_screens/menu_screen/widgets/bottom_navbar.dart';
-import 'package:order_taker/views/user_screens/menu_screen/widgets/menu_section.dart';
-import 'package:order_taker/views/user_screens/menu_screen/widgets/order_fab.dart';
-import '../../project_widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../models/reservation_model.dart';
+import '../../project_widgets.dart';
+import 'widgets/bottom_navbar.dart';
+import 'widgets/menu_section.dart';
+import 'widgets/order_fab.dart';
 
 class MenuScreen extends StatelessWidget {
   MenuScreen({Key? key}) : super(key: key);
