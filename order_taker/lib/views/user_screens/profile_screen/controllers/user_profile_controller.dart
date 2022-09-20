@@ -1,19 +1,18 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:getwidget/components/toast/gf_toast.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:order_taker/Themes/themes.dart';
-import 'package:order_taker/enums/image_type.dart';
-import 'package:order_taker/enums/user_details.dart';
-import 'package:order_taker/repositories/auth_repository.dart';
-import 'package:order_taker/repositories/firestore_repository.dart';
-import 'package:order_taker/repositories/storage_repository.dart';
-import 'package:order_taker/views/resources/route_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../../../Themes/themes.dart';
+import '../../../../enums/image_type.dart';
+import '../../../../enums/user_details.dart';
 import '../../../../providers/profile_provider.dart';
+import '../../../../repositories/auth_repository.dart';
+import '../../../../repositories/firestore_repository.dart';
+import '../../../../repositories/storage_repository.dart';
+import '../../../resources/route_manager.dart';
 
 class UserProfileNotifier extends StateNotifier<void> {
   UserProfileNotifier({
@@ -52,11 +51,11 @@ class UserProfileNotifier extends StateNotifier<void> {
       if (detail != newDetail && newDetail != '') {
         switch (detailType) {
           case UserDetails.name:
-            GFToast.showToast(
-              await _authRepository.updateUserName(name: newDetail),
-              context,
-              toastDuration: 5,
-            );
+            // GFToast.showToast(
+            await _authRepository.updateUserName(name: newDetail);
+            // context,
+            // toastDuration: 5,
+            // );
             await navigatorKey.currentState!.popAndPushNamed(
               Routes.auth,
             );
@@ -73,49 +72,49 @@ class UserProfileNotifier extends StateNotifier<void> {
                   style: Theme.of(context).textTheme.headline4,
                 ),
                 actions: [
-                  Center(
-                    child: GFButton(
-                      shape: GFButtonShape.pills,
-                      color: complementaryColor,
-                      onPressed: () async {
-                        GFToast.showToast(
-                          await _authRepository.updateEmail(
-                            email: newDetail,
-                          ),
-                          context,
-                          toastDuration: 5,
-                        );
-                        await _authRepository.signout();
-                        await navigatorKey.currentState!.popAndPushNamed(
-                          Routes.auth,
-                        );
-                      },
-                      text: 'OK',
-                      textStyle: Theme.of(context).textTheme.headline1,
-                    ),
-                  )
+                  // Center(
+                  //   child: GFButton(
+                  //     shape: GFButtonShape.pills,
+                  //     color: complementaryColor,
+                  //     onPressed: () async {
+                  //       GFToast.showToast(
+                  //         await _authRepository.updateEmail(
+                  //           email: newDetail,
+                  //         ),
+                  //         context,
+                  //         toastDuration: 5,
+                  //       );
+                  //       await _authRepository.signout();
+                  //       await navigatorKey.currentState!.popAndPushNamed(
+                  //         Routes.auth,
+                  //       );
+                  //     },
+                  //     text: 'OK',
+                  //     textStyle: Theme.of(context).textTheme.headline1,
+                  //   ),
+                  // )
                 ],
               ),
             );
             break;
           case UserDetails.password:
-            GFToast.showToast(
-              await _authRepository.updatePassword(
-                passowrd: newDetail,
-              ),
-              context,
-              toastDuration: 5,
+            // GFToast.showToast(
+            await _authRepository.updatePassword(
+              passowrd: newDetail,
             );
+            // context,
+            // toastDuration: 5,
+            // );
             break;
           case UserDetails.mobileNumber:
-            GFToast.showToast(
-              await _firestoreRepository.setMobileNumber(
-                _authRepository.getCurrentUser()!.uid,
-                newDetail,
-              ),
-              context,
-              toastDuration: 5,
+            // GFToast.showToast(
+            await _firestoreRepository.setMobileNumber(
+              _authRepository.getCurrentUser()!.uid,
+              newDetail,
             );
+            // context,
+            // toastDuration: 5,
+            // );
             break;
         }
       }
@@ -144,12 +143,12 @@ class UserProfileNotifier extends StateNotifier<void> {
         break;
     }
     if (image != null) {
-      GFToast.showToast(
-        await _storageRepository.uploadProfilePic(
-          photoFile: File(image.path),
-          email: _authRepository.getCurrentUser()!.email!,
-        ),
-        context,
+      // GFToast.showToast(
+      await _storageRepository.uploadProfilePic(
+        photoFile: File(image.path),
+        email: _authRepository.getCurrentUser()!.email!,
+        // ),
+        // context,
       );
       navigatorKey.currentState!.pop();
       await navigatorKey.currentState!.popAndPushNamed(

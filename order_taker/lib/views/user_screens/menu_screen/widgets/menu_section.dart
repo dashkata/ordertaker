@@ -1,17 +1,15 @@
-import 'package:flutter/material.dart'
-    '';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:order_taker/Themes/themes.dart';
-import 'package:order_taker/models/menu_item_model.dart';
-import 'package:order_taker/views/resources/padding_manager.dart';
-import 'package:order_taker/views/resources/style_manager.dart';
-import 'package:order_taker/views/user_screens/menu_screen/widgets/menu_card.dart';
+import 'package:flutter/material.dart';
+import '../../../../Themes/themes.dart';
+import '../../../../models/menu_item_model.dart';
+import '../../../resources/padding_manager.dart';
+import '../../../resources/style_manager.dart';
+import 'menu_card.dart';
 
 class MenuSection extends StatelessWidget {
   const MenuSection({
-    Key? key,
     required this.sectionKey,
     required this.sectionTitle,
+    Key? key,
   }) : super(key: key);
 
   final GlobalKey sectionKey;
@@ -19,78 +17,78 @@ class MenuSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Column(
-      children: [
-        Padding(
-          padding: PaddingManager.p6,
-          key: sectionKey,
-          child: Text(
-            sectionTitle,
-            style: Theme.of(context).textTheme.headline4,
+        children: [
+          Padding(
+            padding: PaddingManager.p6,
+            key: sectionKey,
+            child: Text(
+              sectionTitle,
+              style: Theme.of(context).textTheme.headline4,
+            ),
           ),
-        ),
-        Padding(
-          padding: PaddingManager.p7,
-          child: Material(
-            borderRadius: Styles.buildBorderRadius(40),
-            elevation: 10,
-            child: Container(
-              width: double.infinity,
-              decoration: Styles.buildBoxDecoration(40, complementaryColor),
-              child: Column(
-                children: [
-                  MenuCard(
-                    orderItem: OrderItem(
-                      itemTitle: 'Салата Моцарела с авокадо',
-                      itemIngredients:
-                          'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
-                      itemPrice: '300gr: 10.49lv',
+          Padding(
+            padding: PaddingManager.p7,
+            child: Material(
+              borderRadius: Styles.buildBorderRadius(40),
+              elevation: 10,
+              child: Container(
+                width: double.infinity,
+                decoration: Styles.buildBoxDecoration(40, complementaryColor),
+                child: Column(
+                  children: [
+                    MenuCard(
+                      orderItem: OrderItem(
+                        itemTitle: 'Салата Моцарела с авокадодддд',
+                        itemIngredients:
+                            'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
+                        itemPrice: '300gr: 10.49lv',
+                      ),
                     ),
-                  ),
-                  MenuCard(
-                    orderItem: OrderItem(
-                      itemTitle: 'Салата Моцарела с авокадо',
-                      itemIngredients:
-                          'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
-                      itemPrice: '300gr: 10.49lv',
+                    MenuCard(
+                      orderItem: OrderItem(
+                        itemTitle: 'Салата Моцарела с авокадоддеееее',
+                        itemIngredients:
+                            'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
+                        itemPrice: '300gr: 10.49lv',
+                      ),
                     ),
-                  ),
-                  MenuCard(
-                    orderItem: OrderItem(
-                      itemTitle: 'Салата Моцарела с авокадо',
-                      itemIngredients:
-                          'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
-                      itemPrice: '300gr: 10.49lv',
+                    MenuCard(
+                      orderItem: OrderItem(
+                        itemTitle: 'Салата Моцарела с авокадо',
+                        itemIngredients:
+                            'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
+                        itemPrice: '300gr: 10.49lv',
+                      ),
                     ),
-                  ),
-                  MenuCard(
-                    orderItem: OrderItem(
-                      itemTitle: 'Салата Моцарела с авокадо',
-                      itemIngredients:
-                          'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
-                      itemPrice: '300gr: 10.49lv',
+                    MenuCard(
+                      orderItem: OrderItem(
+                        itemTitle: 'Салата Моцарела с авокадо',
+                        itemIngredients:
+                            'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
+                        itemPrice: '300gr: 10.49lv',
+                      ),
                     ),
-                  ),
-                  MenuCard(
-                    orderItem: OrderItem(
-                      itemTitle: 'Салата Моцарела с авокадо',
-                      itemIngredients:
-                          'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
-                      itemPrice: '300gr: 10.49lv',
+                    MenuCard(
+                      orderItem: OrderItem(
+                        itemTitle: 'Салата Моцарела с авокадо',
+                        itemIngredients:
+                            'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
+                        itemPrice: '300gr: 10.49lv',
+                      ),
                     ),
-                  ),
-                  MenuCard(
-                    orderItem: OrderItem(
-                      itemTitle: 'Салата Моцарела с авокадо',
-                      itemIngredients:
-                          'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
-                      itemPrice: '300gr: 10.49lv',
+                    MenuCard(
+                      orderItem: OrderItem(
+                        itemTitle: 'Салата Моцарела с авокадо',
+                        itemIngredients:
+                            'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
+                        itemPrice: '300gr: 10.49lv',
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
 }

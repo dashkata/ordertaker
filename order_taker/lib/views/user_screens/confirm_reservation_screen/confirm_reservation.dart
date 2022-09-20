@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:getwidget/getwidget.dart';
+
 import '../../../Themes/themes.dart';
 import '../../../models/reservation_model.dart';
 import '../../../providers/common_providers.dart';
 import '../../../providers/confirm_reservation_providers.dart';
 import '../../../providers/controller_providers.dart';
-import '../../../providers/repository_providers.dart';
-import '../../../providers/services_provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../resources/padding_manager.dart';
-import '../../resources/route_manager.dart';
 import '../../project_widgets.dart';
+import '../../resources/padding_manager.dart';
 import '../../user_screens/restaurant_info_screen/restaurant_info_widget.dart';
 import 'widgets/detail_row.dart';
 import 'widgets/user_detail.dart';
@@ -47,20 +44,16 @@ class ConfirmReservationScreen extends ConsumerWidget {
                     data: (data) => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        GFListTile(
-                          margin: EdgeInsets.zero,
-                          padding: PaddingManager.p19,
-                          avatar: GFAvatar(
+                        ListTile(
+                          leading: CircleAvatar(
                             backgroundImage: NetworkImage(restaurantPic.value),
-                            shape: GFAvatarShape.square,
-                            borderRadius: BorderRadius.circular(10),
                             radius: 30,
                           ),
                           title: Text(
                             reservationInfo['restaurantTitle'],
                             style: Theme.of(context).textTheme.headline5,
                           ),
-                          subTitle: DetailRow(
+                          subtitle: DetailRow(
                             reservationInfo: reservationInfo,
                             text: text,
                           ),
@@ -91,8 +84,8 @@ class ConfirmReservationScreen extends ConsumerWidget {
                                     name: data['name'],
                                     restaurant:
                                         reservationInfo['restaurantTitle'],
-                                    date:
-                                        '${ref.read(confirmDateProvider)} - ${ref.read(confirmTimeProvider)}',
+                                    date: '${ref.read(confirmDateProvider)} '
+                                        '- ${ref.read(confirmTimeProvider)}',
                                     numberOfPeople:
                                         reservationInfo['numberOfPeople'],
                                     selectedTable: 2,

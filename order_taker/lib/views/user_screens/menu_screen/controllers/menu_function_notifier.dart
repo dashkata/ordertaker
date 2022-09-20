@@ -15,16 +15,14 @@ class MenuFunctionsNotifier extends StateNotifier<void> {
   ) async {
     await showDialog(
       context: context,
-      builder: (context) {
-        return Padding(
-          padding: PaddingManager.p8,
-          child: AlertDialog(
-            title: title,
-            content: content,
-            actions: actions,
-          ),
-        );
-      },
+      builder: (context) => Padding(
+        padding: PaddingManager.p8,
+        child: AlertDialog(
+          title: title,
+          content: content,
+          actions: actions,
+        ),
+      ),
     );
   }
 

@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../providers/profile_provider.dart';
@@ -19,19 +18,21 @@ class NormalButtons extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final String? buttonText;
-  final void Function() buttonFunc;
+  final String buttonText;
+  final VoidCallback buttonFunc;
 
   @override
-  Widget build(BuildContext context) => GFButton(
-        borderSide: const BorderSide(color: accentColor),
+  Widget build(BuildContext context) => ElevatedButton(
         onPressed: buttonFunc,
-        text: buttonText,
-        shape: GFButtonShape.pills,
-        size: GFSize.LARGE,
-        color: mainColor,
-        elevation: 10,
-        textStyle: Theme.of(context).textTheme.headline4,
+        style: ElevatedButton.styleFrom(
+          shape: const StadiumBorder(),
+          backgroundColor: mainColor,
+          elevation: 10,
+        ),
+        child: Text(
+          buttonText,
+          style: Theme.of(context).textTheme.headline4,
+        ),
       );
 }
 
@@ -145,8 +146,7 @@ class BackgroundWidgetAuthPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        // color: mainColor,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/Background2.png'),
             fit: BoxFit.fill,
@@ -162,8 +162,7 @@ class BackgroundWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        // color: mainColor,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/Background.png'),
             fit: BoxFit.fill,

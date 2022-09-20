@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/themes/themes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -44,19 +43,21 @@ class InfoButton extends StatelessWidget {
   }) : super(key: key);
   final String buttonText;
   final void Function() func;
+
   @override
   Widget build(BuildContext context) {
-    return GFButton(
-      color: complementaryColor,
-      onPressed: func,
-      shape: GFButtonShape.pills,
-      text: buttonText,
-      elevation: 5,
-      textStyle: GoogleFonts.roboto(
-        color: accentColor,
-        fontWeight: FontWeight.bold,
-      ),
-    );
+    return Container();
+    // return GFButton(
+    //   color: complementaryColor,
+    //   onPressed: func,
+    //   shape: GFButtonShape.pills,
+    //   text: buttonText,
+    //   elevation: 5,
+    //   textStyle: GoogleFonts.roboto(
+    //     color: accentColor,
+    //     fontWeight: FontWeight.bold,
+    //   ),
+    // );
   }
 }
 

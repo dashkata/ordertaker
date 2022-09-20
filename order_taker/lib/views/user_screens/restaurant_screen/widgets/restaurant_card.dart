@@ -1,20 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:order_taker/providers/common_providers.dart';
-import 'package:order_taker/providers/controller_providers.dart';
-import 'package:order_taker/themes/themes.dart';
-import 'package:order_taker/views/project_widgets.dart';
-import 'package:order_taker/views/resources/padding_manager.dart';
-import 'package:order_taker/views/resources/route_manager.dart';
-import 'package:order_taker/views/resources/style_manager.dart';
+
 import '../../../../models/restaurant_model.dart';
+import '../../../../providers/common_providers.dart';
+import '../../../../providers/controller_providers.dart';
+import '../../../../themes/themes.dart';
+import '../../../project_widgets.dart';
+import '../../../resources/padding_manager.dart';
+import '../../../resources/style_manager.dart';
 import 'find_a_table.dart';
 
 class RestaurantCard extends ConsumerWidget {
-  const RestaurantCard({Key? key, required this.restaurant}) : super(key: key);
+  const RestaurantCard({
+    Key? key,
+    required this.restaurant,
+  }) : super(key: key);
   final Restaurant restaurant;
 
   @override
@@ -54,8 +55,10 @@ class RestaurantCard extends ConsumerWidget {
                               height: 100,
                             ),
                           ),
-                          error: (e, s) =>
-                              GFToast.showToast(e.toString(), context),
+                          error: (e, s) => Text(
+                            e.toString(),
+                          ),
+                          // GFToast.showToast(e.toString(), context),
                           loading: () => const LoadingIndicator(),
                         );
                         // return Container();

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/providers/controller_providers.dart';
-import 'package:order_taker/views/resources/route_manager.dart';
+
 import '../../../../Themes/themes.dart';
 import '../../../../models/reservation_model.dart';
+import '../../../../providers/controller_providers.dart';
 import '../../../../providers/menu_screen_providers.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SectionNavBar extends ConsumerWidget {
   const SectionNavBar({
-    Key? key,
     required this.appetizersKey,
     required this.dishesKey,
     required this.desertsKey,
     required this.drinksKey,
     required this.reservation,
+    Key? key,
   }) : super(key: key);
   final GlobalKey appetizersKey;
   final GlobalKey dishesKey;

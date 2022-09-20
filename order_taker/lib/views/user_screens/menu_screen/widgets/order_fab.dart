@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/views/resources/padding_manager.dart';
-import 'package:order_taker/views/resources/style_manager.dart';
+
 import '../../../../Themes/themes.dart';
 import '../../../../models/reservation_model.dart';
 import '../../../../providers/controller_providers.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../project_widgets.dart';
+import '../../../resources/padding_manager.dart';
+import '../../../resources/style_manager.dart';
 
 class OrderFAB extends StatelessWidget {
   const OrderFAB({
-    Key? key,
     required this.reservation,
+    Key? key,
   }) : super(key: key);
   final Reservation reservation;
 
@@ -44,20 +45,22 @@ class OrderFAB extends StatelessWidget {
         Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
             final menuList = ref.watch(menuCardsControllerProvider);
-            return Container(
-              height: 20,
-              width: 20,
-              decoration: Styles.buildBoxDecoration(
-                20,
-                Colors.red,
-              ),
-              child: Center(
-                child: Text(
-                  menuList.length.toString(),
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-              ),
-            );
+            return menuList.isEmpty
+                ? const SizedBox.shrink()
+                : Container(
+                    height: 20,
+                    width: 20,
+                    decoration: Styles.buildBoxDecoration(
+                      20,
+                      Colors.red,
+                    ),
+                    child: Center(
+                      child: Text(
+                        menuList.length.toString(),
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
+                    ),
+                  );
           },
         )
       ],
@@ -67,8 +70,8 @@ class OrderFAB extends StatelessWidget {
 
 class _OrderFABActions extends StatelessWidget {
   const _OrderFABActions({
-    Key? key,
     required this.reservation,
+    Key? key,
   }) : super(key: key);
 
   final Reservation reservation;
@@ -79,16 +82,11 @@ class _OrderFABActions extends StatelessWidget {
     return Center(
       child: Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) =>
-            GFButton(
-          onPressed: () => ref
+            NormalButtons(
+          buttonText: text.complete_order,
+          buttonFunc: () => ref
               .read(menuCardsControllerProvider.notifier)
               .completeOrder(reservation),
-          shape: GFButtonShape.pills,
-          color: mainColor,
-          elevation: 10,
-          padding: PaddingManager.p10,
-          text: text.complete_order,
-          textStyle: Theme.of(context).textTheme.headline3,
         ),
       ),
     );
@@ -118,7 +116,8 @@ class _OrderFABContent extends ConsumerWidget {
               children: [
                 Flexible(
                   child: Text(
-                    '${menuCards[index].itemTitle} - ${menuCards[index].itemPrice}',
+                    '${menuCards[index].itemTitle} '
+                    '- ${menuCards[index].itemPrice}',
                     style: const TextStyle(
                       fontSize: 12,
                     ),

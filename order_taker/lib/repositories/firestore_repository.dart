@@ -141,42 +141,45 @@ class FirestoreRepository {
     String uid,
     Reservation reservation,
   ) async {
-    final ordersRef = FirebaseFirestore.instance.collection(
-      FirestorePath.restaurantOrders(reservation, uid),
-    );
-    await ordersRef.get().then(
-          (value) async =>
-              await ordersRef.doc('order ${value.docs.length + 1}').set(
-            {
-              'order': orders.ordersToList(),
-              'time_stamp': DateTime.now(),
-            },
-            SetOptions(merge: true),
-          ),
-        );
+    if (orders.menuItems.isNotEmpty) {
+      final ordersRef = FirebaseFirestore.instance.collection(
+        FirestorePath.restaurantOrders(reservation, uid),
+      );
+      await ordersRef.get().then(
+            (value) async =>
+                await ordersRef.doc('order ${value.docs.length + 1}').set(
+              {
+                'order': orders.ordersToList(),
+                'time_stamp': DateTime.now(),
+                'status': 'new'
+              },
+              SetOptions(merge: true),
+            ),
+          );
+    }
   }
 
-  // Future<List<Order>> fetchOrdersUser(
-  //   Reservation reservation,
-  //   String uid,
-  // ) async {
-  //   final orderRef = await FirebaseFirestore.instance
-  //       .doc(FirestorePath.restaurantOrders(reservation, uid))
-  //       .get();
-  //   // final List<Order> orders = [];
-  //   // if (orderRef.data()?.keys != null) {
-  //   //   for (final field in orderRef.data()!.keys) {
-  //   //     if (field.contains('order')) {
-  //   //       orders.add(
-  //   //         Order.fromMap(
-  //   //           orderRef.get(field),
-  //   //         ),
-  //   //       );
-  //   //     }
-  //   //   }
-  //   // }
-  //   // return orders;
-  // }
+  Stream<List<Order>> fetchOrdersUser(
+    Reservation reservation,
+    String uid,
+  ) {
+    final orderRef = FirebaseFirestore.instance
+        .collection(FirestorePath.restaurantOrders(reservation, uid))
+        .snapshots();
+    return orderRef.map(
+      (orders) =>
+          orders.docs.map((order) => Order.fromMap(order['order'])).toList(),
+    );
+    // final List<Order> orders = [];
+    // for (final order in orderRef) {
+    //   orders.add(
+    //     Order.fromMap(
+    //       order['order'],
+    //     ),
+    //   );
+    // }
+    // return orders;
+  }
 
   Stream<List<Order>> fetchOrdersRestaurant(
     String tableId,
