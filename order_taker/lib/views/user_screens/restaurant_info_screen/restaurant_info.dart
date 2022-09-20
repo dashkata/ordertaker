@@ -1,7 +1,5 @@
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:order_taker/providers/restaurant_info_provider.dart';
 import 'package:order_taker/themes/themes.dart';
@@ -28,137 +26,137 @@ class RestaurantInfoScreen extends ConsumerWidget {
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0),
-              child: GFButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      backgroundColor: mainColor,
-                      actionsAlignment: MainAxisAlignment.start,
-                      actions: [
-                        Center(
-                          child: SizedBox(
-                            height: 150,
-                            width: 300,
-                            child: Card(
-                              elevation: 10,
-                              color: complementaryColor,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Center(
-                                    child: Text(
-                                      'Order delivery or takeout',
-                                      style: GoogleFonts.roboto(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: accentColor,
-                                      ),
-                                    ),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 10.0,
-                                      horizontal: 10,
-                                    ),
-                                    child: InfoDivider(),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: GFButton(
-                                      onPressed: () {},
-                                      icon: const Icon(Icons.phone),
-                                      text: restaurant.phoneNumber,
-                                      textStyle: GoogleFonts.roboto(
-                                        color: accentColor,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      color: mainColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20.0),
-                          child: Center(
-                            child: SizedBox(
-                              height: 150,
-                              width: 300,
-                              child: Card(
-                                elevation: 5,
-                                color: complementaryColor,
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          const Icon(Icons.location_on),
-                                          Text(
-                                            restaurant.location,
-                                            style: GoogleFonts.roboto(
-                                              color: accentColor,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const DetailText(
-                              detailTitle: 'Neighborhood',
-                              detailTitleIcon: Icon(Icons.location_city),
-                              detailDesc: 'Neighborhood',
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            DetailText(
-                              detailTitle: 'Open hours',
-                              detailTitleIcon:
-                                  const Icon(Icons.watch_later_outlined),
-                              detailDesc: restaurant.openhours,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            DetailText(
-                              detailTitle: 'Payment options',
-                              detailTitleIcon: const Icon(Icons.credit_card),
-                              detailDesc: restaurant.paymentOptions,
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  );
-                },
-                shape: GFButtonShape.pills,
-                text: 'Details',
-                color: complementaryColor,
-                textStyle: GoogleFonts.roboto(
-                  color: accentColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 30.0),
+            //   child: GFButton(
+            //     onPressed: () {
+            //       showDialog(
+            //         context: context,
+            //         builder: (BuildContext context) => AlertDialog(
+            //           backgroundColor: mainColor,
+            //           actionsAlignment: MainAxisAlignment.start,
+            //           actions: [
+            //             Center(
+            //               child: SizedBox(
+            //                 height: 150,
+            //                 width: 300,
+            //                 child: Card(
+            //                   elevation: 10,
+            //                   color: complementaryColor,
+            //                   child: Column(
+            //                     crossAxisAlignment: CrossAxisAlignment.start,
+            //                     children: [
+            //                       Center(
+            //                         child: Text(
+            //                           'Order delivery or takeout',
+            //                           style: GoogleFonts.roboto(
+            //                             fontSize: 20,
+            //                             fontWeight: FontWeight.bold,
+            //                             color: accentColor,
+            //                           ),
+            //                         ),
+            //                       ),
+            //                       const Padding(
+            //                         padding: EdgeInsets.symmetric(
+            //                           vertical: 10.0,
+            //                           horizontal: 10,
+            //                         ),
+            //                         child: InfoDivider(),
+            //                       ),
+            //                       Padding(
+            //                         padding: const EdgeInsets.only(left: 10),
+            //                         child: GFButton(
+            //                           onPressed: () {},
+            //                           icon: const Icon(Icons.phone),
+            //                           text: restaurant.phoneNumber,
+            //                           textStyle: GoogleFonts.roboto(
+            //                             color: accentColor,
+            //                             fontSize: 15,
+            //                             fontWeight: FontWeight.bold,
+            //                           ),
+            //                           color: mainColor,
+            //                         ),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //               ),
+            //             ),
+            //             Padding(
+            //               padding: const EdgeInsets.symmetric(vertical: 20.0),
+            //               child: Center(
+            //                 child: SizedBox(
+            //                   height: 150,
+            //                   width: 300,
+            //                   child: Card(
+            //                     elevation: 5,
+            //                     color: complementaryColor,
+            //                     child: Column(
+            //                       children: [
+            //                         Padding(
+            //                           padding: const EdgeInsets.only(left: 10),
+            //                           child: Row(
+            //                             crossAxisAlignment:
+            //                                 CrossAxisAlignment.end,
+            //                             children: [
+            //                               const Icon(Icons.location_on),
+            //                               Text(
+            //                                 restaurant.location,
+            //                                 style: GoogleFonts.roboto(
+            //                                   color: accentColor,
+            //                                   fontWeight: FontWeight.bold,
+            //                                   fontSize: 15,
+            //                                 ),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                         ),
+            //                       ],
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ),
+            //             ),
+            //             Column(
+            //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //               children: [
+            //                 const DetailText(
+            //                   detailTitle: 'Neighborhood',
+            //                   detailTitleIcon: Icon(Icons.location_city),
+            //                   detailDesc: 'Neighborhood',
+            //                 ),
+            //                 const SizedBox(
+            //                   height: 20,
+            //                 ),
+            //                 DetailText(
+            //                   detailTitle: 'Open hours',
+            //                   detailTitleIcon:
+            //                       const Icon(Icons.watch_later_outlined),
+            //                   detailDesc: restaurant.openhours,
+            //                 ),
+            //                 const SizedBox(
+            //                   height: 20,
+            //                 ),
+            //                 DetailText(
+            //                   detailTitle: 'Payment options',
+            //                   detailTitleIcon: const Icon(Icons.credit_card),
+            //                   detailDesc: restaurant.paymentOptions,
+            //                 ),
+            //               ],
+            //             )
+            //           ],
+            //         ),
+            //       );
+            //     },
+            //     shape: GFButtonShape.pills,
+            //     text: 'Details',
+            //     color: complementaryColor,
+            //     textStyle: GoogleFonts.roboto(
+            //       color: accentColor,
+            //       fontWeight: FontWeight.bold,
+            //     ),
+            //   ),
+            // ),
             FloatingActionButton(
               backgroundColor: complementaryColor,
               onPressed: () {
@@ -186,24 +184,25 @@ class RestaurantInfoScreen extends ConsumerWidget {
                             height: 30,
                             width: 400,
                             child: DropdownButtonHideUnderline(
-                              child: GFDropdown(
-                                isExpanded: true,
-                                dropdownButtonColor: GFColors.TRANSPARENT,
-                                onChanged: (newValue) {},
-                                items: [
-                                  'FC Barcelona',
-                                  'Real Madrid',
-                                  'Villareal',
-                                  'Manchester City'
-                                ]
-                                    .map(
-                                      (value) => DropdownMenuItem(
-                                        value: value,
-                                        child: Text(value),
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
+                              child: Container(),
+                              // GFDropdown(
+                              //   isExpanded: true,
+                              //   dropdownButtonColor: GFColors.TRANSPARENT,
+                              //   onChanged: (newValue) {},
+                              //   items: [
+                              //     'FC Barcelona',
+                              //     'Real Madrid',
+                              //     'Villareal',
+                              //     'Manchester City'
+                              //   ]
+                              //       .map(
+                              //         (value) => DropdownMenuItem(
+                              //           value: value,
+                              //           child: Text(value),
+                              //         ),
+                              //       )
+                              //       .toList(),
+                              // ),
                             ),
                           ),
                         ],
@@ -213,19 +212,20 @@ class RestaurantInfoScreen extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Expanded(
-                            child: DateTimePicker(
-                              initialValue: '',
-                              firstDate: DateTime.now(),
-                              lastDate: DateTime(2100),
-                              decoration: const InputDecoration(
-                                labelText: 'Date',
-                                labelStyle: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                ),
-                                border: InputBorder.none,
-                              ),
-                            ),
+                            child: Container(),
+                            // DateTimePicker(
+                            //   initialValue: '',
+                            //   firstDate: DateTime.now(),
+                            //   lastDate: DateTime(2100),
+                            //   decoration: const InputDecoration(
+                            //     labelText: 'Date',
+                            //     labelStyle: TextStyle(
+                            //       color: Colors.black,
+                            //       fontSize: 15,
+                            //     ),
+                            //     border: InputBorder.none,
+                            //   ),
+                            // ),
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,23 +237,24 @@ class RestaurantInfoScreen extends ConsumerWidget {
                               SizedBox(
                                 height: 30,
                                 child: DropdownButtonHideUnderline(
-                                  child: GFDropdown(
-                                    dropdownButtonColor: GFColors.TRANSPARENT,
-                                    onChanged: (newValue) {},
-                                    items: [
-                                      'FC Barcelona',
-                                      'Real Madrid',
-                                      'Villareal',
-                                      'Manchester City'
-                                    ]
-                                        .map(
-                                          (value) => DropdownMenuItem(
-                                            value: value,
-                                            child: Text(value),
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
+                                  child: Container(),
+                                  // GFDropdown(
+                                  //   dropdownButtonColor: GFColors.TRANSPARENT,
+                                  //   onChanged: (newValue) {},
+                                  //   items: [
+                                  //     'FC Barcelona',
+                                  //     'Real Madrid',
+                                  //     'Villareal',
+                                  //     'Manchester City'
+                                  //   ]
+                                  //       .map(
+                                  //         (value) => DropdownMenuItem(
+                                  //           value: value,
+                                  //           child: Text(value),
+                                  //         ),
+                                  //       )
+                                  //       .toList(),
+                                  // ),
                                 ),
                               ),
 
@@ -269,13 +270,14 @@ class RestaurantInfoScreen extends ConsumerWidget {
                         child: SizedBox(
                           width: 250,
                           height: 35,
-                          child: GFButton(
-                            onPressed: () {},
-                            text: 'Find a table',
-                            size: GFSize.LARGE,
-                            color: complementaryColor,
-                            type: GFButtonType.outline2x,
-                          ),
+                          child: Container(),
+                          // GFButton(
+                          //   onPressed: () {},
+                          //   text: 'Find a table',
+                          //   size: GFSize.LARGE,
+                          //   color: complementaryColor,
+                          //   type: GFButtonType.outline2x,
+                          // ),
                         ),
                       ),
                     ],

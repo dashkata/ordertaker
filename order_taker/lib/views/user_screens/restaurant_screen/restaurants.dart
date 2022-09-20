@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:order_taker/Themes/themes.dart';
-import 'package:order_taker/providers/restaurant_screen_providers.dart';
-import 'package:order_taker/views/user_screens/restaurant_screen/widgets/restaurant_card.dart';
 
+import '../../../Themes/themes.dart';
 import '../../../models/restaurant_model.dart';
+import '../../../providers/restaurant_screen_providers.dart';
 import '../../project_widgets.dart';
+import 'widgets/restaurant_card.dart';
 
 class RestaurantScreen extends StatelessWidget {
   const RestaurantScreen({Key? key}) : super(key: key);
@@ -33,10 +32,13 @@ class RestaurantScreen extends StatelessWidget {
                         restaurant: data[index],
                       ),
                     ),
-                    error: (e, s) => GFToast.showToast(
+                    error: (e, s) => Text(
                       e.toString(),
-                      context,
                     ),
+                    // => GFToast.showToast(
+                    //   e.toString(),
+                    //   context,
+                    // ),
                     loading: () => const LoadingIndicator(),
                   );
                 },

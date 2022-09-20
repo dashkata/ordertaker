@@ -4,9 +4,9 @@ import 'package:order_taker/models/reservation_model.dart';
 
 class TitleColumn extends StatelessWidget {
   const TitleColumn({
-    Key? key,
     required this.reservation,
     required this.text,
+    Key? key,
   }) : super(key: key);
 
   final Reservation reservation;

@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:getwidget/components/button/gf_button.dart';
-import 'package:getwidget/shape/gf_button_shape.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:order_taker/Themes/themes.dart';
-import 'package:order_taker/providers/controller_providers.dart';
-import 'package:order_taker/views/resources/route_manager.dart';
-import 'package:order_taker/views/user_screens/restaurant_screen/widgets/number_of_people.dart';
-import 'package:order_taker/views/user_screens/restaurant_screen/widgets/select_date.dart';
 
+import '../../../../Themes/themes.dart';
 import '../../../../providers/confirm_reservation_providers.dart';
+import '../../../../providers/controller_providers.dart';
 import '../../../../providers/user_restaurant_providers.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../project_widgets.dart';
+import '../../../resources/route_manager.dart';
+import '../widgets/number_of_people.dart';
+import '../widgets/select_date.dart';
 
 class RestaurantDialogNotifier extends StateNotifier<void> {
   RestaurantDialogNotifier() : super(null);
@@ -109,19 +106,19 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
         actions: [
           Center(
             child: Consumer(
-              builder: (context, ref, child) => GFButton(
-                color: complementaryColor,
-                shape: GFButtonShape.pills,
-                text: 'Confirm reservation',
-                textStyle: GoogleFonts.roboto(
-                  color: accentColor,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-                elevation: 10,
+              builder: (context, ref, child) => ElevatedButton(
                 onPressed: () => ref
                     .read(restaurantDialogNotifierProvider.notifier)
                     .confirmReservation(ref, resTitle),
+                style: ElevatedButton.styleFrom(
+                  shape: const StadiumBorder(),
+                  backgroundColor: complementaryColor,
+                  elevation: 10,
+                ),
+                child: Text(
+                  'Confirm reservation',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
               ),
             ),
           ),
