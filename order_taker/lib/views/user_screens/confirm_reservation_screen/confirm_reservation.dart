@@ -44,19 +44,38 @@ class ConfirmReservationScreen extends ConsumerWidget {
                     data: (data) => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage: NetworkImage(restaurantPic.value),
-                            radius: 30,
-                          ),
-                          title: Text(
-                            reservationInfo['restaurantTitle'],
-                            style: Theme.of(context).textTheme.headline5,
-                          ),
-                          subtitle: DetailRow(
-                            reservationInfo: reservationInfo,
-                            text: text,
-                          ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: PaddingManager.p9,
+                              child: CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                  restaurantPic.value,
+                                ),
+                                radius: 45,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 5, top: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    reservationInfo['restaurantTitle'],
+                                    style: Theme.of(context).textTheme.headline5,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 5.0),
+                                    child: DetailRow(
+                                      reservationInfo: reservationInfo,
+                                      text: text,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
                         ),
                         const InfoDivider(),
                         UserDetail(
@@ -74,6 +93,7 @@ class ConfirmReservationScreen extends ConsumerWidget {
                           detailType: text.mobile_number,
                           userDetail: data['phoneNumber'],
                         ),
+
                         Center(
                           child: NormalButtons(
                             buttonText: text.confirm_reservation,
@@ -88,7 +108,7 @@ class ConfirmReservationScreen extends ConsumerWidget {
                                         '- ${ref.read(confirmTimeProvider)}',
                                     numberOfPeople:
                                         reservationInfo['numberOfPeople'],
-                                    selectedTable: 2,
+                                    selectedTable: 4,
                                   ),
                                 ),
                           ),

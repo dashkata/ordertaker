@@ -6,9 +6,10 @@ import '../../../../providers/confirm_reservation_providers.dart';
 
 class DetailRow extends ConsumerWidget {
   const DetailRow({
-    Key? key,
     required this.reservationInfo,
     required this.text,
+    Key? key,
+
   }) : super(key: key);
 
   final Map reservationInfo;

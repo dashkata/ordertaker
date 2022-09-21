@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../Themes/themes.dart';
-import '../../../../models/menu_item_model.dart';
+import '../../../../models/order_model.dart';
 import '../../../../providers/controller_providers.dart';
 
 class OrderContainer extends ConsumerWidget {
   const OrderContainer({
-    required this.menuItems,
-    required this.orderId,
+    required this.order,
+    required this.tableId,
     Key? key,
   }) : super(key: key);
-  final List<OrderItem> menuItems;
-  final int orderId;
+  final Order order;
+  final int tableId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => Container(
@@ -20,15 +20,38 @@ class OrderContainer extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            OrderTitle(
-              orderNumber: orderId,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                if (order.status == 'Completed')
+                  const Padding(
+                    padding: EdgeInsets.only(top: 5, right: 5),
+                    child: Icon(
+                      Icons.check_circle,
+                      size: 35,
+                    ),
+                  )
+                else
+                  const SizedBox.shrink(),
+              ],
             ),
+            if (order.status != 'Completed')
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: OrderTitle(
+                  orderNumber: order.id + 1,
+                ),
+              )
+            else
+              OrderTitle(
+                orderNumber: order.id + 1,
+              ),
             ListView.builder(
               shrinkWrap: true,
-              itemCount: menuItems.length,
+              itemCount: order.menuItems.length,
               itemBuilder: (BuildContext context, int index) =>
                   RestaurantMenuItem(
-                item: menuItems[index].itemTitle,
+                item: order.menuItems[index].itemTitle,
               ),
             ),
             Padding(
@@ -44,7 +67,14 @@ class OrderContainer extends ConsumerWidget {
               padding: const EdgeInsets.only(bottom: 20.0),
               child: OrderButton(
                 buttonText: 'Set status',
-                onPressed: () {},
+                onPressed: () async => await ref
+                    .read(restaurantOrderNotifierProvider.notifier)
+                    .setStatus(
+                      order.id,
+                      order.status,
+                      tableId,
+                      context,
+                    ),
               ),
             ),
           ],
@@ -60,13 +90,10 @@ class OrderTitle extends StatelessWidget {
   final int orderNumber;
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(top: 20.0),
-        child: Center(
-          child: Text(
-            'Order $orderNumber',
-            style: Theme.of(context).textTheme.headline5,
-          ),
+  Widget build(BuildContext context) => Center(
+        child: Text(
+          'Order $orderNumber',
+          style: Theme.of(context).textTheme.headline5,
         ),
       );
 }
@@ -106,11 +133,13 @@ class RestaurantMenuItem extends StatelessWidget {
   final String item;
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(top: 20.0, left: 30),
-        child: Text(
-          '- $item',
-          style: Theme.of(context).textTheme.headline3,
+  Widget build(BuildContext context) => Center(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Text(
+            '- $item',
+            style: Theme.of(context).textTheme.headline3,
+          ),
         ),
       );
 }

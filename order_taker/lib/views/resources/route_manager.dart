@@ -4,6 +4,7 @@ import '../login_screen/login.dart';
 import '../owner_screens/owner_onboarding/onboarding.dart';
 import '../owner_screens/restaurant_register_screen/restaurant_register.dart';
 import '../restaurant_screens/restaurant_orders_screen/restaurant_order.dart';
+import '../restaurant_screens/restaurant_tables_screen/restaurant_tables.dart';
 import '../user_screens/bill_screen/bill.dart';
 import '../user_screens/confirm_reservation_screen/confirm_reservation.dart';
 import '../user_screens/menu_screen/menu.dart';
@@ -27,7 +28,8 @@ class Routes {
   static const String userConfirmReserveration = 'user_confirm_reservation';
   static const String userBill = 'bill';
   static const String restaurantRegister = 'restaurant_register';
-  static const String restuarantOrders = 'restaurant_orders';
+  static const String restaurantOrders = 'restaurant_orders';
+  static const String restaurantTables = 'restaurant_tables';
   static const String ownerOnboarding = 'onboarding';
 }
 
@@ -82,9 +84,14 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const RestaurantRegister(),
         );
-      case Routes.restuarantOrders:
+      case Routes.restaurantOrders:
         return MaterialPageRoute(
           builder: (_) => const RestaurantOrders(),
+          settings: settings,
+        );
+      case Routes.restaurantTables:
+        return MaterialPageRoute(
+          builder: (_) => const RestaurantTables(),
         );
       case Routes.ownerOnboarding:
         return MaterialPageRoute(

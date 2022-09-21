@@ -149,8 +149,9 @@ class FirestoreRepository {
             (value) async =>
                 await ordersRef.doc('order ${value.docs.length + 1}').set(
               {
+                'id': value.docs.length,
                 'order': orders.ordersToList(),
-                'time_stamp': DateTime.now(),
+                'timeStamp': DateTime.now(),
                 'status': 'new'
               },
               SetOptions(merge: true),
@@ -167,35 +168,40 @@ class FirestoreRepository {
         .collection(FirestorePath.restaurantOrders(reservation, uid))
         .snapshots();
     return orderRef.map(
-      (orders) =>
-          orders.docs.map((order) => Order.fromMap(order['order'])).toList(),
+      (orders) => orders.docs
+          .map(
+            (order) => Order.fromMap(
+              order['order'],
+              order['id'],
+              order['status'],
+            ),
+          )
+          .toList(),
     );
-    // final List<Order> orders = [];
-    // for (final order in orderRef) {
-    //   orders.add(
-    //     Order.fromMap(
-    //       order['order'],
-    //     ),
-    //   );
-    // }
-    // return orders;
   }
 
   Stream<List<Order>> fetchOrdersRestaurant(
     String tableId,
     String restaurant,
   ) async* {
-    final tablesRef = await FirebaseFirestore.instance
+    final currentReservationRef = await FirebaseFirestore.instance
         .collection(FirestorePath.restaurantTable(tableId, restaurant))
-        .where('currentOrder', isEqualTo: true)
+        .where('currentReservation', isEqualTo: true)
         .limit(1)
         .get();
-    final ordersCollection =
-        tablesRef.docs[0].reference.collection('Orders').snapshots();
+    final ordersCollection = currentReservationRef.docs[0].reference
+        .collection('Orders')
+        .snapshots();
 
     yield* ordersCollection.map(
-      (tables) => tables.docs
-          .map((table) => Order.fromMap(table['order'] as List<dynamic>))
+      (orders) => orders.docs
+          .map(
+            (order) => Order.fromMap(
+              order['order'],
+              order['id'],
+              order['status'],
+            ),
+          )
           .toList(),
     );
   }
@@ -204,11 +210,36 @@ class FirestoreRepository {
       String restaurantTitle, String tableId) async* {
     final tablerRef = await FirebaseFirestore.instance
         .collection(FirestorePath.restaurantTable(tableId, restaurantTitle))
-        .where('currentOrder', isEqualTo: true)
+        .where('currentReservation', isEqualTo: true)
         .get();
     yield* tablerRef.docs[0].reference
         .collection('Orders')
-        .where('time_stamp', isGreaterThanOrEqualTo: DateTime.now())
+        .where('timeStamp', isGreaterThanOrEqualTo: DateTime.now())
         .snapshots();
+  }
+
+  Future<void> updateOrderStatus(
+    int id,
+    String orderStatus,
+    String tableId,
+    String restaurantTitle,
+  ) async {
+    final currentReservationRef = await FirebaseFirestore.instance
+        .collection(FirestorePath.restaurantTable(tableId, restaurantTitle))
+        .where('currentReservation', isEqualTo: true)
+        .limit(1)
+        .get();
+    final ordersCollection = await currentReservationRef.docs[0].reference
+        .collection('Orders')
+        .where('id', isEqualTo: id)
+        .get();
+    await ordersCollection.docs[0].reference.set(
+      {'status': orderStatus},
+      SetOptions(
+        merge: true,
+      ),
+    );
+
+    // ordersCollection.docs.where((element) => element)
   }
 }

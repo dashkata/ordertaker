@@ -4,6 +4,7 @@ import '../controllers/storage_state_notifier.dart';
 import '../models/menu_item_model.dart';
 import '../views/login_screen/controllers/login_state_controller.dart';
 import '../views/restaurant_screens/restaurant_orders_screen/controllers/restaurant_order_controller.dart';
+import '../views/restaurant_screens/restaurant_tables_screen/controllers/restaurant_tables_controller.dart';
 import '../views/user_screens/confirm_reservation_screen/controllers/user_confirm_reservation_controller.dart';
 import '../views/user_screens/menu_screen/controllers/menu_function_notifier.dart';
 import '../views/user_screens/menu_screen/controllers/menu_screen_notifier.dart';
@@ -78,5 +79,9 @@ final loginStateProvider = StateNotifierProvider<LoginStateNotifier, void>(
 );
 final restaurantOrderNotifierProvider =
     StateNotifierProvider<RestaurantOrderNotifier, void>(
-  (ref) => RestaurantOrderNotifier(),
+  (ref) => RestaurantOrderNotifier(ref: ref),
+);
+final restaurantTablesNotifierProvider =
+    StateNotifierProvider<RestaurantTablesNotifier, void>(
+  (ref) => RestaurantTablesNotifier(),
 );

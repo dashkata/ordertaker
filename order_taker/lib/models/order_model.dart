@@ -1,9 +1,13 @@
 import 'menu_item_model.dart';
 
 class Order {
+  final int id;
+  final String status;
   final List<OrderItem> menuItems;
 
   Order({
+    required this.id,
+    required this.status,
     required this.menuItems,
   });
 
@@ -15,11 +19,15 @@ class Order {
     return orderList;
   }
 
-  factory Order.fromMap(List<dynamic> menuItems) {
+  factory Order.fromMap(List<dynamic> menuItems, int id, String status) {
     final List<OrderItem> parsedItems = [];
     for (final menuItem in menuItems) {
       parsedItems.add(OrderItem.fromMap(menuItem));
     }
-    return Order(menuItems: parsedItems);
+    return Order(
+      id: id,
+      status: status,
+      menuItems: parsedItems,
+    );
   }
 }
