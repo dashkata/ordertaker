@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../providers/repository_providers.dart';
+import '../../../project_widgets.dart';
+import '../../../resources/route_manager.dart';
+
 class RestaurantOrderNotifier extends StateNotifier<void> {
-  RestaurantOrderNotifier() : super(null);
+  RestaurantOrderNotifier({required Ref ref})
+      : _ref = ref,
+        super(null);
+  final Ref _ref;
 
   void seeAdditionalMessages(BuildContext context, String additionalMessage) {
     showDialog(
@@ -15,9 +22,50 @@ class RestaurantOrderNotifier extends StateNotifier<void> {
       ),
     );
   }
-  void setStatus(int orderId){
 
+  Future<void> setStatus(
+    int orderId,
+    String currentStatus,
+    int tableId,
+    BuildContext context,
+  ) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) => SimpleDialog(
+        title: Center(
+          child: Text(
+            'Current order status: $currentStatus',
+            style: Theme.of(context).textTheme.headline4,
+          ),
+        ),
+        children: [
+          NormalButtons(
+            buttonText: 'In progress',
+            buttonFunc: () async {
+              await _ref.read(firestoreRepositoryProvider).updateOrderStatus(
+                    orderId,
+                    'In progress',
+                    tableId.toString(),
+                    'Pizza Don Vito',
+                  );
 
-
+              navigatorKey.currentState!.pop();
+            },
+          ),
+          NormalButtons(
+            buttonText: 'Completed',
+            buttonFunc: () async {
+              await _ref.read(firestoreRepositoryProvider).updateOrderStatus(
+                    orderId,
+                    'Completed',
+                    tableId.toString(),
+                    'Pizza Don Vito',
+                  );
+              navigatorKey.currentState!.pop();
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

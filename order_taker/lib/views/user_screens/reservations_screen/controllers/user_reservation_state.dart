@@ -49,15 +49,6 @@ class UserReservationStateNotifier extends StateNotifier<void> {
               buttonText: 'Cancel',
               buttonFunc: () => navigatorKey.currentState!.pop(),
             ),
-            // NormalButtons(buttonText: '', buttonFunc: buttonFunc)
-            // IconButton(
-            //   onPressed: () => navigatorKey.currentState!.pop(),
-            //   icon: const Icon(Icons.done),
-            // ),
-            // IconButton(
-            //   onPressed: () => navigatorKey.currentState!.pop(),
-            //   icon: const Icon(Icons.cancel),
-            // ),
           ],
         ),
       ),

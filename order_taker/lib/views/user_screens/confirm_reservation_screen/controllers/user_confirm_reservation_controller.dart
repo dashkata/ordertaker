@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../models/reservation_model.dart';
 import '../../../../repositories/auth_repository.dart';
@@ -19,8 +20,9 @@ class UserConfirmReservationNotifier extends StateNotifier<void> {
       _authRepository.getCurrentUser()!.uid,
       reservation,
     );
-    navigatorKey.currentState!.popAndPushNamed(
+    navigatorKey.currentState!.pushNamedAndRemoveUntil(
       Routes.userReservations,
+      (Route<dynamic> route) => false,
     );
   }
 }
