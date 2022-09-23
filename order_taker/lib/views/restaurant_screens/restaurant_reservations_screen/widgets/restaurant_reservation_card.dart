@@ -3,64 +3,39 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../Themes/themes.dart';
 import '../../../../models/reservation_model.dart';
+import '../../../../providers/repository_providers.dart';
 import '../../../resources/padding_manager.dart';
-import '../../../resources/route_manager.dart';
 import '../../restaurant_orders_screen/restaurant_order_arguments.dart';
-import '../controllers/restaurant_reservation_provider.dart';
+import 'restaurant_reservation_card_alert_dialog.dart';
 
-class RestaurantReservationCard extends StatelessWidget {
+class RestaurantReservationCard extends ConsumerWidget {
   const RestaurantReservationCard({
     required this.reservation,
-    Key? key,
     required this.args,
+    Key? key,
   }) : super(key: key);
   final Reservation reservation;
   final RestaurantOrderArguments args;
 
   @override
-  Widget build(BuildContext context) => Padding(
+  Widget build(
+    BuildContext context,
+    WidgetRef ref,
+  ) =>
+      Padding(
         padding: PaddingManager.p11,
         child: GestureDetector(
-          onTap: () => showDialog(
-            context: context,
-            builder: (_) => AlertDialog(
-              title: Text(
-                'Are you sure you want to set this as current reservation?',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline4,
-              ),
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Consumer(
-                    builder: (context, ref, child) => IconButton(
-                      onPressed: () {
-                        ref
-                            .read(
-                              restaurantReservationsControllerProvider.notifier,
-                            )
-                            .setCurrentReservation(
-                              reservation,
-                              args.restaurantTitle,
-                              args.id,
-                            );
-                        navigatorKey.currentState!.pop();
-                      },
-                      icon: const Icon(
-                        Icons.check_circle,
-                      ),
-                    ),
+          onTap: () async => await ref
+                  .read(firestoreRepositoryProvider)
+                  .checkForCurrentReservation(args.restaurantTitle, args.id)
+              ? await showDialog(
+                  context: context,
+                  builder: (_) => CardAlertDialog(
+                    reservation: reservation,
+                    args: args,
                   ),
-                  IconButton(
-                    onPressed: () => navigatorKey.currentState!.pop(),
-                    icon: const Icon(
-                      Icons.cancel,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                )
+              : null,
           child: Card(
             color: complementaryColor,
             elevation: 10,

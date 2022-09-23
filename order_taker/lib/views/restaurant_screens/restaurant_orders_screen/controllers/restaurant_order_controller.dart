@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../providers/repository_providers.dart';
 import '../../../project_widgets.dart';
 import '../../../resources/route_manager.dart';
+import '../restaurant_order_arguments.dart';
 
 class RestaurantOrderNotifier extends StateNotifier<void> {
   RestaurantOrderNotifier({required Ref ref})
@@ -66,6 +67,17 @@ class RestaurantOrderNotifier extends StateNotifier<void> {
           ),
         ],
       ),
+    );
+  }
+
+  void navigateToTables() {
+    navigatorKey.currentState!.popAndPushNamed(Routes.restaurantTables);
+  }
+
+  void navigateToReservations(RestaurantOrderArguments arguments) {
+    navigatorKey.currentState!.pushNamed(
+      Routes.restaurantReservations,
+      arguments: arguments,
     );
   }
 }
