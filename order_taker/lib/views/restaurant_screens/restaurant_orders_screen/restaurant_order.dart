@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:order_taker/views/restaurant_screens/restaurant_orders_screen/widgets/restaurant_order_fab.dart';
 import '../../../Themes/themes.dart';
 import '../../../models/order_model.dart';
+import '../../../providers/controller_providers.dart';
 import '../../../providers/restaurant_orders_provider.dart';
 import '../../project_widgets.dart';
 import 'restaurant_order_arguments.dart';
@@ -15,6 +17,13 @@ class RestaurantOrders extends StatelessWidget {
     final restaurantOrderArguments =
         ModalRoute.of(context)!.settings.arguments as RestaurantOrderArguments;
     return Scaffold(
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: RestaurantOrderFABRow(
+          restaurantOrderArguments: restaurantOrderArguments,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Stack(
         children: [
           const BackgroundWidget(),

@@ -18,7 +18,7 @@ class RestaurantTablesNotifier extends StateNotifier<void> {
       tableId,
     );
     if (currentRes) {
-      await navigatorKey.currentState!.pushNamed(
+      await navigatorKey.currentState!.popAndPushNamed(
         Routes.restaurantReservations,
         arguments: RestaurantOrderArguments(
           id: tableId,
@@ -26,7 +26,7 @@ class RestaurantTablesNotifier extends StateNotifier<void> {
         ),
       );
     } else {
-      await navigatorKey.currentState!.pushNamed(
+      await navigatorKey.currentState!.popAndPushNamed(
         Routes.restaurantOrders,
         arguments: RestaurantOrderArguments(
           id: tableId,
