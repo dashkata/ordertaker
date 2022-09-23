@@ -83,5 +83,9 @@ final restaurantOrderNotifierProvider =
 );
 final restaurantTablesNotifierProvider =
     StateNotifierProvider<RestaurantTablesNotifier, void>(
-  (ref) => RestaurantTablesNotifier(),
+  (ref) => RestaurantTablesNotifier(
+    firestoreRepository: ref.watch(
+      firestoreRepositoryProvider,
+    ),
+  ),
 );

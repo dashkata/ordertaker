@@ -63,7 +63,8 @@ class ConfirmReservationScreen extends ConsumerWidget {
                                 children: [
                                   Text(
                                     reservationInfo['restaurantTitle'],
-                                    style: Theme.of(context).textTheme.headline5,
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 5.0),
@@ -93,7 +94,6 @@ class ConfirmReservationScreen extends ConsumerWidget {
                           detailType: text.mobile_number,
                           userDetail: data['phoneNumber'],
                         ),
-
                         Center(
                           child: NormalButtons(
                             buttonText: text.confirm_reservation,
@@ -109,6 +109,7 @@ class ConfirmReservationScreen extends ConsumerWidget {
                                     numberOfPeople:
                                         reservationInfo['numberOfPeople'],
                                     selectedTable: 4,
+                                    currentReservation: false,
                                   ),
                                 ),
                           ),
