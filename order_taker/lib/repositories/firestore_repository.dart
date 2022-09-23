@@ -37,6 +37,62 @@ class FirestoreRepository {
     );
   }
 
+  Stream<List<Reservation>> fetchRestaurantReservations(
+    String restaurantTitle,
+    int tableId,
+  ) {
+    final reservationSnapshot = FirebaseFirestore.instance
+        .collection(
+          FirestorePath.restaurantTable(
+            tableId.toString(),
+            restaurantTitle,
+          ),
+        )
+        .snapshots();
+    return reservationSnapshot.map(
+      (reservations) => reservations.docs
+          .map((reservation) => Reservation.fromMap(reservation.data()))
+          .toList(),
+    );
+  }
+
+  Future<bool> checkForCurrentReservation(
+    String restaurantTitle,
+    int tableId,
+  ) async {
+    final restaurantRef = await FirebaseFirestore.instance
+        .collection(
+          FirestorePath.restaurantTable(
+            tableId.toString(),
+            restaurantTitle,
+          ),
+        )
+        .where('currentReservation', isEqualTo: true)
+        .limit(1)
+        .get();
+    return restaurantRef.docs.isEmpty;
+  }
+
+  Future<void> setCurrentReservation(
+      String restaurantTitle, int tableId, Reservation reservation) async {
+    final reservationRef = await FirebaseFirestore.instance
+        .collection(
+            FirestorePath.restaurantTable(tableId.toString(), restaurantTitle))
+        .where(
+          'personName',
+          isEqualTo: reservation.name,
+        )
+        .where(
+          'reservationDate',
+          isEqualTo: reservation.date,
+        )
+        .get();
+    await reservationRef.docs[0].reference.set(
+      {'currentReservation': true},
+      SetOptions(merge: true),
+    );
+  }
+
   void addReservation(String uid, Reservation reservation) {
     final userReservationRef = FirebaseFirestore.instance
         .collection(FirestorePath.userReservations(uid));
@@ -239,7 +295,5 @@ class FirestoreRepository {
         merge: true,
       ),
     );
-
-    // ordersCollection.docs.where((element) => element)
   }
 }
