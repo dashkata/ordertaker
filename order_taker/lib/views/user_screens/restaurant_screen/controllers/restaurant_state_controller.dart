@@ -99,13 +99,16 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
     WidgetRef ref,
     String selectedTable,
   ) async {
+    final tableId = int.parse(
+      selectedTable.substring('Table '.length, 'Table '.length + 1),
+    );
     await navigatorKey.currentState!.pushNamed(
       Routes.userConfirmReserveration,
       arguments: {
         'restaurantTitle': restaurantTitle,
         'userDate': ref.read(userDateProvider),
         'numberOfPeople': ref.read(peopleProvider),
-        'tableId': selectedTable,
+        'tableId': tableId,
       },
     );
   }
