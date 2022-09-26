@@ -298,19 +298,21 @@ class FirestoreRepository {
     );
   }
 
-  Future<List<String>> fetchFreeTables(
+  Future<Map<String, bool>> fetchFreeTables(
       String restaurantTitle, String date) async {
     final tableRef = await FirebaseFirestore.instance
         .collection(FirestorePath.restaurantTables('Pizza Don Vito'))
         .get();
-    final List<String> freeTables = [];
+    final Map<String, bool> freeTables = {};
     for (int i = 0; i < tableRef.docs.length; i++) {
       final reservationRef = await tableRef.docs[i].reference
           .collection('Reservations')
           .where('reservationDate', isEqualTo: date)
           .get();
       if (reservationRef.docs.isEmpty) {
-        freeTables.add(tableRef.docs[i].id);
+        freeTables[tableRef.docs[i].id] = true;
+      }else{
+        freeTables[tableRef.docs[i].id] = false;
       }
     }
     return freeTables;

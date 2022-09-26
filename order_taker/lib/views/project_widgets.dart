@@ -19,12 +19,14 @@ class NormalButtons extends StatelessWidget {
   }) : super(key: key);
 
   final String buttonText;
-  final VoidCallback buttonFunc;
+  final VoidCallback? buttonFunc;
 
   @override
   Widget build(BuildContext context) => ElevatedButton(
         onPressed: buttonFunc,
         style: ElevatedButton.styleFrom(
+          disabledBackgroundColor: Colors.grey,
+          disabledForegroundColor: Colors.black,
           shape: const StadiumBorder(),
           backgroundColor: mainColor,
           elevation: 10,
