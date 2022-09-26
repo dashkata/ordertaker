@@ -14,29 +14,31 @@ class TablesAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AlertDialog(
-        title: const Text("Available tables"),
+        title: const Text('Available tables'),
         content: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            final AsyncValue<List<String>> availableTables =
+            final AsyncValue<Map<String, bool>> availableTables =
                 ref.watch(fetchFreeTablesProvider(restaurantTitle));
             return availableTables.when(
               data: (tables) => SizedBox(
-                height: 300,
-                width: 200,
-                child: ListView.builder(
-                  itemCount: tables.length,
-                  itemBuilder: (context, index) => NormalButtons(
-                    buttonText: tables[index],
-                    buttonFunc: () => ref
-                        .read(restaurantDialogNotifierProvider.notifier)
-                        .navigateToConfirm(
-                          restaurantTitle,
-                          ref,
-                          tables[index],
-                        ),
+                  height: 300,
+                  width: 200,
+                  child: ListView.builder(
+                    itemCount: tables.length,
+                    itemBuilder: (context, index) => NormalButtons(
+                      buttonText: tables.keys.elementAt(index),
+                      buttonFunc: tables.values.elementAt(index)
+                          ?  () => ref
+                              .read(restaurantDialogNotifierProvider.notifier)
+                              .navigateToConfirm(
+                                restaurantTitle,
+                                ref,
+                                tables.keys.elementAt(index),
+                              )
+                          : null,
+                    ),
                   ),
                 ),
-              ),
               error: (e, s) => Text(e.toString()),
               loading: () => const LoadingIndicator(),
             );
