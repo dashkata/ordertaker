@@ -7,8 +7,9 @@ import '../../../project_widgets.dart';
 
 class FindATableButton extends ConsumerWidget {
   const FindATableButton({
-    Key? key,
     required this.resTitle,
+
+    Key? key,
   }) : super(key: key);
 
   final String resTitle;

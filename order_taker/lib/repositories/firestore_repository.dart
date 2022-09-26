@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../models/order_model.dart';
@@ -295,5 +296,23 @@ class FirestoreRepository {
         merge: true,
       ),
     );
+  }
+
+  Future<List<String>> fetchFreeTables(
+      String restaurantTitle, String date) async {
+    final tableRef = await FirebaseFirestore.instance
+        .collection(FirestorePath.restaurantTables('Pizza Don Vito'))
+        .get();
+    final List<String> freeTables = [];
+    for (int i = 0; i < tableRef.docs.length; i++) {
+      final reservationRef = await tableRef.docs[i].reference
+          .collection('Reservations')
+          .where('reservationDate', isEqualTo: date)
+          .get();
+      if (reservationRef.docs.isEmpty) {
+        freeTables.add(tableRef.docs[i].id);
+      }
+    }
+    return freeTables;
   }
 }

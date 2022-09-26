@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../Themes/themes.dart';
 import '../../../models/restaurant_model.dart';
+import '../../../providers/controller_providers.dart';
+import '../../../providers/repository_providers.dart';
 import '../../../providers/restaurant_screen_providers.dart';
 import '../../project_widgets.dart';
 import 'widgets/restaurant_card.dart';
@@ -35,10 +37,6 @@ class RestaurantScreen extends StatelessWidget {
                     error: (e, s) => Text(
                       e.toString(),
                     ),
-                    // => GFToast.showToast(
-                    //   e.toString(),
-                    //   context,
-                    // ),
                     loading: () => const LoadingIndicator(),
                   );
                 },

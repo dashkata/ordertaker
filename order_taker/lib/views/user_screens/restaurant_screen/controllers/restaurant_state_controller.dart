@@ -5,9 +5,11 @@ import 'package:intl/intl.dart';
 import '../../../../Themes/themes.dart';
 import '../../../../providers/confirm_reservation_providers.dart';
 import '../../../../providers/controller_providers.dart';
+import '../../../../providers/repository_providers.dart';
 import '../../../../providers/user_restaurant_providers.dart';
 import '../../../project_widgets.dart';
 import '../../../resources/route_manager.dart';
+import '../widgets/free_tables.dart';
 import '../widgets/number_of_people.dart';
 import '../widgets/select_date.dart';
 
@@ -77,18 +79,35 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
     return;
   }
 
-  void confirmReservation(WidgetRef ref, String resTitle) {
+  Future<void> confirmReservation(
+    WidgetRef ref,
+    String resTitle,
+    BuildContext context,
+  ) async {
     if (ref.read(userDateProvider) != '' && ref.read(peopleProvider) != 0) {
-      navigatorKey.currentState!.pushNamed(
-        Routes.userConfirmReserveration,
-        arguments: {
-          'restaurantTitle': resTitle,
-          'userDate': ref.read(userDateProvider),
-          'numberOfPeople': ref.read(peopleProvider)
-        },
+      await showDialog(
+        context: context,
+        builder: (_) => TablesAlertDialog(
+          restaurantTitle: resTitle,
+        ),
       );
-      // Navigator.pop(context);
     }
+  }
+
+  Future<void> navigateToConfirm(
+    String restaurantTitle,
+    WidgetRef ref,
+    String selectedTable,
+  ) async {
+    await navigatorKey.currentState!.pushNamed(
+      Routes.userConfirmReserveration,
+      arguments: {
+        'restaurantTitle': restaurantTitle,
+        'userDate': ref.read(userDateProvider),
+        'numberOfPeople': ref.read(peopleProvider),
+        'tableId': selectedTable,
+      },
+    );
   }
 
   void showDetailsDialog(BuildContext context, String resTitle, WidgetRef ref) {
@@ -109,7 +128,7 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
               builder: (context, ref, child) => ElevatedButton(
                 onPressed: () => ref
                     .read(restaurantDialogNotifierProvider.notifier)
-                    .confirmReservation(ref, resTitle),
+                    .confirmReservation(ref, resTitle, context),
                 style: ElevatedButton.styleFrom(
                   shape: const StadiumBorder(),
                   backgroundColor: complementaryColor,
