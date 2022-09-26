@@ -9,7 +9,7 @@ class FirestorePath {
     String restaurantTitle,
     int selectedTable,
   ) =>
-      'Restaurants/$restaurantTitle/Table $selectedTable';
+      'Restaurants/$restaurantTitle/Tables/Table $selectedTable/Reservations';
 
   static String user(String uid) => 'Users/$uid';
 
@@ -17,8 +17,11 @@ class FirestorePath {
       'Restaurants/$restaurantTitle';
 
   static String restaurantOrders(Reservation reservation, String uid) =>
-      'Restaurants/${reservation.restaurant}/Table ${reservation.selectedTable}/$uid - ${reservation.date}/Orders';
+      'Restaurants/${reservation.restaurant}/Tables/Table ${reservation.selectedTable}/Reservations/$uid - ${reservation.date}/Orders';
 
   static String restaurantTable(String tableId, String restaurant) =>
-      'Restaurants/$restaurant/Table $tableId';
+      'Restaurants/$restaurant/Tables/Table $tableId';
+
+  static String restaurantTables(String restaurant) =>
+      'Restaurants/$restaurant/Tables';
 }

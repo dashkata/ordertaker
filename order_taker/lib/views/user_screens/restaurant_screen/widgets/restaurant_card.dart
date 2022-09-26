@@ -13,8 +13,8 @@ import 'find_a_table.dart';
 
 class RestaurantCard extends ConsumerWidget {
   const RestaurantCard({
-    Key? key,
     required this.restaurant,
+    Key? key,
   }) : super(key: key);
   final Restaurant restaurant;
 

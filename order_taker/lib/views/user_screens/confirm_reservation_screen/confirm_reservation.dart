@@ -108,7 +108,7 @@ class ConfirmReservationScreen extends ConsumerWidget {
                                         '- ${ref.read(confirmTimeProvider)}',
                                     numberOfPeople:
                                         reservationInfo['numberOfPeople'],
-                                    selectedTable: 4,
+                                    selectedTable: 3,
                                     currentReservation: false,
                                   ),
                                 ),
