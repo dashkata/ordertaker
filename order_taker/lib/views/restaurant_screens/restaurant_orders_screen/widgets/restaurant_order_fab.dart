@@ -44,12 +44,13 @@ class RestaurantOrderFAB extends StatelessWidget {
   }) : super(key: key);
   final VoidCallback onPressed;
   final IconData icon;
+
   final String heroTag;
 
   @override
   Widget build(BuildContext context) => FloatingActionButton(
         backgroundColor: accentColor,
-        onPressed: () => onPressed,
+        onPressed: onPressed,
         heroTag: heroTag,
         child: Icon(
           icon,
