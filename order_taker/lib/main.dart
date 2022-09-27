@@ -39,7 +39,7 @@ class OrderTaker extends StatelessWidget {
         useInheritedMediaQuery: true,
         locale: DevicePreview.locale(context),
         builder: DevicePreview.appBuilder,
-        initialRoute: Routes.auth,
+        initialRoute: Routes.ownerOnboarding,
         onGenerateRoute: AppRouter.generateRoute,
         theme: ThemeData(
           textTheme: TextTheme(

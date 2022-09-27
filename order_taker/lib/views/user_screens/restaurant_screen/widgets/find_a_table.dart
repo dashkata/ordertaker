@@ -8,7 +8,6 @@ import '../../../project_widgets.dart';
 class FindATableButton extends ConsumerWidget {
   const FindATableButton({
     required this.resTitle,
-
     Key? key,
   }) : super(key: key);
 
@@ -20,7 +19,7 @@ class FindATableButton extends ConsumerWidget {
     return SizedBox(
       width: 150,
       child: NormalButtons(
-        buttonText: 'Find a Table',
+        buttonText: text.find_a_table,
         buttonFunc: () => ref
             .read(restaurantDialogNotifierProvider.notifier)
             .showDetailsDialog(context, resTitle, ref),

@@ -164,7 +164,7 @@ class BackgroundWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/Background.png'),
             fit: BoxFit.fill,

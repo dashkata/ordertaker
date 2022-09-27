@@ -58,7 +58,6 @@ class RestaurantCard extends ConsumerWidget {
                           error: (e, s) => Text(
                             e.toString(),
                           ),
-                          // GFToast.showToast(e.toString(), context),
                           loading: () => const LoadingIndicator(),
                         );
                         // return Container();
