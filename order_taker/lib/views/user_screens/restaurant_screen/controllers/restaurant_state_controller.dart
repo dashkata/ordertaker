@@ -39,12 +39,9 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
         builder: (context, child) => Theme(
           data: ThemeData.light().copyWith(
             colorScheme: const ColorScheme.light(
-              // change the border color
               primary: mainColor,
-              // change the text color
               onSurface: accentColor,
             ),
-            // button colors
             buttonTheme: const ButtonThemeData(
               colorScheme: ColorScheme.light(
                 primary: accentColor,
@@ -53,6 +50,7 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
           ),
           child: child!,
         ),
+        initialEntryMode: TimePickerEntryMode.inputOnly,
         context: context,
         initialTime: TimeOfDay.now(),
       );
