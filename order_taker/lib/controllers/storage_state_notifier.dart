@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/services/storage_services.dart';
+
+import '../services/storage_services.dart';
 
 class StorageStateNotifier extends StateNotifier<AsyncValue<String>> {
   StorageStateNotifier(this._storageServices)
@@ -11,12 +12,14 @@ class StorageStateNotifier extends StateNotifier<AsyncValue<String>> {
   Future<void> uploadProfilePicture(File photoFile) async {
     state = const AsyncLoading<String>();
     state = await AsyncValue.guard<String>(
-        () => _storageServices.uploadProfilePicture(photoFile));
+      () => _storageServices.uploadProfilePicture(photoFile),
+    );
   }
 
   Future<void> fetchRestaurantPicture(String restaurantName) async {
     state = const AsyncLoading<String>();
     state = await AsyncValue.guard<String>(
-        () => _storageServices.fetchRestaurantPicture(restaurantName));
+      () => _storageServices.fetchRestaurantPicture(restaurantName),
+    );
   }
 }

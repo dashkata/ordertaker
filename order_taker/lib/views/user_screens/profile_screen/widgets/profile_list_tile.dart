@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:order_taker/Themes/themes.dart';
-import 'package:order_taker/enums/user_details.dart';
-import 'package:order_taker/providers/controller_providers.dart';
-import 'package:order_taker/providers/profile_provider.dart';
-import 'package:order_taker/providers/repository_providers.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:order_taker/views/resources/route_manager.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../enums/user_details.dart';
+import '../../../../providers/controller_providers.dart';
+import '../../../../providers/profile_provider.dart';
 
 class ProfileListTile extends ConsumerWidget {
   const ProfileListTile({
@@ -53,22 +49,23 @@ class ProfileListTile extends ConsumerWidget {
             : CrossFadeState.showFirst,
         duration: const Duration(milliseconds: 200),
       ),
-      trailing: GFIconButton(
-        icon: const Icon(Icons.edit),
-        size: GFSize.SMALL,
-        type: GFButtonType.transparent,
-        shape: GFIconButtonShape.pills,
-        color: Colors.white,
-        onPressed: () =>
-            ref.read(userProfileProvider.notifier).updateUserDetails(
-                  ref,
-                  detail,
-                  context,
-                  text,
-                  detailType,
-                  changeProvider,
-                ),
-      ),
+      // trailing:
+      // GFIconButton(
+      //   icon: const Icon(Icons.edit),
+      //   size: GFSize.SMALL,
+      //   type: GFButtonType.transparent,
+      //   shape: GFIconButtonShape.pills,
+      //   color: Colors.white,
+      //   onPressed: () =>
+      //       ref.read(userProfileProvider.notifier).updateUserDetails(
+      //             ref,
+      //             detail,
+      //             context,
+      //             text,
+      //             detailType,
+      //             changeProvider,
+      //           ),
+      // ),
     );
   }
 }

@@ -8,23 +8,21 @@ class EditMenu extends StatelessWidget {
   const EditMenu({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: Consumer(
-        builder: (child, ref, context) {
-          return FloatingActionButton(onPressed: () {
-            ref.read(authRepositoryProvider).signout();
-          });
-        },
-      ),
-      body: Stack(
-        children: const [
-          BackgroundWidget(),
-          SafeArea(
-            child: Text("Helloooo"),
+  Widget build(BuildContext context) => Scaffold(
+        floatingActionButton: Consumer(
+          builder: (child, ref, context) => FloatingActionButton(
+            onPressed: () {
+              ref.read(authRepositoryProvider).signout();
+            },
           ),
-        ],
-      ),
-    );
-  }
+        ),
+        body: Stack(
+          children: const [
+            BackgroundWidget(),
+            SafeArea(
+              child: Text('Helloooo'),
+            ),
+          ],
+        ),
+      );
 }

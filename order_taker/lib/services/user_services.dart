@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/models/reservation_model.dart';
-import 'package:order_taker/providers/repository_providers.dart';
+import '../models/reservation_model.dart';
+import '../providers/repository_providers.dart';
 
 class UserServices {
   UserServices(this.ref);

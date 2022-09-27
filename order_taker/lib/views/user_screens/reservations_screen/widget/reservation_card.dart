@@ -1,18 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:order_taker/models/reservation_model.dart';
-import 'package:order_taker/providers/common_providers.dart';
-import 'package:order_taker/providers/controller_providers.dart';
-import 'package:order_taker/providers/repository_providers.dart';
-import 'package:order_taker/providers/services_provider.dart';
-import 'package:order_taker/themes/themes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:order_taker/views/project_widgets.dart';
-import 'package:order_taker/views/resources/padding_manager.dart';
-import 'package:order_taker/views/resources/route_manager.dart';
-import 'package:order_taker/views/user_screens/reservations_screen/widget/title_column.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../models/reservation_model.dart';
+import '../../../../providers/common_providers.dart';
+import '../../../../providers/controller_providers.dart';
+import '../../../../themes/themes.dart';
+import '../../../project_widgets.dart';
+import '../../../resources/padding_manager.dart';
+import 'title_column.dart';
 
 class ReservationCard extends ConsumerWidget {
   const ReservationCard({
@@ -37,48 +34,52 @@ class ReservationCard extends ConsumerWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(40),
           ),
-          child: Column(
+          child: Row(
             children: [
-              GFListTile(
+              Padding(
                 padding: PaddingManager.p5,
-                avatar: Consumer(builder: (context, ref, child) {
-                  AsyncValue restaurantPic = ref
-                      .watch(restaurantPictureProvider(reservation.restaurant));
-                  return restaurantPic.when(
-                    data: (imageUrl) => CachedNetworkImage(
-                      imageUrl: restaurantPic.value,
-                      imageBuilder: (context, url) => GFAvatar(
-                        backgroundImage: url,
-                        radius: 40,
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    final AsyncValue restaurantPic = ref.watch(
+                      restaurantPictureProvider(reservation.restaurant),
+                    );
+                    return restaurantPic.when(
+                      data: (imageUrl) => CachedNetworkImage(
+                        imageUrl: restaurantPic.value,
+                        imageBuilder: (context, url) => CircleAvatar(
+                          backgroundImage: url,
+                          radius: 40,
+                        ),
                       ),
-                    ),
-                    error: (e, s) => GFToast.showToast(
-                      e.toString(),
-                      context,
-                    ),
-                    loading: () => const LoadingIndicator(),
-                  );
-                }),
-                title: TitleColumn(
-                  reservation: reservation,
-                  text: text,
+                      error: (e, s) => Text(
+                        e.toString(),
+                      ),
+                      //     GFToast.showToast(
+                      //   e.toString(),
+                      //   context,
+                      // ),
+                      loading: () => const LoadingIndicator(),
+                    );
+                  },
                 ),
-                description: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GFButton(
-                      onPressed: () => ref
-                          .read(userReservationProvider.notifier)
-                          .deleteReservation(reservation),
-                      elevation: 10,
-                      shape: GFButtonShape.pills,
-                      color: mainColor,
-                      child: Text(
-                        text.cancel_reservation,
-                        style: Theme.of(context).textTheme.headline1,
+              ),
+              TitleColumn(
+                reservation: reservation,
+                text: text,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 40.0),
+                child: IconButton(
+                  onPressed: () => ref
+                      .watch(userReservationProvider.notifier)
+                      .deleteReservation(
+                        reservation,
+                        context,
                       ),
-                    ),
-                  ],
+                  icon: const Icon(
+                    Icons.cancel,
+                    size: 35,
+                  ),
                 ),
               ),
             ],
