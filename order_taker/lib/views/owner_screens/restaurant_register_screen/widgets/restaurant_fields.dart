@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../themes/themes.dart';
+import '../../../../Themes/themes.dart';
+import '../../../resources/style_manager.dart';
 
 class RestaurantFields extends StatelessWidget {
   const RestaurantFields({
@@ -24,17 +25,8 @@ class RestaurantFields extends StatelessWidget {
           child: TextField(
             keyboardType: inputType,
             decoration: InputDecoration(
-              enabledBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                borderSide: BorderSide(
-                  color: accentColor,
-                ),
-              ),
-              border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30.0),
-                ),
-              ),
+              enabledBorder: Styles.buildOutlineBorder(accentColor, 30),
+              border: Styles.buildOutlineBorder(accentColor, 30),
               hintText: hintText,
               filled: true,
               fillColor: mainColor,

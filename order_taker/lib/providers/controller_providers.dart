@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../controllers/storage_state_notifier.dart';
 import '../models/menu_item_model.dart';
 import '../views/login_screen/controllers/login_state_controller.dart';
+import '../views/owner_screens/restaurant_register_screen/controllers/restaurant_register_controller.dart';
 import '../views/restaurant_screens/restaurant_orders_screen/controllers/restaurant_order_controller.dart';
 import '../views/restaurant_screens/restaurant_tables_screen/controllers/restaurant_tables_controller.dart';
 import '../views/user_screens/confirm_reservation_screen/controllers/user_confirm_reservation_controller.dart';
@@ -88,4 +89,8 @@ final restaurantTablesNotifierProvider =
       firestoreRepositoryProvider,
     ),
   ),
+);
+final restaurantRegisterProvider =
+    StateNotifierProvider<RestaurantRegisterNotifier, void>(
+  (ref) => RestaurantRegisterNotifier(ref: ref),
 );
