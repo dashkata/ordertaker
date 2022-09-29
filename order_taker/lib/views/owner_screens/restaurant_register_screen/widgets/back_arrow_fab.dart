@@ -1,11 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../providers/controller_providers.dart';
-import '../../../../themes/themes.dart';
-
-class BackArrowFAB extends ConsumerWidget {
-  const BackArrowFAB({
+part of '../restaurant_register.dart';
+class _BackArrowFAB extends ConsumerWidget {
+  const _BackArrowFAB({
     Key? key,
   }) : super(key: key);
 

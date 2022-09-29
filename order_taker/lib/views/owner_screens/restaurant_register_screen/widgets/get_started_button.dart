@@ -1,12 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../providers/controller_providers.dart';
-import '../../../../providers/restaurant_register_provider.dart';
-import '../../../project_widgets.dart';
-
-class ConfirmButton extends ConsumerWidget {
-  const ConfirmButton({
+part of '../restaurant_register.dart';
+class _ConfirmButton extends ConsumerWidget {
+  const _ConfirmButton({
     Key? key,
   }) : super(key: key);
 

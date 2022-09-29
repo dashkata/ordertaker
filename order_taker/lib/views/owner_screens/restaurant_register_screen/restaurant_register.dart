@@ -2,24 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../providers/controller_providers.dart';
-import '../../../providers/repository_providers.dart';
 import '../../../providers/restaurant_register_provider.dart';
-import '../../../providers/user_register_provider.dart';
 import '../../../themes/themes.dart';
 
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
-import 'widgets/back_arrow_fab.dart';
-import 'widgets/get_started_button.dart';
-import 'widgets/name_textfield_row.dart';
+
+part 'widgets/back_arrow_fab.dart';
+part 'widgets/get_started_button.dart';
+part 'widgets/name_textfield_row.dart';
 
 class RestaurantRegister extends ConsumerWidget {
   const RestaurantRegister({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => Scaffold(
-        floatingActionButton: const BackArrowFAB(),
+        floatingActionButton: const _BackArrowFAB(),
         floatingActionButtonLocation:
             FloatingActionButtonLocation.miniStartFloat,
         body: Stack(
@@ -56,7 +55,7 @@ class RestaurantRegister extends ConsumerWidget {
                           width: double.infinity,
                           child: Column(
                             children: [
-                              const NameTextFieldRow(),
+                              const _NameTextFieldRow(),
                               TextFields(
                                 func: (value) => ref
                                     .read(
@@ -113,7 +112,7 @@ class RestaurantRegister extends ConsumerWidget {
                                       value,
                                     ),
                               ),
-                              const ConfirmButton(),
+                              const _ConfirmButton(),
                             ],
                           ),
                         ),

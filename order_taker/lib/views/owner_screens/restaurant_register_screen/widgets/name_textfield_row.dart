@@ -1,12 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+part of '../restaurant_register.dart';
 
-import '../../../../providers/controller_providers.dart';
-import '../../../../providers/restaurant_register_provider.dart';
-import '../../../project_widgets.dart';
-
-class NameTextFieldRow extends ConsumerWidget {
-  const NameTextFieldRow({
+class _NameTextFieldRow extends ConsumerWidget {
+  const _NameTextFieldRow({
     Key? key,
   }) : super(key: key);
 
