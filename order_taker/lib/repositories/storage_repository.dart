@@ -31,11 +31,27 @@ class StorageRepository {
     final parsedRestaurant = restaurantName.replaceAll(' ', '');
     final storageRef = FirebaseStorage.instance
         .ref()
-        .child('Images/Restaurants/$parsedRestaurant.jpg');
+        .child('Images/Restaurants/$parsedRestaurant/$parsedRestaurant.jpg');
     try {
       return await storageRef.getDownloadURL();
     } on FirebaseException catch (e) {
       return e.message.toString();
+    }
+  }
+
+  Future<void> uploadItemImage({
+    required File photoFile,
+    required String restaurantName,
+    required String itemName,
+  }) async {
+    final parsedRestaurant = restaurantName.replaceAll(' ', '');
+    final storageRef = FirebaseStorage.instance.ref();
+    final menuRef =
+        storageRef.child('Images/Restaurants/$parsedRestaurant/Menu/$itemName');
+    try {
+      await menuRef.putFile(photoFile);
+    } on FirebaseException catch (e) {
+      print(e.toString());
     }
   }
 }

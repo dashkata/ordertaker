@@ -47,5 +47,18 @@
     "photos" : "Photos",
     "menu" : "Menu",
     "reviews" : "Reviews",
-    "available_tables" : "Available Tables"
+    "available_tables" : "Available Tables",
+    "welcome_owner" : "Welcome to order taker!",
+    "details_owner" : "We need some details about your restaurant.",
+    "restaurant_address" : "Restaurant address",
+    "restaurant_working_hours" : "Restaurant working hours",
+    "restaurant_website" : "Restaurant website",
+    "restaurant_phone_number" : "Restaurant phone number",
+    "restaurant_menu" : "Add the menu for your restaurant.",
+    "add_menu_item" : "Add a menu item",
+    "type_menu_item" : "Type of menu item",
+    "title_menu_item" : "Menu item title",
+    "ingredients_menu_item" : "Menu item ingredients",
+    "price_menu_item" : "Menu item price",
+    "picture_menu_item" : "Add menu item picture"
 }

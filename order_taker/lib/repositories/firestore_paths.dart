@@ -24,4 +24,7 @@ class FirestorePath {
 
   static String restaurantTables(String restaurant) =>
       'Restaurants/$restaurant/Tables';
+
+  static String restaurantMenuType(String restaurant, String itemType) =>
+      'Restaurants/$restaurant/Menu/$itemType';
 }

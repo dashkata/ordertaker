@@ -38,50 +38,11 @@ class MenuSection extends StatelessWidget {
                   children: [
                     MenuCard(
                       orderItem: OrderItem(
-                        itemTitle: 'Салата Моцарела с авокадодддд',
-                        itemIngredients:
-                            'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
-                        itemPrice: '300gr: 10.49lv',
-                      ),
-                    ),
-                    MenuCard(
-                      orderItem: OrderItem(
-                        itemTitle: 'Салата Моцарела с авокадоддеееее',
-                        itemIngredients:
-                            'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
-                        itemPrice: '300gr: 10.49lv',
-                      ),
-                    ),
-                    MenuCard(
-                      orderItem: OrderItem(
                         itemTitle: 'Салата Моцарела с авокадо',
                         itemIngredients:
                             'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
                         itemPrice: '300gr: 10.49lv',
-                      ),
-                    ),
-                    MenuCard(
-                      orderItem: OrderItem(
-                        itemTitle: 'Салата Моцарела с авокадо',
-                        itemIngredients:
-                            'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
-                        itemPrice: '300gr: 10.49lv',
-                      ),
-                    ),
-                    MenuCard(
-                      orderItem: OrderItem(
-                        itemTitle: 'Салата Моцарела с авокадо',
-                        itemIngredients:
-                            'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
-                        itemPrice: '300gr: 10.49lv',
-                      ),
-                    ),
-                    MenuCard(
-                      orderItem: OrderItem(
-                        itemTitle: 'Салата Моцарела с авокадо',
-                        itemIngredients:
-                            'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
-                        itemPrice: '300gr: 10.49lv',
+                        itemType: 'Appetizer',
                       ),
                     ),
                   ],

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../models/menu_item_model.dart';
 import '../models/order_model.dart';
 import '../models/reservation_model.dart';
 import '../models/restaurant_info_model.dart';
@@ -311,10 +312,21 @@ class FirestoreRepository {
           .get();
       if (reservationRef.docs.isEmpty) {
         freeTables[tableRef.docs[i].id] = true;
-      }else{
+      } else {
         freeTables[tableRef.docs[i].id] = false;
       }
     }
     return freeTables;
+  }
+
+  Future<void> addMenuItem(OrderItem orderItem, String restaurant) async {
+    await FirebaseFirestore.instance
+        .doc(FirestorePath.restaurantMenuType(restaurant, orderItem.itemType))
+        .set(
+      {
+        orderItem.itemType: FieldValue.arrayUnion([orderItem.orderItemToMap()])
+      },
+      SetOptions(merge: true),
+    );
   }
 }

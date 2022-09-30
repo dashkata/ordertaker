@@ -21,6 +21,7 @@ class AuthChecker extends ConsumerWidget {
         if (data != null) {
           return userType.when(
             data: (value) {
+              print(value);
               if (authServices.getCurrentUser()!.emailVerified &&
                   value != null) {
                 if (value == 'Customer') {
