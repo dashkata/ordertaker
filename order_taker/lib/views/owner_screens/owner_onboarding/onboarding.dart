@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import '../../../enums/image_type.dart';
 import '../../../models/menu_item_model.dart';
+import '../../../models/menu_section_model.dart';
 import '../../../providers/repository_providers.dart';
 import '../../project_widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -21,6 +22,8 @@ part 'widgets/page_three_widgets/page_three_title.dart';
 
 part 'widgets/page_three_widgets/page_three_add_button.dart';
 
+part 'widgets/page_three_widgets/page_three_body.dart';
+
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
 
@@ -38,7 +41,8 @@ class OnboardingScreen extends StatelessWidget {
           ),
           PageViewModel(
             titleWidget: const _PageThreeTitle(),
-            bodyWidget: const _PageThreeButton(),
+            footer: const _PageThreeButton(),
+            bodyWidget: const _PageThreeBody(),
           ),
         ],
         done: const Text(

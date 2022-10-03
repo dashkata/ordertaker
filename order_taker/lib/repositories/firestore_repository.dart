@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../models/menu_item_model.dart';
+import '../models/menu_section_model.dart';
 import '../models/order_model.dart';
 import '../models/reservation_model.dart';
 import '../models/restaurant_info_model.dart';
@@ -327,6 +328,22 @@ class FirestoreRepository {
         orderItem.itemType: FieldValue.arrayUnion([orderItem.orderItemToMap()])
       },
       SetOptions(merge: true),
+    );
+  }
+
+  Stream<List<MenuSection>> fetchMenu() {
+    final menuSnapshot = FirebaseFirestore.instance
+        .collection(FirestorePath.restaurantMenu('Pizza Don Vito'))
+        .snapshots();
+    return menuSnapshot.map(
+      (snapshot) => snapshot.docs
+          .map(
+            (item) => MenuSection.fromMap(
+              item.data(),
+              item.id,
+            ),
+          )
+          .toList(),
     );
   }
 }

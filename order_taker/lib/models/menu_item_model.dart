@@ -1,3 +1,5 @@
+import 'order_model.dart';
+
 class OrderItem {
   final String itemType;
   final String itemTitle;
@@ -11,16 +13,14 @@ class OrderItem {
     required this.itemPrice,
   });
 
-  Map<String, dynamic> orderItemToMap() =>
-      {
+  Map<String, dynamic> orderItemToMap() => {
         'itemType': itemType,
         'itemTitle': itemTitle,
         'itemIngredients': itemIngredients,
         'itemPrice': itemPrice,
       };
 
-  factory OrderItem.fromMap(Map data) =>
-      OrderItem(
+  factory OrderItem.fromMap(Map data) => OrderItem(
         itemType: data['itemType'],
         itemTitle: data['itemTitle'],
         itemIngredients: data['itemIngredients'],
