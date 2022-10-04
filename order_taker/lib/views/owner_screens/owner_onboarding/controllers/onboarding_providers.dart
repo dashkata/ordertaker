@@ -9,13 +9,17 @@ final itemTypeProvider = StateProvider<String>((ref) => '');
 final itemTitleProvider = StateProvider<String>((ref) => '');
 final itemIngredientsProvider = StateProvider<String>((ref) => '');
 final itemPriceProvider = StateProvider<String>((ref) => '');
+final itemImageProvider = StateProvider<String>((ref) => '');
+final restaurantAddressProvider = StateProvider<String>((ref) => '');
+final restaurantPaymentProvider = StateProvider<String>((ref) => '');
+final restaurantHoursProvider = StateProvider<String>((ref) => '');
+final restaurantDescriptionProvider = StateProvider<String>((ref) => '');
+final restaurantWebsiteProvider = StateProvider<String>((ref) => '');
+final restaurantPhoneNumberProvider = StateProvider<String>((ref) => '');
 final onboardingControllerProvider =
     StateNotifierProvider<OnboardingNotifier, void>(
   (ref) => OnboardingNotifier(ref: ref),
 );
 final fetchMenuProvider = StreamProvider<List<MenuSection>>(
-  (ref) {
-    print('helllo');
-    return ref.watch(firestoreRepositoryProvider).fetchMenu();
-  },
+  (ref) => ref.watch(firestoreRepositoryProvider).fetchMenu(),
 );

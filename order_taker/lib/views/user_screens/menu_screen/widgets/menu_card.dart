@@ -28,10 +28,10 @@ class MenuCard extends ConsumerWidget {
             shape: Styles.buildRoundedBorder(40),
             child: Row(
               children: [
-                const Padding(
+                Padding(
                   padding: PaddingManager.p5,
                   child: CircleAvatar(
-                    // backgroundImage: AssetImage("Assets/$imagePath"),
+                    backgroundImage: NetworkImage(orderItem.itemImage),
                     radius: 40,
                   ),
                 ),

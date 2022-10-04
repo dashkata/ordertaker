@@ -36,15 +36,15 @@ class MenuSection extends StatelessWidget {
                 decoration: Styles.buildBoxDecoration(40, complementaryColor),
                 child: Column(
                   children: [
-                    MenuCard(
-                      orderItem: OrderItem(
-                        itemTitle: 'Салата Моцарела с авокадо',
-                        itemIngredients:
-                            'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
-                        itemPrice: '300gr: 10.49lv',
-                        itemType: 'Appetizer',
-                      ),
-                    ),
+                    // MenuCard(
+                    //   orderItem: OrderItem(
+                    //     itemTitle: 'Салата Моцарела с авокадо',
+                    //     itemIngredients:
+                    //         'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
+                    //     itemPrice: '300gr: 10.49lv',
+                    //     itemType: 'Appetizer',
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

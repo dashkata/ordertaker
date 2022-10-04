@@ -53,6 +53,7 @@
     "restaurant_address" : "Restaurant address",
     "restaurant_working_hours" : "Restaurant working hours",
     "restaurant_website" : "Restaurant website",
+    "restaurant_descriptions" : "Restaurant description",
     "restaurant_phone_number" : "Restaurant phone number",
     "restaurant_menu" : "Add the menu for your restaurant.",
     "add_menu_item" : "Add a menu item",

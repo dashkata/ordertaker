@@ -8,6 +8,7 @@ import '../../../providers/repository_providers.dart';
 import '../../project_widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../user_screens/menu_screen/widgets/menu_card.dart';
 import 'controllers/onboarding_providers.dart';
 
 part 'widgets/page_one_widgets/page_one_image.dart';
@@ -24,11 +25,11 @@ part 'widgets/page_three_widgets/page_three_add_button.dart';
 
 part 'widgets/page_three_widgets/page_three_body.dart';
 
-class OnboardingScreen extends StatelessWidget {
+class OnboardingScreen extends ConsumerWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => IntroductionScreen(
+  Widget build(BuildContext context, WidgetRef ref) => IntroductionScreen(
         pages: [
           PageViewModel(
             image: const _PageOneImage(),
@@ -55,6 +56,8 @@ class OnboardingScreen extends StatelessWidget {
           'Back',
         ),
         showBackButton: true,
-        onDone: () {},
+        onDone: () => ref
+            .read(onboardingControllerProvider.notifier)
+            .submitRestaurantDetails(),
       );
 }

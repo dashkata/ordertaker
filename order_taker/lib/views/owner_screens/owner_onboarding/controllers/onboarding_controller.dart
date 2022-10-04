@@ -6,8 +6,10 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../enums/image_type.dart';
 import '../../../../models/menu_item_model.dart';
+import '../../../../models/restaurant_model.dart';
 import '../../../../providers/repository_providers.dart';
 import '../../../resources/route_manager.dart';
+import 'onboarding_providers.dart';
 
 class OnboardingNotifier extends StateNotifier<void> {
   OnboardingNotifier({required StateNotifierProviderRef ref})
@@ -19,7 +21,7 @@ class OnboardingNotifier extends StateNotifier<void> {
     showDialog(context: context, builder: (_) => alertDialog);
   }
 
-  void updateTextField(WidgetRef ref, StateProvider provider, String value) {
+  void updateTextField(StateProvider provider, String value) {
     _ref.read(provider.notifier).update((state) => value);
   }
 
@@ -48,11 +50,13 @@ class OnboardingNotifier extends StateNotifier<void> {
         break;
     }
     if (image?.path != null) {
-      await _ref.read(storageRepositoryProvider).uploadItemImage(
-            photoFile: File(image!.path),
-            restaurantName: restaurantName,
-            itemName: itemName,
-          );
+      final downloadUrl =
+          await _ref.read(storageRepositoryProvider).uploadItemImage(
+                photoFile: File(image!.path),
+                restaurantName: restaurantName,
+                itemName: itemName,
+              );
+      _ref.read(itemImageProvider.notifier).update((state) => downloadUrl);
     }
   }
 
@@ -63,5 +67,22 @@ class OnboardingNotifier extends StateNotifier<void> {
     await _ref
         .read(firestoreRepositoryProvider)
         .addMenuItem(orderItem, restaurant);
+  }
+
+  Future<void> submitRestaurantDetails() async {
+    final String title =
+        await _ref.read(firestoreRepositoryProvider).fetchRestaurantTitle(
+              _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
+            );
+    await _ref.read(firestoreRepositoryProvider).submitRestaurantDetails(
+          Restaurant(
+            title: title,
+            desc: _ref.read(restaurantDescriptionProvider),
+            openHours: _ref.read(restaurantHoursProvider),
+            website: _ref.read(restaurantWebsiteProvider),
+            phoneNumber: _ref.read(restaurantPhoneNumberProvider),
+            paymentMethods: _ref.read(restaurantPaymentProvider),
+          ),
+        );
   }
 }

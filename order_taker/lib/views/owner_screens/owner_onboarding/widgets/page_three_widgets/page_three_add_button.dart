@@ -39,6 +39,8 @@ class _AlertDialogBody extends ConsumerWidget {
     final itemTitle = ref.watch(itemTitleProvider);
     final itemIngredients = ref.watch(itemIngredientsProvider);
     final itemPrice = ref.watch(itemPriceProvider);
+    final itemImage = ref.watch(itemImageProvider);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -49,7 +51,7 @@ class _AlertDialogBody extends ConsumerWidget {
           inputType: TextInputType.text,
           func: (value) => ref
               .read(onboardingControllerProvider.notifier)
-              .updateTextField(ref, itemTypeProvider, value),
+              .updateTextField(itemTypeProvider, value),
         ),
         TextFields(
           hintText: text.title_menu_item,
@@ -58,7 +60,7 @@ class _AlertDialogBody extends ConsumerWidget {
           inputType: TextInputType.text,
           func: (value) => ref
               .read(onboardingControllerProvider.notifier)
-              .updateTextField(ref, itemTitleProvider, value),
+              .updateTextField(itemTitleProvider, value),
         ),
         TextFields(
           hintText: text.ingredients_menu_item,
@@ -67,24 +69,25 @@ class _AlertDialogBody extends ConsumerWidget {
           inputType: TextInputType.text,
           func: (value) => ref
               .read(onboardingControllerProvider.notifier)
-              .updateTextField(ref, itemIngredientsProvider, value),
+              .updateTextField(itemIngredientsProvider, value),
         ),
         TextFields(
           hintText: text.price_menu_item,
           icon: Icons.restaurant,
           obscure: false,
-          inputType: TextInputType.text,
+          inputType: const TextInputType.numberWithOptions(decimal: true),
           func: (value) => ref
               .read(onboardingControllerProvider.notifier)
-              .updateTextField(ref, itemPriceProvider, value),
+              .updateTextField(itemPriceProvider, value),
         ),
         Center(
           child: TextButton(
-            onPressed: () =>
-                ref.read(onboardingControllerProvider.notifier).pickItemImage(
-                      context,
-                      const _ImageAlertDialog(),
-                    ),
+            onPressed: () async => await ref
+                .read(onboardingControllerProvider.notifier)
+                .pickItemImage(
+                  context,
+                  const _ImageAlertDialog(),
+                ),
             child: Text(
               'Add menu item picture',
               style: Theme.of(context).textTheme.headline3,
@@ -100,6 +103,7 @@ class _AlertDialogBody extends ConsumerWidget {
                     itemTitle: itemTitle,
                     itemIngredients: itemIngredients,
                     itemPrice: itemPrice,
+                    itemImage: itemImage,
                   ),
                   'Pizza Don Vito',
                 );
@@ -123,8 +127,10 @@ class _ImageAlertDialog extends ConsumerWidget {
           ListTile(
             leading: const Icon(Icons.camera),
             title: Text(text.camera),
-            onTap: () {
-              ref.read(onboardingControllerProvider.notifier).addItemImage(
+            onTap: () async {
+              await ref
+                  .read(onboardingControllerProvider.notifier)
+                  .addItemImage(
                     ImageTypes.camera,
                     'Pizza Don Vito',
                     ref.read(
@@ -137,8 +143,10 @@ class _ImageAlertDialog extends ConsumerWidget {
           ListTile(
             leading: const Icon(Icons.browse_gallery),
             title: Text(text.browse_gallery),
-            onTap: () {
-              ref.read(onboardingControllerProvider.notifier).addItemImage(
+            onTap: () async {
+              await ref
+                  .read(onboardingControllerProvider.notifier)
+                  .addItemImage(
                     ImageTypes.gallery,
                     'Pizza Don Vito',
                     ref.read(

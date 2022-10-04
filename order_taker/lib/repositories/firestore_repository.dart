@@ -178,10 +178,21 @@ class FirestoreRepository {
     return userRef.get('type');
   }
 
-  Future<void> setRestaurantName(String restaurantName) async {
-    FirebaseFirestore.instance
-        .collection(FirestorePath.restaurants())
-        .doc(restaurantName);
+  Future<void> setRestaurantTitle(String restaurantName, String uid) async {
+    await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).set(
+      {
+        'restaurant': restaurantName,
+      },
+      SetOptions(
+        merge: true,
+      ),
+    );
+  }
+
+  Future<String> fetchRestaurantTitle(String uid) async {
+    final doc =
+        await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).get();
+    return doc.get('restaurant');
   }
 
   Future<CustomUser> fetchCurrentUser(AuthRepository authRepository) async {
@@ -318,6 +329,16 @@ class FirestoreRepository {
       }
     }
     return freeTables;
+  }
+
+  Future<void> submitRestaurantDetails(
+    Restaurant restaurant,
+  ) async {
+    await FirebaseFirestore.instance
+        .doc(FirestorePath.restaurant(restaurant.title))
+        .set(
+          restaurant.restaurantToMap(),
+        );
   }
 
   Future<void> addMenuItem(OrderItem orderItem, String restaurant) async {

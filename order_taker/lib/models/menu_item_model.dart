@@ -5,12 +5,14 @@ class OrderItem {
   final String itemTitle;
   final String itemIngredients;
   final String itemPrice;
+  final String itemImage;
 
   OrderItem({
     required this.itemType,
     required this.itemTitle,
     required this.itemIngredients,
     required this.itemPrice,
+    required this.itemImage,
   });
 
   Map<String, dynamic> orderItemToMap() => {
@@ -18,6 +20,7 @@ class OrderItem {
         'itemTitle': itemTitle,
         'itemIngredients': itemIngredients,
         'itemPrice': itemPrice,
+        'itemImage': itemImage,
       };
 
   factory OrderItem.fromMap(Map data) => OrderItem(
@@ -25,5 +28,6 @@ class OrderItem {
         itemTitle: data['itemTitle'],
         itemIngredients: data['itemIngredients'],
         itemPrice: data['itemPrice'],
+        itemImage: data['itemImage'],
       );
 }

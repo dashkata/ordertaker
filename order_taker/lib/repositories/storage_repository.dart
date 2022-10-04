@@ -39,7 +39,7 @@ class StorageRepository {
     }
   }
 
-  Future<void> uploadItemImage({
+  Future<String> uploadItemImage({
     required File photoFile,
     required String restaurantName,
     required String itemName,
@@ -50,8 +50,9 @@ class StorageRepository {
         storageRef.child('Images/Restaurants/$parsedRestaurant/Menu/$itemName');
     try {
       await menuRef.putFile(photoFile);
+      return await menuRef.getDownloadURL();
     } on FirebaseException catch (e) {
-      print(e.toString());
+      throw e.toString();
     }
   }
 }

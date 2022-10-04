@@ -16,18 +16,8 @@ class _PageThreeBody extends ConsumerWidget {
         itemBuilder: (_, index) => Column(
           children: List.generate(
             menu[index].items.length,
-            (indexSelection) => Column(
-              children: [
-                Text(
-                  menu[index].items[indexSelection].itemTitle,
-                ),
-                Text(
-                  menu[index].items[indexSelection].itemPrice,
-                ),
-                Text(
-                  menu[index].items[indexSelection].itemIngredients,
-                )
-              ],
+            (indexSelection) => MenuCard(
+              orderItem: menu[index].items[indexSelection],
             ),
           ),
         ),

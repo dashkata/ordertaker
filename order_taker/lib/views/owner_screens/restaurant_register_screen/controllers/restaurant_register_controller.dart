@@ -21,6 +21,7 @@ class RestaurantRegisterNotifier extends StateNotifier<void> {
     String phoneNumber,
     String restaurantName,
   ) async {
+    //TODO set the restaurant title to user
     final auth = _ref.watch(authRepositoryProvider);
     final firestore = _ref.watch(firestoreRepositoryProvider);
     await auth
@@ -29,13 +30,16 @@ class RestaurantRegisterNotifier extends StateNotifier<void> {
           (value) => auth.getCurrentUser()!.sendEmailVerification(),
         )
         .then(
+          (value) => firestore.setRestaurantTitle(
+            restaurantName,
+            auth.getCurrentUser()!.uid,
+          ),
+        )
+        .then(
           (value) => firestore.setMobileNumber(
             auth.getCurrentUser()!.uid,
             phoneNumber,
           ),
-        )
-        .then(
-          (value) => firestore.setRestaurantName(restaurantName),
         )
         .then(
           (value) => firestore.setUserType(
@@ -53,6 +57,7 @@ class RestaurantRegisterNotifier extends StateNotifier<void> {
   void navigateToLogin() {
     navigatorKey.currentState!.popAndPushNamed(Routes.login);
   }
+
   void navigateToRegister() {
     navigatorKey.currentState!.popAndPushNamed(Routes.register);
   }
