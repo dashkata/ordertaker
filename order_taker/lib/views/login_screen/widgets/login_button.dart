@@ -18,11 +18,12 @@ class LoginButton extends ConsumerWidget {
       padding: const EdgeInsets.only(top: 30.0, bottom: 20),
       child: NormalButtons(
         buttonText: AppLocalizations.of(context)!.login,
-        buttonFunc: () => ref.read(loginStateProvider.notifier).login(
-              email,
-              password,
-              context,
-            ),
+        buttonFunc: () async =>
+            await ref.read(loginStateProvider.notifier).login(
+                  email,
+                  password,
+                  context,
+                ),
       ),
     );
   }

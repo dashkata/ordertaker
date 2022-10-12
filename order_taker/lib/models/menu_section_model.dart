@@ -13,7 +13,6 @@ class MenuSection {
 
   factory MenuSection.fromMap(Map data, String title) {
     final dataItems = data[title];
-    log(title);
     final List<OrderItem> parsedItems = [];
     for (final item in dataItems) {
       parsedItems.add(OrderItem.fromMap(item));

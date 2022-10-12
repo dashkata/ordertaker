@@ -62,11 +62,13 @@ class OnboardingNotifier extends StateNotifier<void> {
 
   Future<void> addMenuItem(
     OrderItem orderItem,
-    String restaurant,
   ) async {
-    await _ref
-        .read(firestoreRepositoryProvider)
-        .addMenuItem(orderItem, restaurant);
+    await _ref.read(firestoreRepositoryProvider).addMenuItem(
+          orderItem,
+          await _ref.read(firestoreRepositoryProvider).fetchRestaurantTitle(
+                _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
+              ),
+        );
   }
 
   Future<void> submitRestaurantDetails() async {
@@ -84,5 +86,10 @@ class OnboardingNotifier extends StateNotifier<void> {
             paymentMethods: _ref.read(restaurantPaymentProvider),
           ),
         );
+    await _ref.read(firestoreRepositoryProvider).setOnBoarding(
+          _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
+          onBoarding: true,
+        );
+    await navigatorKey.currentState!.popAndPushNamed(Routes.auth);
   }
 }

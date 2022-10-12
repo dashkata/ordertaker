@@ -51,6 +51,12 @@ class RestaurantRegisterNotifier extends StateNotifier<void> {
           (value) => auth.updateUserName(
             name: '$firstName $lastName',
           ),
+        )
+        .then(
+          (value) => firestore.setOnBoarding(
+            auth.getCurrentUser()!.uid,
+            onBoarding: false,
+          ),
         );
   }
 

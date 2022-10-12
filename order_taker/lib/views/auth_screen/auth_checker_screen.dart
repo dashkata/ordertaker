@@ -5,6 +5,8 @@ import '../../providers/repository_providers.dart';
 
 import '../login_screen/login.dart';
 import '../owner_screens/edit_menu_screen/edit_menu.dart';
+import '../owner_screens/owner_onboarding/onboarding.dart';
+import '../project_widgets.dart';
 import '../restaurant_screens/restaurant_orders_screen/restaurant_order.dart';
 import '../user_screens/restaurant_screen/restaurants.dart';
 
@@ -17,39 +19,34 @@ class AuthChecker extends ConsumerWidget {
     final authServices = ref.watch(authRepositoryProvider);
     final AsyncValue userType = ref.watch(userTypeProvider);
     return authState.when(
-      data: (data) {
-        if (data != null) {
-          return userType.when(
-            data: (value) {
-              print(value);
-              if (authServices.getCurrentUser()!.emailVerified &&
-                  value != null) {
-                if (value == 'Customer') {
-                  return const RestaurantScreen();
-                } else if (value == 'Admin') {
-                  return const EditMenu();
-                } else {
-                  return const RestaurantOrders();
-                }
-              } else {
-                return const LoginScreen();
-              }
-            },
-            loading: () => const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            ),
-            error: (Object error, StackTrace? stackTrace) => Scaffold(
-              body: Center(child: Text(error.toString())),
-            ),
-          );
-        }
-        return const LoginScreen();
-      },
-      error: (e, s) => Scaffold(
-        body: Center(child: Text(e.toString())),
+      data: (data) => userType.when(
+        data: (value) {
+          if (authServices.getCurrentUser()!.emailVerified && value != null) {
+            if (value == 'Customer') {
+              return const RestaurantScreen();
+            } else if (value == 'Admin') {
+              return ref.watch(onBoardingProvider).when(
+                    data: (onBoarding) => onBoarding
+                        ? const EditMenu()
+                        : const OnboardingScreen(),
+                    error: (e, s) => Text(e.toString()),
+                    loading: () => const LoadingIndicator(),
+                  );
+            } else {
+              return const RestaurantOrders();
+            }
+          } else {
+            return const LoginScreen();
+          }
+        },
+        loading: () => const Scaffold(
+          body: Center(child: LoadingIndicator()),
+        ),
+        error: (Object error, StackTrace? stackTrace) => const LoginScreen(),
       ),
+      error: (e, s) => const LoginScreen(),
       loading: () => const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
+        body: Center(child: LoadingIndicator()),
       ),
     );
   }

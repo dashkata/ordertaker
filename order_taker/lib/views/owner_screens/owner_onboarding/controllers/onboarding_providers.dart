@@ -20,6 +20,11 @@ final onboardingControllerProvider =
     StateNotifierProvider<OnboardingNotifier, void>(
   (ref) => OnboardingNotifier(ref: ref),
 );
-final fetchMenuProvider = StreamProvider<List<MenuSection>>(
-  (ref) => ref.watch(firestoreRepositoryProvider).fetchMenu(),
+final fetchMenuProvider = StreamProvider.family<List<MenuSection>, String>(
+  (ref, title) => ref.watch(firestoreRepositoryProvider).fetchMenu(title),
+);
+final restaurantTitleProvider = FutureProvider<String>(
+  (ref) async => ref.watch(firestoreRepositoryProvider).fetchRestaurantTitle(
+        ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
+      ),
 );

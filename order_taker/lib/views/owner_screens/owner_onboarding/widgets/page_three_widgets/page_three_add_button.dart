@@ -105,7 +105,6 @@ class _AlertDialogBody extends ConsumerWidget {
                     itemPrice: itemPrice,
                     itemImage: itemImage,
                   ),
-                  'Pizza Don Vito',
                 );
             Navigator.pop(context);
           },

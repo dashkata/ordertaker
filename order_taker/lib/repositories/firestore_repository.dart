@@ -178,10 +178,27 @@ class FirestoreRepository {
     return userRef.get('type');
   }
 
+  Future<bool> fetchOnBoarding(String uid) async {
+    final userRef =
+        await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).get();
+    return userRef.get('onBoarding');
+  }
+
   Future<void> setRestaurantTitle(String restaurantName, String uid) async {
     await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).set(
       {
         'restaurant': restaurantName,
+      },
+      SetOptions(
+        merge: true,
+      ),
+    );
+  }
+
+  Future<void> setOnBoarding(String uid, {required bool onBoarding}) async {
+    await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).set(
+      {
+        'onBoarding': onBoarding,
       },
       SetOptions(
         merge: true,
@@ -352,9 +369,9 @@ class FirestoreRepository {
     );
   }
 
-  Stream<List<MenuSection>> fetchMenu() {
+  Stream<List<MenuSection>> fetchMenu(String title) {
     final menuSnapshot = FirebaseFirestore.instance
-        .collection(FirestorePath.restaurantMenu('Pizza Don Vito'))
+        .collection(FirestorePath.restaurantMenu(title))
         .snapshots();
     return menuSnapshot.map(
       (snapshot) => snapshot.docs

@@ -30,34 +30,34 @@ class OnboardingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => IntroductionScreen(
-        pages: [
-          PageViewModel(
-            image: const _PageOneImage(),
-            titleWidget: const _PageOneTitle(),
-            body: '',
-          ),
-          PageViewModel(
-            titleWidget: const _PageTwoTitle(),
-            bodyWidget: const _PageTwoForm(),
-          ),
-          PageViewModel(
-            titleWidget: const _PageThreeTitle(),
-            footer: const _PageThreeButton(),
-            bodyWidget: const _PageThreeBody(),
-          ),
-        ],
-        done: const Text(
-          'Done',
+      pages: [
+        PageViewModel(
+          image: const _PageOneImage(),
+          titleWidget: const _PageOneTitle(),
+          body: '',
         ),
-        next: const Text(
-          'Next',
+        PageViewModel(
+          titleWidget: const _PageTwoTitle(),
+          bodyWidget: const _PageTwoForm(),
         ),
-        back: const Text(
-          'Back',
+        PageViewModel(
+          titleWidget: const _PageThreeTitle(),
+          footer: const _PageThreeButton(),
+          bodyWidget: const _PageThreeBody(),
         ),
-        showBackButton: true,
-        onDone: () => ref
-            .read(onboardingControllerProvider.notifier)
-            .submitRestaurantDetails(),
-      );
+      ],
+      done: const Text(
+        'Done',
+      ),
+      next: const Text(
+        'Next',
+      ),
+      back: const Text(
+        'Back',
+      ),
+      showBackButton: true,
+      onDone: () => ref
+          .read(onboardingControllerProvider.notifier)
+          .submitRestaurantDetails(),
+    );
 }

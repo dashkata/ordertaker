@@ -16,7 +16,7 @@ class AuthRepository {
         email: email,
         password: password,
       );
-      return 'Login succesful';
+      return 'Login successful';
     } on FirebaseAuthException catch (e) {
       String errorMessage;
       switch (e.code) {

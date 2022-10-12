@@ -19,7 +19,7 @@ class OrderItem {
         'itemType': itemType,
         'itemTitle': itemTitle,
         'itemIngredients': itemIngredients,
-        'itemPrice': itemPrice,
+        'itemPrice': '$itemPrice lv.',
         'itemImage': itemImage,
       };
 

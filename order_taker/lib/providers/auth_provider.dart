@@ -11,7 +11,12 @@ final authStateProvider = StreamProvider<User?>(
 );
 
 final userTypeProvider = FutureProvider(
-  (ref) => ref
+  (ref) async => await ref
       .watch(firestoreRepositoryProvider)
       .fetchUserType(ref.read(authRepositoryProvider).getCurrentUser()!.uid),
+);
+final onBoardingProvider = FutureProvider<bool>(
+  (ref) async => await ref
+      .watch(firestoreRepositoryProvider)
+      .fetchOnBoarding(ref.read(authRepositoryProvider).getCurrentUser()!.uid),
 );
