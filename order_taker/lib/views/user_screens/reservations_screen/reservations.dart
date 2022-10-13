@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/models/reservation_model.dart';
-import 'package:order_taker/providers/reservation_screen_providers.dart';
-import 'package:order_taker/themes/themes.dart';
-import 'package:order_taker/views/user_screens/reservations_screen/widget/reservation_card.dart';
 
+import '../../../models/reservation_model.dart';
+import '../../../themes/themes.dart';
 import '../../project_widgets.dart';
+import '../../resources/padding_manager.dart';
+import '../../resources/style_manager.dart';
+import 'controllers/reservation_screen_providers.dart';
+
+part 'widget/reservation_card.dart';
+
+part 'widget/title_column.dart';
 
 class ReservationScreen extends StatelessWidget {
   const ReservationScreen({Key? key}) : super(key: key);
@@ -26,7 +32,7 @@ class ReservationScreen extends StatelessWidget {
                     data: (data) => ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (BuildContext context, int index) =>
-                          ReservationCard(reservation: data[index]),
+                          _ReservationCard(reservation: data[index]),
                     ),
                     error: (e, s) => Text(e.toString()),
                     loading: () => const LoadingIndicator(),

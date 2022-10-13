@@ -18,25 +18,23 @@ class AuthRepository {
       );
       return 'Login successful';
     } on FirebaseAuthException catch (e) {
-      String errorMessage;
       switch (e.code) {
         case 'wrong-password':
-          errorMessage = 'The password you entered is wrong, please try again.';
+          throw 'The password you entered is wrong, please try again.';
           break;
         case 'user-not-found':
-          errorMessage = "User with this email doesn't exist.";
+          throw "User with this email doesn't exist.";
           break;
         case 'user-disabled':
-          errorMessage = 'User with this email has been disabled.';
+          throw 'User with this email has been disabled.';
           break;
         case 'operation-not-allowed':
-          errorMessage = 'Too many requests. Try again later.';
+          throw 'Too many requests. Try again later.';
           break;
 
         default:
-          errorMessage = 'An undefined Error happened.';
+          throw 'An undefined Error happened.';
       }
-      return errorMessage;
     }
   }
 

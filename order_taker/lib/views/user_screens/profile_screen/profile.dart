@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/Themes/themes.dart';
-import 'package:order_taker/enums/user_details.dart';
-import 'package:order_taker/providers/profile_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../Themes/themes.dart';
+import '../../../enums/image_type.dart';
+import '../../../enums/user_details.dart';
+import '../../../providers/controller_providers.dart';
 import '../../../providers/repository_providers.dart';
 import '../../project_widgets.dart';
-import 'widgets/profile_divider.dart';
-import 'widgets/profile_list_tile.dart';
-import 'widgets/profile_picture.dart';
+import 'controllers/profile_screen_providers.dart';
+
+part 'widgets/profile_divider.dart';
+
+part 'widgets/dialog_parts.dart';
+
+part 'widgets/profile_list_tile.dart';
+
+part 'widgets/profile_picture.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -29,12 +37,12 @@ class ProfileScreen extends ConsumerWidget {
             child: Center(
               child: Column(
                 children: [
-                  ContainerPicture(text: text),
+                  _ContainerPicture(text: text),
                   const SizedBox(
                     height: 5,
                   ),
                   Consumer(
-                    builder: (_, ref, child) => ProfileListTile(
+                    builder: (_, ref, child) => _ProfileListTile(
                       detail: ref
                           .watch(authRepositoryProvider)
                           .getCurrentUser()!
@@ -50,7 +58,7 @@ class ProfileScreen extends ConsumerWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                  ProfileListTile(
+                  _ProfileListTile(
                     detail: mobileNumber.when(
                       data: (mobileNumber) => mobileNumber,
                       error: (e, s) => 'Mobile number not set',
@@ -67,7 +75,7 @@ class ProfileScreen extends ConsumerWidget {
                     height: 5,
                   ),
                   Consumer(
-                    builder: (_, ref, child) => ProfileListTile(
+                    builder: (_, ref, child) => _ProfileListTile(
                       detail: ref
                           .watch(authRepositoryProvider)
                           .getCurrentUser()!
@@ -83,7 +91,7 @@ class ProfileScreen extends ConsumerWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                  ProfileListTile(
+                  _ProfileListTile(
                     detail: '*********',
                     icon: Icons.password,
                     hintText: text.enter_your_new_password,

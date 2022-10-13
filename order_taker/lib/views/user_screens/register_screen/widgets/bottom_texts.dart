@@ -1,11 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/providers/controller_providers.dart';
-import 'package:order_taker/views/resources/route_manager.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+part of '../register.dart';
 
-class BottomTexts extends ConsumerWidget {
-  const BottomTexts({
+class _BottomTexts extends ConsumerWidget {
+  const _BottomTexts({
     Key? key,
     required this.text,
   }) : super(key: key);
@@ -14,46 +10,46 @@ class BottomTexts extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              text.already_a_member,
-              style: Theme.of(context).textTheme.headline3,
-            ),
-            TextButton(
-              onPressed: () =>
-                  ref.read(userRegisterProvider.notifier).navigateToLogin(),
-              child: Text(
-                text.login,
-                style: Theme.of(context).textTheme.headline4,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                text.already_a_member,
+                style: Theme.of(context).textTheme.headline3,
               ),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              text.or,
-              style: Theme.of(context).textTheme.headline3,
-            ),
-            TextButton(
-              onPressed: () => ref
-                  .read(userRegisterProvider.notifier)
-                  .navigateToRestaurantRegister(),
-              child: Text(
-                text.click_here,
-                style: Theme.of(context).textTheme.headline4,
+              TextButton(
+                onPressed: () =>
+                    ref.read(userRegisterProvider.notifier).navigateToLogin(),
+                child: Text(
+                  text.login,
+                  style: Theme.of(context).textTheme.headline4,
+                ),
               ),
-            ),
-            Text(
-              text.to_register_a_restaurant,
-              style: Theme.of(context).textTheme.headline3,
-            ),
-          ],
-        ),
-      ],
-    );
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                text.or,
+                style: Theme.of(context).textTheme.headline3,
+              ),
+              TextButton(
+                onPressed: () => ref
+                    .read(userRegisterProvider.notifier)
+                    .navigateToRestaurantRegister(),
+                child: Text(
+                  text.click_here,
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+              ),
+              Text(
+                text.to_register_a_restaurant,
+                style: Theme.of(context).textTheme.headline3,
+              ),
+            ],
+          ),
+        ],
+      );
 }

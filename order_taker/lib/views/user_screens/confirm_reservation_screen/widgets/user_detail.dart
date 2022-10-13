@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
-import '../../../../themes/themes.dart';
-import '../../../resources/padding_manager.dart';
-import '../../../resources/style_manager.dart';
+part of '../confirm_reservation.dart';
 
-class UserDetail extends StatelessWidget {
-  const UserDetail({
+class _UserDetail extends StatelessWidget {
+  const _UserDetail({
     required this.detailType,
     required this.userDetail,
     Key? key,

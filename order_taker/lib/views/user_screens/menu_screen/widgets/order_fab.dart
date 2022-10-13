@@ -1,16 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+part of '../menu.dart';
 
-import '../../../../Themes/themes.dart';
-import '../../../../models/reservation_model.dart';
-import '../../../../providers/controller_providers.dart';
-import '../../../project_widgets.dart';
-import '../../../resources/padding_manager.dart';
-import '../../../resources/style_manager.dart';
-
-class OrderFAB extends StatelessWidget {
-  const OrderFAB({
+class _OrderFAB extends StatelessWidget {
+  const _OrderFAB({
     required this.reservation,
     Key? key,
   }) : super(key: key);

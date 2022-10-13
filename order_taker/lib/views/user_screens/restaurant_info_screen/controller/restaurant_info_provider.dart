@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/restaurant_info_model.dart';
-import 'repository_providers.dart';
+import '../../../../models/restaurant_info_model.dart';
+import '../../../../providers/repository_providers.dart';
 
 final restaurantInfoProvider =
     FutureProvider.family<RestaurantInformation, String>(

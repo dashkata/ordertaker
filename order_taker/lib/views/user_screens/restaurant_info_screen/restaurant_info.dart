@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:order_taker/providers/restaurant_info_provider.dart';
+import 'package:order_taker/views/user_screens/restaurant_info_screen/controller/restaurant_info_provider.dart';
 import 'package:order_taker/themes/themes.dart';
 import 'package:readmore/readmore.dart';
 

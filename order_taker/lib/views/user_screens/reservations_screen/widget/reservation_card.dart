@@ -1,18 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+part of '../reservations.dart';
 
-import '../../../../models/reservation_model.dart';
-import '../../../../providers/common_providers.dart';
-import '../../../../providers/controller_providers.dart';
-import '../../../../themes/themes.dart';
-import '../../../project_widgets.dart';
-import '../../../resources/padding_manager.dart';
-import 'title_column.dart';
-
-class ReservationCard extends ConsumerWidget {
-  const ReservationCard({
+class _ReservationCard extends ConsumerWidget {
+  const _ReservationCard({
     required this.reservation,
     Key? key,
   }) : super(key: key);
@@ -31,39 +20,33 @@ class ReservationCard extends ConsumerWidget {
         child: Card(
           color: complementaryColor,
           elevation: 10,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40),
-          ),
+          shape: Styles.buildRoundedBorder(40),
           child: Row(
             children: [
-              Padding(
-                padding: PaddingManager.p5,
-                child: Consumer(
-                  builder: (context, ref, child) {
-                    final AsyncValue restaurantPic = ref.watch(
-                      restaurantPictureProvider(reservation.restaurant),
-                    );
-                    return restaurantPic.when(
-                      data: (imageUrl) => CachedNetworkImage(
-                        imageUrl: restaurantPic.value,
-                        imageBuilder: (context, url) => CircleAvatar(
-                          backgroundImage: url,
-                          radius: 40,
-                        ),
-                      ),
-                      error: (e, s) => Text(
-                        e.toString(),
-                      ),
-                      //     GFToast.showToast(
-                      //   e.toString(),
-                      //   context,
-                      // ),
-                      loading: () => const LoadingIndicator(),
-                    );
-                  },
-                ),
-              ),
-              TitleColumn(
+              // Padding(
+              //   padding: PaddingManager.p5,
+              //   child: Consumer(
+              //     builder: (context, ref, child) {
+              //       final AsyncValue restaurantPic = ref.watch(
+              //         restaurantPictureProvider(reservation.restaurant),
+              //       );
+              //       return restaurantPic.when(
+              //         data: (imageUrl) => CachedNetworkImage(
+              //           imageUrl: restaurantPic.value,
+              //           imageBuilder: (context, url) => CircleAvatar(
+              //             backgroundImage: url,
+              //             radius: 40,
+              //           ),
+              //         ),
+              //         error: (e, s) => Text(
+              //           e.toString(),
+              //         ),
+              //         loading: () => const LoadingIndicator(),
+              //       );
+              //     },
+              //   ),
+              // ),
+              _TitleColumn(
                 reservation: reservation,
                 text: text,
               ),

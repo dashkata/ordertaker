@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../models/reservation_model.dart';
-import '../../../resources/route_manager.dart';
-import '../../restaurant_orders_screen/restaurant_order_arguments.dart';
-import '../controllers/restaurant_reservation_provider.dart';
+part of '../restaurant_reservations.dart';
 
 class CardAlertDialog extends ConsumerWidget {
   const CardAlertDialog({

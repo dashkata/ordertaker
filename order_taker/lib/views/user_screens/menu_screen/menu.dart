@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../Themes/themes.dart';
+import '../../../models/menu_item_model.dart';
 import '../../../models/reservation_model.dart';
+import '../../../providers/controller_providers.dart';
 import '../../project_widgets.dart';
-import 'widgets/bottom_navbar.dart';
-import 'widgets/menu_section.dart';
-import 'widgets/order_fab.dart';
+import '../../resources/padding_manager.dart';
+import '../../resources/style_manager.dart';
+import 'controllers/menu_screen_providers.dart';
+
+part 'widgets/order_fab.dart';
+
+part 'widgets/bottom_navbar.dart';
+
+part 'widgets/menu_section.dart';
 
 class MenuScreen extends StatelessWidget {
   MenuScreen({Key? key}) : super(key: key);
@@ -21,10 +31,10 @@ class MenuScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as Reservation;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
-      floatingActionButton: OrderFAB(
+      floatingActionButton: _OrderFAB(
         reservation: reservation,
       ),
-      bottomNavigationBar: SectionNavBar(
+      bottomNavigationBar: _SectionNavBar(
         appetizersKey: appetizersKey,
         dishesKey: dishesKey,
         desertsKey: desertsKey,
@@ -41,28 +51,28 @@ class MenuScreen extends StatelessWidget {
                   const SizedBox(
                     height: 50,
                   ),
-                  MenuSection(
+                  _MenuSection(
                     sectionKey: appetizersKey,
                     sectionTitle: text.appetizers,
                   ),
                   const SizedBox(
                     height: 50,
                   ),
-                  MenuSection(
+                  _MenuSection(
                     sectionKey: dishesKey,
                     sectionTitle: text.dishes,
                   ),
                   const SizedBox(
                     height: 50,
                   ),
-                  MenuSection(
+                  _MenuSection(
                     sectionKey: desertsKey,
                     sectionTitle: text.deserts,
                   ),
                   const SizedBox(
                     height: 50,
                   ),
-                  MenuSection(
+                  _MenuSection(
                     sectionKey: drinksKey,
                     sectionTitle: text.drinks,
                   ),

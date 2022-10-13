@@ -1,13 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+part of '../profile.dart';
 
-import '../../../../enums/user_details.dart';
-import '../../../../providers/controller_providers.dart';
-import '../../../../providers/profile_provider.dart';
-
-class ProfileListTile extends ConsumerWidget {
-  const ProfileListTile({
+class _ProfileListTile extends ConsumerWidget {
+  const _ProfileListTile({
     required this.detail,
     required this.icon,
     required this.hintText,

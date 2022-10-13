@@ -1,12 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+part of '../restaurants.dart';
 
-import '../../../../providers/controller_providers.dart';
-import '../../../project_widgets.dart';
-
-class FindATableButton extends ConsumerWidget {
-  const FindATableButton({
+class _FindATableButton extends ConsumerWidget {
+  const _FindATableButton({
     required this.resTitle,
     Key? key,
   }) : super(key: key);

@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'repository_providers.dart';
+import 'package:order_taker/views/user_screens/confirm_reservation_screen/controllers/user_confirm_reservation_controller.dart';
+
+import '../../../../providers/repository_providers.dart';
 
 final detailsProvider = FutureProvider<Map<String, dynamic>>((ref) async {
   final auth = ref.watch(authRepositoryProvider);
@@ -13,3 +15,13 @@ final detailsProvider = FutureProvider<Map<String, dynamic>>((ref) async {
 final confirmDateProvider = StateProvider<String>((ref) => '');
 
 final confirmTimeProvider = StateProvider<String>((ref) => '');
+
+final userConfirmReservationProvider =
+StateNotifierProvider<UserConfirmReservationNotifier, void>(
+      (ref) => UserConfirmReservationNotifier(
+    firestoreRepository: ref.watch(firestoreRepositoryProvider),
+    authRepository: ref.watch(
+      authRepositoryProvider,
+    ),
+  ),
+);

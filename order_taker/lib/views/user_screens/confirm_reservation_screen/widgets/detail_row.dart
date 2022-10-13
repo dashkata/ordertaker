@@ -1,18 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../Themes/themes.dart';
-import '../../../../providers/confirm_reservation_providers.dart';
+part of '../confirm_reservation.dart';
 
-class DetailRow extends ConsumerWidget {
-  const DetailRow({
+class _DetailRow extends ConsumerWidget {
+  const _DetailRow({
     required this.reservationInfo,
     required this.text,
     Key? key,
-
   }) : super(key: key);
 
-  final Map reservationInfo;
+  final ConfirmReservationArguments reservationInfo;
   final AppLocalizations text;
 
   @override
@@ -43,7 +38,7 @@ class DetailRow extends ConsumerWidget {
             color: accentColor,
           ),
           Text(
-            "${reservationInfo["numberOfPeople"]} ${text.people}",
+            '${reservationInfo.numberOfPeople} ${text.people}',
             style: Theme.of(context).textTheme.headline1,
           ),
         ],

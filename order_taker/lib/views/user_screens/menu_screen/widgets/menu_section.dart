@@ -1,12 +1,7 @@
-import 'package:flutter/material.dart';
-import '../../../../Themes/themes.dart';
-import '../../../../models/menu_item_model.dart';
-import '../../../resources/padding_manager.dart';
-import '../../../resources/style_manager.dart';
-import 'menu_card.dart';
+part of '../menu.dart';
 
-class MenuSection extends StatelessWidget {
-  const MenuSection({
+class _MenuSection extends StatelessWidget {
+  const _MenuSection({
     required this.sectionKey,
     required this.sectionTitle,
     Key? key,

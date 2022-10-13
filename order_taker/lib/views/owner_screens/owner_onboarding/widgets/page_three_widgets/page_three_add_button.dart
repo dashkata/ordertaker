@@ -49,6 +49,7 @@ class _AlertDialogBody extends ConsumerWidget {
           icon: Icons.restaurant,
           obscure: false,
           inputType: TextInputType.text,
+          textInputAction: TextInputAction.next,
           func: (value) => ref
               .read(onboardingControllerProvider.notifier)
               .updateTextField(itemTypeProvider, value),
@@ -58,6 +59,7 @@ class _AlertDialogBody extends ConsumerWidget {
           icon: Icons.restaurant,
           obscure: false,
           inputType: TextInputType.text,
+          textInputAction: TextInputAction.next,
           func: (value) => ref
               .read(onboardingControllerProvider.notifier)
               .updateTextField(itemTitleProvider, value),
@@ -67,6 +69,7 @@ class _AlertDialogBody extends ConsumerWidget {
           icon: Icons.restaurant,
           obscure: false,
           inputType: TextInputType.text,
+          textInputAction: TextInputAction.next,
           func: (value) => ref
               .read(onboardingControllerProvider.notifier)
               .updateTextField(itemIngredientsProvider, value),
@@ -75,6 +78,7 @@ class _AlertDialogBody extends ConsumerWidget {
           hintText: text.price_menu_item,
           icon: Icons.restaurant,
           obscure: false,
+          textInputAction: TextInputAction.done,
           inputType: const TextInputType.numberWithOptions(decimal: true),
           func: (value) => ref
               .read(onboardingControllerProvider.notifier)

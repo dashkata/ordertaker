@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../models/reservation_model.dart';
+import '../../../providers/repository_providers.dart';
+import '../../../themes/themes.dart';
 import '../../project_widgets.dart';
+import '../../resources/padding_manager.dart';
+import '../../resources/route_manager.dart';
 import '../restaurant_orders_screen/restaurant_order_arguments.dart';
 import 'controllers/restaurant_reservation_provider.dart';
-import 'widgets/restaurant_reservation_card.dart';
+
+part 'widgets/restaurant_reservation_card.dart';
+
+part 'widgets/restaurant_reservation_card_alert_dialog.dart';
 
 class RestaurantReservations extends StatelessWidget {
   const RestaurantReservations({Key? key}) : super(key: key);
@@ -38,7 +45,7 @@ class RestaurantReservations extends StatelessWidget {
                       data: (reservations) => ListView.builder(
                         shrinkWrap: true,
                         itemBuilder: (context, index) =>
-                            RestaurantReservationCard(
+                            _RestaurantReservationCard(
                           reservation: reservations[index],
                           args: restaurantOrderArguments,
                         ),

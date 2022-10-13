@@ -1,15 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+part of '../restaurant_reservations.dart';
 
-import '../../../../Themes/themes.dart';
-import '../../../../models/reservation_model.dart';
-import '../../../../providers/repository_providers.dart';
-import '../../../resources/padding_manager.dart';
-import '../../restaurant_orders_screen/restaurant_order_arguments.dart';
-import 'restaurant_reservation_card_alert_dialog.dart';
-
-class RestaurantReservationCard extends ConsumerWidget {
-  const RestaurantReservationCard({
+class _RestaurantReservationCard extends ConsumerWidget {
+  const _RestaurantReservationCard({
     required this.reservation,
     required this.args,
     Key? key,

@@ -1,13 +1,25 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../Themes/themes.dart';
 import '../../../models/restaurant_model.dart';
-import '../../../providers/controller_providers.dart';
-import '../../../providers/repository_providers.dart';
-import '../../../providers/restaurant_screen_providers.dart';
+import '../../../providers/common_providers.dart';
 import '../../project_widgets.dart';
-import 'widgets/restaurant_card.dart';
+import '../../resources/padding_manager.dart';
+import '../../resources/style_manager.dart';
+import 'controllers/restaurant_screen_providers.dart';
+
+part 'widgets/find_a_table_button.dart';
+
+part 'widgets/restaurant_card.dart';
+
+part 'widgets/select_date.dart';
+
+part 'widgets/number_of_people.dart';
+
+part 'widgets/free_tables.dart';
 
 class RestaurantScreen extends StatelessWidget {
   const RestaurantScreen({Key? key}) : super(key: key);
@@ -30,7 +42,7 @@ class RestaurantScreen extends StatelessWidget {
                     data: (data) => ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (BuildContext context, int index) =>
-                          RestaurantCard(
+                          _RestaurantCard(
                         restaurant: data[index],
                       ),
                     ),

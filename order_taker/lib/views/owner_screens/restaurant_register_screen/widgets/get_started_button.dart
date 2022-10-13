@@ -6,13 +6,13 @@ class _ConfirmButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final firstName = ref.watch(restaurantFirstNameProvider);
-    final lastName = ref.watch(restaurantLastNameProvider);
-    final email = ref.watch(restaurantEmailProvider);
-    final password = ref.watch(restaurantPasswordProvider);
-    final phoneNumber = ref.watch(restaurantPhoneProvider);
+    final firstName = ref.watch(restaurantRegisterFirstNameControllerProvider);
+    final lastName = ref.watch(restaurantRegisterLastNameControllerProvider);
+    final email = ref.watch(restaurantRegisterEmailControllerProvider);
+    final password = ref.watch(restaurantRegisterPasswordControllerProvider);
+    final phoneNumber = ref.watch(restaurantRegisterPhoneControllerProvider);
     final restaurantName = ref.watch(
-      restaurantNameProvider,
+      restaurantRegisterNameControllerProvider,
     );
     return Padding(
       padding: const EdgeInsets.only(top: 40.0),

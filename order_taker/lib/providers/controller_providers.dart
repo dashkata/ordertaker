@@ -16,81 +16,17 @@ import '../views/user_screens/restaurant_screen/controllers/restaurant_state_con
 import 'repository_providers.dart';
 import 'services_provider.dart';
 
-final restaurantDialogNotifierProvider =
-    StateNotifierProvider<RestaurantDialogNotifier, void>(
-  (ref) => RestaurantDialogNotifier(),
-);
 
 final storageStateNotifierProvider =
-    StateNotifierProvider.autoDispose<StorageStateNotifier, AsyncValue<String>>(
-  (ref) => StorageStateNotifier(ref.watch(storageServicesProvider)),
-);
-final menuCardsControllerProvider =
-    StateNotifierProvider<MenuScreenNotifier, List<OrderItem>>(
-  MenuScreenNotifier.new,
+StateNotifierProvider.autoDispose<StorageStateNotifier, AsyncValue<String>>(
+        (ref) => StorageStateNotifier(ref.watch(storageServicesProvider)),
 );
 
-final menuFunctionsProvider =
-    StateNotifierProvider<MenuFunctionsNotifier, void>(
-  (ref) => MenuFunctionsNotifier(),
-);
 
-final userRegisterProvider =
-    StateNotifierProvider<UserRegisterScreenNotifier, void>(
-  (ref) => UserRegisterScreenNotifier(
-    authRepository: ref.watch(authRepositoryProvider),
-    firestoreRepository: ref.watch(firestoreRepositoryProvider),
-  ),
-);
 
-final userReservationProvider =
-    StateNotifierProvider<UserReservationStateNotifier, void>(
-  (ref) => UserReservationStateNotifier(
-    firestoreRepository: ref.watch(firestoreRepositoryProvider),
-    authRepository: ref.watch(authRepositoryProvider),
-  ),
-);
 
-final userProfileProvider = StateNotifierProvider<UserProfileNotifier, void>(
-  (ref) => UserProfileNotifier(
-    authRepository: ref.watch(authRepositoryProvider),
-    firestoreRepository: ref.watch(
-      firestoreRepositoryProvider,
-    ),
-    storageRepository: ref.watch(
-      storageRepositoryProvider,
-    ),
-  ),
-);
-final userConfirmReservationProvider =
-    StateNotifierProvider<UserConfirmReservationNotifier, void>(
-  (ref) => UserConfirmReservationNotifier(
-    firestoreRepository: ref.watch(firestoreRepositoryProvider),
-    authRepository: ref.watch(
-      authRepositoryProvider,
-    ),
-  ),
-);
-final loginStateProvider = StateNotifierProvider<LoginStateNotifier, void>(
-  (ref) => LoginStateNotifier(
-    authRepository: ref.watch(
-      authRepositoryProvider,
-    ),
-  ),
-);
-final restaurantOrderNotifierProvider =
-    StateNotifierProvider<RestaurantOrderNotifier, void>(
-  (ref) => RestaurantOrderNotifier(ref: ref),
-);
-final restaurantTablesNotifierProvider =
-    StateNotifierProvider<RestaurantTablesNotifier, void>(
-  (ref) => RestaurantTablesNotifier(
-    firestoreRepository: ref.watch(
-      firestoreRepositoryProvider,
-    ),
-  ),
-);
-final restaurantRegisterProvider =
-    StateNotifierProvider<RestaurantRegisterNotifier, void>(
-  (ref) => RestaurantRegisterNotifier(ref: ref),
-);
+
+
+
+
+

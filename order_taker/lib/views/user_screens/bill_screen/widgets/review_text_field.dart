@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../../../themes/themes.dart';
-import '../../../resources/style_manager.dart';
+part of '../bill.dart';
 
 class ReviewTextField extends StatelessWidget {
   const ReviewTextField({

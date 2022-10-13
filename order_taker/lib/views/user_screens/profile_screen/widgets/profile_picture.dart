@@ -1,15 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+ part of '../profile.dart';
 
-import '../../../../Themes/themes.dart';
-import '../../../../providers/controller_providers.dart';
-import '../../../../providers/repository_providers.dart';
-import '../../../project_widgets.dart';
-import 'dialog_parts.dart';
-
-class ContainerPicture extends StatelessWidget {
-  const ContainerPicture({
+class _ContainerPicture extends StatelessWidget {
+  const _ContainerPicture({
     Key? key,
     required this.text,
   }) : super(key: key);

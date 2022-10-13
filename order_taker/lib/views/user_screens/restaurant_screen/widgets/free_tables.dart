@@ -1,10 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../providers/controller_providers.dart';
-import '../../../../providers/restaurant_screen_providers.dart';
-import '../../../project_widgets.dart';
+part of '../restaurants.dart';
 
 class TablesAlertDialog extends StatelessWidget {
   const TablesAlertDialog({

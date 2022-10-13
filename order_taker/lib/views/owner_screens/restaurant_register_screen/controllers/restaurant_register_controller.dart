@@ -9,10 +9,6 @@ class RestaurantRegisterNotifier extends StateNotifier<void> {
         super(null);
   final Ref _ref;
 
-  void updateText(StateProvider provider, String value) {
-    _ref.read(provider.notifier).update((state) => value);
-  }
-
   Future<void> signUp(
     String firstName,
     String lastName,
@@ -21,7 +17,6 @@ class RestaurantRegisterNotifier extends StateNotifier<void> {
     String phoneNumber,
     String restaurantName,
   ) async {
-    //TODO set the restaurant title to user
     final auth = _ref.watch(authRepositoryProvider);
     final firestore = _ref.watch(firestoreRepositoryProvider);
     await auth

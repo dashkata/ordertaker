@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/repositories/auth_repository.dart';
-import 'package:order_taker/repositories/firestore_repository.dart';
-import 'package:order_taker/views/resources/route_manager.dart';
+import '../../../../repositories/auth_repository.dart';
+import '../../../../repositories/firestore_repository.dart';
+import '../../../resources/route_manager.dart';
 
 class UserRegisterScreenNotifier extends StateNotifier<void> {
   UserRegisterScreenNotifier({

@@ -1,12 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+part of '../restaurant_order.dart';
 
-import '../../../../Themes/themes.dart';
-import '../../../../providers/controller_providers.dart';
-import '../restaurant_order_arguments.dart';
-
-class RestaurantOrderFABRow extends ConsumerWidget {
-  const RestaurantOrderFABRow({
+class _RestaurantOrderFABRow extends ConsumerWidget {
+  const _RestaurantOrderFABRow({
     required this.restaurantOrderArguments,
     Key? key,
   }) : super(key: key);

@@ -13,16 +13,15 @@ class LoginStateNotifier extends StateNotifier<void> {
     navigatorKey.currentState!.popAndPushNamed(Routes.register);
   }
 
-  Future<String> login(
+  Future<void> login(
     String email,
     String password,
     BuildContext context,
   ) async {
-    final String message = await _authRepository.signIn(
+    await _authRepository.signIn(
       email: email,
       password: password,
     );
     await navigatorKey.currentState!.popAndPushNamed(Routes.auth);
-    return message;
   }
 }
