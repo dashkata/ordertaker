@@ -1,18 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+part of '../restaurants.dart';
 
-import '../../../../models/restaurant_model.dart';
-import '../../../../providers/common_providers.dart';
-import '../../../../providers/controller_providers.dart';
-import '../../../../themes/themes.dart';
-import '../../../project_widgets.dart';
-import '../../../resources/padding_manager.dart';
-import '../../../resources/style_manager.dart';
-import 'find_a_table.dart';
-
-class RestaurantCard extends ConsumerWidget {
-  const RestaurantCard({
+class _RestaurantCard extends ConsumerWidget {
+  const _RestaurantCard({
     required this.restaurant,
     Key? key,
   }) : super(key: key);
@@ -34,7 +23,6 @@ class RestaurantCard extends ConsumerWidget {
                 Stack(
                   alignment: Alignment.center,
                   children: [
-                    //TODO update this
                     Consumer(
                       builder: (context, ref, child) {
                         final AsyncValue restaurantPic = ref.watch(
@@ -80,7 +68,7 @@ class RestaurantCard extends ConsumerWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          FindATableButton(
+                          _FindATableButton(
                             resTitle: restaurant.title,
                           ),
                         ],

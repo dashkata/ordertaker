@@ -21,7 +21,7 @@ class AuthChecker extends ConsumerWidget {
     return authState.when(
       data: (data) => userType.when(
         data: (value) {
-          if (authServices.getCurrentUser()!.emailVerified && value != null) {
+          if (authServices.getCurrentUser()!.emailVerified) {
             if (value == 'Customer') {
               return const RestaurantScreen();
             } else if (value == 'Admin') {
@@ -46,7 +46,9 @@ class AuthChecker extends ConsumerWidget {
       ),
       error: (e, s) => const LoginScreen(),
       loading: () => const Scaffold(
-        body: Center(child: LoadingIndicator()),
+        body: Center(
+          child: LoadingIndicator(),
+        ),
       ),
     );
   }

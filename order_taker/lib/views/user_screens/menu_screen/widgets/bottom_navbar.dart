@@ -1,14 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+part of '../menu.dart';
 
-import '../../../../Themes/themes.dart';
-import '../../../../models/reservation_model.dart';
-import '../../../../providers/controller_providers.dart';
-import '../../../../providers/menu_screen_providers.dart';
-
-class SectionNavBar extends ConsumerWidget {
-  const SectionNavBar({
+class _SectionNavBar extends ConsumerWidget {
+  const _SectionNavBar({
     required this.appetizersKey,
     required this.dishesKey,
     required this.desertsKey,

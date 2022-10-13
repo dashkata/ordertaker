@@ -5,11 +5,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../providers/profile_provider.dart';
+import '../models/menu_item_model.dart';
 import '../providers/repository_providers.dart';
 import '../themes/themes.dart';
+import 'resources/padding_manager.dart';
 import 'resources/route_manager.dart';
 import 'resources/style_manager.dart';
+import 'user_screens/menu_screen/controllers/menu_screen_providers.dart';
+import 'user_screens/profile_screen/controllers/profile_screen_providers.dart';
 
 class NormalButtons extends StatelessWidget {
   const NormalButtons({
@@ -71,6 +74,7 @@ class TextFields extends StatelessWidget {
     required this.icon,
     required this.obscure,
     required this.inputType,
+    required this.textInputAction,
     required this.func,
     Key? key,
   }) : super(key: key);
@@ -80,6 +84,7 @@ class TextFields extends StatelessWidget {
   final bool obscure;
   final TextInputType inputType;
   final void Function(String)? func;
+  final TextInputAction textInputAction;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -90,6 +95,7 @@ class TextFields extends StatelessWidget {
           icon: icon,
           hintText: hintText,
           obscure: obscure,
+          textInputAction: textInputAction,
         ),
       );
 }
@@ -101,6 +107,7 @@ class DoubleTextField extends StatelessWidget {
     required this.icon,
     required this.hintText,
     required this.obscure,
+    required this.textInputAction,
     Key? key,
   }) : super(key: key);
 
@@ -108,6 +115,7 @@ class DoubleTextField extends StatelessWidget {
   final IconData icon;
   final String? hintText;
   final bool obscure;
+  final TextInputAction textInputAction;
   final void Function(String)? func;
 
   @override
@@ -120,7 +128,10 @@ class DoubleTextField extends StatelessWidget {
             onChanged: func,
             keyboardType: inputType,
             decoration: InputDecoration(
-              prefixIcon: Icon(icon),
+              prefixIcon: Icon(
+                icon,
+                color: accentColor,
+              ),
               enabledBorder: Styles.buildOutlineBorder(
                 accentColor,
                 30,
@@ -129,6 +140,11 @@ class DoubleTextField extends StatelessWidget {
                 accentColor,
                 30,
               ),
+              focusedBorder: Styles.buildOutlineBorder(
+                accentColor,
+                30,
+              ),
+              prefixIconColor: accentColor,
               hintText: hintText,
               filled: true,
               fillColor: mainColor,
@@ -136,6 +152,7 @@ class DoubleTextField extends StatelessWidget {
             ),
             obscureText: obscure,
             autocorrect: false,
+            textInputAction: textInputAction,
           ),
         ),
       );
@@ -148,7 +165,7 @@ class BackgroundWidgetAuthPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/Background2.png'),
             fit: BoxFit.fill,
@@ -278,5 +295,79 @@ class LoadingIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) => const Center(
         child: CircularProgressIndicator(),
+      );
+}
+
+class UnfocusDetector extends StatelessWidget {
+  const UnfocusDetector({
+    required this.child,
+    Key? key,
+  }) : super(key: key);
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => GestureDetector(
+        child: child,
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      );
+}
+
+class MenuCard extends ConsumerWidget {
+  const MenuCard({
+    required this.orderItem,
+    Key? key,
+  }) : super(key: key);
+  final OrderItem orderItem;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => Padding(
+        padding: PaddingManager.p4,
+        child: GestureDetector(
+          onTap: () =>
+              ref.read(menuCardsControllerProvider.notifier).addMenuCard(
+                    orderItem,
+                  ),
+          child: Card(
+            color: mainColor,
+            elevation: 10,
+            shape: Styles.buildRoundedBorder(40),
+            child: Row(
+              children: [
+                Padding(
+                  padding: PaddingManager.p5,
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(orderItem.itemImage),
+                    radius: 40,
+                  ),
+                ),
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 10, 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          orderItem.itemTitle,
+                          style: Theme.of(context).textTheme.headline3,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          orderItem.itemPrice,
+                          style: Theme.of(context).textTheme.headline3,
+                        ),
+                        Text(
+                          orderItem.itemIngredients,
+                          style: Theme.of(context).textTheme.headline1,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       );
 }

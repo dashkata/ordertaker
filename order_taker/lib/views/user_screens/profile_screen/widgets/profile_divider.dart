@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
-import '../../../../Themes/themes.dart';
+// import 'package:flutter/material.dart';
+// import '../../../../Themes/themes.dart';
+part of '../profile.dart';
 
 class ProfileDivider extends StatelessWidget {
   const ProfileDivider({
@@ -8,7 +9,7 @@ class ProfileDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const Divider(
-      thickness: 0.5,
-      color: accentColor,
-    );
+        thickness: 0.5,
+        color: accentColor,
+      );
 }

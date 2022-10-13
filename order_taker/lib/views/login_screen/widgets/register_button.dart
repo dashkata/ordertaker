@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../providers/controller_providers.dart';
+import '../controllers/login_screen_providers.dart';
 import 'login_text.dart';
 
 class RegisterButton extends ConsumerWidget {

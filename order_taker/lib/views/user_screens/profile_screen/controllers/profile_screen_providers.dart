@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'repository_providers.dart';
+import '../../../../providers/repository_providers.dart';
+import 'user_profile_controller.dart';
 
 final phoneNumberProvider = FutureProvider<String>((ref) async {
   final db = ref.watch(firestoreRepositoryProvider);
@@ -24,3 +25,14 @@ final picProvider = FutureProvider.autoDispose<String?>((ref) async {
     email: ref.read(authRepositoryProvider).getCurrentUser()!.email!,
   );
 });
+final userProfileProvider = StateNotifierProvider<UserProfileNotifier, void>(
+  (ref) => UserProfileNotifier(
+    authRepository: ref.watch(authRepositoryProvider),
+    firestoreRepository: ref.watch(
+      firestoreRepositoryProvider,
+    ),
+    storageRepository: ref.watch(
+      storageRepositoryProvider,
+    ),
+  ),
+);

@@ -5,19 +5,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../Themes/themes.dart';
 import '../../../models/reservation_model.dart';
 import '../../../providers/common_providers.dart';
-import '../../../providers/confirm_reservation_providers.dart';
-import '../../../providers/controller_providers.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
+import '../../resources/style_manager.dart';
 import '../../user_screens/restaurant_info_screen/restaurant_info_widget.dart';
-import 'widgets/detail_row.dart';
-import 'widgets/user_detail.dart';
+import 'confirm_reservation_arguments.dart';
+import 'controllers/confirm_reservation_providers.dart';
 
-/*
-  We need the user details and we need the user picked date and number of people
+part 'widgets/user_detail.dart';
 
+part 'widgets/detail_row.dart';
 
-*/
 class ConfirmReservationScreen extends ConsumerWidget {
   const ConfirmReservationScreen({Key? key}) : super(key: key);
 
@@ -25,9 +23,10 @@ class ConfirmReservationScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final text = AppLocalizations.of(context)!;
     final AsyncValue userDetails = ref.watch(detailsProvider);
-    final reservationInfo = ModalRoute.of(context)!.settings.arguments as Map;
-    final AsyncValue restaurantPic = ref
-        .watch(restaurantPictureProvider(reservationInfo['restaurantTitle']));
+    final reservationInfo = ModalRoute.of(context)!.settings.arguments
+        as ConfirmReservationArguments;
+    final AsyncValue restaurantPic =
+        ref.watch(restaurantPictureProvider(reservationInfo.restaurantTitle));
     return Scaffold(
       body: Stack(
         children: [
@@ -62,19 +61,19 @@ class ConfirmReservationScreen extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    reservationInfo['restaurantTitle'],
+                                    reservationInfo.restaurantTitle,
                                     style:
                                         Theme.of(context).textTheme.headline5,
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 5.0),
-                                    child: DetailRow(
+                                    child: _DetailRow(
                                       reservationInfo: reservationInfo,
                                       text: text,
                                     ),
                                   ),
                                   Text(
-                                    'Selected table: ${reservationInfo['tableId']}',
+                                    'Selected table: ${reservationInfo.tableId}',
                                   ),
                                 ],
                               ),
@@ -82,18 +81,18 @@ class ConfirmReservationScreen extends ConsumerWidget {
                           ],
                         ),
                         const InfoDivider(),
-                        UserDetail(
+                        _UserDetail(
                           detailType: text.name,
                           userDetail: data['name'],
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 10.0),
-                          child: UserDetail(
+                          child: _UserDetail(
                             detailType: text.email_address,
                             userDetail: data['email'],
                           ),
                         ),
-                        UserDetail(
+                        _UserDetail(
                           detailType: text.mobile_number,
                           userDetail: data['phoneNumber'],
                         ),
@@ -105,13 +104,12 @@ class ConfirmReservationScreen extends ConsumerWidget {
                                 .addReservation(
                                   Reservation(
                                     name: data['name'],
-                                    restaurant:
-                                        reservationInfo['restaurantTitle'],
+                                    restaurant: reservationInfo.restaurantTitle,
                                     date: '${ref.read(confirmDateProvider)} '
                                         '- ${ref.read(confirmTimeProvider)}',
                                     numberOfPeople:
-                                        reservationInfo['numberOfPeople'],
-                                    selectedTable: reservationInfo['tableId'],
+                                        reservationInfo.numberOfPeople,
+                                    selectedTable: reservationInfo.tableId,
                                     currentReservation: false,
                                   ),
                                 ),
@@ -131,8 +129,9 @@ class ConfirmReservationScreen extends ConsumerWidget {
                       ],
                     ),
                     error: (e, s) => Text(e.toString()),
-                    loading: () =>
-                        const Center(child: CircularProgressIndicator()),
+                    loading: () => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
                 ),
               ),

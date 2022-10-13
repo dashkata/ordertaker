@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../Themes/themes.dart';
 import '../../../../enums/image_type.dart';
 import '../../../../enums/user_details.dart';
-import '../../../../providers/profile_provider.dart';
+import 'profile_screen_providers.dart';
 import '../../../../repositories/auth_repository.dart';
 import '../../../../repositories/firestore_repository.dart';
 import '../../../../repositories/storage_repository.dart';

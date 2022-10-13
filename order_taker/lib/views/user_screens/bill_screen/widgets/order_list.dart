@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../Themes/themes.dart';
-import '../../../../models/order_model.dart';
-import '../../../../models/reservation_model.dart';
-import '../../../../providers/bill_screen_providers.dart';
-import '../../../project_widgets.dart';
-import '../../../resources/style_manager.dart';
+part of '../bill.dart';
 
 class OrdersList extends StatelessWidget {
   const OrdersList({

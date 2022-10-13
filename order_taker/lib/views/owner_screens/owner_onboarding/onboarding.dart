@@ -8,7 +8,6 @@ import '../../../providers/repository_providers.dart';
 import '../../project_widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../user_screens/menu_screen/widgets/menu_card.dart';
 import 'controllers/onboarding_providers.dart';
 
 part 'widgets/page_one_widgets/page_one_image.dart';
@@ -30,34 +29,34 @@ class OnboardingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => IntroductionScreen(
-      pages: [
-        PageViewModel(
-          image: const _PageOneImage(),
-          titleWidget: const _PageOneTitle(),
-          body: '',
+        pages: [
+          PageViewModel(
+            image: const _PageOneImage(),
+            titleWidget: const _PageOneTitle(),
+            body: '',
+          ),
+          PageViewModel(
+            titleWidget: const _PageTwoTitle(),
+            bodyWidget: const _PageTwoForm(),
+          ),
+          PageViewModel(
+            titleWidget: const _PageThreeTitle(),
+            footer: const _PageThreeButton(),
+            bodyWidget: const _PageThreeBody(),
+          ),
+        ],
+        done: const Text(
+          'Done',
         ),
-        PageViewModel(
-          titleWidget: const _PageTwoTitle(),
-          bodyWidget: const _PageTwoForm(),
+        next: const Text(
+          'Next',
         ),
-        PageViewModel(
-          titleWidget: const _PageThreeTitle(),
-          footer: const _PageThreeButton(),
-          bodyWidget: const _PageThreeBody(),
+        back: const Text(
+          'Back',
         ),
-      ],
-      done: const Text(
-        'Done',
-      ),
-      next: const Text(
-        'Next',
-      ),
-      back: const Text(
-        'Back',
-      ),
-      showBackButton: true,
-      onDone: () => ref
-          .read(onboardingControllerProvider.notifier)
-          .submitRestaurantDetails(),
-    );
+        showBackButton: true,
+        onDone: () => ref
+            .read(onboardingControllerProvider.notifier)
+            .submitRestaurantDetails(),
+      );
 }

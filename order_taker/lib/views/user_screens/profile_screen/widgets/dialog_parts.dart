@@ -1,11 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../enums/image_type.dart';
-import '../../../../providers/controller_providers.dart';
+part of '../profile.dart';
 
-class DialogTitle extends StatelessWidget {
-  const DialogTitle({
+class _DialogTitle extends StatelessWidget {
+  const _DialogTitle({
     required this.text,
     Key? key,
   }) : super(key: key);

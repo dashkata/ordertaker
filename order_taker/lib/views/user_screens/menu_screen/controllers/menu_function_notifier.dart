@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/models/reservation_model.dart';
-import 'package:order_taker/views/resources/padding_manager.dart';
-import 'package:order_taker/views/resources/route_manager.dart';
+import '../../../../models/reservation_model.dart';
+import '../../../resources/padding_manager.dart';
+import '../../../resources/route_manager.dart';
 
 class MenuFunctionsNotifier extends StateNotifier<void> {
   MenuFunctionsNotifier() : super(null);

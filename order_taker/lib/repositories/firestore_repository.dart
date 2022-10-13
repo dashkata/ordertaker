@@ -135,8 +135,8 @@ class FirestoreRepository {
 
   Future<String> fetchMobileNumber(String uid) async {
     final userCollection =
-        FirebaseFirestore.instance.doc(FirestorePath.user(uid));
-    return userCollection.get().then((value) => value['Mobile Number']);
+        await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).get();
+    return userCollection.get('phoneNumber');
   }
 
   Future<String> setMobileNumber(String uid, String mobileNumber) async {
@@ -144,7 +144,7 @@ class FirestoreRepository {
         FirebaseFirestore.instance.doc(FirestorePath.user(uid));
     await userCollection.set(
       {
-        'Mobile Number': mobileNumber,
+        'phoneNumber': mobileNumber,
       },
       SetOptions(merge: true),
     );
@@ -331,7 +331,7 @@ class FirestoreRepository {
   Future<Map<String, bool>> fetchFreeTables(
       String restaurantTitle, String date) async {
     final tableRef = await FirebaseFirestore.instance
-        .collection(FirestorePath.restaurantTables('Pizza Don Vito'))
+        .collection(FirestorePath.restaurantTables(restaurantTitle))
         .get();
     final Map<String, bool> freeTables = {};
     for (int i = 0; i < tableRef.docs.length; i++) {

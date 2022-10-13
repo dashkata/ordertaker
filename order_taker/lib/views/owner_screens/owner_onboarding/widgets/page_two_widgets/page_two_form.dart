@@ -14,6 +14,7 @@ class _PageTwoForm extends ConsumerWidget {
           hintText: text.restaurant_address,
           icon: Icons.location_city,
           obscure: false,
+          textInputAction: TextInputAction.next,
           inputType: TextInputType.streetAddress,
           func: (val) =>
               ref.read(onboardingControllerProvider.notifier).updateTextField(
@@ -25,6 +26,7 @@ class _PageTwoForm extends ConsumerWidget {
           hintText: text.restaurant_working_hours,
           icon: Icons.watch_later,
           obscure: false,
+          textInputAction: TextInputAction.next,
           inputType: TextInputType.none,
           func: (val) =>
               ref.read(onboardingControllerProvider.notifier).updateTextField(
@@ -36,6 +38,7 @@ class _PageTwoForm extends ConsumerWidget {
           hintText: text.restaurant_website,
           icon: Icons.web,
           obscure: false,
+          textInputAction: TextInputAction.next,
           inputType: TextInputType.url,
           func: (val) =>
               ref.read(onboardingControllerProvider.notifier).updateTextField(
@@ -47,6 +50,7 @@ class _PageTwoForm extends ConsumerWidget {
           hintText: text.restaurant_phone_number,
           icon: Icons.phone,
           obscure: false,
+          textInputAction: TextInputAction.next,
           inputType: TextInputType.phone,
           func: (val) =>
               ref.read(onboardingControllerProvider.notifier).updateTextField(
@@ -58,6 +62,7 @@ class _PageTwoForm extends ConsumerWidget {
           hintText: text.restaurant_descriptions,
           icon: Icons.note_alt_sharp,
           obscure: false,
+          textInputAction: TextInputAction.next,
           inputType: TextInputType.text,
           func: (val) =>
               ref.read(onboardingControllerProvider.notifier).updateTextField(
@@ -69,6 +74,7 @@ class _PageTwoForm extends ConsumerWidget {
           hintText: text.restaurant_descriptions,
           icon: Icons.payment,
           obscure: false,
+          textInputAction: TextInputAction.done,
           inputType: TextInputType.text,
           func: (val) =>
               ref.read(onboardingControllerProvider.notifier).updateTextField(

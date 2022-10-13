@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../providers/controller_providers.dart';
 import '../../project_widgets.dart';
+import 'controllers/restaurant_tables_providers.dart';
 
 class RestaurantTables extends StatelessWidget {
   const RestaurantTables({Key? key}) : super(key: key);

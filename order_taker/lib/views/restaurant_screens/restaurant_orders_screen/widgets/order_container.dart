@@ -1,11 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../Themes/themes.dart';
-import '../../../../models/order_model.dart';
-import '../../../../providers/controller_providers.dart';
+part of '../restaurant_order.dart';
 
-class OrderContainer extends ConsumerWidget {
-  const OrderContainer({
+class _OrderContainer extends ConsumerWidget {
+  const _OrderContainer({
     required this.order,
     required this.tableId,
     Key? key,
@@ -38,12 +34,12 @@ class OrderContainer extends ConsumerWidget {
             if (order.status != 'Completed')
               Padding(
                 padding: const EdgeInsets.only(top: 20),
-                child: OrderTitle(
+                child: _OrderTitle(
                   orderNumber: order.id + 1,
                 ),
               )
             else
-              OrderTitle(
+              _OrderTitle(
                 orderNumber: order.id + 1,
               ),
             ListView.builder(
@@ -56,7 +52,7 @@ class OrderContainer extends ConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20, bottom: 5.0),
-              child: OrderButton(
+              child: _OrderButton(
                 buttonText: 'See additional messages',
                 onPressed: () => ref
                     .read(restaurantOrderNotifierProvider.notifier)
@@ -65,7 +61,7 @@ class OrderContainer extends ConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 20.0),
-              child: OrderButton(
+              child: _OrderButton(
                 buttonText: 'Set status',
                 onPressed: () async => await ref
                     .read(restaurantOrderNotifierProvider.notifier)
@@ -82,8 +78,8 @@ class OrderContainer extends ConsumerWidget {
       );
 }
 
-class OrderTitle extends StatelessWidget {
-  const OrderTitle({
+class _OrderTitle extends StatelessWidget {
+  const _OrderTitle({
     required this.orderNumber,
     Key? key,
   }) : super(key: key);
@@ -98,8 +94,8 @@ class OrderTitle extends StatelessWidget {
       );
 }
 
-class OrderButton extends StatelessWidget {
-  const OrderButton({
+class _OrderButton extends StatelessWidget {
+  const _OrderButton({
     required this.onPressed,
     required this.buttonText,
     Key? key,

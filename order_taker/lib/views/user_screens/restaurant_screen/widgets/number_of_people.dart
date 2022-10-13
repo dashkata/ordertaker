@@ -1,10 +1,4 @@
-
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:order_taker/providers/user_restaurant_providers.dart';
-import 'package:order_taker/views/resources/padding_manager.dart';
-import 'package:order_taker/views/resources/style_manager.dart';
+part of '../restaurants.dart';
 
 class NumberOfPeopleWidget extends ConsumerWidget {
   const NumberOfPeopleWidget({
