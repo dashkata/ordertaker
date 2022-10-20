@@ -36,7 +36,7 @@ class RestaurantOrders extends StatelessWidget {
                   fetchRestaurantOrdersProvider(restaurantOrderArguments),
                 );
                 return RefreshIndicator(
-                  color: accentColor,
+                  color: accentBlackColor,
                   backgroundColor: complementaryColor,
                   child: orders.when(
                     data: (data) {

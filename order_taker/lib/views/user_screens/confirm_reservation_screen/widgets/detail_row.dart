@@ -17,7 +17,7 @@ class _DetailRow extends ConsumerWidget {
           const Icon(
             Icons.calendar_month,
             size: 15,
-            color: accentColor,
+            color: accentBlackColor,
           ),
           Text(
             ref.watch(confirmDateProvider),
@@ -26,7 +26,7 @@ class _DetailRow extends ConsumerWidget {
           const Icon(
             Icons.watch_later_outlined,
             size: 15,
-            color: accentColor,
+            color: accentBlackColor,
           ),
           Text(
             ref.watch(confirmTimeProvider),
@@ -35,7 +35,7 @@ class _DetailRow extends ConsumerWidget {
           const Icon(
             Icons.person,
             size: 15,
-            color: accentColor,
+            color: accentBlackColor,
           ),
           Text(
             '${reservationInfo.numberOfPeople} ${text.people}',

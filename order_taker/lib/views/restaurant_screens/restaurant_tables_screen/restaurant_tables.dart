@@ -14,7 +14,10 @@ class RestaurantTables extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => Scaffold(
-
+        floatingActionButton: Consumer(
+            builder: (context, ref, child) => FloatingActionButton(
+                  onPressed: () => ref.read(authRepositoryProvider).signout(),
+                )),
         body: Stack(
           children: [
             const BackgroundWidget(),

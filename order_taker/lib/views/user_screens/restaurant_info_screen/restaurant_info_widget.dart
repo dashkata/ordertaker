@@ -70,7 +70,7 @@ class InfoDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Divider(
       thickness: 0.5,
-      color: accentColor,
+      color: accentBlackColor,
     );
   }
 }
@@ -98,7 +98,7 @@ class DetailText extends StatelessWidget {
             Text(
               detailTitle,
               style: GoogleFonts.roboto(
-                color: accentColor,
+                color: accentBlackColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -107,7 +107,7 @@ class DetailText extends StatelessWidget {
         Text(
           detailDesc,
           style: GoogleFonts.roboto(
-            color: accentColor,
+            color: accentBlackColor,
             fontStyle: FontStyle.italic,
           ),
         ),

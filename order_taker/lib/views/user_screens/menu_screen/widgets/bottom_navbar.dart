@@ -36,7 +36,7 @@ class SectionNavBar extends ConsumerWidget {
           backgroundColor: mainColor,
         ),
       ],
-      selectedItemColor: accentColor,
+      selectedItemColor: accentBlackColor,
       currentIndex: ref.watch(navBarIndexProvider),
       onTap: (value) => _navBarFunction(value, ref, context),
     );

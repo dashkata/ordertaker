@@ -239,7 +239,8 @@ class FirestoreRepository {
                 'id': value.docs.length,
                 'order': orders.ordersToList(),
                 'timeStamp': DateTime.now(),
-                'status': 'new'
+                'status': 'new',
+                'additionalMessage': orders.additionalMessage,
               },
               SetOptions(merge: true),
             ),
@@ -261,6 +262,7 @@ class FirestoreRepository {
               order['order'],
               order['id'],
               order['status'],
+              order['additionalMessage'],
             ),
           )
           .toList(),
@@ -287,6 +289,7 @@ class FirestoreRepository {
               order['order'],
               order['id'],
               order['status'],
+              order['additionalMessage'],
             ),
           )
           .toList(),

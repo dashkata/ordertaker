@@ -57,7 +57,10 @@ class _OrderContainer extends ConsumerWidget {
                 buttonText: 'See additional messages',
                 onPressed: () => ref
                     .read(restaurantOrderNotifierProvider.notifier)
-                    .seeAdditionalMessages(context, ''),
+                    .seeAdditionalMessages(
+                      context,
+                      order.additionalMessage,
+                    ),
               ),
             ),
             Padding(

@@ -98,40 +98,56 @@ class _OrderFABContent extends ConsumerWidget {
     final menuCards = ref.watch(menuCardsControllerProvider);
     return SizedBox(
       width: double.maxFinite,
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: menuCards.keys.length,
-        itemBuilder: (BuildContext context, int index) => Card(
-          elevation: 10,
-          color: complementaryColor,
-          shape: Styles.buildRoundedBorder(25),
-          child: Padding(
-            padding: PaddingManager.p9,
-            child: Row(
-              children: [
-                Flexible(
-                  child: Text(
-                    '${menuCards.keys.elementAt(index).itemTitle} '
-                    '- ${menuCards.keys.elementAt(index).itemPrice}'
-                    '- ${menuCards.values.elementAt(index)}',
-                    style: const TextStyle(
-                      fontSize: 12,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: menuCards.keys.length,
+            itemBuilder: (BuildContext context, int index) => Card(
+              elevation: 10,
+              color: complementaryColor,
+              shape: Styles.buildRoundedBorder(25),
+              child: Padding(
+                padding: PaddingManager.p9,
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        '${menuCards.keys.elementAt(index).itemTitle} '
+                        '- ${menuCards.keys.elementAt(index).itemPrice}'
+                        '- ${menuCards.values.elementAt(index)}',
+                        style: const TextStyle(
+                          fontSize: 12,
+                        ),
+                      ),
                     ),
-                  ),
+                    IconButton(
+                      onPressed: () => ref
+                          .read(menuCardsControllerProvider.notifier)
+                          .removeMenuCard(menuCards.keys.elementAt(index)),
+                      icon: const Icon(
+                        Icons.exposure_minus_1,
+                      ),
+                      iconSize: 20,
+                    ),
+                  ],
                 ),
-                IconButton(
-                  onPressed: () => ref
-                      .read(menuCardsControllerProvider.notifier)
-                      .removeMenuCard(menuCards.keys.elementAt(index)),
-                  icon: const Icon(
-                    Icons.exposure_minus_1,
-                  ),
-                  iconSize: 20,
-                ),
-              ],
+              ),
             ),
           ),
-        ),
+          TextFields(
+            hintText: 'Additional messages',
+            icon: Icons.message,
+            obscure: false,
+            inputType: TextInputType.text,
+            textInputAction: TextInputAction.done,
+            func: (value) =>
+                ref.read(additionalMessagesProvider.notifier).update(
+                      (state) => value,
+                    ),
+          )
+        ],
       ),
     );
   }

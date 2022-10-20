@@ -10,6 +10,6 @@ class ProfileDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) => const Divider(
         thickness: 0.5,
-        color: accentColor,
+        color: accentBlackColor,
       );
 }

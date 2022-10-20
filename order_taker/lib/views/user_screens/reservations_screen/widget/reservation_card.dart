@@ -23,29 +23,29 @@ class _ReservationCard extends ConsumerWidget {
           shape: Styles.buildRoundedBorder(40),
           child: Row(
             children: [
-              // Padding(
-              //   padding: PaddingManager.p5,
-              //   child: Consumer(
-              //     builder: (context, ref, child) {
-              //       final AsyncValue restaurantPic = ref.watch(
-              //         restaurantPictureProvider(reservation.restaurant),
-              //       );
-              //       return restaurantPic.when(
-              //         data: (imageUrl) => CachedNetworkImage(
-              //           imageUrl: restaurantPic.value,
-              //           imageBuilder: (context, url) => CircleAvatar(
-              //             backgroundImage: url,
-              //             radius: 40,
-              //           ),
-              //         ),
-              //         error: (e, s) => Text(
-              //           e.toString(),
-              //         ),
-              //         loading: () => const LoadingIndicator(),
-              //       );
-              //     },
-              //   ),
-              // ),
+              Padding(
+                padding: PaddingManager.p5,
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    final AsyncValue restaurantPic = ref.watch(
+                      restaurantPictureProvider(reservation.restaurant),
+                    );
+                    return restaurantPic.when(
+                      data: (imageUrl) => CachedNetworkImage(
+                        imageUrl: restaurantPic.value,
+                        imageBuilder: (context, url) => CircleAvatar(
+                          backgroundImage: url,
+                          radius: 40,
+                        ),
+                      ),
+                      error: (e, s) => Text(
+                        e.toString(),
+                      ),
+                      loading: () => const LoadingIndicator(),
+                    );
+                  },
+                ),
+              ),
               _TitleColumn(
                 reservation: reservation,
                 text: text,

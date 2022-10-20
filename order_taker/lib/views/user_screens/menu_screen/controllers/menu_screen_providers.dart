@@ -18,3 +18,4 @@ final menuCardsControllerProvider =
 final fetchMenuProvider = StreamProvider.family<List<MenuSection>, String>(
   (ref, title) => ref.watch(firestoreRepositoryProvider).fetchMenu(title),
 );
+final additionalMessagesProvider = StateProvider<String>((ref) => '');

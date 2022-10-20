@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../../../../Themes/themes.dart';
 import '../../../../models/restaurant_model.dart';
+import '../../../../themes/themes.dart';
 import '../../../project_widgets.dart';
 import '../../../resources/route_manager.dart';
 import '../../confirm_reservation_screen/confirm_reservation_arguments.dart';
@@ -61,11 +61,11 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
           data: ThemeData.light().copyWith(
             colorScheme: const ColorScheme.light(
               primary: mainColor,
-              onSurface: accentColor,
+              onSurface: accentBlackColor,
             ),
             buttonTheme: const ButtonThemeData(
               colorScheme: ColorScheme.light(
-                primary: accentColor,
+                primary: accentBlackColor,
               ),
             ),
           ),

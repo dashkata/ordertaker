@@ -44,7 +44,7 @@ class RestaurantOrderFAB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FloatingActionButton(
-        backgroundColor: accentColor,
+        backgroundColor: accentBlackColor,
         onPressed: onPressed,
         heroTag: heroTag,
         child: Icon(

@@ -44,7 +44,7 @@ class RestaurantRegister extends ConsumerWidget {
                               style: GoogleFonts.roboto(
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
-                                color: accentColor,
+                                color: accentBlackColor,
                               ),
                             ),
                           ),

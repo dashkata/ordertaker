@@ -5,8 +5,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:order_taker/themes/themes.dart';
 
-import 'Themes/themes.dart';
 import 'views/resources/route_manager.dart';
 
 void main() async {
@@ -40,9 +40,14 @@ class OrderTaker extends StatelessWidget {
         initialRoute: Routes.auth,
         onGenerateRoute: AppRouter.generateRoute,
         theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            backgroundColor: appBarColor,
+            iconTheme: const IconThemeData(color: accentBlackColor),
+            elevation: 0,
+          ),
           textTheme: TextTheme(
             headline1: GoogleFonts.roboto(
-              color: accentColor,
+              color: accentBlackColor,
               fontSize: 15,
               fontWeight: FontWeight.w300,
             ),
@@ -54,20 +59,20 @@ class OrderTaker extends StatelessWidget {
             headline3: GoogleFonts.roboto(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: accentColor,
+              color: accentBlackColor,
             ),
             headline4: GoogleFonts.roboto(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: accentColor,
+              color: accentBlackColor,
             ),
             headline5: GoogleFonts.roboto(
-              color: accentColor,
+              color: accentBlackColor,
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
             headline6: GoogleFonts.roboto(
-              color: accentColor,
+              color: accentBlackColor,
               fontSize: 16,
               fontStyle: FontStyle.italic,
             ),
@@ -78,7 +83,7 @@ class OrderTaker extends StatelessWidget {
             //   fontWeight: FontWeight.bold,
             // ),
             subtitle2: GoogleFonts.roboto(
-              color: accentColor,
+              color: accentBlackColor,
               fontSize: 25,
               fontWeight: FontWeight.bold,
             ),

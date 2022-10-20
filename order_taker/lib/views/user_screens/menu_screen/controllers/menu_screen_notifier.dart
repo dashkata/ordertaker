@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/models/menu_item_model.dart';
-import 'package:order_taker/models/order_model.dart';
-import 'package:order_taker/models/reservation_model.dart';
-import 'package:order_taker/providers/repository_providers.dart';
-import 'package:order_taker/views/resources/route_manager.dart';
+import '../../../../models/menu_item_model.dart';
+import '../../../../models/order_model.dart';
+import '../../../../models/reservation_model.dart';
+import '../../../../providers/repository_providers.dart';
+import '../../../resources/route_manager.dart';
+import 'menu_screen_providers.dart';
 
 class MenuScreenNotifier extends StateNotifier<Map<OrderItem, int>> {
   MenuScreenNotifier(this.ref) : super({});
@@ -66,6 +67,7 @@ class MenuScreenNotifier extends StateNotifier<Map<OrderItem, int>> {
             menuItems: state,
             id: 0,
             status: '',
+            additionalMessage: ref.watch(additionalMessagesProvider),
           ),
           ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
           reservation,

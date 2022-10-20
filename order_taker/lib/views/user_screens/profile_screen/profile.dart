@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../Themes/themes.dart';
 import '../../../enums/image_type.dart';
 import '../../../enums/user_details.dart';
 import '../../../providers/controller_providers.dart';
 import '../../../providers/repository_providers.dart';
+import '../../../themes/themes.dart';
 import '../../project_widgets.dart';
 import 'controllers/profile_screen_providers.dart';
 

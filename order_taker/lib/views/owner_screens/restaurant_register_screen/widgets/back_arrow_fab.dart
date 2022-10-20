@@ -12,7 +12,7 @@ class _BackArrowFAB extends ConsumerWidget {
     backgroundColor: complementaryColor,
     child: const Icon(
       Icons.arrow_back,
-      color: accentColor,
+      color: accentBlackColor,
     ),
   );
 }

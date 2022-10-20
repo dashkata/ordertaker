@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../models/reservation_model.dart';
+import '../../../providers/common_providers.dart';
 import '../../../themes/themes.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';

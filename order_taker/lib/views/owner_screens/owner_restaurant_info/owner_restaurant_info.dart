@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../Themes/themes.dart';
 import '../../../models/menu_section_model.dart';
 import '../../../models/restaurant_info_model.dart';
 import '../../../models/restaurant_model.dart';
 import '../../../providers/repository_providers.dart';
+import '../../../themes/themes.dart';
 import '../../project_widgets.dart';
 import '../owner_onboarding/controllers/onboarding_providers.dart';
 import 'controllers/owner_restaurant_info_providers.dart';
@@ -58,7 +58,7 @@ class OwnerRestaurantInfo extends StatelessWidget {
                                 ),
                                 const Divider(
                                   thickness: 2,
-                                  color: accentColor,
+                                  color: accentBlackColor,
                                   height: 50,
                                 ),
                                 Padding(
@@ -71,7 +71,7 @@ class OwnerRestaurantInfo extends StatelessWidget {
                                 ),
                                 const Divider(
                                   thickness: 2,
-                                  color: accentColor,
+                                  color: accentBlackColor,
                                   height: 50,
                                 ),
                                 Row(
@@ -100,7 +100,7 @@ class OwnerRestaurantInfo extends StatelessWidget {
                                 ),
                                 const Divider(
                                   thickness: 2,
-                                  color: accentColor,
+                                  color: accentBlackColor,
                                   height: 50,
                                 ),
                                 Row(
@@ -115,7 +115,7 @@ class OwnerRestaurantInfo extends StatelessWidget {
                                 ),
                                 const Divider(
                                   thickness: 2,
-                                  color: accentColor,
+                                  color: accentBlackColor,
                                   height: 50,
                                 ),
                                 asyncMenu.when(

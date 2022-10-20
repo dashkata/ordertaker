@@ -131,21 +131,21 @@ class DoubleTextField extends StatelessWidget {
             decoration: InputDecoration(
               prefixIcon: Icon(
                 icon,
-                color: accentColor,
+                color: accentBlackColor,
               ),
               enabledBorder: Styles.buildOutlineBorder(
-                accentColor,
+                accentBlackColor,
                 30,
               ),
               border: Styles.buildOutlineBorder(
-                accentColor,
+                accentBlackColor,
                 30,
               ),
               focusedBorder: Styles.buildOutlineBorder(
-                accentColor,
+                accentBlackColor,
                 30,
               ),
-              prefixIconColor: accentColor,
+              prefixIconColor: accentBlackColor,
               hintText: hintText,
               filled: true,
               fillColor: mainColor,
@@ -166,12 +166,13 @@ class BackgroundWidgetAuthPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/Background2.png'),
-            fit: BoxFit.fill,
-          ),
-        ),
+        color: mainColor,
+        // decoration: const BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage('assets/Background2.png'),
+        //     fit: BoxFit.fill,
+        //   ),
+        // ),
       );
 }
 
@@ -182,12 +183,13 @@ class BackgroundWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/Background.png'),
-            fit: BoxFit.fill,
-          ),
-        ),
+        color: mainColor,
+        // decoration: const BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage('assets/Background.png'),
+        //     fit: BoxFit.fill,
+        //   ),
+        // ),
       );
 }
 
@@ -244,7 +246,7 @@ class CustomDrawer extends ConsumerWidget {
                   Text(
                     user.displayName!,
                     style: GoogleFonts.roboto(
-                      color: accentColor,
+                      color: accentBlackColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
@@ -367,7 +369,7 @@ class MenuCard extends ConsumerWidget {
                     orderItem,
                   ),
           child: Card(
-            color: mainColor,
+            color: complementaryColor2,
             elevation: 10,
             shape: Styles.buildRoundedBorder(40),
             child: Row(

@@ -18,8 +18,11 @@ class RestaurantOrderNotifier extends StateNotifier<void> {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         title: const Text('Additional messages.'),
-        content: Center(
-          child: Text(additionalMessage),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(additionalMessage),
+          ],
         ),
       ),
     );
