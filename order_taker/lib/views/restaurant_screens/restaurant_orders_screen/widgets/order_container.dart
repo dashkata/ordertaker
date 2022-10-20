@@ -47,7 +47,8 @@ class _OrderContainer extends ConsumerWidget {
               itemCount: order.menuItems.length,
               itemBuilder: (BuildContext context, int index) =>
                   RestaurantMenuItem(
-                item: order.menuItems[index].itemTitle,
+                item: order.menuItems.keys.elementAt(index).itemTitle,
+                count: order.menuItems[order.menuItems.keys.elementAt(index)]!,
               ),
             ),
             Padding(
@@ -123,17 +124,19 @@ class _OrderButton extends StatelessWidget {
 class RestaurantMenuItem extends StatelessWidget {
   const RestaurantMenuItem({
     required this.item,
+    required this.count,
     Key? key,
   }) : super(key: key);
 
   final String item;
+  final int count;
 
   @override
   Widget build(BuildContext context) => Center(
         child: Padding(
           padding: const EdgeInsets.only(top: 20.0),
           child: Text(
-            '- $item',
+            '- $item x${count.toString()}',
             style: Theme.of(context).textTheme.headline3,
           ),
         ),

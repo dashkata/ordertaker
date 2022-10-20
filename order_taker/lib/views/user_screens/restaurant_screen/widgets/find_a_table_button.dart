@@ -2,11 +2,11 @@ part of '../restaurants.dart';
 
 class _FindATableButton extends ConsumerWidget {
   const _FindATableButton({
-    required this.resTitle,
+    required this.restaurant,
     Key? key,
   }) : super(key: key);
 
-  final String resTitle;
+  final Restaurant restaurant;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,7 +17,7 @@ class _FindATableButton extends ConsumerWidget {
         buttonText: text.find_a_table,
         buttonFunc: () => ref
             .read(restaurantDialogNotifierProvider.notifier)
-            .showDetailsDialog(context, resTitle, ref),
+            .showDetailsDialog(context, restaurant, ref),
       ),
     );
   }

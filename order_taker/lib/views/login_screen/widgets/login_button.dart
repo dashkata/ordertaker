@@ -19,27 +19,25 @@ class LoginButton extends ConsumerWidget {
       child: NormalButtons(
         buttonText: AppLocalizations.of(context)!.login,
         buttonFunc: () async {
-          await ref
-              .read(loginStateProvider.notifier)
-              .login(
+          await ref.read(loginStateProvider.notifier).login(
                 email,
                 password,
                 context,
-              )
-              .then(
-                (value) => ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('login successful'),
-                  ),
-                ),
-                onError: (e, s) => ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      e.toString(),
-                    ),
-                  ),
-                ),
               );
+          // .then(
+          //   (value) => ScaffoldMessenger.of(context).showSnackBar(
+          //     const SnackBar(
+          //       content: Text('login successful'),
+          //     ),
+          //   ),
+          //   onError: (e, s) => ScaffoldMessenger.of(context).showSnackBar(
+          //     SnackBar(
+          //       content: Text(
+          //         e.toString(),
+          //       ),
+          //     ),
+          //   ),
+          // );
         },
       ),
     );

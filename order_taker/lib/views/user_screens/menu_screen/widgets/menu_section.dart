@@ -2,20 +2,19 @@ part of '../menu.dart';
 
 class _MenuSection extends StatelessWidget {
   const _MenuSection({
-    required this.sectionKey,
     required this.sectionTitle,
+    required this.menuList,
     Key? key,
   }) : super(key: key);
 
-  final GlobalKey sectionKey;
   final String sectionTitle;
+  final List<OrderItem> menuList;
 
   @override
   Widget build(BuildContext context) => Column(
         children: [
           Padding(
             padding: PaddingManager.p6,
-            key: sectionKey,
             child: Text(
               sectionTitle,
               style: Theme.of(context).textTheme.headline4,
@@ -29,18 +28,12 @@ class _MenuSection extends StatelessWidget {
               child: Container(
                 width: double.infinity,
                 decoration: Styles.buildBoxDecoration(40, complementaryColor),
-                child: Column(
-                  children: [
-                    // MenuCard(
-                    //   orderItem: OrderItem(
-                    //     itemTitle: 'Салата Моцарела с авокадо',
-                    //     itemIngredients:
-                    //         'Топка мцарела, белени домати, авокадо, рукола, балсамова редукция, сос песто',
-                    //     itemPrice: '300gr: 10.49lv',
-                    //     itemType: 'Appetizer',
-                    //   ),
-                    // ),
-                  ],
+                child: ListView.builder(
+                  itemCount: menuList.length,
+                  shrinkWrap: true,
+                  itemBuilder: (_, index) => MenuCard(
+                    orderItem: menuList[index],
+                  ),
                 ),
               ),
             ),

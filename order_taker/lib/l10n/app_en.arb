@@ -51,7 +51,7 @@
     "welcome_owner" : "Welcome to order taker!",
     "details_owner" : "We need some details about your restaurant.",
     "restaurant_address" : "Restaurant address",
-    "restaurant_working_hours" : "Restaurant working hours",
+    "restaurant_working_hours" : "Restaurant working hours (ex. 8:00 - 19:00)",
     "restaurant_website" : "Restaurant website",
     "restaurant_descriptions" : "Restaurant description",
     "restaurant_phone_number" : "Restaurant phone number",
@@ -61,5 +61,7 @@
     "title_menu_item" : "Menu item title",
     "ingredients_menu_item" : "Menu item ingredients",
     "price_menu_item" : "Menu item price",
-    "picture_menu_item" : "Add menu item picture"
+    "picture_menu_item" : "Add menu item picture",
+    "restaurant_info" : "Restaurant information",
+    "restaurant_accounts" : "Restaurant accounts"
 }

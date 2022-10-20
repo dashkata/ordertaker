@@ -3,7 +3,7 @@ import 'menu_item_model.dart';
 class Order {
   final int id;
   final String status;
-  final List<OrderItem> menuItems;
+  final Map<OrderItem, int> menuItems;
 
   Order({
     required this.id,
@@ -13,16 +13,19 @@ class Order {
 
   List<Map<String, dynamic>> ordersToList() {
     final List<Map<String, dynamic>> orderList = [];
-    for (var menuItem in menuItems) {
-      orderList.add(menuItem.orderItemToMap());
+    for (final menuItem in menuItems.keys) {
+      final Map<String, dynamic> orderMap = {};
+      orderMap['item'] = menuItem.orderItemToMap();
+      orderMap['count'] = menuItems[menuItem];
+      orderList.add(orderMap);
     }
     return orderList;
   }
 
   factory Order.fromMap(List<dynamic> menuItems, int id, String status) {
-    final List<OrderItem> parsedItems = [];
+    final Map<OrderItem, int> parsedItems = {};
     for (final menuItem in menuItems) {
-      parsedItems.add(OrderItem.fromMap(menuItem));
+      parsedItems[OrderItem.fromMap(menuItem['item'])] = menuItem['count'];
     }
     return Order(
       id: id,

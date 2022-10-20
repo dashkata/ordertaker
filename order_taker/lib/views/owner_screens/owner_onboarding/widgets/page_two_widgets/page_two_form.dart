@@ -81,7 +81,29 @@ class _PageTwoForm extends ConsumerWidget {
                     restaurantPaymentProvider,
                     val,
                   ),
-        )
+        ),
+        TextFields(
+          func: (value) =>
+              ref.read(restaurantOutsideTablesProvider.notifier).update(
+                    (state) => value,
+                  ),
+          inputType: TextInputType.number,
+          icon: Icons.table_bar,
+          hintText: 'How many tables are outside?',
+          obscure: false,
+          textInputAction: TextInputAction.next,
+        ),
+        TextFields(
+          func: (value) =>
+              ref.read(restaurantInsideTablesProvider.notifier).update(
+                    (state) => value,
+                  ),
+          inputType: TextInputType.number,
+          icon: Icons.table_restaurant,
+          hintText: 'How many tables are inside?',
+          obscure: false,
+          textInputAction: TextInputAction.next,
+        ),
       ],
     );
   }

@@ -8,10 +8,13 @@ import '../../../themes/themes.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
+import '../menu_screen/menu.dart';
 import 'controllers/bill_screen_providers.dart';
 
 part 'widgets/order_list.dart';
+
 part 'widgets/pay_button.dart';
+
 part 'widgets/review_text_field.dart';
 
 class BillScreen extends StatelessWidget {
@@ -22,11 +25,9 @@ class BillScreen extends StatelessWidget {
     final reservation =
         ModalRoute.of(context)!.settings.arguments as Reservation;
     return Scaffold(
-      floatingActionButton: IconButton(
-        onPressed: () => Navigator.pop(context),
-        icon: const Icon(Icons.arrow_back_ios),
+      bottomNavigationBar: SectionNavBar(
+        reservation: reservation,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: Stack(
         children: [
           const BackgroundWidget(),
@@ -44,7 +45,9 @@ class BillScreen extends StatelessWidget {
                   padding: PaddingManager.p12,
                   child: ReviewTextField(),
                 ),
-                const PayButton(),
+                PayButton(
+                  reservation: reservation,
+                ),
               ],
             ),
           ),

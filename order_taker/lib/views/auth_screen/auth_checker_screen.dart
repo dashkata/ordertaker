@@ -4,10 +4,11 @@ import '../../providers/auth_provider.dart';
 import '../../providers/repository_providers.dart';
 
 import '../login_screen/login.dart';
-import '../owner_screens/edit_menu_screen/edit_menu.dart';
 import '../owner_screens/owner_onboarding/onboarding.dart';
+import '../owner_screens/owner_restaurant_info/owner_restaurant_info.dart';
 import '../project_widgets.dart';
 import '../restaurant_screens/restaurant_orders_screen/restaurant_order.dart';
+import '../restaurant_screens/restaurant_tables_screen/restaurant_tables.dart';
 import '../user_screens/restaurant_screen/restaurants.dart';
 
 class AuthChecker extends ConsumerWidget {
@@ -17,33 +18,42 @@ class AuthChecker extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authStateProvider);
     final authServices = ref.watch(authRepositoryProvider);
-    final AsyncValue userType = ref.watch(userTypeProvider);
+
     return authState.when(
-      data: (data) => userType.when(
-        data: (value) {
-          if (authServices.getCurrentUser()!.emailVerified) {
-            if (value == 'Customer') {
-              return const RestaurantScreen();
-            } else if (value == 'Admin') {
-              return ref.watch(onBoardingProvider).when(
-                    data: (onBoarding) => onBoarding
-                        ? const EditMenu()
-                        : const OnboardingScreen(),
-                    error: (e, s) => Text(e.toString()),
-                    loading: () => const LoadingIndicator(),
-                  );
-            } else {
-              return const RestaurantOrders();
-            }
-          } else {
-            return const LoginScreen();
-          }
-        },
-        loading: () => const Scaffold(
-          body: Center(child: LoadingIndicator()),
-        ),
-        error: (Object error, StackTrace? stackTrace) => const LoginScreen(),
-      ),
+      data: (data) {
+        if (data != null) {
+          final AsyncValue userType = ref.watch(userTypeProvider);
+          return userType.when(
+            data: (value) {
+              if (authServices.getCurrentUser()!.emailVerified &&
+                  value != 'Restaurant') {
+                if (value == 'Customer') {
+                  return const RestaurantScreen();
+                } else if (value == 'Admin') {
+                  return ref.watch(onBoardingProvider).when(
+                        data: (onBoarding) => onBoarding
+                            ? const OwnerRestaurantInfo()
+                            : const OnboardingScreen(),
+                        error: (e, s) => Text(e.toString()),
+                        loading: () => const LoadingIndicator(),
+                      );
+                } else {
+                  return const LoginScreen();
+                }
+              } else {
+                return const RestaurantTables();
+              }
+            },
+            loading: () => const Scaffold(
+              body: Center(child: LoadingIndicator()),
+            ),
+            error: (Object error, StackTrace? stackTrace) =>
+                const LoginScreen(),
+          );
+        } else {
+          return const LoginScreen();
+        }
+      },
       error: (e, s) => const LoginScreen(),
       loading: () => const Scaffold(
         body: Center(

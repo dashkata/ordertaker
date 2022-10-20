@@ -1,4 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import 'firestore_repository.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth;
@@ -21,17 +24,12 @@ class AuthRepository {
       switch (e.code) {
         case 'wrong-password':
           throw 'The password you entered is wrong, please try again.';
-          break;
         case 'user-not-found':
           throw "User with this email doesn't exist.";
-          break;
         case 'user-disabled':
           throw 'User with this email has been disabled.';
-          break;
         case 'operation-not-allowed':
           throw 'Too many requests. Try again later.';
-          break;
-
         default:
           throw 'An undefined Error happened.';
       }
@@ -48,6 +46,44 @@ class AuthRepository {
         password: password,
       );
       return 'Register succesful, please verify your email address.';
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      switch (e.code) {
+        case 'email-already-in-use':
+          errorMessage =
+              'There is already a registration made with this email.';
+          break;
+        case 'invalid-email':
+          errorMessage = 'The email you have entered is not valid.';
+          break;
+        case 'weak-password':
+          errorMessage =
+              'The password you have entered is too weak, it must be at least 6 characters.';
+          break;
+
+        default:
+          errorMessage = 'An undefined Error happened.';
+      }
+      return errorMessage;
+    }
+  }
+
+  Future<String> adminSignUp({
+    required String email,
+    required String password,
+  }) async {
+    final FirebaseApp tempApp = await Firebase.initializeApp(
+      name: 'temporaryRegister',
+      options: Firebase.app().options,
+    );
+    try {
+      final UserCredential result = await FirebaseAuth.instanceFor(app: tempApp)
+          .createUserWithEmailAndPassword(email: email, password: password);
+      final FirestoreRepository tempRepo = FirestoreRepository();
+      await tempRepo.setUserType('Restaurant', result.user!.uid);
+      await FirebaseAuth.instanceFor(app: tempApp).signOut();
+      await tempApp.delete();
+      return 'Register successful, please verify your email address.';
     } on FirebaseAuthException catch (e) {
       String errorMessage;
       switch (e.code) {

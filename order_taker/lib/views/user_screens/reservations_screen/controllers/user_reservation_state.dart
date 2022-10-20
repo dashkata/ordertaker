@@ -55,10 +55,15 @@ class UserReservationStateNotifier extends StateNotifier<void> {
     );
   }
 
-  void navigateToMenu(Reservation reservation) {
-    navigatorKey.currentState!.popAndPushNamed(
-      Routes.userMenu,
-      arguments: reservation,
-    );
+  Future<void> navigateToMenu(Reservation reservation) async {
+    if (await _firestoreRepository.checkUserReservation(
+      reservation,
+      _authRepository.getCurrentUser()!.uid,
+    )) {
+      await navigatorKey.currentState!.popAndPushNamed(
+        Routes.userMenu,
+        arguments: reservation,
+      );
+    }
   }
 }

@@ -13,9 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
-    DevicePreview(
-      builder: (context) => const ProviderScope(child: OrderTaker()),
-    ),
+    const ProviderScope(child: OrderTaker()),
   );
 }
 
@@ -72,6 +70,17 @@ class OrderTaker extends StatelessWidget {
               color: accentColor,
               fontSize: 16,
               fontStyle: FontStyle.italic,
+            ),
+            // subtitle1: GoogleFonts.roboto(
+            //   color: accentColor,
+            //   fontSize: 35,
+            //   fontStyle: FontStyle.italic,
+            //   fontWeight: FontWeight.bold,
+            // ),
+            subtitle2: GoogleFonts.roboto(
+              color: accentColor,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),

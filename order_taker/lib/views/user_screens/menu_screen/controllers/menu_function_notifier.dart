@@ -27,7 +27,7 @@ class MenuFunctionsNotifier extends StateNotifier<void> {
   }
 
   void navigateToBill(Reservation reservation) {
-    navigatorKey.currentState!.pushNamed(
+    navigatorKey.currentState!.popAndPushNamed(
       Routes.userBill,
       arguments: reservation,
     );

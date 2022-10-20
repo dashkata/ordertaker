@@ -6,13 +6,14 @@ class Reservation {
   final int selectedTable;
   final bool? currentReservation;
 
-  Reservation(
-      {required this.name,
-      required this.restaurant,
-      required this.date,
-      required this.numberOfPeople,
-      required this.selectedTable,
-      required this.currentReservation});
+  Reservation({
+    required this.name,
+    required this.restaurant,
+    required this.date,
+    required this.numberOfPeople,
+    required this.selectedTable,
+    required this.currentReservation,
+  });
 
   factory Reservation.fromMap(Map fetchedReservation) => Reservation(
         name: fetchedReservation['personName'],

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/cli_commands.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -71,6 +72,32 @@ class OnboardingNotifier extends StateNotifier<void> {
         );
   }
 
+  Future<void> addRestaurantPictures() async {
+    final List<XFile>? images = await ImagePicker().pickMultiImage();
+    final List<String> downloadUrls = [];
+    if (images != null) {
+      for (int i = 0; i < images.length; i++) {
+        final downloadUrl =
+            await _ref.read(storageRepositoryProvider).uploadRestaurantImage(
+                  photoFile: File(images[i].path),
+                  index: i,
+                  restaurantName: await _ref
+                      .read(firestoreRepositoryProvider)
+                      .fetchRestaurantTitle(
+                        _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
+                      ),
+                );
+        downloadUrls.add(downloadUrl);
+      }
+      await _ref.read(firestoreRepositoryProvider).addRestaurantPhoto(
+            downloadUrls,
+            await _ref.read(firestoreRepositoryProvider).fetchRestaurantTitle(
+                  _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
+                ),
+          );
+    }
+  }
+
   Future<void> submitRestaurantDetails() async {
     final String title =
         await _ref.read(firestoreRepositoryProvider).fetchRestaurantTitle(
@@ -85,6 +112,8 @@ class OnboardingNotifier extends StateNotifier<void> {
             phoneNumber: _ref.read(restaurantPhoneNumberProvider),
             paymentMethods: _ref.read(restaurantPaymentProvider),
           ),
+          _ref.read(restaurantInsideTablesProvider) as int,
+          _ref.read(restaurantOutsideTablesProvider) as int,
         );
     await _ref.read(firestoreRepositoryProvider).setOnBoarding(
           _ref.read(authRepositoryProvider).getCurrentUser()!.uid,

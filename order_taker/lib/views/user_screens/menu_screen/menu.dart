@@ -4,11 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../Themes/themes.dart';
 import '../../../models/menu_item_model.dart';
+import '../../../models/menu_section_model.dart';
 import '../../../models/reservation_model.dart';
 import '../../../providers/controller_providers.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
+import '../bill_screen/controllers/bill_screen_providers.dart';
 import 'controllers/menu_screen_providers.dart';
 
 part 'widgets/order_fab.dart';
@@ -18,11 +20,7 @@ part 'widgets/bottom_navbar.dart';
 part 'widgets/menu_section.dart';
 
 class MenuScreen extends StatelessWidget {
-  MenuScreen({Key? key}) : super(key: key);
-  final appetizersKey = GlobalKey();
-  final dishesKey = GlobalKey();
-  final desertsKey = GlobalKey();
-  final drinksKey = GlobalKey();
+  const MenuScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,50 +32,30 @@ class MenuScreen extends StatelessWidget {
       floatingActionButton: _OrderFAB(
         reservation: reservation,
       ),
-      bottomNavigationBar: _SectionNavBar(
-        appetizersKey: appetizersKey,
-        dishesKey: dishesKey,
-        desertsKey: desertsKey,
-        drinksKey: drinksKey,
+      bottomNavigationBar: SectionNavBar(
         reservation: reservation,
       ),
       body: Stack(
         children: [
           const BackgroundWidget(),
           SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 50,
+            child: Consumer(
+              builder: (context, ref, child) {
+                final AsyncValue<List<MenuSection>> asyncMenu = ref.watch(
+                  fetchMenuProvider(reservation.restaurant),
+                );
+                return asyncMenu.when(
+                  data: (menu) => ListView.builder(
+                    itemCount: menu.length,
+                    itemBuilder: (_, index) => _MenuSection(
+                      sectionTitle: menu[index].title,
+                      menuList: menu[index].items,
+                    ),
                   ),
-                  _MenuSection(
-                    sectionKey: appetizersKey,
-                    sectionTitle: text.appetizers,
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  _MenuSection(
-                    sectionKey: dishesKey,
-                    sectionTitle: text.dishes,
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  _MenuSection(
-                    sectionKey: desertsKey,
-                    sectionTitle: text.deserts,
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  _MenuSection(
-                    sectionKey: drinksKey,
-                    sectionTitle: text.drinks,
-                  ),
-                ],
-              ),
+                  error: (e, s) => Text(e.toString()),
+                  loading: LoadingIndicator.new,
+                );
+              },
             ),
           ),
         ],

@@ -2,6 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../models/reservation_model.dart';
 import '../../../../repositories/firestore_repository.dart';
+import '../../../resources/route_manager.dart';
+import '../../restaurant_orders_screen/restaurant_order_arguments.dart';
 
 class RestaurantReservationsNotifier extends StateNotifier<void> {
   RestaurantReservationsNotifier({
@@ -12,14 +14,16 @@ class RestaurantReservationsNotifier extends StateNotifier<void> {
 
   Future<void> setCurrentReservation(
     Reservation reservation,
-    String restaurantTitle,
-    int tableId,
+    RestaurantOrderArguments restaurantOrderArguments,
   ) async {
     await _firestoreRepository.setCurrentReservation(
-      restaurantTitle,
-      tableId,
+      restaurantOrderArguments.restaurantTitle,
+      restaurantOrderArguments.id,
       reservation,
     );
-
+    await navigatorKey.currentState!.popAndPushNamed(
+      Routes.restaurantOrders,
+      arguments: restaurantOrderArguments,
+    );
   }
 }

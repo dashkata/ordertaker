@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../models/menu_item_model.dart';
+import '../providers/auth_provider.dart';
 import '../providers/repository_providers.dart';
 import '../themes/themes.dart';
 import 'resources/padding_manager.dart';
@@ -221,70 +222,108 @@ class CustomDrawer extends ConsumerWidget {
     final text = AppLocalizations.of(context)!;
     final auth = ref.watch(authRepositoryProvider);
     final User user = auth.getCurrentUser()!;
-
-    return Drawer(
-      backgroundColor: mainColor,
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            padding: EdgeInsets.zero,
-            decoration: const BoxDecoration(
-              color: complementaryColor,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const ProfilePicture(radius: 45),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  user.displayName!,
-                  style: GoogleFonts.roboto(
-                    color: accentColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+    final AsyncValue<String> asyncUserType = ref.watch(userTypeProvider);
+    return asyncUserType.when(
+      data: (userType) => Drawer(
+        backgroundColor: mainColor,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              padding: EdgeInsets.zero,
+              decoration: const BoxDecoration(
+                color: complementaryColor,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const ProfilePicture(radius: 45),
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
-              ],
-            ),
-          ),
-          DrawerTab(
-            icon: Icons.local_pizza,
-            titleText: text.restaurants,
-            func: () {
-              Navigator.pop(context);
-              Navigator.popAndPushNamed(context, Routes.userRestaurants);
-            },
-          ),
-          DrawerTab(
-            icon: Icons.edit_note,
-            titleText: text.reservations,
-            func: () {
-              Navigator.pop(context);
-              Navigator.popAndPushNamed(context, Routes.userReservations);
-            },
-          ),
-          DrawerTab(
-            icon: Icons.person,
-            titleText: text.profile,
-            func: () {
-              Navigator.pop(context);
-              Navigator.popAndPushNamed(context, Routes.profile);
-            },
-          ),
-          DrawerTab(
-            icon: Icons.exit_to_app,
-            titleText: text.log_out,
-            func: () =>
-                auth.signout().then((value) => Navigator.pop(context)).then(
-                      (value) =>
-                          Navigator.popAndPushNamed(context, Routes.login),
+                  Text(
+                    user.displayName!,
+                    style: GoogleFonts.roboto(
+                      color: accentColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
                     ),
-          ),
-        ],
+                  ),
+                ],
+              ),
+            ),
+            if (userType == 'Customer')
+              Column(
+                children: [
+                  DrawerTab(
+                    icon: Icons.local_pizza,
+                    titleText: text.restaurants,
+                    func: () {
+                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(
+                          context, Routes.userRestaurants);
+                    },
+                  ),
+                  DrawerTab(
+                    icon: Icons.edit_note,
+                    titleText: text.reservations,
+                    func: () {
+                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(
+                          context, Routes.userReservations);
+                    },
+                  ),
+                  DrawerTab(
+                    icon: Icons.person,
+                    titleText: text.profile,
+                    func: () {
+                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(context, Routes.profile);
+                    },
+                  ),
+                ],
+              ),
+            if (userType == 'Admin')
+              Column(
+                children: [
+                  DrawerTab(
+                    icon: Icons.info,
+                    titleText: 'Restaurant information',
+                    func: () {
+                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(
+                        context,
+                        Routes.ownerRestaurantInfo,
+                      );
+                    },
+                  ),
+                  DrawerTab(
+                    icon: Icons.person,
+                    titleText: 'Restaurant accounts',
+                    func: () {
+                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(
+                        context,
+                        Routes.ownerEditAccounts,
+                      );
+                    },
+                  ),
+                ],
+              ),
+            DrawerTab(
+              icon: Icons.exit_to_app,
+              titleText: text.log_out,
+              func: () =>
+                  auth.signout().then((value) => Navigator.pop(context)).then(
+                        (value) =>
+                            Navigator.popAndPushNamed(context, Routes.login),
+                      ),
+            ),
+          ],
+        ),
       ),
+      error: (e, s) => Text(e.toString()),
+      loading: () => const LoadingIndicator(),
     );
   }
 }
@@ -369,5 +408,32 @@ class MenuCard extends ConsumerWidget {
             ),
           ),
         ),
+      );
+}
+
+class ErrorAlertDialog extends StatelessWidget {
+  const ErrorAlertDialog({
+    required this.errorMessage,
+    Key? key,
+  }) : super(key: key);
+  final String errorMessage;
+
+  @override
+  Widget build(BuildContext context) => SimpleDialog(
+        title: Center(
+          child: Text(
+            'An error has occurred',
+            style: Theme.of(context).textTheme.headline5,
+          ),
+        ),
+        children: [
+          Center(
+            child: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.headline3,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
       );
 }

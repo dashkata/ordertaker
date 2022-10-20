@@ -55,4 +55,22 @@ class StorageRepository {
       throw e.toString();
     }
   }
+
+  Future<String> uploadRestaurantImage({
+    required File photoFile,
+    required int index,
+    required String restaurantName,
+  }) async {
+    final parsedRestaurant = restaurantName.replaceAll(' ', '');
+    final storageRef = FirebaseStorage.instance.ref();
+    final restaurantRef = storageRef.child(
+      'Images/Restaurants/$parsedRestaurant/Photos/$parsedRestaurant $index',
+    );
+    try {
+      await restaurantRef.putFile(photoFile);
+      return await restaurantRef.getDownloadURL();
+    } on FirebaseException catch (e) {
+      throw e.toString();
+    }
+  }
 }

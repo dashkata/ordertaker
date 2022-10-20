@@ -7,6 +7,8 @@ import '../../../themes/themes.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/route_manager.dart';
+import '../restaurant_orders_screen/controllers/restaurant_orders_provider.dart';
+import '../restaurant_orders_screen/restaurant_order.dart';
 import '../restaurant_orders_screen/restaurant_order_arguments.dart';
 import 'controllers/restaurant_reservation_provider.dart';
 
@@ -14,14 +16,21 @@ part 'widgets/restaurant_reservation_card.dart';
 
 part 'widgets/restaurant_reservation_card_alert_dialog.dart';
 
-class RestaurantReservations extends StatelessWidget {
+class RestaurantReservations extends ConsumerWidget {
   const RestaurantReservations({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final restaurantOrderArguments =
         ModalRoute.of(context)!.settings.arguments as RestaurantOrderArguments;
     return Scaffold(
+      floatingActionButton: RestaurantOrderFAB(
+        icon: Icons.table_bar,
+        onPressed: () => ref
+            .read(restaurantOrderNotifierProvider.notifier)
+            .navigateToTables(),
+        heroTag: 'orderFab1',
+      ),
       body: Stack(
         children: [
           const BackgroundWidget(),

@@ -151,18 +151,18 @@ class FirestoreRepository {
     return 'Mobile number changed successfully';
   }
 
-  Future<RestaurantInformation> fetchRestaurantInfo(String restaurant) async {
+  Future<Restaurant> fetchRestaurantInfo(String restaurant) async {
     final reservationRef =
         FirebaseFirestore.instance.doc(FirestorePath.restaurant(restaurant));
 
     return reservationRef.get().then(
-          (restaurantInfo) => RestaurantInformation(
+          (restaurantInfo) => Restaurant(
             title: restaurantInfo['title'],
-            overview: restaurantInfo['overview'],
-            openhours: restaurantInfo['openhours'],
-            paymentOptions: restaurantInfo['paymentOptions'],
+            desc: restaurantInfo['description'],
+            openHours: restaurantInfo['openHours'],
+            paymentMethods: restaurantInfo['paymentMethods'],
             phoneNumber: restaurantInfo['phoneNumber'],
-            location: restaurantInfo['location'],
+            website: restaurantInfo['website'],
           ),
         );
   }
@@ -350,12 +350,28 @@ class FirestoreRepository {
 
   Future<void> submitRestaurantDetails(
     Restaurant restaurant,
+    int insideTables,
+    int outsideTables,
   ) async {
     await FirebaseFirestore.instance
         .doc(FirestorePath.restaurant(restaurant.title))
         .set(
           restaurant.restaurantToMap(),
         );
+    for (int i = 0; i < insideTables; i++) {
+      await FirebaseFirestore.instance
+          .doc(FirestorePath.restaurantTable(i.toString(), restaurant.title))
+          .set({
+        'location': 'inside',
+      });
+    }
+    for (int i = 0; i < outsideTables; i++) {
+      await FirebaseFirestore.instance
+          .doc(FirestorePath.restaurantTable(i.toString(), restaurant.title))
+          .set({
+        'location': 'outside',
+      });
+    }
   }
 
   Future<void> addMenuItem(OrderItem orderItem, String restaurant) async {
@@ -383,5 +399,44 @@ class FirestoreRepository {
           )
           .toList(),
     );
+  }
+
+  Future<void> addRestaurantPhoto(
+      List<String> urls, String restaurantTitle) async {
+    await FirebaseFirestore.instance
+        .doc(FirestorePath.restaurant(restaurantTitle))
+        .set(
+      {'photos': urls},
+    );
+  }
+
+  Future<String> fetchEmployeeRestaurantTitle(String uid) async {
+    final userRef =
+        await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).get();
+    return userRef.get('restaurant');
+  }
+
+  Future<List<String>> fetchTables(String restaurantTitle) async {
+    final List<String> tables = [];
+    final tableRef = await FirebaseFirestore.instance
+        .collection(FirestorePath.restaurantTables(restaurantTitle))
+        .get();
+    for (final table in tableRef.docs) {
+      tables.add(table.id);
+    }
+    return tables;
+  }
+
+  Future<bool> checkUserReservation(Reservation reservation, String uid) async {
+    final reservationRef = await FirebaseFirestore.instance
+        .doc(
+          '${FirestorePath.restaurantReservations(reservation.restaurant, reservation.selectedTable)}/$uid - ${reservation.date}',
+        )
+        .get();
+    if (reservationRef.data() != null &&
+        reservationRef.data()!.containsKey('currentReservation')) {
+      return true;
+    }
+    return false;
   }
 }

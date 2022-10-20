@@ -12,9 +12,9 @@ class RestaurantTablesNotifier extends StateNotifier<void> {
         super(null);
   final FirestoreRepository _firestoreRepository;
 
-  Future<void> navigateToOrders(int tableId) async {
+  Future<void> navigateToOrders(int tableId, String restaurantTitle) async {
     final currentRes = await _firestoreRepository.checkForCurrentReservation(
-      'Pizza Don Vito',
+      restaurantTitle,
       tableId,
     );
     if (currentRes) {
@@ -22,7 +22,7 @@ class RestaurantTablesNotifier extends StateNotifier<void> {
         Routes.restaurantReservations,
         arguments: RestaurantOrderArguments(
           id: tableId,
-          restaurantTitle: 'Pizza Don Vito',
+          restaurantTitle: restaurantTitle,
         ),
       );
     } else {
@@ -30,7 +30,7 @@ class RestaurantTablesNotifier extends StateNotifier<void> {
         Routes.restaurantOrders,
         arguments: RestaurantOrderArguments(
           id: tableId,
-          restaurantTitle: 'Pizza Don Vito',
+          restaurantTitle: restaurantTitle,
         ),
       );
     }

@@ -36,6 +36,10 @@ class _OrderFAB extends StatelessWidget {
         Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
             final menuList = ref.watch(menuCardsControllerProvider);
+            int count = 0;
+            for (final item in menuList.keys) {
+              count += menuList[item]!;
+            }
             return menuList.isEmpty
                 ? const SizedBox.shrink()
                 : Container(
@@ -47,7 +51,7 @@ class _OrderFAB extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        menuList.length.toString(),
+                        count.toString(),
                         style: Theme.of(context).textTheme.headline3,
                       ),
                     ),
@@ -94,9 +98,9 @@ class _OrderFABContent extends ConsumerWidget {
     final menuCards = ref.watch(menuCardsControllerProvider);
     return SizedBox(
       width: double.maxFinite,
-      height: double.maxFinite,
       child: ListView.builder(
-        itemCount: menuCards.length,
+        shrinkWrap: true,
+        itemCount: menuCards.keys.length,
         itemBuilder: (BuildContext context, int index) => Card(
           elevation: 10,
           color: complementaryColor,
@@ -107,8 +111,9 @@ class _OrderFABContent extends ConsumerWidget {
               children: [
                 Flexible(
                   child: Text(
-                    '${menuCards[index].itemTitle} '
-                    '- ${menuCards[index].itemPrice}',
+                    '${menuCards.keys.elementAt(index).itemTitle} '
+                    '- ${menuCards.keys.elementAt(index).itemPrice}'
+                    '- ${menuCards.values.elementAt(index)}',
                     style: const TextStyle(
                       fontSize: 12,
                     ),
@@ -117,7 +122,7 @@ class _OrderFABContent extends ConsumerWidget {
                 IconButton(
                   onPressed: () => ref
                       .read(menuCardsControllerProvider.notifier)
-                      .removeMenuCard(menuCards[index]),
+                      .removeMenuCard(menuCards.keys.elementAt(index)),
                   icon: const Icon(
                     Icons.exposure_minus_1,
                   ),

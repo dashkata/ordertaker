@@ -1,4 +1,4 @@
-import 'order_model.dart';
+import 'package:flutter/material.dart';
 
 class OrderItem {
   final String itemType;
@@ -30,4 +30,11 @@ class OrderItem {
         itemPrice: data['itemPrice'],
         itemImage: data['itemImage'],
       );
+
+  @override
+  bool operator ==(Object other) =>
+      other is OrderItem && itemTitle == other.itemTitle;
+
+  @override
+  int get hashCode => itemTitle.hashCode;
 }

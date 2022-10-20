@@ -11,3 +11,17 @@ final restaurantTablesNotifierProvider =
     ),
   ),
 );
+final fetchRestaurantTitleProvider = FutureProvider<String>(
+  (ref) async =>
+      await ref.read(firestoreRepositoryProvider).fetchEmployeeRestaurantTitle(
+            ref.read(authRepositoryProvider).getCurrentUser()!.uid,
+          ),
+);
+
+final tablesProvider = FutureProvider.family<List<String>, String>(
+  (
+    ref,
+    restaurantTitle,
+  ) async =>
+      await ref.read(firestoreRepositoryProvider).fetchTables(restaurantTitle),
+);

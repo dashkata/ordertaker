@@ -3,19 +3,23 @@
 //
 // import '../../../project_widgets.dart';
 part of '../bill.dart';
-class PayButton extends StatelessWidget {
+
+class PayButton extends ConsumerWidget {
   const PayButton({
+    required this.reservation,
     Key? key,
   }) : super(key: key);
+  final Reservation reservation;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final text = AppLocalizations.of(context)!;
     return SizedBox(
       width: 150,
       child: NormalButtons(
         buttonText: text.pay,
-        buttonFunc: () {},
+        buttonFunc: () =>
+            ref.read(billScreenProvider.notifier).pay(reservation),
       ),
     );
   }

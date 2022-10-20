@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'menu_item_model.dart';
 
 class MenuSection {

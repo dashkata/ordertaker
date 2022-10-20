@@ -69,7 +69,7 @@ class _RestaurantCard extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           _FindATableButton(
-                            resTitle: restaurant.title,
+                            restaurant: restaurant,
                           ),
                         ],
                       ),

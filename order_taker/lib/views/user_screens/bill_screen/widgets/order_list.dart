@@ -32,14 +32,15 @@ class OrdersList extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 20.0),
                       child: Column(
                         children: List.generate(
-                          orders[ordersIndex].menuItems.length,
+                          orders[ordersIndex].menuItems.keys.length,
                           (menuIndex) => Padding(
                             padding: const EdgeInsets.only(
                               top: 10.0,
                             ),
                             child: Text(
-                              '${orders[ordersIndex].menuItems[menuIndex].itemTitle} '
-                              '- ${orders[ordersIndex].menuItems[menuIndex].itemPrice}',
+                              '${orders[ordersIndex].menuItems.keys.elementAt(menuIndex).itemTitle}'
+                              '- ${orders[ordersIndex].menuItems.keys.elementAt(menuIndex).itemPrice} '
+                              'x ${orders[ordersIndex].menuItems[orders[ordersIndex].menuItems.keys.elementAt(menuIndex)]}',
                               style: Theme.of(context).textTheme.headline1,
                               textAlign: TextAlign.center,
                             ),

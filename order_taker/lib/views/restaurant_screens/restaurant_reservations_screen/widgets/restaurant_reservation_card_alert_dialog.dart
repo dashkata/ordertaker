@@ -28,8 +28,7 @@ class CardAlertDialog extends ConsumerWidget {
                     )
                     .setCurrentReservation(
                       reservation,
-                      args.restaurantTitle,
-                      args.id,
+                      args,
                     );
                 navigatorKey.currentState!.pop();
               },

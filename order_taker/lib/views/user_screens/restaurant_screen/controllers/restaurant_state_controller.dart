@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-
 import '../../../../Themes/themes.dart';
+import '../../../../models/restaurant_model.dart';
+import '../../../project_widgets.dart';
 import '../../../resources/route_manager.dart';
 import '../../confirm_reservation_screen/confirm_reservation_arguments.dart';
 import '../../confirm_reservation_screen/controllers/confirm_reservation_providers.dart';
@@ -12,7 +13,31 @@ import 'restaurant_screen_providers.dart';
 class RestaurantDialogNotifier extends StateNotifier<void> {
   RestaurantDialogNotifier() : super(null);
 
-  Future<void> showDateTimePicker(BuildContext context, WidgetRef ref) async {
+  bool timeValidation(Restaurant restaurant, DateTime dateTime) {
+    final String openHour =
+        restaurant.openHours.replaceAll(' ', '').split('-')[0];
+    final String closeHour =
+        restaurant.openHours.replaceAll(' ', '').split('-')[1];
+    final TimeOfDay openTimeHour = TimeOfDay(
+      hour: int.parse(openHour.split(':')[0]),
+      minute: int.parse(openHour.split(':')[1]),
+    );
+    final TimeOfDay closeTimeHour = TimeOfDay(
+      hour: int.parse(closeHour.split(':')[0]),
+      minute: int.parse(closeHour.split(':')[1]),
+    );
+    if ((openTimeHour.hour * 60 + openTimeHour.minute) <
+            (dateTime.hour * 60 + openTimeHour.minute) &&
+        (closeTimeHour.hour * 60 + closeTimeHour.minute) >
+            (dateTime.hour * 60 + openTimeHour.minute) &&
+        dateTime.isAfter(DateTime.now())) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<void> showDateTimePicker(
+      BuildContext context, WidgetRef ref, Restaurant restaurant) async {
     final userDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -29,9 +54,9 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
         child: child!,
       ),
     );
-
     if (userDate != null) {
       final userTime = await showTimePicker(
+        helpText: 'Enter time between ${restaurant.openHours}',
         builder: (context, child) => Theme(
           data: ThemeData.light().copyWith(
             colorScheme: const ColorScheme.light(
@@ -50,7 +75,17 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
         context: context,
         initialTime: TimeOfDay.now(),
       );
-      if (userTime != null) {
+      if (userTime != null &&
+          timeValidation(
+            restaurant,
+            DateTime(
+              userDate.year,
+              userDate.month,
+              userDate.day,
+              userTime.hour,
+              userTime.minute,
+            ),
+          )) {
         ref
             .read(confirmDateProvider.notifier)
             .update((state) => DateFormat('E, MMM d').format(userDate));
@@ -68,6 +103,14 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
                 ),
               ),
             );
+      } else {
+        await showDialog(
+          context: context,
+          builder: (_) => const ErrorAlertDialog(
+            errorMessage: 'The date you selected is invalid, try to select '
+                'a time in the working hours of the restaurant!',
+          ),
+        );
       }
     }
     return;
@@ -107,23 +150,27 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
     );
   }
 
-  void showDetailsDialog(BuildContext context, String resTitle, WidgetRef ref) {
+  void showDetailsDialog(
+      BuildContext context, Restaurant restaurant, WidgetRef ref) {
     showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
         backgroundColor: mainColor,
         content: Column(
           mainAxisSize: MainAxisSize.min,
-          children: const [
-            SelectDateWidget(),
-            NumberOfPeopleWidget(),
+          children: [
+            SelectDateWidget(
+              restaurant: restaurant,
+            ),
+            const NumberOfPeopleWidget(),
           ],
         ),
         actions: [
           Center(
             child: Consumer(
               builder: (context, ref, child) => ElevatedButton(
-                onPressed: () => _confirmReservation(ref, resTitle, context),
+                onPressed: () =>
+                    _confirmReservation(ref, restaurant.title, context),
                 style: ElevatedButton.styleFrom(
                   shape: const StadiumBorder(),
                   backgroundColor: complementaryColor,
