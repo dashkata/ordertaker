@@ -13,7 +13,7 @@ class _FindATableButton extends ConsumerWidget {
     final text = AppLocalizations.of(context)!;
     return SizedBox(
       width: 150,
-      child: NormalButtons(
+      child: CustomButton(
         buttonText: text.find_a_table,
         buttonFunc: () => ref
             .read(restaurantDialogNotifierProvider.notifier)

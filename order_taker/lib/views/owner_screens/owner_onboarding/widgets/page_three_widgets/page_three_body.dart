@@ -27,10 +27,10 @@ class _PageThreeBody extends ConsumerWidget {
                 error: (e, s) => Text(
                   e.toString(),
                 ),
-                loading: () => const LoadingIndicator(),
+                loading: () => const CustomProgressIndicator(),
               );
             },
             error: (e, s) => Text(e.toString()),
-            loading: () => const LoadingIndicator(),
+            loading: () => const CustomProgressIndicator(),
           );
 }

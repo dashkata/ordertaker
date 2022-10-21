@@ -6,6 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/reservation_model.dart';
 import '../../../providers/common_providers.dart';
 import '../../../themes/themes.dart';
+import '../../custom_widgets/custom_drawer.dart';
+import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
@@ -20,29 +22,30 @@ class ReservationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(backgroundColor: appBarColor),
+        appBar: AppBar(
+          title: Text(
+            'Reservations',
+            style: Theme.of(context).textTheme.headline5,
+          ),
+        ),
         drawer: const CustomDrawer(),
-        body: Stack(
-          children: [
-            const BackgroundWidget(),
-            SafeArea(
-              child: Consumer(
-                builder: (context, ref, child) {
-                  final AsyncValue<List<Reservation>> reservations =
-                      ref.watch(fetchReservationProvider);
-                  return reservations.when(
-                    data: (data) => ListView.builder(
-                      itemCount: data.length,
-                      itemBuilder: (BuildContext context, int index) =>
-                          _ReservationCard(reservation: data[index]),
-                    ),
-                    error: (e, s) => Text(e.toString()),
-                    loading: () => const LoadingIndicator(),
-                  );
-                },
-              ),
-            ),
-          ],
+        backgroundColor: mainColor,
+        body: SafeArea(
+          child: Consumer(
+            builder: (context, ref, child) {
+              final AsyncValue<List<Reservation>> reservations =
+                  ref.watch(fetchReservationProvider);
+              return reservations.when(
+                data: (data) => ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      _ReservationCard(reservation: data[index]),
+                ),
+                error: (e, s) => Text(e.toString()),
+                loading: () => const CustomProgressIndicator(),
+              );
+            },
+          ),
         ),
       );
 }

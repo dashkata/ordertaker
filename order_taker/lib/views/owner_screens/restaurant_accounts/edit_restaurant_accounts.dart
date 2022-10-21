@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../Themes/themes.dart';
+import '../../custom_widgets/custom_button.dart';
+import '../../custom_widgets/custom_drawer.dart';
+import '../../custom_widgets/custom_text_field.dart';
 import '../../project_widgets.dart';
 import 'controllers/edit_accounts_providers.dart';
 
@@ -12,32 +15,31 @@ class EditRestaurantAccounts extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) => Scaffold(
         appBar: AppBar(
-          backgroundColor: appBarColor,
+          title: Text(
+            'Accounts',
+            style: Theme.of(context).textTheme.headline5,
+          ),
         ),
         drawer: const CustomDrawer(),
-        body: Stack(
-          children: [
-            const BackgroundWidget(),
-            SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: NormalButtons(
-                      buttonText: 'Add an account',
-                      buttonFunc: () => showDialog(
-                        context: context,
-                        builder: (context) => const AlertDialog(
-                          title: _AlertDialogTitle(),
-                          content: _AlertDialogBody(),
-                        ),
-                      ),
+        backgroundColor: mainColor,
+        body: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: CustomButton(
+                  buttonText: 'Add an account',
+                  buttonFunc: () => showDialog(
+                    context: context,
+                    builder: (context) => const AlertDialog(
+                      title: _AlertDialogTitle(),
+                      content: _AlertDialogBody(),
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
 }

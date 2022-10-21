@@ -17,7 +17,7 @@ class WelcomeTextWidget extends StatelessWidget {
           padding: PaddingManager.p13,
           child: Text(
             text.welcome,
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context).textTheme.headline5,
           ),
         ),
       ],

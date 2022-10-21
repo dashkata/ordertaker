@@ -11,17 +11,21 @@ class CardAlertDialog extends ConsumerWidget {
   final RestaurantOrderArguments args;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => AlertDialog(
+  Widget build(BuildContext context, WidgetRef ref) => CustomAlertDialog(
         title: Text(
           'Are you sure you want to set this as current reservation?',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headline5,
         ),
         content: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            IconButton(
-              onPressed: () {
+            CustomButton(
+              buttonFunc: () => navigatorKey.currentState!.pop(),
+              buttonText: 'Cancel',
+            ),
+            CustomButton(
+              buttonFunc: () {
                 ref
                     .read(
                       restaurantReservationsControllerProvider.notifier,
@@ -32,15 +36,7 @@ class CardAlertDialog extends ConsumerWidget {
                     );
                 navigatorKey.currentState!.pop();
               },
-              icon: const Icon(
-                Icons.check_circle,
-              ),
-            ),
-            IconButton(
-              onPressed: () => navigatorKey.currentState!.pop(),
-              icon: const Icon(
-                Icons.cancel,
-              ),
+              buttonText: 'Confirm',
             ),
           ],
         ),

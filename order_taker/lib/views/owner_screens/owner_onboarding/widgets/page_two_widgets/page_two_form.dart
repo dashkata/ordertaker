@@ -10,7 +10,7 @@ class _PageTwoForm extends ConsumerWidget {
     final text = AppLocalizations.of(context)!;
     return Column(
       children: [
-        TextFields(
+        CustomTextField(
           hintText: text.restaurant_address,
           icon: Icons.location_city,
           obscure: false,
@@ -22,7 +22,7 @@ class _PageTwoForm extends ConsumerWidget {
                     val,
                   ),
         ),
-        TextFields(
+        CustomTextField(
           hintText: text.restaurant_working_hours,
           icon: Icons.watch_later,
           obscure: false,
@@ -34,7 +34,7 @@ class _PageTwoForm extends ConsumerWidget {
                     val,
                   ),
         ),
-        TextFields(
+        CustomTextField(
           hintText: text.restaurant_website,
           icon: Icons.web,
           obscure: false,
@@ -46,7 +46,7 @@ class _PageTwoForm extends ConsumerWidget {
                     val,
                   ),
         ),
-        TextFields(
+        CustomTextField(
           hintText: text.restaurant_phone_number,
           icon: Icons.phone,
           obscure: false,
@@ -58,7 +58,7 @@ class _PageTwoForm extends ConsumerWidget {
                     val,
                   ),
         ),
-        TextFields(
+        CustomTextField(
           hintText: text.restaurant_descriptions,
           icon: Icons.note_alt_sharp,
           obscure: false,
@@ -70,7 +70,7 @@ class _PageTwoForm extends ConsumerWidget {
                     val,
                   ),
         ),
-        TextFields(
+        CustomTextField(
           hintText: text.restaurant_descriptions,
           icon: Icons.payment,
           obscure: false,
@@ -82,7 +82,7 @@ class _PageTwoForm extends ConsumerWidget {
                     val,
                   ),
         ),
-        TextFields(
+        CustomTextField(
           func: (value) =>
               ref.read(restaurantOutsideTablesProvider.notifier).update(
                     (state) => value,
@@ -93,7 +93,7 @@ class _PageTwoForm extends ConsumerWidget {
           obscure: false,
           textInputAction: TextInputAction.next,
         ),
-        TextFields(
+        CustomTextField(
           func: (value) =>
               ref.read(restaurantInsideTablesProvider.notifier).update(
                     (state) => value,

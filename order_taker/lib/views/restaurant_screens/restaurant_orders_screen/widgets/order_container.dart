@@ -14,7 +14,7 @@ class _OrderContainer extends ConsumerWidget {
         decoration: contentContainerDecoration,
         width: double.infinity,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -25,6 +25,7 @@ class _OrderContainer extends ConsumerWidget {
                     child: Icon(
                       Icons.check_circle,
                       size: 35,
+                      color: complementaryColor2,
                     ),
                   )
                 else
@@ -53,9 +54,9 @@ class _OrderContainer extends ConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20, bottom: 5.0),
-              child: _OrderButton(
+              child: CustomButton(
                 buttonText: 'See additional messages',
-                onPressed: () => ref
+                buttonFunc: () => ref
                     .read(restaurantOrderNotifierProvider.notifier)
                     .seeAdditionalMessages(
                       context,
@@ -65,9 +66,9 @@ class _OrderContainer extends ConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 20.0),
-              child: _OrderButton(
+              child: CustomButton(
                 buttonText: 'Set status',
-                onPressed: () async => await ref
+                buttonFunc: () async => await ref
                     .read(restaurantOrderNotifierProvider.notifier)
                     .setStatus(
                       order.id,
@@ -140,7 +141,7 @@ class RestaurantMenuItem extends StatelessWidget {
           padding: const EdgeInsets.only(top: 20.0),
           child: Text(
             '- $item x${count.toString()}',
-            style: Theme.of(context).textTheme.headline3,
+            style: Theme.of(context).textTheme.headline6,
           ),
         ),
       );

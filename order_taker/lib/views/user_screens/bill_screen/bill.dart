@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/order_model.dart';
 import '../../../models/reservation_model.dart';
 import '../../../themes/themes.dart';
+import '../../custom_widgets/custom_button.dart';
+import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
@@ -24,16 +26,21 @@ class BillScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final reservation =
         ModalRoute.of(context)!.settings.arguments as Reservation;
-    return Scaffold(
-      bottomNavigationBar: SectionNavBar(
-        reservation: reservation,
-      ),
-      body: Stack(
-        children: [
-          const BackgroundWidget(),
-          SafeArea(
+    return UnfocusDetector(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Bill',
+            style: Theme.of(context).textTheme.headline5,
+          ),
+        ),
+        bottomNavigationBar: SectionNavBar(
+          reservation: reservation,
+        ),
+        backgroundColor: mainColor,
+        body: SafeArea(
+          child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
                   padding: PaddingManager.p11,
@@ -51,7 +58,7 @@ class BillScreen extends StatelessWidget {
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

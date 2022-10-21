@@ -41,14 +41,19 @@ class _ReservationCard extends ConsumerWidget {
                       error: (e, s) => Text(
                         e.toString(),
                       ),
-                      loading: () => const LoadingIndicator(),
+                      loading: () => const CustomProgressIndicator(),
                     );
                   },
                 ),
               ),
-              _TitleColumn(
-                reservation: reservation,
-                text: text,
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: _TitleColumn(
+                    reservation: reservation,
+                    text: text,
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 40.0),
@@ -61,7 +66,8 @@ class _ReservationCard extends ConsumerWidget {
                       ),
                   icon: const Icon(
                     Icons.cancel,
-                    size: 35,
+                    size: 30,
+                    color: complementaryColor2,
                   ),
                 ),
               ),

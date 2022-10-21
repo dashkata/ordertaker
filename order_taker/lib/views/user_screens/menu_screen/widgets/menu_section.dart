@@ -17,7 +17,7 @@ class _MenuSection extends StatelessWidget {
             padding: PaddingManager.p6,
             child: Text(
               sectionTitle,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headline5,
             ),
           ),
           Padding(
@@ -27,7 +27,7 @@ class _MenuSection extends StatelessWidget {
               elevation: 10,
               child: Container(
                 width: double.infinity,
-                decoration: Styles.buildBoxDecoration(40, complementaryColor),
+                decoration: Styles.buildBoxDecoration(40, complementaryColor2),
                 child: ListView.builder(
                   itemCount: menuList.length,
                   shrinkWrap: true,

@@ -16,7 +16,7 @@ class PayButton extends ConsumerWidget {
     final text = AppLocalizations.of(context)!;
     return SizedBox(
       width: 150,
-      child: NormalButtons(
+      child: CustomButton(
         buttonText: text.pay,
         buttonFunc: () =>
             ref.read(billScreenProvider.notifier).pay(reservation),

@@ -4,6 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/reservation_model.dart';
 import '../../../providers/repository_providers.dart';
 import '../../../themes/themes.dart';
+import '../../custom_widgets/custom_alert_dialog.dart';
+import '../../custom_widgets/custom_button.dart';
+import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/route_manager.dart';
@@ -31,44 +34,38 @@ class RestaurantReservations extends ConsumerWidget {
             .navigateToTables(),
         heroTag: 'orderFab1',
       ),
-      body: Stack(
-        children: [
-          const BackgroundWidget(),
-          SafeArea(
-            child: Column(
-              children: [
-                Text(
-                  'Table ${restaurantOrderArguments.id} reservations',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                Consumer(
-                  builder:
-                      (BuildContext context, WidgetRef ref, Widget? child) {
-                    final AsyncValue<List<Reservation>> asyncReservations =
-                        ref.watch(
-                      restaurantReservationsProvider(
-                        restaurantOrderArguments,
-                      ),
-                    );
-                    return asyncReservations.when(
-                      data: (reservations) => ListView.builder(
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) =>
-                            _RestaurantReservationCard(
-                          reservation: reservations[index],
-                          args: restaurantOrderArguments,
-                        ),
-                        itemCount: reservations.length,
-                      ),
-                      error: (e, s) => Text(e.toString()),
-                      loading: () => const LoadingIndicator(),
-                    );
-                  },
-                ),
-              ],
+      backgroundColor: mainColor,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Text(
+              'Table ${restaurantOrderArguments.id} reservations',
+              style: Theme.of(context).textTheme.headline5,
             ),
-          ),
-        ],
+            Consumer(
+              builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                final AsyncValue<List<Reservation>> asyncReservations =
+                    ref.watch(
+                  restaurantReservationsProvider(
+                    restaurantOrderArguments,
+                  ),
+                );
+                return asyncReservations.when(
+                  data: (reservations) => ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => _RestaurantReservationCard(
+                      reservation: reservations[index],
+                      args: restaurantOrderArguments,
+                    ),
+                    itemCount: reservations.length,
+                  ),
+                  error: (e, s) => Text(e.toString()),
+                  loading: () => const CustomProgressIndicator(),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

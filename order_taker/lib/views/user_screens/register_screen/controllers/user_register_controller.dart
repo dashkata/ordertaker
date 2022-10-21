@@ -22,7 +22,7 @@ class UserRegisterScreenNotifier extends StateNotifier<void> {
   }
 
   void navigateToLogin() {
-    navigatorKey.currentState!.pushNamed(Routes.login);
+    navigatorKey.currentState!.popAndPushNamed(Routes.login);
   }
 
   Future<void> register(

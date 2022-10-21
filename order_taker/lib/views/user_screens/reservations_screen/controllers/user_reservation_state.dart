@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../models/reservation_model.dart';
 import '../../../../repositories/auth_repository.dart';
 import '../../../../repositories/firestore_repository.dart';
+import '../../../custom_widgets/custom_alert_dialog.dart';
+import '../../../custom_widgets/custom_button.dart';
 import '../../../project_widgets.dart';
 import '../../../resources/route_manager.dart';
 
@@ -24,18 +26,22 @@ class UserReservationStateNotifier extends StateNotifier<void> {
   ) async {
     await showDialog(
       context: context,
-      builder: (_) => AlertDialog(
+      builder: (_) => CustomAlertDialog(
         title: Center(
           child: Text(
             'Are you sure you want to cancel your reservation?',
-            style: Theme.of(context).textTheme.headline3,
+            style: Theme.of(context).textTheme.headline5,
             textAlign: TextAlign.center,
           ),
         ),
         content: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            NormalButtons(
+            CustomButton(
+              buttonText: 'Cancel',
+              buttonFunc: () => navigatorKey.currentState!.pop(),
+            ),
+            CustomButton(
               buttonText: 'Confirm',
               buttonFunc: () async {
                 await _firestoreRepository.deleteReservation(
@@ -44,10 +50,6 @@ class UserReservationStateNotifier extends StateNotifier<void> {
                 );
                 navigatorKey.currentState!.pop();
               },
-            ),
-            NormalButtons(
-              buttonText: 'Cancel',
-              buttonFunc: () => navigatorKey.currentState!.pop(),
             ),
           ],
         ),

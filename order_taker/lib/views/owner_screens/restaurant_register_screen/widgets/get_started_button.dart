@@ -16,7 +16,7 @@ class _ConfirmButton extends ConsumerWidget {
     );
     return Padding(
       padding: const EdgeInsets.only(top: 40.0),
-      child: NormalButtons(
+      child: CustomButton(
         buttonText: 'Get Started',
         buttonFunc: () async {
           await ref

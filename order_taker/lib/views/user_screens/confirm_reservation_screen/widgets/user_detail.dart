@@ -19,11 +19,11 @@ class _UserDetail extends StatelessWidget {
               padding: PaddingManager.p17,
               child: Text(
                 detailType,
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.headline2,
               ),
             ),
             Material(
-              elevation: 10,
+              elevation: 2,
               borderRadius: Styles.buildBorderRadius(40),
               child: Container(
                 decoration: Styles.buildBoxDecoration(
@@ -33,7 +33,7 @@ class _UserDetail extends StatelessWidget {
                 padding: PaddingManager.p18,
                 child: Text(
                   userDetail,
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline6,
                 ),
               ),
             ),

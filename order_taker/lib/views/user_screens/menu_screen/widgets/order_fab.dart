@@ -29,7 +29,7 @@ class _OrderFAB extends StatelessWidget {
             elevation: 10,
             child: Text(
               text.order,
-              style: Theme.of(context).textTheme.headline3,
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
         ),
@@ -77,7 +77,7 @@ class _OrderFABActions extends StatelessWidget {
     return Center(
       child: Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) =>
-            NormalButtons(
+            CustomButton(
           buttonText: text.complete_order,
           buttonFunc: () => ref
               .read(menuCardsControllerProvider.notifier)
@@ -96,58 +96,63 @@ class _OrderFABContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final menuCards = ref.watch(menuCardsControllerProvider);
-    return SizedBox(
-      width: double.maxFinite,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: menuCards.keys.length,
-            itemBuilder: (BuildContext context, int index) => Card(
-              elevation: 10,
-              color: complementaryColor,
-              shape: Styles.buildRoundedBorder(25),
-              child: Padding(
-                padding: PaddingManager.p9,
-                child: Row(
-                  children: [
-                    Flexible(
-                      child: Text(
-                        '${menuCards.keys.elementAt(index).itemTitle} '
-                        '- ${menuCards.keys.elementAt(index).itemPrice}'
-                        '- ${menuCards.values.elementAt(index)}',
-                        style: const TextStyle(
-                          fontSize: 12,
+    return SingleChildScrollView(
+      child: SizedBox(
+        width: double.maxFinite,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Column(
+              children: List.generate(
+                menuCards.keys.length,
+                (index) => Card(
+                  elevation: 10,
+                  color: complementaryColor,
+                  shape: Styles.buildRoundedBorder(25),
+                  child: Padding(
+                    padding: PaddingManager.p9,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            '${menuCards.keys.elementAt(index).itemTitle} '
+                            '- ${menuCards.keys.elementAt(index).itemPrice}'
+                            ' x${menuCards.values.elementAt(index)}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
                         ),
-                      ),
+                        IconButton(
+                          onPressed: () => ref
+                              .read(menuCardsControllerProvider.notifier)
+                              .removeMenuCard(menuCards.keys.elementAt(index)),
+                          icon: const Icon(
+                            Icons.exposure_minus_1,
+                          ),
+                          color: complementaryColor2,
+                          iconSize: 20,
+                        ),
+                      ],
                     ),
-                    IconButton(
-                      onPressed: () => ref
-                          .read(menuCardsControllerProvider.notifier)
-                          .removeMenuCard(menuCards.keys.elementAt(index)),
-                      icon: const Icon(
-                        Icons.exposure_minus_1,
-                      ),
-                      iconSize: 20,
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-          TextFields(
-            hintText: 'Additional messages',
-            icon: Icons.message,
-            obscure: false,
-            inputType: TextInputType.text,
-            textInputAction: TextInputAction.done,
-            func: (value) =>
-                ref.read(additionalMessagesProvider.notifier).update(
-                      (state) => value,
-                    ),
-          )
-        ],
+            CustomTextField(
+              hintText: 'Additional messages',
+              icon: Icons.message,
+              obscure: false,
+              inputType: TextInputType.text,
+              textInputAction: TextInputAction.done,
+              func: (value) =>
+                  ref.read(additionalMessagesProvider.notifier).update(
+                        (state) => value,
+                      ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -164,7 +169,7 @@ class _OrderFABTitle extends StatelessWidget {
     return Center(
       child: Text(
         text.complete_order,
-        style: Theme.of(context).textTheme.headline4,
+        style: Theme.of(context).textTheme.headline5,
       ),
     );
   }

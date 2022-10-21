@@ -23,7 +23,7 @@ class _BottomTexts extends ConsumerWidget {
                     ref.read(userRegisterProvider.notifier).navigateToLogin(),
                 child: Text(
                   text.login,
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline1,
                 ),
               ),
             ],
@@ -41,7 +41,7 @@ class _BottomTexts extends ConsumerWidget {
                     .navigateToRestaurantRegister(),
                 child: Text(
                   text.click_here,
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline1,
                 ),
               ),
               Text(

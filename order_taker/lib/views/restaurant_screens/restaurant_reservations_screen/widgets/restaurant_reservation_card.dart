@@ -40,7 +40,7 @@ class _RestaurantReservationCard extends ConsumerWidget {
                 children: [
                   Text(
                     'Client name - ${reservation.name}',
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context).textTheme.headline2,
                   ),
                   Text(
                     'Reservation date - ${reservation.date}',

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../themes/themes.dart';
 import '../../../models/reservation_model.dart';
 import '../../../providers/common_providers.dart';
+import '../../custom_widgets/custom_button.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
@@ -14,7 +15,11 @@ import 'controllers/confirm_reservation_providers.dart';
 
 part 'widgets/user_detail.dart';
 
+part 'widgets/confirm_overview.dart';
+
 part 'widgets/detail_row.dart';
+
+part 'widgets/confirm_button.dart';
 
 class ConfirmReservationScreen extends ConsumerWidget {
   const ConfirmReservationScreen({Key? key}) : super(key: key);
@@ -28,116 +33,68 @@ class ConfirmReservationScreen extends ConsumerWidget {
     final AsyncValue restaurantPic =
         ref.watch(restaurantPictureProvider(reservationInfo.restaurantTitle));
     return Scaffold(
-      body: Stack(
-        children: [
-          const BackgroundWidget(),
-          SafeArea(
-            child: Center(
-              child: Padding(
-                padding: PaddingManager.p7,
-                child: Container(
-                  width: double.infinity,
-                  height: 500,
-                  decoration: contentContainerDecoration,
-                  child: userDetails.when(
-                    data: (data) => Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: PaddingManager.p9,
-                              child: CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                  restaurantPic.value,
-                                ),
-                                radius: 45,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5, top: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    reservationInfo.restaurantTitle,
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5.0),
-                                    child: _DetailRow(
-                                      reservationInfo: reservationInfo,
-                                      text: text,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Selected table: ${reservationInfo.tableId}',
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
+      backgroundColor: mainColor,
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: PaddingManager.p7,
+            child: Container(
+              width: double.infinity,
+              height: 500,
+              decoration: contentContainerDecoration,
+              child: userDetails.when(
+                data: (data) => SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _ConfirmOverview(
+                        restaurantPic: restaurantPic,
+                        reservationInfo: reservationInfo,
+                        text: text,
+                      ),
+                      const InfoDivider(),
+                      _UserDetail(
+                        detailType: text.name,
+                        userDetail: data['name'],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10.0),
+                        child: _UserDetail(
+                          detailType: text.email_address,
+                          userDetail: data['email'],
                         ),
-                        const InfoDivider(),
-                        _UserDetail(
-                          detailType: text.name,
-                          userDetail: data['name'],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10.0),
-                          child: _UserDetail(
-                            detailType: text.email_address,
-                            userDetail: data['email'],
+                      ),
+                      _UserDetail(
+                        detailType: text.mobile_number,
+                        userDetail: data['phoneNumber'],
+                      ),
+                      _ConfirmButton(
+                        text: text,
+                        reservationInfo: reservationInfo,
+                        name: data['name'],
+                      ),
+                      Padding(
+                        padding: PaddingManager.p2,
+                        child: Center(
+                          child: CustomButton(
+                            buttonText: text.change_details,
+                            buttonFunc: () {
+                              //TODO change details
+                            },
                           ),
                         ),
-                        _UserDetail(
-                          detailType: text.mobile_number,
-                          userDetail: data['phoneNumber'],
-                        ),
-                        Center(
-                          child: NormalButtons(
-                            buttonText: text.confirm_reservation,
-                            buttonFunc: () => ref
-                                .read(userConfirmReservationProvider.notifier)
-                                .addReservation(
-                                  Reservation(
-                                    name: data['name'],
-                                    restaurant: reservationInfo.restaurantTitle,
-                                    date: '${ref.read(confirmDateProvider)} '
-                                        '- ${ref.read(confirmTimeProvider)}',
-                                    numberOfPeople:
-                                        reservationInfo.numberOfPeople,
-                                    selectedTable: reservationInfo.tableId,
-                                    currentReservation: false,
-                                  ),
-                                ),
-                          ),
-                        ),
-                        Padding(
-                          padding: PaddingManager.p2,
-                          child: Center(
-                            child: NormalButtons(
-                              buttonText: text.change_details,
-                              buttonFunc: () {
-                                //TODO change details
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    error: (e, s) => Text(e.toString()),
-                    loading: () => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                      ),
+                    ],
                   ),
+                ),
+                error: (e, s) => Text(e.toString()),
+                loading: () => const Center(
+                  child: CircularProgressIndicator(),
                 ),
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }

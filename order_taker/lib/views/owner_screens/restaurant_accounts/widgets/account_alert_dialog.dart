@@ -14,7 +14,7 @@ class _AlertDialogBody extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          TextFields(
+          CustomTextField(
             hintText: 'Email address',
             icon: Icons.email,
             obscure: false,
@@ -25,7 +25,7 @@ class _AlertDialogBody extends ConsumerWidget {
                       (state) => value,
                     ),
           ),
-          TextFields(
+          CustomTextField(
             hintText: 'Password',
             icon: Icons.password,
             obscure: true,
@@ -40,7 +40,7 @@ class _AlertDialogBody extends ConsumerWidget {
             builder: (context, ref, child) {
               final email = ref.watch(restaurantEmailControllerProvider);
               final password = ref.watch(restaurantPasswordControllerProvider);
-              return NormalButtons(
+              return CustomButton(
                 buttonText: 'Confirm',
                 buttonFunc: () async {
                   await ref

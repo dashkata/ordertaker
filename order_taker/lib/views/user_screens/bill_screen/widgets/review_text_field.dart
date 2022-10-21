@@ -10,18 +10,18 @@ class ReviewTextField extends StatelessWidget {
     final text = AppLocalizations.of(context)!;
     return TextField(
       decoration: InputDecoration(
-        enabledBorder: Styles.buildOutlineBorder(
-          complementaryColor,
+        border: Styles.buildOutlineBorder(
+          complementaryColor2,
           30,
         ),
-        border: Styles.buildOutlineBorder(
-          complementaryColor,
+        focusedBorder: Styles.buildOutlineBorder(
+          complementaryColor2,
           30,
         ),
         hintText: text.write_a_review,
         filled: true,
         fillColor: mainColor,
-        hintStyle: Theme.of(context).textTheme.headline1,
+        hintStyle: Theme.of(context).textTheme.headline6,
       ),
       autocorrect: false,
       maxLength: 200,

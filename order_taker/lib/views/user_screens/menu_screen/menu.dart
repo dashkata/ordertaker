@@ -7,6 +7,10 @@ import '../../../models/menu_item_model.dart';
 import '../../../models/menu_section_model.dart';
 import '../../../models/reservation_model.dart';
 import '../../../providers/controller_providers.dart';
+import '../../custom_widgets/custom_button.dart';
+import '../../custom_widgets/custom_menu_card.dart';
+import '../../custom_widgets/custom_progress_indicator.dart';
+import '../../custom_widgets/custom_text_field.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
@@ -35,30 +39,26 @@ class MenuScreen extends StatelessWidget {
       bottomNavigationBar: SectionNavBar(
         reservation: reservation,
       ),
-      body: Stack(
-        children: [
-          const BackgroundWidget(),
-          SafeArea(
-            child: Consumer(
-              builder: (context, ref, child) {
-                final AsyncValue<List<MenuSection>> asyncMenu = ref.watch(
-                  fetchMenuProvider(reservation.restaurant),
-                );
-                return asyncMenu.when(
-                  data: (menu) => ListView.builder(
-                    itemCount: menu.length,
-                    itemBuilder: (_, index) => _MenuSection(
-                      sectionTitle: menu[index].title,
-                      menuList: menu[index].items,
-                    ),
-                  ),
-                  error: (e, s) => Text(e.toString()),
-                  loading: LoadingIndicator.new,
-                );
-              },
-            ),
-          ),
-        ],
+      backgroundColor: mainColor,
+      body: SafeArea(
+        child: Consumer(
+          builder: (context, ref, child) {
+            final AsyncValue<List<MenuSection>> asyncMenu = ref.watch(
+              fetchMenuProvider(reservation.restaurant),
+            );
+            return asyncMenu.when(
+              data: (menu) => ListView.builder(
+                itemCount: menu.length,
+                itemBuilder: (_, index) => _MenuSection(
+                  sectionTitle: menu[index].title,
+                  menuList: menu[index].items,
+                ),
+              ),
+              error: (e, s) => Text(e.toString()),
+              loading: CustomProgressIndicator.new,
+            );
+          },
+        ),
       ),
     );
   }

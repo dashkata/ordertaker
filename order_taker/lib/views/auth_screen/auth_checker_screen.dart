@@ -3,11 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/repository_providers.dart';
 
+import '../custom_widgets/custom_progress_indicator.dart';
 import '../login_screen/login.dart';
 import '../owner_screens/owner_onboarding/onboarding.dart';
 import '../owner_screens/owner_restaurant_info/owner_restaurant_info.dart';
-import '../project_widgets.dart';
-import '../restaurant_screens/restaurant_orders_screen/restaurant_order.dart';
 import '../restaurant_screens/restaurant_tables_screen/restaurant_tables.dart';
 import '../user_screens/restaurant_screen/restaurants.dart';
 
@@ -35,7 +34,7 @@ class AuthChecker extends ConsumerWidget {
                             ? const OwnerRestaurantInfo()
                             : const OnboardingScreen(),
                         error: (e, s) => Text(e.toString()),
-                        loading: () => const LoadingIndicator(),
+                        loading: () => const CustomProgressIndicator(),
                       );
                 } else {
                   return const LoginScreen();
@@ -45,7 +44,7 @@ class AuthChecker extends ConsumerWidget {
               }
             },
             loading: () => const Scaffold(
-              body: Center(child: LoadingIndicator()),
+              body: Center(child: CustomProgressIndicator()),
             ),
             error: (Object error, StackTrace? stackTrace) =>
                 const LoginScreen(),
@@ -57,7 +56,7 @@ class AuthChecker extends ConsumerWidget {
       error: (e, s) => const LoginScreen(),
       loading: () => const Scaffold(
         body: Center(
-          child: LoadingIndicator(),
+          child: CustomProgressIndicator(),
         ),
       ),
     );

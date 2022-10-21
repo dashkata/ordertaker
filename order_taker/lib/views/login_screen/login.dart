@@ -17,46 +17,42 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) => UnfocusDetector(
         child: Scaffold(
-          body: Stack(
-            children: [
-              const BackgroundWidgetAuthPages(),
-              SafeArea(
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const WelcomeTextWidget(),
-                        Padding(
-                          padding: PaddingManager.p10,
-                          child: Material(
-                            elevation: 10,
-                            borderRadius: Styles.buildBorderRadius(30),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 30),
-                              decoration: contentContainerDecoration,
-                              width: double.infinity,
-                              child: Column(
-                                children: const [
-                                  EmailTextField(),
-                                  SizedBox(height: 30),
-                                  PasswordTextField(),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  LoginButton(),
-                                  RegisterButton()
-                                ],
+          backgroundColor: mainColor,
+          body: SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const WelcomeTextWidget(),
+                    Padding(
+                      padding: PaddingManager.p10,
+                      child: Material(
+                        elevation: 10,
+                        borderRadius: Styles.buildBorderRadius(30),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          decoration: contentContainerDecoration,
+                          width: double.infinity,
+                          child: Column(
+                            children: const [
+                              EmailTextField(),
+                              SizedBox(height: 30),
+                              PasswordTextField(),
+                              SizedBox(
+                                height: 20,
                               ),
-                            ),
+                              LoginButton(),
+                              RegisterButton()
+                            ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              )
-            ],
+              ),
+            ),
           ),
         ),
       );

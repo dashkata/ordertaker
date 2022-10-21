@@ -21,11 +21,14 @@ class _ProfileListTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final text = AppLocalizations.of(context)!;
     return ListTile(
-      leading: Icon(icon),
+      leading: Icon(
+        icon,
+        color: complementaryColor2,
+      ),
       title: AnimatedCrossFade(
         firstChild: Text(
           detail,
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headline2,
         ),
         secondChild: TextField(
           onChanged: (value) => ref

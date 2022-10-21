@@ -23,7 +23,7 @@ class TablesAlertDialog extends StatelessWidget {
               width: 200,
               child: ListView.builder(
                 itemCount: tables.length,
-                itemBuilder: (context, index) => NormalButtons(
+                itemBuilder: (context, index) => CustomButton(
                   buttonText: tables.keys.elementAt(index),
                   buttonFunc: tables.values.elementAt(index)
                       ? () => ref
@@ -38,7 +38,7 @@ class TablesAlertDialog extends StatelessWidget {
               ),
             ),
             error: (e, s) => Text(e.toString()),
-            loading: () => const LoadingIndicator(),
+            loading: () => const CustomProgressIndicator(),
           );
         },
       ),

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../providers/controller_providers.dart';
 import '../controllers/login_screen_providers.dart';
-import 'login_text.dart';
 
 class RegisterButton extends ConsumerWidget {
   const RegisterButton({
@@ -17,12 +15,16 @@ class RegisterButton extends ConsumerWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        LoginText(text: text.no_account),
+        Text(
+          text.no_account,
+          style: Theme.of(context).textTheme.headline3,
+        ),
         TextButton(
           onPressed: () =>
               ref.read(loginStateProvider.notifier).navigateToRegister(),
-          child: LoginText(
-            text: text.register,
+          child: Text(
+            text.register,
+            style: Theme.of(context).textTheme.headline1,
           ),
         )
       ],

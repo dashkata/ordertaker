@@ -9,7 +9,7 @@ class OrdersList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Material(
-        elevation: 10,
+        elevation: 5,
         borderRadius: Styles.buildBorderRadius(40),
         child: Container(
           width: double.infinity,
@@ -39,9 +39,9 @@ class OrdersList extends StatelessWidget {
                             ),
                             child: Text(
                               '${orders[ordersIndex].menuItems.keys.elementAt(menuIndex).itemTitle}'
-                              '- ${orders[ordersIndex].menuItems.keys.elementAt(menuIndex).itemPrice} '
-                              'x ${orders[ordersIndex].menuItems[orders[ordersIndex].menuItems.keys.elementAt(menuIndex)]}',
-                              style: Theme.of(context).textTheme.headline1,
+                              ' - ${orders[ordersIndex].menuItems.keys.elementAt(menuIndex).itemPrice} '
+                              'x${orders[ordersIndex].menuItems[orders[ordersIndex].menuItems.keys.elementAt(menuIndex)]}',
+                              style: Theme.of(context).textTheme.headline6,
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -53,7 +53,7 @@ class OrdersList extends StatelessWidget {
                 error: (e, s) => Text(
                   e.toString(),
                 ),
-                loading: () => const LoadingIndicator(),
+                loading: () => const CustomProgressIndicator(),
               );
             },
           ),

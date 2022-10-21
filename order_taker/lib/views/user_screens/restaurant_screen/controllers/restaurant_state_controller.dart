@@ -3,12 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../../models/restaurant_model.dart';
 import '../../../../themes/themes.dart';
+import '../../../custom_widgets/custom_alert_dialog.dart';
+import '../../../custom_widgets/custom_button.dart';
+import '../../../custom_widgets/custom_progress_indicator.dart';
 import '../../../project_widgets.dart';
 import '../../../resources/route_manager.dart';
 import '../../confirm_reservation_screen/confirm_reservation_arguments.dart';
 import '../../confirm_reservation_screen/controllers/confirm_reservation_providers.dart';
 import '../restaurants.dart';
 import 'restaurant_screen_providers.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RestaurantDialogNotifier extends StateNotifier<void> {
   RestaurantDialogNotifier() : super(null);
@@ -48,8 +52,8 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
           primaryColor: complementaryColor,
           buttonTheme:
               const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-          colorScheme: const ColorScheme.light(primary: complementaryColor)
-              .copyWith(secondary: complementaryColor),
+          colorScheme: const ColorScheme.light(primary: complementaryColor2)
+              .copyWith(secondary: complementaryColor2),
         ),
         child: child!,
       ),
@@ -60,7 +64,7 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
         builder: (context, child) => Theme(
           data: ThemeData.light().copyWith(
             colorScheme: const ColorScheme.light(
-              primary: mainColor,
+              primary: complementaryColor2,
               onSurface: accentBlackColor,
             ),
             buttonTheme: const ButtonThemeData(
@@ -121,11 +125,53 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
     String resTitle,
     BuildContext context,
   ) async {
+    final text = AppLocalizations.of(context)!;
     if (ref.read(userDateProvider) != '' && ref.read(peopleProvider) != 0) {
       await showDialog(
         context: context,
-        builder: (_) => TablesAlertDialog(
-          restaurantTitle: resTitle,
+        builder: (_) => CustomAlertDialog(
+          title: Center(
+            child: Text(
+              text.available_tables,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline5,
+            ),
+          ),
+          content: Consumer(
+            builder: (BuildContext context, WidgetRef ref, Widget? child) {
+              final AsyncValue<Map<String, bool>> availableTables =
+                  ref.watch(fetchFreeTablesProvider(resTitle));
+              return availableTables.when(
+                data: (tables) => SizedBox(
+                  width: double.maxFinite,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: tables.length,
+                        itemBuilder: (context, index) => CustomButton(
+                          buttonText: tables.keys.elementAt(index),
+                          buttonFunc: tables.values.elementAt(index)
+                              ? () => ref
+                                  .read(
+                                      restaurantDialogNotifierProvider.notifier)
+                                  .navigateToConfirm(
+                                    resTitle,
+                                    ref,
+                                    tables.keys.elementAt(index),
+                                  )
+                              : null,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                error: (e, s) => Text(e.toString()),
+                loading: () => const CustomProgressIndicator(),
+              );
+            },
+          ),
         ),
       );
     }
@@ -154,8 +200,7 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
       BuildContext context, Restaurant restaurant, WidgetRef ref) {
     showDialog(
       context: context,
-      builder: (BuildContext context) => AlertDialog(
-        backgroundColor: mainColor,
+      builder: (BuildContext context) => CustomAlertDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -166,19 +211,22 @@ class RestaurantDialogNotifier extends StateNotifier<void> {
           ],
         ),
         actions: [
-          Center(
-            child: Consumer(
-              builder: (context, ref, child) => ElevatedButton(
-                onPressed: () =>
-                    _confirmReservation(ref, restaurant.title, context),
-                style: ElevatedButton.styleFrom(
-                  shape: const StadiumBorder(),
-                  backgroundColor: complementaryColor,
-                  elevation: 10,
-                ),
-                child: Text(
-                  'Confirm reservation',
-                  style: Theme.of(context).textTheme.headline4,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10.0),
+            child: Center(
+              child: Consumer(
+                builder: (context, ref, child) => ElevatedButton(
+                  onPressed: () =>
+                      _confirmReservation(ref, restaurant.title, context),
+                  style: ElevatedButton.styleFrom(
+                    shape: const StadiumBorder(),
+                    backgroundColor: complementaryColor2,
+                    // elevation: 10,
+                  ),
+                  child: Text(
+                    'Confirm reservation',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
                 ),
               ),
             ),

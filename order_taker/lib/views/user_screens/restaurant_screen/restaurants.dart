@@ -6,6 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../Themes/themes.dart';
 import '../../../models/restaurant_model.dart';
 import '../../../providers/common_providers.dart';
+import '../../custom_widgets/custom_button.dart';
+import '../../custom_widgets/custom_drawer.dart';
+import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
@@ -27,34 +30,33 @@ class RestaurantScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          backgroundColor: appBarColor,
+          title: Text(
+            'Restaurants',
+            style: Theme.of(context).textTheme.headline5,
+          ),
         ),
         drawer: const CustomDrawer(),
-        body: Stack(
-          children: [
-            const BackgroundWidget(),
-            SafeArea(
-              child: Consumer(
-                builder: (context, ref, child) {
-                  final AsyncValue<List<Restaurant>> restaurants =
-                      ref.watch(fetchRestaurantsProvider);
-                  return restaurants.when(
-                    data: (data) => ListView.builder(
-                      itemCount: data.length,
-                      itemBuilder: (BuildContext context, int index) =>
-                          _RestaurantCard(
-                        restaurant: data[index],
-                      ),
-                    ),
-                    error: (e, s) => Text(
-                      e.toString(),
-                    ),
-                    loading: () => const LoadingIndicator(),
-                  );
-                },
-              ),
-            ),
-          ],
+        backgroundColor: mainColor,
+        body: SafeArea(
+          child: Consumer(
+            builder: (context, ref, child) {
+              final AsyncValue<List<Restaurant>> restaurants =
+                  ref.watch(fetchRestaurantsProvider);
+              return restaurants.when(
+                data: (data) => ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      _RestaurantCard(
+                    restaurant: data[index],
+                  ),
+                ),
+                error: (e, s) => Text(
+                  e.toString(),
+                ),
+                loading: () => const CustomProgressIndicator(),
+              );
+            },
+          ),
         ),
       );
 }

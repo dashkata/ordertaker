@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import '../../../Themes/themes.dart';
 import '../../../enums/image_type.dart';
 import '../../../models/menu_item_model.dart';
 import '../../../models/menu_section_model.dart';
 import '../../../providers/repository_providers.dart';
+import '../../custom_widgets/custom_alert_dialog.dart';
+import '../../custom_widgets/custom_button.dart';
+import '../../custom_widgets/custom_menu_card.dart';
+import '../../custom_widgets/custom_progress_indicator.dart';
+import '../../custom_widgets/custom_text_field.dart';
 import '../../project_widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -45,14 +51,21 @@ class OnboardingScreen extends ConsumerWidget {
             bodyWidget: const _PageThreeBody(),
           ),
         ],
-        done: const Text(
+        done: Text(
           'Done',
+          style: Theme.of(context).textTheme.headline1,
         ),
-        next: const Text(
+        next: Text(
           'Next',
+          style: Theme.of(context).textTheme.headline1,
         ),
-        back: const Text(
+        back: Text(
           'Back',
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        dotsDecorator: const DotsDecorator(
+          color: accentBlackColor,
+          activeColor: complementaryColor2
         ),
         showBackButton: true,
         onDone: () => ref

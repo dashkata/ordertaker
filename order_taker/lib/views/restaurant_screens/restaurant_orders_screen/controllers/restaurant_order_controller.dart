@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../providers/repository_providers.dart';
+import '../../../custom_widgets/custom_alert_dialog.dart';
+import '../../../custom_widgets/custom_button.dart';
+import '../../../custom_widgets/custom_progress_indicator.dart';
 import '../../../owner_screens/owner_onboarding/controllers/onboarding_providers.dart';
 import '../../../project_widgets.dart';
 import '../../../resources/route_manager.dart';
@@ -16,12 +19,18 @@ class RestaurantOrderNotifier extends StateNotifier<void> {
   void seeAdditionalMessages(BuildContext context, String additionalMessage) {
     showDialog(
       context: context,
-      builder: (BuildContext context) => AlertDialog(
-        title: const Text('Additional messages.'),
+      builder: (BuildContext context) => CustomAlertDialog(
+        title: Text(
+          'Additional messages',
+          style: Theme.of(context).textTheme.headline5,
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(additionalMessage),
+            Text(
+              additionalMessage,
+              style: Theme.of(context).textTheme.headline2,
+            ),
           ],
         ),
       ),
@@ -39,49 +48,62 @@ class RestaurantOrderNotifier extends StateNotifier<void> {
       builder: (BuildContext context) => Consumer(
         builder: (context, ref, child) =>
             _ref.watch(restaurantTitleProvider).when(
-                  data: (title) => SimpleDialog(
-                    title: Center(
-                      child: Text(
-                        'Current order status: $currentStatus',
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
+                  data: (title) => CustomAlertDialog(
+                    title: Column(
+                      children: [
+                        Center(
+                          child: Text(
+                            'Set order status',
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                        ),
+                        Center(
+                          child: Text(
+                            'Current status: $currentStatus',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        ),
+                      ],
                     ),
-                    children: [
-                      NormalButtons(
-                        buttonText: 'In progress',
-                        buttonFunc: () async {
-                          await _ref
-                              .read(firestoreRepositoryProvider)
-                              .updateOrderStatus(
-                                orderId,
-                                'In progress',
-                                tableId.toString(),
-                                title,
-                              );
+                    content: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CustomButton(
+                          buttonText: 'In progress',
+                          buttonFunc: () async {
+                            await _ref
+                                .read(firestoreRepositoryProvider)
+                                .updateOrderStatus(
+                                  orderId,
+                                  'In progress',
+                                  tableId.toString(),
+                                  title,
+                                );
 
-                          navigatorKey.currentState!.pop();
-                        },
-                      ),
-                      NormalButtons(
-                        buttonText: 'Completed',
-                        buttonFunc: () async {
-                          await _ref
-                              .read(firestoreRepositoryProvider)
-                              .updateOrderStatus(
-                                orderId,
-                                'Completed',
-                                tableId.toString(),
-                                title,
-                              );
-                          navigatorKey.currentState!.pop();
-                        },
-                      ),
-                    ],
+                            navigatorKey.currentState!.pop();
+                          },
+                        ),
+                        CustomButton(
+                          buttonText: 'Completed',
+                          buttonFunc: () async {
+                            await _ref
+                                .read(firestoreRepositoryProvider)
+                                .updateOrderStatus(
+                                  orderId,
+                                  'Completed',
+                                  tableId.toString(),
+                                  title,
+                                );
+                            navigatorKey.currentState!.pop();
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                   error: (e, s) => Text(
                     e.toString(),
                   ),
-                  loading: LoadingIndicator.new,
+                  loading: CustomProgressIndicator.new,
                 ),
       ),
     );

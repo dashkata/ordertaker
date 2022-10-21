@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../models/reservation_model.dart';
+import '../../../custom_widgets/custom_alert_dialog.dart';
 import '../../../resources/padding_manager.dart';
 import '../../../resources/route_manager.dart';
 
@@ -17,7 +18,7 @@ class MenuFunctionsNotifier extends StateNotifier<void> {
       context: context,
       builder: (context) => Padding(
         padding: PaddingManager.p8,
-        child: AlertDialog(
+        child: CustomAlertDialog(
           title: title,
           content: content,
           actions: actions,

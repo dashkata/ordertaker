@@ -17,7 +17,7 @@ class _ContainerPicture extends StatelessWidget {
             width: double.infinity,
             height: 200,
             decoration: const BoxDecoration(
-              color: complementaryColor,
+              color: complementaryColor2,
               borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(200),
                 bottomLeft: Radius.circular(200),
@@ -41,7 +41,7 @@ class _ContainerPicture extends StatelessWidget {
           Stack(
             alignment: AlignmentDirectional.bottomEnd,
             children: [
-              const ProfilePicture(
+              const CustomProfilePicture(
                 radius: 60,
               ),
               // Consumer(

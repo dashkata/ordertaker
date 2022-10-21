@@ -8,15 +8,15 @@ class _PageThreeButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final text = AppLocalizations.of(context)!;
-    return NormalButtons(
+    return CustomButton(
       buttonText: text.add_menu_item,
       buttonFunc: () =>
           ref.read(onboardingControllerProvider.notifier).addMenuDialog(
-                AlertDialog(
+                CustomAlertDialog(
                   title: Center(
                     child: Text(
                       text.add_menu_item,
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.headline5,
                     ),
                   ),
                   content: const _AlertDialogBody(),
@@ -44,7 +44,7 @@ class _AlertDialogBody extends ConsumerWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        TextFields(
+        CustomTextField(
           hintText: text.type_menu_item,
           icon: Icons.restaurant,
           obscure: false,
@@ -54,7 +54,7 @@ class _AlertDialogBody extends ConsumerWidget {
               .read(onboardingControllerProvider.notifier)
               .updateTextField(itemTypeProvider, value),
         ),
-        TextFields(
+        CustomTextField(
           hintText: text.title_menu_item,
           icon: Icons.restaurant,
           obscure: false,
@@ -64,7 +64,7 @@ class _AlertDialogBody extends ConsumerWidget {
               .read(onboardingControllerProvider.notifier)
               .updateTextField(itemTitleProvider, value),
         ),
-        TextFields(
+        CustomTextField(
           hintText: text.ingredients_menu_item,
           icon: Icons.restaurant,
           obscure: false,
@@ -74,7 +74,7 @@ class _AlertDialogBody extends ConsumerWidget {
               .read(onboardingControllerProvider.notifier)
               .updateTextField(itemIngredientsProvider, value),
         ),
-        TextFields(
+        CustomTextField(
           hintText: text.price_menu_item,
           icon: Icons.restaurant,
           obscure: false,
@@ -98,7 +98,7 @@ class _AlertDialogBody extends ConsumerWidget {
             ),
           ),
         ),
-        NormalButtons(
+        CustomButton(
           buttonText: 'Submit',
           buttonFunc: () async {
             await ref.read(onboardingControllerProvider.notifier).addMenuItem(
