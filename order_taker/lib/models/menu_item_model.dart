@@ -6,6 +6,7 @@ class OrderItem {
   final String itemIngredients;
   final String itemPrice;
   final String itemImage;
+  final bool available;
 
   OrderItem({
     required this.itemType,
@@ -13,6 +14,7 @@ class OrderItem {
     required this.itemIngredients,
     required this.itemPrice,
     required this.itemImage,
+    required this.available,
   });
 
   Map<String, dynamic> orderItemToMap() => {
@@ -21,6 +23,7 @@ class OrderItem {
         'itemIngredients': itemIngredients,
         'itemPrice': '$itemPrice lv.',
         'itemImage': itemImage,
+        'available': available,
       };
 
   factory OrderItem.fromMap(Map data) => OrderItem(
@@ -29,6 +32,7 @@ class OrderItem {
         itemIngredients: data['itemIngredients'],
         itemPrice: data['itemPrice'],
         itemImage: data['itemImage'],
+        available: data['available'],
       );
 
   @override

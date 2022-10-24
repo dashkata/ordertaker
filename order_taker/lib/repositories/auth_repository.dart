@@ -71,6 +71,7 @@ class AuthRepository {
   Future<String> adminSignUp({
     required String email,
     required String password,
+    required String restaurantTitle,
   }) async {
     final FirebaseApp tempApp = await Firebase.initializeApp(
       name: 'temporaryRegister',
@@ -81,6 +82,7 @@ class AuthRepository {
           .createUserWithEmailAndPassword(email: email, password: password);
       final FirestoreRepository tempRepo = FirestoreRepository();
       await tempRepo.setUserType('Restaurant', result.user!.uid);
+      await tempRepo.setRestaurantTitle(restaurantTitle, result.user!.uid);
       await FirebaseAuth.instanceFor(app: tempApp).signOut();
       await tempApp.delete();
       return 'Register successful, please verify your email address.';

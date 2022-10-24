@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/menu_item_model.dart';
+import '../../providers/auth_provider.dart';
 import '../../themes/themes.dart';
 import '../resources/padding_manager.dart';
+import '../resources/route_manager.dart';
 import '../resources/style_manager.dart';
+import '../restaurant_screens/restaurant_menu_screen/controllers/menu_screen_providers.dart';
 import '../user_screens/menu_screen/controllers/menu_screen_providers.dart';
+import 'custom_button.dart';
+import 'custom_progress_indicator.dart';
 
 class MenuCard extends ConsumerWidget {
   const MenuCard({
@@ -15,15 +20,73 @@ class MenuCard extends ConsumerWidget {
   final OrderItem orderItem;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Padding(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final asyncType = ref.watch(userTypeProvider);
+    return asyncType.when(
+      data: (type) => Padding(
         padding: PaddingManager.p4,
         child: GestureDetector(
-          onTap: () =>
-              ref.read(menuCardsControllerProvider.notifier).addMenuCard(
-                    orderItem,
-                  ),
+          onTap: type != 'Admin'
+              ? () {
+                  if (type == 'User') {
+                    if (orderItem.available) {
+                      ref
+                          .read(menuCardsControllerProvider.notifier)
+                          .addMenuCard(
+                            orderItem,
+                          );
+                    }
+                  } else {
+                    ref
+                        .read(restaurantMenuStateNotifierProvider.notifier)
+                        .statusDialog(
+                          Center(
+                            child: Text(
+                              'Change status',
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CustomButton(
+                                buttonText: 'Available',
+                                buttonFunc: () async {
+                                  await ref
+                                      .read(
+                                        restaurantMenuStateNotifierProvider
+                                            .notifier,
+                                      )
+                                      .updateMenuItemStatus(
+                                        status: true,
+                                        item: orderItem,
+                                      );
+                                  navigatorKey.currentState!.pop();
+                                },
+                              ),
+                              CustomButton(
+                                buttonText: 'Not available',
+                                buttonFunc: () async {
+                                  await ref
+                                      .read(
+                                        restaurantMenuStateNotifierProvider
+                                            .notifier,
+                                      )
+                                      .updateMenuItemStatus(
+                                        status: false,
+                                        item: orderItem,
+                                      );
+                                  navigatorKey.currentState!.pop();
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                  }
+                }
+              : null,
           child: Card(
-            color: complementaryColor,
+            color: orderItem.available ? complementaryColor : Colors.grey[300],
             elevation: 10,
             shape: Styles.buildRoundedBorder(40),
             child: Row(
@@ -64,6 +127,13 @@ class MenuCard extends ConsumerWidget {
                           '(${orderItem.itemIngredients})',
                           style: Theme.of(context).textTheme.headline1,
                         ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'status: ${orderItem.available ? 'available' : 'not available'}',
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
                       ],
                     ),
                   ),
@@ -72,5 +142,9 @@ class MenuCard extends ConsumerWidget {
             ),
           ),
         ),
-      );
+      ),
+      error: (e, s) => Text(e.toString()),
+      loading: () => const CustomProgressIndicator(),
+    );
+  }
 }

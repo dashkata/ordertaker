@@ -10,6 +10,7 @@ import '../../custom_widgets/custom_drawer.dart';
 import '../../custom_widgets/custom_menu_card.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../project_widgets.dart';
+import '../../resources/style_manager.dart';
 import '../owner_onboarding/controllers/onboarding_providers.dart';
 import 'controllers/owner_restaurant_info_providers.dart';
 
@@ -18,19 +19,7 @@ class OwnerRestaurantInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        floatingActionButton: Consumer(
-          builder: (child, ref, context) => FloatingActionButton(
-            onPressed: () {
-              ref.read(authRepositoryProvider).signout();
-            },
-          ),
-        ),
-        appBar: AppBar(
-          title: Text(
-            'Restaurant information',
-            style: Theme.of(context).textTheme.headline5,
-          ),
-        ),
+        appBar: AppBar(),
         drawer: const CustomDrawer(),
         backgroundColor: mainColor,
         body: SafeArea(
@@ -44,7 +33,6 @@ class OwnerRestaurantInfo extends StatelessWidget {
                           ref.watch(menuProvider(title));
                       return asyncInfo.when(
                         data: (info) => ListView(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 20.0),
@@ -54,7 +42,7 @@ class OwnerRestaurantInfo extends StatelessWidget {
                                   Text(
                                     info.title,
                                     style:
-                                        Theme.of(context).textTheme.subtitle1,
+                                        Theme.of(context).textTheme.headline5,
                                   ),
                                 ],
                               ),
@@ -68,7 +56,7 @@ class OwnerRestaurantInfo extends StatelessWidget {
                               padding: const EdgeInsets.all(10.0),
                               child: Text(
                                 info.desc,
-                                style: Theme.of(context).textTheme.headline4,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                             ),
                             const Divider(
@@ -93,10 +81,22 @@ class OwnerRestaurantInfo extends StatelessWidget {
                               shrinkWrap: true,
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
                                 crossAxisCount: 3,
                               ),
-                              itemCount: 3,
-                              itemBuilder: (context, index) => Text("hello"),
+                              itemCount: info.photos.length,
+                              itemBuilder: (context, index) => DecoratedBox(
+                                decoration: BoxDecoration(
+                                  borderRadius: Styles.buildBorderRadius(30),
+                                  image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: NetworkImage(
+                                      info.photos[index],
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                             const Divider(
                               thickness: 2,
@@ -136,6 +136,15 @@ class OwnerRestaurantInfo extends StatelessWidget {
                               ),
                               loading: () => const CustomProgressIndicator(),
                             ),
+                            if (info.reviews != null)
+                              Column(
+                                children: List.generate(
+                                  info.reviews!.length,
+                                  (index) => Text(
+                                    info.reviews![index],
+                                  ),
+                                ),
+                              )
                           ],
                         ),
                         error: (e, s) => Text(e.toString()),

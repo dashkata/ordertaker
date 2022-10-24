@@ -13,7 +13,7 @@ final restaurantTablesNotifierProvider =
 );
 final fetchRestaurantTitleProvider = FutureProvider<String>(
   (ref) async =>
-      await ref.read(firestoreRepositoryProvider).fetchEmployeeRestaurantTitle(
+      await ref.read(firestoreRepositoryProvider).fetchRestaurantTitle(
             ref.read(authRepositoryProvider).getCurrentUser()!.uid,
           ),
 );

@@ -34,6 +34,7 @@ flutter_icons:
   ios: true
   image_path: assets/ikona.png
 flutter_native_splash:
+  android_12: true
   background_image: assets/Background2.png
   image: assets/eto.png
 flutter:

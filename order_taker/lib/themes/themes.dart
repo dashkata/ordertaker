@@ -56,36 +56,36 @@ ThemeData getThemeData() => ThemeData(
         elevation: 0,
       ),
       textTheme: TextTheme(
-        headline1: GoogleFonts.montserrat(
+        headline1: GoogleFonts.roboto(
           color: complementaryColor2,
           fontSize: 15,
           fontWeight: FontWeight.w700,
         ),
-        headline2: GoogleFonts.montserrat(
+        headline2: GoogleFonts.roboto(
           fontSize: 15,
           fontWeight: FontWeight.bold,
           color: accentBlackColor,
         ),
-        headline3: GoogleFonts.montserrat(
+        headline3: GoogleFonts.roboto(
           fontSize: 15,
           color: accentBlackColor,
         ),
-        headline4: GoogleFonts.montserrat(
+        headline4: GoogleFonts.roboto(
           fontSize: 15,
           fontWeight: FontWeight.bold,
           color: accentWhiteColor,
         ),
-        headline5: GoogleFonts.montserrat(
+        headline5: GoogleFonts.roboto(
           color: accentBlackColor,
           fontSize: 24,
           fontWeight: FontWeight.bold,
         ),
-        headline6: GoogleFonts.montserrat(
+        headline6: GoogleFonts.roboto(
           color: accentBlackColor,
           fontSize: 15,
           fontStyle: FontStyle.italic,
         ),
-        subtitle2: GoogleFonts.montserrat(
+        subtitle2: GoogleFonts.roboto(
           color: accentBlackColor,
           fontSize: 25,
           fontWeight: FontWeight.bold,

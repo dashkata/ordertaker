@@ -108,6 +108,7 @@ class _AlertDialogBody extends ConsumerWidget {
                     itemIngredients: itemIngredients,
                     itemPrice: itemPrice,
                     itemImage: itemImage,
+                    available: true,
                   ),
                 );
             Navigator.pop(context);
@@ -135,7 +136,6 @@ class _ImageAlertDialog extends ConsumerWidget {
                   .read(onboardingControllerProvider.notifier)
                   .addItemImage(
                     ImageTypes.camera,
-                    'Pizza Don Vito',
                     ref.read(
                       itemTitleProvider,
                     ),
@@ -151,7 +151,6 @@ class _ImageAlertDialog extends ConsumerWidget {
                   .read(onboardingControllerProvider.notifier)
                   .addItemImage(
                     ImageTypes.gallery,
-                    'Pizza Don Vito',
                     ref.read(
                       itemTitleProvider,
                     ),

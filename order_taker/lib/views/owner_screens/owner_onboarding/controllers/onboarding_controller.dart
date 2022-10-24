@@ -9,6 +9,7 @@ import '../../../../enums/image_type.dart';
 import '../../../../models/menu_item_model.dart';
 import '../../../../models/restaurant_model.dart';
 import '../../../../providers/repository_providers.dart';
+import '../../../custom_widgets/custom_alert_dialog.dart';
 import '../../../resources/route_manager.dart';
 import 'onboarding_providers.dart';
 
@@ -29,8 +30,7 @@ class OnboardingNotifier extends StateNotifier<void> {
   Future<void> pickItemImage(BuildContext context, Widget content) async {
     await showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: Text(''),
+      builder: (_) => CustomAlertDialog(
         content: content,
       ),
     );
@@ -38,7 +38,6 @@ class OnboardingNotifier extends StateNotifier<void> {
 
   Future<void> addItemImage(
     ImageTypes imageTypes,
-    String restaurantName,
     String itemName,
   ) async {
     XFile? image;
@@ -54,7 +53,11 @@ class OnboardingNotifier extends StateNotifier<void> {
       final downloadUrl =
           await _ref.read(storageRepositoryProvider).uploadItemImage(
                 photoFile: File(image!.path),
-                restaurantName: restaurantName,
+                restaurantName: await _ref
+                    .read(firestoreRepositoryProvider)
+                    .fetchRestaurantTitle(
+                      _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
+                    ),
                 itemName: itemName,
               );
       _ref.read(itemImageProvider.notifier).update((state) => downloadUrl);
@@ -89,11 +92,8 @@ class OnboardingNotifier extends StateNotifier<void> {
                 );
         downloadUrls.add(downloadUrl);
       }
-      await _ref.read(firestoreRepositoryProvider).addRestaurantPhoto(
-            downloadUrls,
-            await _ref.read(firestoreRepositoryProvider).fetchRestaurantTitle(
-                  _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
-                ),
+      _ref.read(restaurantPhotosProvider.notifier).update(
+            (state) => downloadUrls,
           );
     }
   }
@@ -111,9 +111,10 @@ class OnboardingNotifier extends StateNotifier<void> {
             website: _ref.read(restaurantWebsiteProvider),
             phoneNumber: _ref.read(restaurantPhoneNumberProvider),
             paymentMethods: _ref.read(restaurantPaymentProvider),
+            photos: _ref.read(restaurantPhotosProvider),
           ),
-          _ref.read(restaurantInsideTablesProvider) as int,
-          _ref.read(restaurantOutsideTablesProvider) as int,
+          int.parse(_ref.read(restaurantInsideTablesProvider)),
+          int.parse(_ref.read(restaurantOutsideTablesProvider)),
         );
     await _ref.read(firestoreRepositoryProvider).setOnBoarding(
           _ref.read(authRepositoryProvider).getCurrentUser()!.uid,

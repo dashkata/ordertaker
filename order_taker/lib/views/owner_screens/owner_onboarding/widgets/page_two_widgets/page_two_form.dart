@@ -104,6 +104,12 @@ class _PageTwoForm extends ConsumerWidget {
           obscure: false,
           textInputAction: TextInputAction.next,
         ),
+        CustomButton(
+          buttonText: 'Add restaurant pictures',
+          buttonFunc: () => ref
+              .read(onboardingControllerProvider.notifier)
+              .addRestaurantPictures(),
+        )
       ],
     );
   }

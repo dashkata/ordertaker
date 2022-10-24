@@ -5,6 +5,7 @@ import '../../../Themes/themes.dart';
 import '../../../providers/controller_providers.dart';
 import '../../../providers/repository_providers.dart';
 import '../../custom_widgets/custom_button.dart';
+import '../../custom_widgets/custom_drawer.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../project_widgets.dart';
 import '../restaurant_orders_screen/controllers/restaurant_orders_provider.dart';
@@ -16,10 +17,13 @@ class RestaurantTables extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => Scaffold(
-        floatingActionButton: Consumer(
-            builder: (context, ref, child) => FloatingActionButton(
-                  onPressed: () => ref.read(authRepositoryProvider).signout(),
-                )),
+        appBar: AppBar(
+          title: Text(
+            'Tables',
+            style: Theme.of(context).textTheme.headline5,
+          ),
+        ),
+        drawer: const CustomDrawer(),
         backgroundColor: mainColor,
         body: SafeArea(
           child: Center(
@@ -39,13 +43,11 @@ class RestaurantTables extends ConsumerWidget {
                             buttonFunc: () {
                               ref
                                   .read(
-                                    restaurantTablesNotifierProvider
-                                        .notifier,
+                                    restaurantTablesNotifierProvider.notifier,
                                   )
                                   .navigateToOrders(
                                     int.parse(
-                                      tables[index]
-                                          .replaceAll('Table ', ''),
+                                      tables[index].replaceAll('Table ', ''),
                                     ),
                                     title,
                                   );

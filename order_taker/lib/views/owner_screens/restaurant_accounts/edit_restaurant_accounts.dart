@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../Themes/themes.dart';
+import '../../custom_widgets/custom_alert_dialog.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/custom_drawer.dart';
 import '../../custom_widgets/custom_text_field.dart';
@@ -31,7 +32,7 @@ class EditRestaurantAccounts extends ConsumerWidget {
                   buttonText: 'Add an account',
                   buttonFunc: () => showDialog(
                     context: context,
-                    builder: (context) => const AlertDialog(
+                    builder: (context) => const CustomAlertDialog(
                       title: _AlertDialogTitle(),
                       content: _AlertDialogBody(),
                     ),

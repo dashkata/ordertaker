@@ -8,9 +8,17 @@ class EditAccountsNotifier extends StateNotifier<void> {
         super(null);
   final StateNotifierProviderRef _ref;
 
-  Future<void> registerAccount(String email, String password) async {
-    await _ref
-        .read(authRepositoryProvider)
-        .adminSignUp(email: email, password: password);
+  Future<void> registerAccount(String email,
+      String password,
+      // String restaurantTitle,
+      ) async {
+    final restaurantTitle = await _ref.watch(firestoreRepositoryProvider)
+        .fetchRestaurantTitle(
+      _ref.watch(authRepositoryProvider).getCurrentUser()!.uid,);
+    await _ref.read(authRepositoryProvider).adminSignUp(
+      email: email,
+      password: password,
+      restaurantTitle: restaurantTitle,
+    );
   }
 }

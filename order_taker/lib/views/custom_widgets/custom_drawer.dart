@@ -39,10 +39,10 @@ class CustomDrawer extends ConsumerWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    user.displayName!,
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
+                  // Text(
+                  //   user.displayName!,
+                  //   style: Theme.of(context).textTheme.headline5,
+                  // ),
                 ],
               ),
             ),
@@ -101,6 +101,33 @@ class CustomDrawer extends ConsumerWidget {
                       Navigator.popAndPushNamed(
                         context,
                         Routes.ownerEditAccounts,
+                      );
+                    },
+                  ),
+                ],
+              ),
+            if (userType == 'Restaurant')
+              Column(
+                children: [
+                  _DrawerTab(
+                    icon: Icons.info,
+                    titleText: 'Tables',
+                    func: () {
+                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(
+                        context,
+                        Routes.restaurantTables,
+                      );
+                    },
+                  ),
+                  _DrawerTab(
+                    icon: Icons.person,
+                    titleText: 'Menu',
+                    func: () {
+                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(
+                        context,
+                        Routes.restaurantMenu,
                       );
                     },
                   ),

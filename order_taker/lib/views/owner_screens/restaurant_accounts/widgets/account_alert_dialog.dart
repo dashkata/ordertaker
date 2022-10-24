@@ -4,7 +4,12 @@ class _AlertDialogTitle extends StatelessWidget {
   const _AlertDialogTitle({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => const Text('Add an account');
+  Widget build(BuildContext context) => Center(
+        child: Text(
+          'Add an account',
+          style: Theme.of(context).textTheme.headline5,
+        ),
+      );
 }
 
 class _AlertDialogBody extends ConsumerWidget {
@@ -36,20 +41,23 @@ class _AlertDialogBody extends ConsumerWidget {
                       (state) => value,
                     ),
           ),
-          Consumer(
-            builder: (context, ref, child) {
-              final email = ref.watch(restaurantEmailControllerProvider);
-              final password = ref.watch(restaurantPasswordControllerProvider);
-              return CustomButton(
-                buttonText: 'Confirm',
-                buttonFunc: () async {
-                  await ref
-                      .read(editAccountsControllerProvider.notifier)
-                      .registerAccount(email, password);
-                  Navigator.pop(context);
-                },
-              );
-            },
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Consumer(
+              builder: (context, ref, child) {
+                final email = ref.watch(restaurantEmailControllerProvider);
+                final password = ref.watch(restaurantPasswordControllerProvider);
+                return CustomButton(
+                  buttonText: 'Confirm',
+                  buttonFunc: () async {
+                    await ref
+                        .read(editAccountsControllerProvider.notifier)
+                        .registerAccount(email, password);
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            ),
           ),
         ],
       );

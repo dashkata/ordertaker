@@ -10,10 +10,10 @@ class MenuSection {
   });
 
   factory MenuSection.fromMap(Map data, String title) {
-    final dataItems = data[title];
+    final Map<String, dynamic> dataItems = data[title];
     final List<OrderItem> parsedItems = [];
-    for (final item in dataItems) {
-      parsedItems.add(OrderItem.fromMap(item));
+    for (final item in dataItems.keys) {
+      parsedItems.add(OrderItem.fromMap(dataItems[item]!));
     }
     return MenuSection(title: title, items: parsedItems);
   }

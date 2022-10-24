@@ -156,14 +156,7 @@ class FirestoreRepository {
         FirebaseFirestore.instance.doc(FirestorePath.restaurant(restaurant));
 
     return reservationRef.get().then(
-          (restaurantInfo) => Restaurant(
-            title: restaurantInfo['title'],
-            desc: restaurantInfo['description'],
-            openHours: restaurantInfo['openHours'],
-            paymentMethods: restaurantInfo['paymentMethods'],
-            phoneNumber: restaurantInfo['phoneNumber'],
-            website: restaurantInfo['website'],
-          ),
+          (restaurantInfo) => Restaurant.fromMap(restaurantInfo.data() ?? {}),
         );
   }
 
@@ -361,20 +354,20 @@ class FirestoreRepository {
         .set(
           restaurant.restaurantToMap(),
         );
-    for (int i = 0; i < insideTables; i++) {
-      await FirebaseFirestore.instance
-          .doc(FirestorePath.restaurantTable(i.toString(), restaurant.title))
-          .set({
-        'location': 'inside',
-      });
-    }
-    for (int i = 0; i < outsideTables; i++) {
-      await FirebaseFirestore.instance
-          .doc(FirestorePath.restaurantTable(i.toString(), restaurant.title))
-          .set({
-        'location': 'outside',
-      });
-    }
+    // for (int i = 0; i < insideTables; i++) {
+    //   await FirebaseFirestore.instance
+    //       .doc(FirestorePath.restaurantTable(i.toString(), restaurant.title))
+    //       .set({
+    //     'location': 'inside',
+    //   });
+    // }
+    // for (int i = 0; i < outsideTables; i++) {
+    //   await FirebaseFirestore.instance
+    //       .doc(FirestorePath.restaurantTable(i.toString(), restaurant.title))
+    //       .set({
+    //     'location': 'outside',
+    //   });
+    // }
   }
 
   Future<void> addMenuItem(OrderItem orderItem, String restaurant) async {
@@ -382,7 +375,9 @@ class FirestoreRepository {
         .doc(FirestorePath.restaurantMenuType(restaurant, orderItem.itemType))
         .set(
       {
-        orderItem.itemType: FieldValue.arrayUnion([orderItem.orderItemToMap()])
+        orderItem.itemType: {
+          orderItem.itemTitle: orderItem.orderItemToMap(),
+        }
       },
       SetOptions(merge: true),
     );
@@ -402,21 +397,6 @@ class FirestoreRepository {
           )
           .toList(),
     );
-  }
-
-  Future<void> addRestaurantPhoto(
-      List<String> urls, String restaurantTitle) async {
-    await FirebaseFirestore.instance
-        .doc(FirestorePath.restaurant(restaurantTitle))
-        .set(
-      {'photos': urls},
-    );
-  }
-
-  Future<String> fetchEmployeeRestaurantTitle(String uid) async {
-    final userRef =
-        await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).get();
-    return userRef.get('restaurant');
   }
 
   Future<List<String>> fetchTables(String restaurantTitle) async {
@@ -441,5 +421,19 @@ class FirestoreRepository {
       return true;
     }
     return false;
+  }
+
+  Future<void> changeMenuItemStatus({
+    required bool status,
+    required String restaurantTitle,
+    required OrderItem item,
+  }) async {
+    await FirebaseFirestore.instance
+        .doc(FirestorePath.restaurantMenuType(restaurantTitle, item.itemType))
+        .update(
+      {
+        '${item.itemType}.${item.itemTitle}.available': status,
+      },
+    );
   }
 }
