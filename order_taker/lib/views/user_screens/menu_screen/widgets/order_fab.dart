@@ -95,6 +95,7 @@ class _OrderFABContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final text = AppLocalizations.of(context)!;
     final menuCards = ref.watch(menuCardsControllerProvider);
     return SingleChildScrollView(
       child: SizedBox(
@@ -141,7 +142,7 @@ class _OrderFABContent extends ConsumerWidget {
               ),
             ),
             CustomTextField(
-              hintText: 'Additional messages',
+              hintText: text.additional_messages,
               icon: Icons.message,
               obscure: false,
               inputType: TextInputType.text,

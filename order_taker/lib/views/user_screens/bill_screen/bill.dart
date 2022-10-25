@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../models/order_model.dart';
 import '../../../models/reservation_model.dart';
@@ -26,11 +27,12 @@ class BillScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final reservation =
         ModalRoute.of(context)!.settings.arguments as Reservation;
+    final text = AppLocalizations.of(context)!;
     return UnfocusDetector(
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Bill',
+            text.bill,
             style: Theme.of(context).textTheme.headline5,
           ),
         ),

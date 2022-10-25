@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../models/reservation_model.dart';
 import '../../../providers/repository_providers.dart';
@@ -24,6 +25,7 @@ class RestaurantReservations extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final text = AppLocalizations.of(context)!;
     final restaurantOrderArguments =
         ModalRoute.of(context)!.settings.arguments as RestaurantOrderArguments;
     return Scaffold(
@@ -39,7 +41,7 @@ class RestaurantReservations extends ConsumerWidget {
         child: Column(
           children: [
             Text(
-              'Table ${restaurantOrderArguments.id} reservations',
+              '${text.tables} ${restaurantOrderArguments.id} ${text.reservations}',
               style: Theme.of(context).textTheme.headline5,
             ),
             Consumer(

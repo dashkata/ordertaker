@@ -92,3 +92,28 @@ ThemeData getThemeData() => ThemeData(
         ),
       ),
     );
+
+Theme dateCalendarTheme(Widget child) => Theme(
+      data: ThemeData.light().copyWith(
+        primaryColor: complementaryColor,
+        buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+        colorScheme: const ColorScheme.light(primary: complementaryColor2)
+            .copyWith(secondary: complementaryColor2),
+      ),
+      child: child,
+    );
+
+Theme timeCalendarTheme(Widget child) => Theme(
+      data: ThemeData.light().copyWith(
+        colorScheme: const ColorScheme.light(
+          primary: complementaryColor2,
+          onSurface: accentBlackColor,
+        ),
+        buttonTheme: const ButtonThemeData(
+          colorScheme: ColorScheme.light(
+            primary: accentBlackColor,
+          ),
+        ),
+      ),
+      child: child,
+    );

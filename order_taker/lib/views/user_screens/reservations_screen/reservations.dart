@@ -21,31 +21,34 @@ class ReservationScreen extends StatelessWidget {
   const ReservationScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Reservations',
-            style: Theme.of(context).textTheme.headline5,
-          ),
+  Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          text.reservations,
+          style: Theme.of(context).textTheme.headline5,
         ),
-        drawer: const CustomDrawer(),
-        backgroundColor: mainColor,
-        body: SafeArea(
-          child: Consumer(
-            builder: (context, ref, child) {
-              final AsyncValue<List<Reservation>> reservations =
-                  ref.watch(fetchReservationProvider);
-              return reservations.when(
-                data: (data) => ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      _ReservationCard(reservation: data[index]),
-                ),
-                error: (e, s) => Text(e.toString()),
-                loading: () => const CustomProgressIndicator(),
-              );
-            },
-          ),
+      ),
+      drawer: const CustomDrawer(),
+      backgroundColor: mainColor,
+      body: SafeArea(
+        child: Consumer(
+          builder: (context, ref, child) {
+            final AsyncValue<List<Reservation>> reservations =
+                ref.watch(fetchReservationProvider);
+            return reservations.when(
+              data: (data) => ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (BuildContext context, int index) =>
+                    _ReservationCard(reservation: data[index]),
+              ),
+              error: (e, s) => Text(e.toString()),
+              loading: () => const CustomProgressIndicator(),
+            );
+          },
         ),
-      );
+      ),
+    );
+  }
 }

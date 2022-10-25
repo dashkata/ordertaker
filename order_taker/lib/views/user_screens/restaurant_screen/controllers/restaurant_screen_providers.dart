@@ -5,10 +5,10 @@ import '../../../../providers/repository_providers.dart';
 import '../../confirm_reservation_screen/controllers/confirm_reservation_providers.dart';
 import 'restaurant_state_controller.dart';
 
-final fetchRestaurantsProvider = StreamProvider.autoDispose<List<Restaurant>>(
+final restaurantListProvider = StreamProvider.autoDispose<List<Restaurant>>(
   (ref) => ref.watch(firestoreRepositoryProvider).fetchRestaurants(),
 );
-final fetchFreeTablesProvider =
+final freeTableListProvider =
     FutureProvider.family<Map<String, bool>, String>(
   (ref, restaurantTitle) async =>
       ref.watch(firestoreRepositoryProvider).fetchFreeTables(
@@ -17,9 +17,9 @@ final fetchFreeTablesProvider =
             '- ${ref.watch(confirmTimeProvider)}',
           ),
 );
-final restaurantDialogNotifierProvider =
-    StateNotifierProvider<RestaurantDialogNotifier, void>(
-  (ref) => RestaurantDialogNotifier(),
+final restaurantControllerProvider =
+    StateNotifierProvider<RestaurantScreenController, void>(
+  (ref) => RestaurantScreenController(),
 );
 
 final userDateProvider = StateProvider<String>((ref) => '');

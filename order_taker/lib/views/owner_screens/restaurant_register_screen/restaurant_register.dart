@@ -26,8 +26,7 @@ class RestaurantRegister extends ConsumerWidget {
     return UnfocusDetector(
       child: Scaffold(
         floatingActionButton: const _BackArrowFAB(),
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.miniStartTop,
+        floatingActionButtonLocation: FloatingActionButtonLocation.miniStartTop,
         body: SafeArea(
           child: Center(
             child: SingleChildScrollView(
@@ -39,7 +38,7 @@ class RestaurantRegister extends ConsumerWidget {
                       Padding(
                         padding: PaddingManager.p6,
                         child: Text(
-                          'Register a restaurant',
+                          text.register_restaurant,
                           style: GoogleFonts.roboto(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -109,7 +108,7 @@ class RestaurantRegister extends ConsumerWidget {
                               inputType: TextInputType.number,
                             ),
                             CustomTextField(
-                              hintText: 'Restaurant name',
+                              hintText: text.restaurant_name,
                               inputType: TextInputType.text,
                               textInputAction: TextInputAction.done,
                               icon: Icons.restaurant,

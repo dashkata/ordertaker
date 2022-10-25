@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../providers/auth_provider.dart';
 import '../../providers/repository_providers.dart';
 import '../../themes/themes.dart';
@@ -84,7 +84,7 @@ class CustomDrawer extends ConsumerWidget {
                 children: [
                   _DrawerTab(
                     icon: Icons.info,
-                    titleText: 'Restaurant information',
+                    titleText: text.restaurant_info,
                     func: () {
                       Navigator.pop(context);
                       Navigator.popAndPushNamed(
@@ -95,7 +95,7 @@ class CustomDrawer extends ConsumerWidget {
                   ),
                   _DrawerTab(
                     icon: Icons.person,
-                    titleText: 'Restaurant accounts',
+                    titleText: text.restaurant_accounts,
                     func: () {
                       Navigator.pop(context);
                       Navigator.popAndPushNamed(
@@ -111,7 +111,7 @@ class CustomDrawer extends ConsumerWidget {
                 children: [
                   _DrawerTab(
                     icon: Icons.info,
-                    titleText: 'Tables',
+                    titleText: text.tables,
                     func: () {
                       Navigator.pop(context);
                       Navigator.popAndPushNamed(
@@ -122,7 +122,7 @@ class CustomDrawer extends ConsumerWidget {
                   ),
                   _DrawerTab(
                     icon: Icons.person,
-                    titleText: 'Menu',
+                    titleText: text.menu,
                     func: () {
                       Navigator.pop(context);
                       Navigator.popAndPushNamed(

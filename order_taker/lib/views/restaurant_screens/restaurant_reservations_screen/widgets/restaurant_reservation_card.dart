@@ -13,47 +13,49 @@ class _RestaurantReservationCard extends ConsumerWidget {
   Widget build(
     BuildContext context,
     WidgetRef ref,
-  ) =>
-      Padding(
-        padding: PaddingManager.p11,
-        child: GestureDetector(
-          onTap: () async => await ref
-                  .read(firestoreRepositoryProvider)
-                  .checkForCurrentReservation(args.restaurantTitle, args.id)
-              ? await showDialog(
-                  context: context,
-                  builder: (_) => CardAlertDialog(
-                    reservation: reservation,
-                    args: args,
-                  ),
-                )
-              : null,
-          child: Card(
-            color: complementaryColor,
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40),
-            ),
-            child: Padding(
-              padding: PaddingManager.p4,
-              child: Column(
-                children: [
-                  Text(
-                    'Client name - ${reservation.name}',
-                    style: Theme.of(context).textTheme.headline2,
-                  ),
-                  Text(
-                    'Reservation date - ${reservation.date}',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  Text(
-                    'Number of people - ${reservation.numberOfPeople.toString()}',
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                ],
-              ),
+  ) {
+    final text = AppLocalizations.of(context)!;
+    return Padding(
+      padding: PaddingManager.p11,
+      child: GestureDetector(
+        onTap: () async => await ref
+                .read(firestoreRepositoryProvider)
+                .checkForCurrentReservation(args.restaurantTitle, args.id)
+            ? await showDialog(
+                context: context,
+                builder: (_) => CardAlertDialog(
+                  reservation: reservation,
+                  args: args,
+                ),
+              )
+            : null,
+        child: Card(
+          color: complementaryColor,
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40),
+          ),
+          child: Padding(
+            padding: PaddingManager.p4,
+            child: Column(
+              children: [
+                Text(
+                  '${text.client_name} - ${reservation.name}',
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+                Text(
+                  '${text.reservation_date} - ${reservation.date}',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                Text(
+                  '${text.number_of_people} - ${reservation.numberOfPeople.toString()}',
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+              ],
             ),
           ),
         ),
-      );
+      ),
+    );
+  }
 }

@@ -18,7 +18,7 @@ final restaurantWebsiteProvider = StateProvider<String>((ref) => '');
 final restaurantPhoneNumberProvider = StateProvider<String>((ref) => '');
 final restaurantOutsideTablesProvider = StateProvider<String>((ref) => '');
 final restaurantInsideTablesProvider = StateProvider<String>((ref) => '');
-final restaurantPhotosProvider = StateProvider<List<String>>go((ref) => []);
+final restaurantPhotosProvider = StateProvider<List<String>>((ref) => []);
 
 final onboardingControllerProvider =
     StateNotifierProvider<OnboardingNotifier, void>(

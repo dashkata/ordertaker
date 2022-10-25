@@ -29,7 +29,7 @@ class ProfileScreen extends ConsumerWidget {
     final AsyncValue mobileNumber = ref.watch(phoneNumberProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile', style: Theme.of(context).textTheme.headline5,),
+        title: Text(text.profile, style: Theme.of(context).textTheme.headline5,),
       ),
       drawer: const CustomDrawer(),
       body: SafeArea(

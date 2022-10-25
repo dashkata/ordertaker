@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/menu_item_model.dart';
 import '../../providers/auth_provider.dart';
@@ -22,6 +23,7 @@ class MenuCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncType = ref.watch(userTypeProvider);
+    final text = AppLocalizations.of(context)!;
     return asyncType.when(
       data: (type) => Padding(
         padding: PaddingManager.p4,
@@ -42,7 +44,7 @@ class MenuCard extends ConsumerWidget {
                         .statusDialog(
                           Center(
                             child: Text(
-                              'Change status',
+                              text.change_status,
                               style: Theme.of(context).textTheme.headline5,
                             ),
                           ),
@@ -50,7 +52,7 @@ class MenuCard extends ConsumerWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               CustomButton(
-                                buttonText: 'Available',
+                                buttonText: text.available,
                                 buttonFunc: () async {
                                   await ref
                                       .read(
@@ -65,7 +67,7 @@ class MenuCard extends ConsumerWidget {
                                 },
                               ),
                               CustomButton(
-                                buttonText: 'Not available',
+                                buttonText: text.not_available,
                                 buttonFunc: () async {
                                   await ref
                                       .read(
@@ -131,7 +133,7 @@ class MenuCard extends ConsumerWidget {
                           height: 5,
                         ),
                         Text(
-                          'status: ${orderItem.available ? 'available' : 'not available'}',
+                          '${text.status}: ${orderItem.available ? text.available : text.not_available}',
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ],

@@ -10,77 +10,79 @@ class _OrderContainer extends ConsumerWidget {
   final int tableId;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Container(
-        decoration: contentContainerDecoration,
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                if (order.status == 'Completed')
-                  const Padding(
-                    padding: EdgeInsets.only(top: 5, right: 5),
-                    child: Icon(
-                      Icons.check_circle,
-                      size: 35,
-                      color: complementaryColor2,
-                    ),
-                  )
-                else
-                  const SizedBox.shrink(),
-              ],
-            ),
-            if (order.status != 'Completed')
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: _OrderTitle(
-                  orderNumber: order.id + 1,
-                ),
-              )
-            else
-              _OrderTitle(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final text = AppLocalizations.of(context)!;
+    return Container(
+      decoration: contentContainerDecoration,
+      width: double.infinity,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              if (order.status == 'Completed')
+                const Padding(
+                  padding: EdgeInsets.only(top: 5, right: 5),
+                  child: Icon(
+                    Icons.check_circle,
+                    size: 35,
+                    color: complementaryColor2,
+                  ),
+                )
+              else
+                const SizedBox.shrink(),
+            ],
+          ),
+          if (order.status != 'Completed')
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: _OrderTitle(
                 orderNumber: order.id + 1,
               ),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: order.menuItems.length,
-              itemBuilder: (BuildContext context, int index) =>
-                  RestaurantMenuItem(
-                item: order.menuItems.keys.elementAt(index).itemTitle,
-                count: order.menuItems[order.menuItems.keys.elementAt(index)]!,
-              ),
+            )
+          else
+            _OrderTitle(
+              orderNumber: order.id + 1,
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 5.0),
-              child: CustomButton(
-                buttonText: 'See additional messages',
-                buttonFunc: () => ref
-                    .read(restaurantOrderNotifierProvider.notifier)
-                    .seeAdditionalMessages(
-                      context,
-                      order.additionalMessage,
-                    ),
-              ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: order.menuItems.length,
+            itemBuilder: (BuildContext context, int index) =>
+                RestaurantMenuItem(
+              item: order.menuItems.keys.elementAt(index).itemTitle,
+              count: order.menuItems[order.menuItems.keys.elementAt(index)]!,
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              child: CustomButton(
-                buttonText: 'Set status',
-                buttonFunc: () async => await ref
-                    .read(restaurantOrderNotifierProvider.notifier)
-                    .setStatus(
-                      order.id,
-                      order.status,
-                      tableId,
-                      context,
-                    ),
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20, bottom: 5.0),
+            child: CustomButton(
+              buttonText: text.additional_messages,
+              buttonFunc: () => ref
+                  .read(restaurantOrderNotifierProvider.notifier)
+                  .seeAdditionalMessages(
+                    context,
+                    order.additionalMessage,
+                  ),
             ),
-          ],
-        ),
-      );
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: CustomButton(
+              buttonText: text.set_status,
+              buttonFunc: () async => await ref
+                  .read(restaurantOrderNotifierProvider.notifier)
+                  .setStatus(
+                    order.id,
+                    order.status,
+                    tableId,
+                    context,
+                  ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _OrderTitle extends StatelessWidget {
@@ -91,12 +93,15 @@ class _OrderTitle extends StatelessWidget {
   final int orderNumber;
 
   @override
-  Widget build(BuildContext context) => Center(
-        child: Text(
-          'Order $orderNumber',
-          style: Theme.of(context).textTheme.headline5,
-        ),
-      );
+  Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
+    return Center(
+      child: Text(
+        '${text.order} $orderNumber',
+        style: Theme.of(context).textTheme.headline5,
+      ),
+    );
+  }
 }
 
 class _OrderButton extends StatelessWidget {

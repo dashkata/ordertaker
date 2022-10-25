@@ -93,13 +93,13 @@ class _AlertDialogBody extends ConsumerWidget {
                   const _ImageAlertDialog(),
                 ),
             child: Text(
-              'Add menu item picture',
+              text.picture_menu_item,
               style: Theme.of(context).textTheme.headline3,
             ),
           ),
         ),
         CustomButton(
-          buttonText: 'Submit',
+          buttonText: text.submit,
           buttonFunc: () async {
             await ref.read(onboardingControllerProvider.notifier).addMenuItem(
                   OrderItem(

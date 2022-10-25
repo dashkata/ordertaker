@@ -89,7 +89,7 @@ class _PageTwoForm extends ConsumerWidget {
                   ),
           inputType: TextInputType.number,
           icon: Icons.table_bar,
-          hintText: 'How many tables are outside?',
+          hintText: text.outside_tables,
           obscure: false,
           textInputAction: TextInputAction.next,
         ),
@@ -100,12 +100,12 @@ class _PageTwoForm extends ConsumerWidget {
                   ),
           inputType: TextInputType.number,
           icon: Icons.table_restaurant,
-          hintText: 'How many tables are inside?',
+          hintText: text.inside_tables,
           obscure: false,
           textInputAction: TextInputAction.next,
         ),
         CustomButton(
-          buttonText: 'Add restaurant pictures',
+          buttonText: text.restaurant_pictures,
           buttonFunc: () => ref
               .read(onboardingControllerProvider.notifier)
               .addRestaurantPictures(),

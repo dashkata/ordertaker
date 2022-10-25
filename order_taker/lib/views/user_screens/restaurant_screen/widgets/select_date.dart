@@ -1,7 +1,7 @@
 part of '../restaurants.dart';
 
-class SelectDateWidget extends ConsumerWidget {
-  const SelectDateWidget({
+class _SelectDateWidget extends ConsumerWidget {
+  const _SelectDateWidget({
     required this.restaurant,
     Key? key,
   }) : super(key: key);
@@ -30,7 +30,7 @@ class SelectDateWidget extends ConsumerWidget {
           ),
         ),
         onTap: () => ref
-            .read(restaurantDialogNotifierProvider.notifier)
+            .read(restaurantControllerProvider.notifier)
             .showDateTimePicker(context, ref, restaurant),
       ),
     );

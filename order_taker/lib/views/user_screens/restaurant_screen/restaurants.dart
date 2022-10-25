@@ -6,10 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../Themes/themes.dart';
 import '../../../models/restaurant_model.dart';
 import '../../../providers/common_providers.dart';
+import '../../custom_widgets/custom_alert_dialog.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/custom_drawer.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
-import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
 import 'controllers/restaurant_screen_providers.dart';
@@ -24,39 +24,49 @@ part 'widgets/number_of_people.dart';
 
 part 'widgets/free_tables.dart';
 
+part 'widgets/detail_dialog_parts.dart';
+
 class RestaurantScreen extends StatelessWidget {
   const RestaurantScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Restaurants',
-            style: Theme.of(context).textTheme.headline5,
-          ),
+  Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          text.restaurants,
+          style: Theme
+              .of(context)
+              .textTheme
+              .headline5,
         ),
-        drawer: const CustomDrawer(),
-        backgroundColor: mainColor,
-        body: SafeArea(
-          child: Consumer(
-            builder: (context, ref, child) {
-              final AsyncValue<List<Restaurant>> restaurants =
-                  ref.watch(fetchRestaurantsProvider);
-              return restaurants.when(
-                data: (data) => ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      _RestaurantCard(
-                    restaurant: data[index],
+      ),
+      drawer: const CustomDrawer(),
+      backgroundColor: mainColor,
+      body: SafeArea(
+        child: Consumer(
+          builder: (context, ref, child) {
+            final AsyncValue<List<Restaurant>> restaurants =
+            ref.watch(restaurantListProvider);
+            return restaurants.when(
+              data: (data) =>
+                  ListView.builder(
+                    itemCount: data.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                        _RestaurantCard(
+                          restaurant: data[index],
+                        ),
                   ),
-                ),
-                error: (e, s) => Text(
-                  e.toString(),
-                ),
-                loading: () => const CustomProgressIndicator(),
-              );
-            },
-          ),
+              error: (e, s) =>
+                  Text(
+                    e.toString(),
+                  ),
+              loading: () => const CustomProgressIndicator(),
+            );
+          },
         ),
-      );
+      ),
+    );
+  }
 }

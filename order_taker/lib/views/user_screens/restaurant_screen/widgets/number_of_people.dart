@@ -1,7 +1,7 @@
 part of '../restaurants.dart';
 
-class NumberOfPeopleWidget extends ConsumerWidget {
-  const NumberOfPeopleWidget({
+class _NumberOfPeopleWidget extends ConsumerWidget {
+  const _NumberOfPeopleWidget({
     Key? key,
   }) : super(key: key);
 

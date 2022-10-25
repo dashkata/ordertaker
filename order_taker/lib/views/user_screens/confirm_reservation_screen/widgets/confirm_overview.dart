@@ -1,4 +1,5 @@
 part of '../confirm_reservation.dart';
+
 class _ConfirmOverview extends StatelessWidget {
   const _ConfirmOverview({
     Key? key,
@@ -13,39 +14,39 @@ class _ConfirmOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: PaddingManager.p9,
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(
-              restaurantPic.value,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: PaddingManager.p9,
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(
+                restaurantPic.value,
+              ),
+              radius: 45,
             ),
-            radius: 45,
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 5, top: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                reservationInfo.restaurantTitle,
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 5.0),
-                child: _DetailRow(
-                  reservationInfo: reservationInfo,
-                  text: text,
+          Padding(
+            padding: const EdgeInsets.only(left: 5, top: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  reservationInfo.restaurantTitle,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
-              ),
-              Text(
-                'Selected table: ${reservationInfo.tableId}',
-              ),
-            ],
-          ),
-        )
-      ],
-    );
+                Padding(
+                  padding: const EdgeInsets.only(top: 5.0),
+                  child: _DetailRow(
+                    reservationInfo: reservationInfo,
+                    text: text,
+                  ),
+                ),
+                Text(
+                  '${text.selected_table}: ${reservationInfo.tableId}',
+                ),
+              ],
+            ),
+          )
+        ],
+      );
 }
