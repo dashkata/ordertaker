@@ -40,7 +40,7 @@
     "enter_the_number_of_people" : "Enter the number of people.",
     "select_date" : "Select a date for your reservation",
     "restaurants" : "Restaurants",
-    "reservations" : "reservations",
+    "reservations" : "Reservations",
     "profile" : "Profile",
     "log_out" : "Log out",
     "overview" : "Overview",
@@ -87,7 +87,8 @@
     "reservation_date" : "Reservation date",
     "number_of_people" : "Number of people",
     "bill" : "Bill",
-    "selected_table" : "Selected table"
-
-
+    "selected_table" : "Selected table",
+    "cancel_reservation_question" : "Are you sure you want to cancel your reservation?",
+    "confirm" : "Confirm",
+    "remove_item" : "Are you sure you want to remove this item from the menu?"
 }

@@ -133,10 +133,10 @@ class RestaurantScreenController extends StateNotifier<void> {
     );
   }
 
-  void navigateToRestaurantInfo(String restaurantTitle) {
+  void navigateToRestaurantInfo({required Restaurant restaurant}) {
     navigatorKey.currentState!.pushNamed(
-      Routes.userRestaurantInfo,
-      arguments: restaurantTitle,
+      Routes.ownerRestaurantInfo,
+      arguments: restaurant,
     );
   }
 }

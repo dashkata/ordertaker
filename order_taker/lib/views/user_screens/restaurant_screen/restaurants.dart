@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:readmore/readmore.dart';
 
 import '../../../Themes/themes.dart';
 import '../../../models/restaurant_model.dart';
@@ -10,6 +11,7 @@ import '../../custom_widgets/custom_alert_dialog.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/custom_drawer.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
+import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
 import 'controllers/restaurant_screen_providers.dart';
@@ -36,10 +38,7 @@ class RestaurantScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           text.restaurants,
-          style: Theme
-              .of(context)
-              .textTheme
-              .headline5,
+          style: Theme.of(context).textTheme.headline5,
         ),
       ),
       drawer: const CustomDrawer(),
@@ -48,20 +47,22 @@ class RestaurantScreen extends StatelessWidget {
         child: Consumer(
           builder: (context, ref, child) {
             final AsyncValue<List<Restaurant>> restaurants =
-            ref.watch(restaurantListProvider);
+                ref.watch(restaurantListProvider);
             return restaurants.when(
-              data: (data) =>
-                  ListView.builder(
-                    itemCount: data.length,
-                    itemBuilder: (BuildContext context, int index) =>
-                        _RestaurantCard(
-                          restaurant: data[index],
-                        ),
-                  ),
-              error: (e, s) =>
-                  Text(
-                    e.toString(),
-                  ),
+              data: (data) => data.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: data.length,
+                      itemBuilder: (BuildContext context, int index) =>
+                          _RestaurantCard(
+                        restaurant: data[index],
+                      ),
+                    )
+                  : const Center(
+                      child: Text('No restaurants'),
+                    ),
+              error: (e, s) => ErrorAlertDialog(
+                errorMessage: e.toString(),
+              ),
               loading: () => const CustomProgressIndicator(),
             );
           },

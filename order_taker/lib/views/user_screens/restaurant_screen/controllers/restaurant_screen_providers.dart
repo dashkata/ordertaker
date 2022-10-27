@@ -8,8 +8,7 @@ import 'restaurant_state_controller.dart';
 final restaurantListProvider = StreamProvider.autoDispose<List<Restaurant>>(
   (ref) => ref.watch(firestoreRepositoryProvider).fetchRestaurants(),
 );
-final freeTableListProvider =
-    FutureProvider.family<Map<String, bool>, String>(
+final freeTableListProvider = FutureProvider.family<Map<String, bool>, String>(
   (ref, restaurantTitle) async =>
       ref.watch(firestoreRepositoryProvider).fetchFreeTables(
             restaurantTitle,
@@ -22,6 +21,6 @@ final restaurantControllerProvider =
   (ref) => RestaurantScreenController(),
 );
 
-final userDateProvider = StateProvider<String>((ref) => '');
+final userDateProvider = StateProvider.autoDispose<String>((ref) => '');
 
-final peopleProvider = StateProvider<int>((ref) => 0);
+final peopleProvider = StateProvider.autoDispose<int>((ref) => 0);

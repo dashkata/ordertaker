@@ -7,8 +7,8 @@ final loginEmailControllerProvider =
     StateProvider.autoDispose<String>((ref) => '');
 final loginPasswordControllerProvider =
     StateProvider.autoDispose<String>((ref) => '');
-final loginStateProvider = StateNotifierProvider<LoginStateNotifier, void>(
-  (ref) => LoginStateNotifier(
+final loginControllerProvider = StateNotifierProvider<LoginController, void>(
+  (ref) => LoginController(
     authRepository: ref.watch(
       authRepositoryProvider,
     ),

@@ -21,14 +21,7 @@ final restaurantInsideTablesProvider = StateProvider<String>((ref) => '');
 final restaurantPhotosProvider = StateProvider<List<String>>((ref) => []);
 
 final onboardingControllerProvider =
-    StateNotifierProvider<OnboardingNotifier, void>(
-  (ref) => OnboardingNotifier(ref: ref),
+    StateNotifierProvider<OnboardingController, void>(
+  (ref) => OnboardingController(ref: ref),
 );
-final fetchMenuProvider = StreamProvider.family<List<MenuSection>, String>(
-  (ref, title) => ref.watch(firestoreRepositoryProvider).fetchMenu(title),
-);
-final restaurantTitleProvider = FutureProvider<String>(
-  (ref) async => ref.watch(firestoreRepositoryProvider).fetchRestaurantTitle(
-        ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
-      ),
-);
+

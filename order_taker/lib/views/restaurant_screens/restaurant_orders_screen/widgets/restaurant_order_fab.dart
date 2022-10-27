@@ -15,13 +15,13 @@ class _RestaurantOrderFABRow extends ConsumerWidget {
           RestaurantOrderFAB(
             icon: Icons.table_bar,
             onPressed: () => ref
-                .read(restaurantOrderNotifierProvider.notifier)
+                .read(restaurantOrderControllerProvider.notifier)
                 .navigateToTables(),
             heroTag: 'orderFab1',
           ),
           RestaurantOrderFAB(
             onPressed: () => ref
-                .read(restaurantOrderNotifierProvider.notifier)
+                .read(restaurantOrderControllerProvider.notifier)
                 .navigateToReservations(restaurantOrderArguments),
             icon: Icons.note_alt_outlined,
             heroTag: 'orderFab2',

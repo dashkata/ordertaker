@@ -34,7 +34,7 @@ class RestaurantOrders extends StatelessWidget {
         child: Consumer(
           builder: (context, ref, child) {
             final AsyncValue<List<Order>> orders = ref.watch(
-              fetchRestaurantOrdersProvider(restaurantOrderArguments),
+              restaurantOrdersProvider(restaurantOrderArguments),
             );
             return RefreshIndicator(
               color: accentBlackColor,
@@ -68,13 +68,13 @@ class RestaurantOrders extends StatelessWidget {
                     ),
                   );
                 },
-                error: (e, s) => Text(
-                  e.toString(),
+                error: (e, s) => ErrorAlertDialog(
+                  errorMessage: e.toString(),
                 ),
                 loading: () => const CustomProgressIndicator(),
               ),
               onRefresh: () async => ref.refresh(
-                fetchRestaurantOrdersProvider(restaurantOrderArguments),
+                restaurantOrdersProvider(restaurantOrderArguments),
               ),
             );
           },

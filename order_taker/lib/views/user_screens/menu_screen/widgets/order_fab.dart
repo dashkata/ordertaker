@@ -18,7 +18,7 @@ class _OrderFAB extends StatelessWidget {
             heroTag: null,
             backgroundColor: complementaryColor,
             onPressed: () =>
-                ref.read(menuFunctionsProvider.notifier).showOrderFABDialog(
+                ref.read(menuControllerProvider.notifier).showOrderFABDialog(
                       const _OrderFABContent(),
                       [
                         _OrderFABActions(reservation: reservation),
@@ -35,7 +35,7 @@ class _OrderFAB extends StatelessWidget {
         ),
         Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            final menuList = ref.watch(menuCardsControllerProvider);
+            final menuList = ref.watch(menuOrderStateProvider);
             int count = 0;
             for (final item in menuList.keys) {
               count += menuList[item]!;
@@ -80,7 +80,7 @@ class _OrderFABActions extends StatelessWidget {
             CustomButton(
           buttonText: text.complete_order,
           buttonFunc: () => ref
-              .read(menuCardsControllerProvider.notifier)
+              .read(menuOrderStateProvider.notifier)
               .completeOrder(reservation),
         ),
       ),
@@ -96,7 +96,7 @@ class _OrderFABContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final text = AppLocalizations.of(context)!;
-    final menuCards = ref.watch(menuCardsControllerProvider);
+    final menuCards = ref.watch(menuOrderStateProvider);
     return SingleChildScrollView(
       child: SizedBox(
         width: double.maxFinite,
@@ -127,7 +127,7 @@ class _OrderFABContent extends ConsumerWidget {
                         ),
                         IconButton(
                           onPressed: () => ref
-                              .read(menuCardsControllerProvider.notifier)
+                              .read(menuOrderStateProvider.notifier)
                               .removeMenuCard(menuCards.keys.elementAt(index)),
                           icon: const Icon(
                             Icons.exposure_minus_1,

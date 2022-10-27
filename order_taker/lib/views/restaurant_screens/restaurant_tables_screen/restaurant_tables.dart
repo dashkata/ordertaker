@@ -6,6 +6,7 @@ import '../../../Themes/themes.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/custom_drawer.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
+import '../../project_widgets.dart';
 import 'controllers/restaurant_tables_providers.dart';
 
 class RestaurantTables extends ConsumerWidget {
@@ -27,7 +28,7 @@ class RestaurantTables extends ConsumerWidget {
         child: Center(
           child: Consumer(
             builder: (context, ref, child) =>
-                ref.watch(fetchRestaurantTitleProvider).when(
+                ref.watch(restaurantTitleProvider).when(
                       data: (title) {
                         final asyncTables = ref.watch(
                           tablesProvider(title),
@@ -40,7 +41,7 @@ class RestaurantTables extends ConsumerWidget {
                               buttonFunc: () {
                                 ref
                                     .read(
-                                      restaurantTablesNotifierProvider.notifier,
+                                      restaurantTablesControllerProvider.notifier,
                                     )
                                     .navigateToOrders(
                                       int.parse(
@@ -51,11 +52,15 @@ class RestaurantTables extends ConsumerWidget {
                               },
                             ),
                           ),
-                          error: (e, s) => Text(e.toString()),
+                          error: (e, s) => ErrorAlertDialog(
+                            errorMessage: e.toString(),
+                          ),
                           loading: CustomProgressIndicator.new,
                         );
                       },
-                      error: (e, s) => Text(e.toString()),
+                      error: (e, s) => ErrorAlertDialog(
+                        errorMessage: e.toString(),
+                      ),
                       loading: CustomProgressIndicator.new,
                     ),
           ),

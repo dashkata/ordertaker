@@ -1,7 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-//
-// import '../../../project_widgets.dart';
 part of '../bill.dart';
 
 class PayButton extends ConsumerWidget {
@@ -19,7 +15,7 @@ class PayButton extends ConsumerWidget {
       child: CustomButton(
         buttonText: text.pay,
         buttonFunc: () =>
-            ref.read(billScreenProvider.notifier).pay(reservation),
+            ref.read(billScreenControllerProvider.notifier).pay(reservation),
       ),
     );
   }

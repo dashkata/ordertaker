@@ -12,29 +12,41 @@ class _TablesAlertDialog extends ConsumerWidget {
     final AsyncValue<Map<String, bool>> availableTables =
         ref.watch(freeTableListProvider(restaurantTitle));
     final text = AppLocalizations.of(context)!;
-    return AlertDialog(
-      title: Text(text.available_tables),
+    return CustomAlertDialog(
+      title: Center(
+        child: Text(
+          text.available_tables,
+          style: Theme.of(context).textTheme.headline5,
+        ),
+      ),
       content: availableTables.when(
         data: (tables) => SizedBox(
-          height: 300,
           width: 200,
-          child: ListView.builder(
-            itemCount: tables.length,
-            itemBuilder: (context, index) => CustomButton(
-              buttonText: tables.keys.elementAt(index),
-              buttonFunc: tables.values.elementAt(index)
-                  ? () => ref
-                      .read(restaurantControllerProvider.notifier)
-                      .navigateToConfirm(
-                        restaurantTitle,
-                        ref,
-                        tables.keys.elementAt(index),
-                      )
-                  : null,
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: tables.length,
+                itemBuilder: (context, index) => CustomButton(
+                  buttonText: tables.keys.elementAt(index),
+                  buttonFunc: tables.values.elementAt(index)
+                      ? () => ref
+                          .read(restaurantControllerProvider.notifier)
+                          .navigateToConfirm(
+                            restaurantTitle,
+                            ref,
+                            tables.keys.elementAt(index),
+                          )
+                      : null,
+                ),
+              ),
+            ],
           ),
         ),
-        error: (e, s) => Text(e.toString()),
+        error: (e, s) => ErrorAlertDialog(
+          errorMessage: e.toString(),
+        ),
         loading: () => const CustomProgressIndicator(),
       ),
     );

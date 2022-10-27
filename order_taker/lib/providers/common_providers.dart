@@ -13,3 +13,8 @@ final menuProvider = StreamProvider.family<List<MenuSection>, String>(
         restaurantTitle,
       ),
 );
+final restaurantTitleProvider = FutureProvider<String>(
+      (ref) async => ref.watch(firestoreRepositoryProvider).fetchRestaurantTitle(
+    ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
+  ),
+);

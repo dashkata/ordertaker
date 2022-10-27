@@ -2,8 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../providers/repository_providers.dart';
 
-class EditAccountsNotifier extends StateNotifier<void> {
-  EditAccountsNotifier({required StateNotifierProviderRef ref})
+class EditAccountsController extends StateNotifier<void> {
+  EditAccountsController({required StateNotifierProviderRef ref})
       : _ref = ref,
         super(null);
   final StateNotifierProviderRef _ref;

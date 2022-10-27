@@ -436,4 +436,13 @@ class FirestoreRepository {
       },
     );
   }
+
+  Future<void> removeMenuItem(
+      {required OrderItem item, required String restaurantTitle}) async {
+    await FirebaseFirestore.instance
+        .doc(FirestorePath.restaurantMenuType(restaurantTitle, item.itemType))
+        .update({
+      '${item.itemType}.${item.itemTitle}': FieldValue.delete(),
+    });
+  }
 }

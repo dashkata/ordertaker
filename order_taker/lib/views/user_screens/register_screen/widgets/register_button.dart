@@ -28,37 +28,39 @@ class _RegisterButton extends ConsumerWidget {
       child: CustomButton(
         buttonText: text.register,
         buttonFunc: () async {
-          await ref
-              .read(
-                userRegisterProvider.notifier,
-              )
-              .register(
-                email,
-                password,
-                mobileNumber,
-                firstName,
-                lastName,
-              )
-              .then(
-                (value) => ScaffoldMessenger.of(
+          if (email != '' &&
+              password != '' &&
+              firstName != '' &&
+              lastName != '' &&
+              mobileNumber != '') {
+            await ref
+                .read(
+                  userRegisterControllerProvider.notifier,
+                )
+                .register(
+                  email,
+                  password,
+                  mobileNumber,
+                  firstName,
+                  lastName,
                   context,
-                ).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                      'Register successful',
+                )
+                .catchError(
+                  (e) => showDialog(
+                    context: context,
+                    builder: (_) => ErrorAlertDialog(
+                      errorMessage: e.toString(),
                     ),
                   ),
-                ),
-                onError: (e, s) => ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      e.toString(),
-                    ),
-                  ),
-                ),
-              );
+                );
+          } else {
+            await showDialog(
+              context: context,
+              builder: (_) => const ErrorAlertDialog(
+                errorMessage: 'Please enter text in all fields!',
+              ),
+            );
+          }
         },
       ),
     );

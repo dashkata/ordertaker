@@ -26,8 +26,8 @@ class _DetailsDialog extends ConsumerWidget {
           child: Center(
             child: Consumer(
               builder: (context, ref, child) => ElevatedButton(
-                onPressed: ref.read(userDateProvider) != '' &&
-                        ref.read(peopleProvider) != 0
+                onPressed: ref.watch(userDateProvider) != '' &&
+                        ref.watch(peopleProvider) != 0
                     ? () {
                         ref
                             .read(restaurantControllerProvider.notifier)

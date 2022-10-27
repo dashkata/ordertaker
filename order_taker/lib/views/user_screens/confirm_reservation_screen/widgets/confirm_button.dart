@@ -17,7 +17,7 @@ class _ConfirmButton extends ConsumerWidget {
         child: CustomButton(
           buttonText: text.confirm_reservation,
           buttonFunc: () =>
-              ref.read(userConfirmReservationProvider.notifier).addReservation(
+              ref.read(userConfirmReservationControllerProvider.notifier).addReservation(
                     Reservation(
                       name: name,
                       restaurant: reservationInfo.restaurantTitle,

@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/repository_providers.dart';
 import '../../themes/themes.dart';
+import '../project_widgets.dart';
 import '../resources/route_manager.dart';
 import 'custom_progress_indicator.dart';
 import 'profile_picture.dart';
@@ -66,7 +67,9 @@ class CustomDrawer extends ConsumerWidget {
                     func: () {
                       Navigator.pop(context);
                       Navigator.popAndPushNamed(
-                          context, Routes.userReservations);
+                        context,
+                        Routes.userReservations,
+                      );
                     },
                   ),
                   _DrawerTab(
@@ -102,6 +105,14 @@ class CustomDrawer extends ConsumerWidget {
                         context,
                         Routes.ownerEditAccounts,
                       );
+                    },
+                  ),
+                  _DrawerTab(
+                    icon: Icons.person,
+                    titleText: text.profile,
+                    func: () {
+                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(context, Routes.profile);
                     },
                   ),
                 ],
@@ -145,7 +156,9 @@ class CustomDrawer extends ConsumerWidget {
           ],
         ),
       ),
-      error: (e, s) => Text(e.toString()),
+      error: (e, s) => ErrorAlertDialog(
+        errorMessage: e.toString(),
+      ),
       loading: () => const CustomProgressIndicator(),
     );
   }

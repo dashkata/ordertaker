@@ -13,8 +13,8 @@ final restaurantReservationsProvider = StreamProvider.family
 );
 
 final restaurantReservationsControllerProvider =
-    StateNotifierProvider<RestaurantReservationsNotifier, void>(
-  (ref) => RestaurantReservationsNotifier(
+    StateNotifierProvider<RestaurantReservationsController, void>(
+  (ref) => RestaurantReservationsController(
     firestoreRepository: ref.watch(
       firestoreRepositoryProvider,
     ),

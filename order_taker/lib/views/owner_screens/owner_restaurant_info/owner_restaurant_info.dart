@@ -1,161 +1,160 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../models/menu_section_model.dart';
-import '../../../models/restaurant_info_model.dart';
 import '../../../models/restaurant_model.dart';
-import '../../../providers/repository_providers.dart';
+import '../../../providers/common_providers.dart';
 import '../../../themes/themes.dart';
+import '../../custom_widgets/add_menu_button.dart';
 import '../../custom_widgets/custom_drawer.dart';
 import '../../custom_widgets/custom_menu_card.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../project_widgets.dart';
 import '../../resources/style_manager.dart';
-import '../owner_onboarding/controllers/onboarding_providers.dart';
 import 'controllers/owner_restaurant_info_providers.dart';
+
+part 'widgets/description_icon.dart';
+
+part 'widgets/section_button.dart';
+
+part 'widgets/details_section.dart';
+
+part 'widgets/menu_section.dart';
+
+part 'widgets/reviews_section.dart';
 
 class OwnerRestaurantInfo extends StatelessWidget {
   const OwnerRestaurantInfo({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(),
-        drawer: const CustomDrawer(),
-        backgroundColor: mainColor,
-        body: SafeArea(
-          child: Consumer(
-            builder: (context, ref, child) {
-              final AsyncValue<Restaurant> asyncInfo =
-                  ref.watch(restaurantInformationProvider);
-              return ref.watch(restaurantTitleProvider).when(
-                    data: (title) {
-                      final AsyncValue<List<MenuSection>> asyncMenu =
-                          ref.watch(menuProvider(title));
-                      return asyncInfo.when(
-                        data: (info) => ListView(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    info.title,
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
-                                  ),
-                                ],
-                              ),
+  Widget build(BuildContext context) {
+    final Restaurant? restaurant =
+        ModalRoute.of(context)!.settings.arguments as Restaurant?;
+    return Stack(
+      alignment: AlignmentDirectional.center,
+      children: [
+        Scaffold(
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.miniStartTop,
+          floatingActionButton: Builder(
+            builder: (context) => restaurant != null
+                ? IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      color: complementaryColor,
+                    ),
+                  )
+                : IconButton(
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                    icon: const Icon(
+                      Icons.menu,
+                      color: complementaryColor,
+                    ),
+                  ),
+          ),
+          drawer: const CustomDrawer(),
+          backgroundColor: mainColor,
+          body: Stack(
+            children: [
+              Image(
+                height: MediaQuery.of(context).size.height / 3,
+                image: const AssetImage(
+                  'assets/PizzaDonVito.jpg',
+                ),
+                fit: BoxFit.cover,
+              ),
+              Container(
+                height: double.maxFinite,
+                width: double.maxFinite,
+                margin: const EdgeInsets.only(
+                  top: 200,
+                  bottom: 100,
+                  left: 40,
+                  right: 40,
+                ),
+                decoration: BoxDecoration(
+                  color: complementaryColor,
+                  borderRadius: Styles.buildBorderRadius(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    final sectionId = ref.watch(sectionIdProvider);
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if (restaurant != null) ...[
+                          if (sectionId == 0)
+                            _DetailsSection(
+                              restaurant: restaurant,
                             ),
-                            const Divider(
-                              thickness: 2,
-                              color: accentBlackColor,
-                              height: 50,
+                          if (sectionId == 1)
+                            _MenuSection(
+                              restaurant: restaurant,
+                              admin: false,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text(
-                                info.desc,
-                                style: Theme.of(context).textTheme.headline6,
-                              ),
-                            ),
-                            const Divider(
-                              thickness: 2,
-                              color: accentBlackColor,
-                              height: 50,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Text(
-                                    'Photos from the restaurant',
-                                    style:
-                                        Theme.of(context).textTheme.subtitle2,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            GridView.builder(
-                              shrinkWrap: true,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
-                                crossAxisCount: 3,
-                              ),
-                              itemCount: info.photos.length,
-                              itemBuilder: (context, index) => DecoratedBox(
-                                decoration: BoxDecoration(
-                                  borderRadius: Styles.buildBorderRadius(30),
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                      info.photos[index],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Divider(
-                              thickness: 2,
-                              color: accentBlackColor,
-                              height: 50,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Menu',
-                                  style: Theme.of(context).textTheme.subtitle2,
-                                ),
-                              ],
-                            ),
-                            const Divider(
-                              thickness: 2,
-                              color: accentBlackColor,
-                              height: 50,
-                            ),
-                            asyncMenu.when(
-                              data: (menu) => ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: menu.length,
-                                itemBuilder: (_, index) => Column(
-                                  children: List.generate(
-                                    menu[index].items.length,
-                                    (indexSelection) => MenuCard(
-                                      orderItem:
-                                          menu[index].items[indexSelection],
-                                    ),
+                          if (sectionId == 2) const _ReviewsSection(),
+                        ] else
+                          ref.watch(restaurantInformationProvider).when(
+                                data: (restaurantInfo) => Expanded(
+                                  child: Column(
+                                    children: [
+                                      if (sectionId == 0)
+                                        _DetailsSection(
+                                          restaurant: restaurantInfo,
+                                        ),
+                                      if (sectionId == 1)
+                                        _MenuSection(
+                                          restaurant: restaurantInfo,
+                                          admin: true,
+                                        ),
+                                      if (sectionId == 2)
+                                        const _ReviewsSection(),
+                                    ],
                                   ),
                                 ),
-                              ),
-                              error: (e, s) => Text(
-                                e.toString(),
-                              ),
-                              loading: () => const CustomProgressIndicator(),
-                            ),
-                            if (info.reviews != null)
-                              Column(
-                                children: List.generate(
-                                  info.reviews!.length,
-                                  (index) => Text(
-                                    info.reviews![index],
-                                  ),
+                                error: (e, s) => ErrorAlertDialog(
+                                  errorMessage: e.toString(),
                                 ),
-                              )
-                          ],
-                        ),
-                        error: (e, s) => Text(e.toString()),
-                        loading: () => const CustomProgressIndicator(),
-                      );
-                    },
-                    error: (e, s) => Text(e.toString()),
-                    loading: () => const CustomProgressIndicator(),
-                  );
-            },
+                                loading: () => const CustomProgressIndicator(),
+                              ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: const [
+                              _SectionButton(
+                                sectionText: 'Details',
+                                id: 0,
+                              ),
+                              _SectionButton(
+                                sectionText: 'Menu',
+                                id: 1,
+                              ),
+                              _SectionButton(
+                                sectionText: 'Reviews',
+                                id: 2,
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
-      );
+      ],
+    );
+  }
 }

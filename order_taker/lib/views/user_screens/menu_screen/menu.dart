@@ -44,7 +44,7 @@ class MenuScreen extends StatelessWidget {
         child: Consumer(
           builder: (context, ref, child) {
             final AsyncValue<List<MenuSection>> asyncMenu = ref.watch(
-              fetchMenuProvider(reservation.restaurant),
+              menuListProvider(reservation.restaurant),
             );
             return asyncMenu.when(
               data: (menu) => ListView.builder(
@@ -54,7 +54,9 @@ class MenuScreen extends StatelessWidget {
                   menuList: menu[index].items,
                 ),
               ),
-              error: (e, s) => Text(e.toString()),
+              error: (e, s) => ErrorAlertDialog(
+                errorMessage: e.toString(),
+              ),
               loading: CustomProgressIndicator.new,
             );
           },

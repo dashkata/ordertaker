@@ -118,6 +118,7 @@ class AppRouter {
       case Routes.ownerRestaurantInfo:
         return MaterialPageRoute(
           builder: (_) => const OwnerRestaurantInfo(),
+          settings: settings,
         );
       case Routes.ownerEditAccounts:
         return MaterialPageRoute(

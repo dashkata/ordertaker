@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../repositories/auth_repository.dart';
 import '../../../../repositories/firestore_repository.dart';
+import '../../../project_widgets.dart';
 import '../../../resources/route_manager.dart';
 
-class UserRegisterScreenNotifier extends StateNotifier<void> {
-  UserRegisterScreenNotifier({
+class UserRegisterController extends StateNotifier<void> {
+  UserRegisterController({
     required AuthRepository authRepository,
     required FirestoreRepository firestoreRepository,
   })  : _authRepository = authRepository,
@@ -31,6 +33,7 @@ class UserRegisterScreenNotifier extends StateNotifier<void> {
     String mobileNumber,
     String firstName,
     String lastName,
+    BuildContext context,
   ) async {
     await _authRepository
         .signUp(
@@ -56,7 +59,9 @@ class UserRegisterScreenNotifier extends StateNotifier<void> {
           (value) => _authRepository.updateUserName(
             name: '$firstName $lastName',
           ),
+        )
+        .then(
+          (value) => navigateToAuth(),
         );
-    navigateToAuth();
   }
 }

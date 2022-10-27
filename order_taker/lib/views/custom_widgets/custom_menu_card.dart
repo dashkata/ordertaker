@@ -30,63 +30,31 @@ class MenuCard extends ConsumerWidget {
         child: GestureDetector(
           onTap: type != 'Admin'
               ? () {
-                  if (type == 'User') {
+                  if (type == 'Customer') {
                     if (orderItem.available) {
-                      ref
-                          .read(menuCardsControllerProvider.notifier)
-                          .addMenuCard(
+                      ref.read(menuOrderStateProvider.notifier).addMenuCard(
                             orderItem,
                           );
                     }
                   } else {
                     ref
-                        .read(restaurantMenuStateNotifierProvider.notifier)
+                        .read(restaurantMenuControllerProvider.notifier)
                         .statusDialog(
-                          Center(
-                            child: Text(
-                              text.change_status,
-                              style: Theme.of(context).textTheme.headline5,
-                            ),
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              CustomButton(
-                                buttonText: text.available,
-                                buttonFunc: () async {
-                                  await ref
-                                      .read(
-                                        restaurantMenuStateNotifierProvider
-                                            .notifier,
-                                      )
-                                      .updateMenuItemStatus(
-                                        status: true,
-                                        item: orderItem,
-                                      );
-                                  navigatorKey.currentState!.pop();
-                                },
-                              ),
-                              CustomButton(
-                                buttonText: text.not_available,
-                                buttonFunc: () async {
-                                  await ref
-                                      .read(
-                                        restaurantMenuStateNotifierProvider
-                                            .notifier,
-                                      )
-                                      .updateMenuItemStatus(
-                                        status: false,
-                                        item: orderItem,
-                                      );
-                                  navigatorKey.currentState!.pop();
-                                },
-                              ),
-                            ],
-                          ),
+                          _StatusDialogTitle(text: text),
+                          _StatusDialogContent(
+                              text: text, orderItem: orderItem),
                         );
                   }
                 }
-              : null,
+              : () => ref
+                  .read(restaurantMenuControllerProvider.notifier)
+                  .removeItemDialog(
+                    _RemoveDialogTitle(text: text),
+                    _RemoveDialogContent(
+                      text: text,
+                      orderItem: orderItem,
+                    ),
+                  ),
           child: Card(
             color: orderItem.available ? complementaryColor : Colors.grey[300],
             elevation: 10,
@@ -149,4 +117,120 @@ class MenuCard extends ConsumerWidget {
       loading: () => const CustomProgressIndicator(),
     );
   }
+}
+
+class _StatusDialogContent extends ConsumerWidget {
+  const _StatusDialogContent({
+    Key? key,
+    required this.text,
+    required this.orderItem,
+  }) : super(key: key);
+
+  final AppLocalizations text;
+  final OrderItem orderItem;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CustomButton(
+            buttonText: text.available,
+            buttonFunc: () async {
+              await ref
+                  .read(
+                    restaurantMenuControllerProvider.notifier,
+                  )
+                  .updateMenuItemStatus(
+                    status: true,
+                    item: orderItem,
+                  );
+              navigatorKey.currentState!.pop();
+            },
+          ),
+          CustomButton(
+            buttonText: text.not_available,
+            buttonFunc: () async {
+              await ref
+                  .read(
+                    restaurantMenuControllerProvider.notifier,
+                  )
+                  .updateMenuItemStatus(
+                    status: false,
+                    item: orderItem,
+                  );
+              navigatorKey.currentState!.pop();
+            },
+          ),
+        ],
+      );
+}
+
+class _StatusDialogTitle extends StatelessWidget {
+  const _StatusDialogTitle({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
+
+  final AppLocalizations text;
+
+  @override
+  Widget build(BuildContext context) => Center(
+        child: Text(
+          text.change_status,
+          style: Theme.of(context).textTheme.headline5,
+        ),
+      );
+}
+
+class _RemoveDialogContent extends ConsumerWidget {
+  const _RemoveDialogContent({
+    Key? key,
+    required this.text,
+    required this.orderItem,
+  }) : super(key: key);
+
+  final AppLocalizations text;
+  final OrderItem orderItem;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CustomButton(
+            buttonText: text.cancel,
+            buttonFunc: () => navigatorKey.currentState!.pop(),
+          ),
+          CustomButton(
+            buttonText: text.confirm,
+            buttonFunc: () async {
+              await ref
+                  .read(
+                    restaurantMenuControllerProvider.notifier,
+                  )
+                  .removeMenuItem(
+                    item: orderItem,
+                  );
+              navigatorKey.currentState!.pop();
+            },
+          ),
+        ],
+      );
+}
+
+class _RemoveDialogTitle extends StatelessWidget {
+  const _RemoveDialogTitle({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
+
+  final AppLocalizations text;
+
+  @override
+  Widget build(BuildContext context) => Center(
+        child: Text(
+          text.change_status,
+          style: Theme.of(context).textTheme.headline5,
+        ),
+      );
 }

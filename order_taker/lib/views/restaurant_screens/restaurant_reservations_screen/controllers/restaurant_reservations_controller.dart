@@ -5,8 +5,8 @@ import '../../../../repositories/firestore_repository.dart';
 import '../../../resources/route_manager.dart';
 import '../../restaurant_orders_screen/restaurant_order_arguments.dart';
 
-class RestaurantReservationsNotifier extends StateNotifier<void> {
-  RestaurantReservationsNotifier({
+class RestaurantReservationsController extends StateNotifier<void> {
+  RestaurantReservationsController({
     required FirestoreRepository firestoreRepository,
   })  : _firestoreRepository = firestoreRepository,
         super(null);

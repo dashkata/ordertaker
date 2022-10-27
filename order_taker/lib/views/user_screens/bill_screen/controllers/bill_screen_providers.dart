@@ -12,6 +12,6 @@ final fetchOrdersProvider = StreamProvider.family<List<Order>, Reservation>(
       ),
 );
 
-final billScreenProvider = StateNotifierProvider<BillScreenNotifier, void>(
-  (ref) => BillScreenNotifier(ref: ref),
+final billScreenControllerProvider = StateNotifierProvider<BillScreenController, void>(
+  (ref) => BillScreenController(ref: ref),
 );

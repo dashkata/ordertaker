@@ -19,7 +19,7 @@ final restaurantRegisterPhoneControllerProvider =
 final restaurantRegisterNameControllerProvider =
     StateProvider.autoDispose<String>((ref) => '');
 
-final restaurantRegisterProvider =
-    StateNotifierProvider<RestaurantRegisterNotifier, void>(
-  (ref) => RestaurantRegisterNotifier(ref: ref),
+final restaurantRegisterControllerProvider =
+    StateNotifierProvider<RestaurantRegisterController, void>(
+  (ref) => RestaurantRegisterController(ref: ref),
 );

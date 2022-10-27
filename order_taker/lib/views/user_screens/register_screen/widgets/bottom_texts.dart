@@ -20,7 +20,7 @@ class _BottomTexts extends ConsumerWidget {
               ),
               TextButton(
                 onPressed: () =>
-                    ref.read(userRegisterProvider.notifier).navigateToLogin(),
+                    ref.read(userRegisterControllerProvider.notifier).navigateToLogin(),
                 child: Text(
                   text.login,
                   style: Theme.of(context).textTheme.headline1,
@@ -37,7 +37,7 @@ class _BottomTexts extends ConsumerWidget {
               ),
               TextButton(
                 onPressed: () => ref
-                    .read(userRegisterProvider.notifier)
+                    .read(userRegisterControllerProvider.notifier)
                     .navigateToRestaurantRegister(),
                 child: Text(
                   text.click_here,

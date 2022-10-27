@@ -32,7 +32,7 @@ class RestaurantReservations extends ConsumerWidget {
       floatingActionButton: RestaurantOrderFAB(
         icon: Icons.table_bar,
         onPressed: () => ref
-            .read(restaurantOrderNotifierProvider.notifier)
+            .read(restaurantOrderControllerProvider.notifier)
             .navigateToTables(),
         heroTag: 'orderFab1',
       ),
@@ -61,7 +61,9 @@ class RestaurantReservations extends ConsumerWidget {
                     ),
                     itemCount: reservations.length,
                   ),
-                  error: (e, s) => Text(e.toString()),
+                  error: (e, s) => ErrorAlertDialog(
+                    errorMessage: e.toString(),
+                  ),
                   loading: () => const CustomProgressIndicator(),
                 );
               },

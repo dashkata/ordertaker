@@ -7,11 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../models/menu_item_model.dart';
 import '../providers/auth_provider.dart';
+import 'custom_widgets/custom_alert_dialog.dart';
 import 'resources/style_manager.dart';
-
-
-
-
 
 class UnfocusDetector extends StatelessWidget {
   const UnfocusDetector({
@@ -27,8 +24,6 @@ class UnfocusDetector extends StatelessWidget {
       );
 }
 
-
-
 class ErrorAlertDialog extends StatelessWidget {
   const ErrorAlertDialog({
     required this.errorMessage,
@@ -37,21 +32,17 @@ class ErrorAlertDialog extends StatelessWidget {
   final String errorMessage;
 
   @override
-  Widget build(BuildContext context) => SimpleDialog(
+  Widget build(BuildContext context) => CustomAlertDialog(
         title: Center(
           child: Text(
             'An error has occurred',
             style: Theme.of(context).textTheme.headline5,
           ),
         ),
-        children: [
-          Center(
-            child: Text(
-              errorMessage,
-              style: Theme.of(context).textTheme.headline3,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
+        content: Text(
+          errorMessage,
+          style: Theme.of(context).textTheme.headline6,
+          textAlign: TextAlign.center,
+        ),
       );
 }

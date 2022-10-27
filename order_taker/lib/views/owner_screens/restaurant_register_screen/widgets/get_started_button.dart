@@ -1,4 +1,5 @@
 part of '../restaurant_register.dart';
+
 class _ConfirmButton extends ConsumerWidget {
   const _ConfirmButton({
     Key? key,
@@ -19,23 +20,46 @@ class _ConfirmButton extends ConsumerWidget {
       child: CustomButton(
         buttonText: 'Get Started',
         buttonFunc: () async {
-          await ref
-              .read(
-                restaurantRegisterProvider.notifier,
-              )
-              .signUp(
-                firstName,
-                lastName,
-                email,
-                password,
-                phoneNumber,
-                restaurantName,
-              );
-          ref
-              .read(
-                restaurantRegisterProvider.notifier,
-              )
-              .navigateToLogin();
+          if (firstName != '' &&
+              lastName != '' &&
+              email != '' &&
+              password != '' &&
+              phoneNumber != '' &&
+              restaurantName != '') {
+            await ref
+                .read(
+                  restaurantRegisterControllerProvider.notifier,
+                )
+                .signUp(
+                  firstName,
+                  lastName,
+                  email,
+                  password,
+                  phoneNumber,
+                  restaurantName,
+                )
+                .then(
+                  (value) => ref
+                      .read(
+                        restaurantRegisterControllerProvider.notifier,
+                      )
+                      .navigateToLogin(),
+                )
+                .catchError(
+                  (e) => showDialog(
+                    context: context,
+                    builder: (_) =>
+                        ErrorAlertDialog(errorMessage: e.toString()),
+                  ),
+                );
+          } else {
+            await showDialog(
+              context: context,
+              builder: (_) => const ErrorAlertDialog(
+                errorMessage: 'Please enter text in all fields!',
+              ),
+            );
+          }
         },
       ),
     );

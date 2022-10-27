@@ -10,7 +10,7 @@ class AuthRepository {
 
   Stream<User?> get authStateChange => _firebaseAuth.authStateChanges();
 
-  Future<String> signIn({
+  Future<void> signIn({
     required String email,
     required String password,
   }) async {
@@ -19,7 +19,6 @@ class AuthRepository {
         email: email,
         password: password,
       );
-      return 'Login successful';
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'wrong-password':
@@ -36,7 +35,7 @@ class AuthRepository {
     }
   }
 
-  Future<String> signUp({
+  Future<void> signUp({
     required String email,
     required String password,
   }) async {
@@ -45,26 +44,22 @@ class AuthRepository {
         email: email,
         password: password,
       );
-      return 'Register succesful, please verify your email address.';
     } on FirebaseAuthException catch (e) {
       String errorMessage;
       switch (e.code) {
         case 'email-already-in-use':
-          errorMessage =
-              'There is already a registration made with this email.';
+          throw 'There is already a registration made with this email.';
           break;
         case 'invalid-email':
-          errorMessage = 'The email you have entered is not valid.';
+          throw 'The email you have entered is not valid.';
           break;
         case 'weak-password':
-          errorMessage =
-              'The password you have entered is too weak, it must be at least 6 characters.';
+          throw 'The password you have entered is too weak, it must be at least 6 characters.';
           break;
 
         default:
-          errorMessage = 'An undefined Error happened.';
+          throw 'An undefined Error happened.';
       }
-      return errorMessage;
     }
   }
 
@@ -114,11 +109,10 @@ class AuthRepository {
     return 'Picture chaned succesfully';
   }
 
-  Future<String> updateUserName({
+  Future<void> updateUserName({
     required String name,
   }) async {
     await _firebaseAuth.currentUser?.updateDisplayName(name);
-    return 'Name changed succesfully';
   }
 
   Future<String> updatePassword({required String passowrd}) async {

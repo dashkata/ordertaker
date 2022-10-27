@@ -13,7 +13,7 @@ class _RestaurantCard extends ConsumerWidget {
         child: InkWell(
           onTap: () => ref
               .read(restaurantControllerProvider.notifier)
-              .navigateToRestaurantInfo(restaurant.title),
+              .navigateToRestaurantInfo(restaurant: restaurant),
           child: SizedBox(
             child: Card(
               clipBehavior: Clip.antiAlias,
@@ -62,9 +62,12 @@ class _RestaurantCard extends ConsumerWidget {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        ReadMoreText(
                           restaurant.desc,
                           style: Theme.of(context).textTheme.headline6,
+                          trimLength: 100,
+                          moreStyle: Theme.of(context).textTheme.headline1,
+                          lessStyle: Theme.of(context).textTheme.headline1,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,

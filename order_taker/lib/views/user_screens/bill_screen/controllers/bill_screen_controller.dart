@@ -4,8 +4,8 @@ import '../../../../models/reservation_model.dart';
 import '../../../../providers/repository_providers.dart';
 import '../../../resources/route_manager.dart';
 
-class BillScreenNotifier extends StateNotifier<void> {
-  BillScreenNotifier({required StateNotifierProviderRef ref})
+class BillScreenController extends StateNotifier<void> {
+  BillScreenController({required StateNotifierProviderRef ref})
       : _ref = ref,
         super(null);
   final StateNotifierProviderRef _ref;

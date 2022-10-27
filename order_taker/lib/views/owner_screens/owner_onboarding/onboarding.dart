@@ -7,11 +7,14 @@ import '../../../Themes/themes.dart';
 import '../../../enums/image_type.dart';
 import '../../../models/menu_item_model.dart';
 import '../../../models/menu_section_model.dart';
+import '../../../providers/common_providers.dart';
+import '../../custom_widgets/add_menu_button.dart';
 import '../../custom_widgets/custom_alert_dialog.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/custom_menu_card.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../custom_widgets/custom_text_field.dart';
+import '../../project_widgets.dart';
 import 'controllers/onboarding_providers.dart';
 
 part 'widgets/page_one_widgets/page_one_image.dart';
@@ -47,7 +50,7 @@ class OnboardingScreen extends ConsumerWidget {
         ),
         PageViewModel(
           titleWidget: const _PageThreeTitle(),
-          footer: const _PageThreeButton(),
+          footer: const AddMenuButton(),
           bodyWidget: const _PageThreeBody(),
         ),
       ],
@@ -64,7 +67,9 @@ class OnboardingScreen extends ConsumerWidget {
         style: Theme.of(context).textTheme.headline1,
       ),
       dotsDecorator: const DotsDecorator(
-          color: accentBlackColor, activeColor: complementaryColor2),
+        color: accentBlackColor,
+        activeColor: complementaryColor2,
+      ),
       showBackButton: true,
       onDone: () => ref
           .read(onboardingControllerProvider.notifier)

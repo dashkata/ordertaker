@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../models/menu_item_model.dart';
 import '../../../../models/order_model.dart';
@@ -7,8 +6,8 @@ import '../../../../providers/repository_providers.dart';
 import '../../../resources/route_manager.dart';
 import 'menu_screen_providers.dart';
 
-class MenuScreenNotifier extends StateNotifier<Map<OrderItem, int>> {
-  MenuScreenNotifier(this.ref) : super({});
+class MenuOrderStateNotifier extends StateNotifier<Map<OrderItem, int>> {
+  MenuOrderStateNotifier(this.ref) : super({});
   final Ref ref;
 
   void addMenuCard(OrderItem orderItem) {

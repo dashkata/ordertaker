@@ -8,6 +8,7 @@ import '../../custom_widgets/custom_drawer.dart';
 import '../../custom_widgets/custom_menu_card.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../owner_screens/owner_onboarding/controllers/onboarding_providers.dart';
+import '../../project_widgets.dart';
 
 class RestaurantMenu extends StatelessWidget {
   const RestaurantMenu({Key? key}) : super(key: key);
@@ -44,11 +45,15 @@ class RestaurantMenu extends StatelessWidget {
                       ),
                     ),
                   ),
-                  error: (e, s) => Text(e.toString()),
+                  error: (e, s) => ErrorAlertDialog(
+                    errorMessage: e.toString(),
+                  ),
                   loading: () => const CustomProgressIndicator(),
                 );
               },
-              error: (e, s) => Text(e.toString()),
+              error: (e, s) => ErrorAlertDialog(
+                errorMessage: e.toString(),
+              ),
               loading: () => const CustomProgressIndicator(),
             );
           },

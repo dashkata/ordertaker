@@ -3,15 +3,15 @@ import 'package:order_taker/views/restaurant_screens/restaurant_tables_screen/co
 
 import '../../../../providers/repository_providers.dart';
 
-final restaurantTablesNotifierProvider =
-    StateNotifierProvider<RestaurantTablesNotifier, void>(
-  (ref) => RestaurantTablesNotifier(
+final restaurantTablesControllerProvider =
+    StateNotifierProvider<RestaurantTablesController, void>(
+  (ref) => RestaurantTablesController(
     firestoreRepository: ref.watch(
       firestoreRepositoryProvider,
     ),
   ),
 );
-final fetchRestaurantTitleProvider = FutureProvider<String>(
+final restaurantTitleProvider = FutureProvider<String>(
   (ref) async =>
       await ref.read(firestoreRepositoryProvider).fetchRestaurantTitle(
             ref.read(authRepositoryProvider).getCurrentUser()!.uid,

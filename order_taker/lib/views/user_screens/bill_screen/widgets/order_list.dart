@@ -50,8 +50,8 @@ class OrdersList extends StatelessWidget {
                     ),
                   ),
                 ),
-                error: (e, s) => Text(
-                  e.toString(),
+                error: (e, s) => ErrorAlertDialog(
+                  errorMessage: e.toString(),
                 ),
                 loading: () => const CustomProgressIndicator(),
               );

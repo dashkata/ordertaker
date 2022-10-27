@@ -5,8 +5,8 @@ import '../../../../repositories/auth_repository.dart';
 import '../../../../repositories/firestore_repository.dart';
 import '../../../resources/route_manager.dart';
 
-class UserConfirmReservationNotifier extends StateNotifier<void> {
-  UserConfirmReservationNotifier({
+class UserConfirmReservationController extends StateNotifier<void> {
+  UserConfirmReservationController({
     required FirestoreRepository firestoreRepository,
     required AuthRepository authRepository,
   })  : _firestoreRepository = firestoreRepository,

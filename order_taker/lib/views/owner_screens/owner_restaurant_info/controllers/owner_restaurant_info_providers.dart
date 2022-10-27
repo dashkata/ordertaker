@@ -13,8 +13,10 @@ final restaurantInformationProvider = FutureProvider<Restaurant>(
                 ),
           ),
 );
-final menuProvider = StreamProvider.family<List<MenuSection>, String>(
-  (ref, title) => ref.watch(firestoreRepositoryProvider).fetchMenu(
-        title,
-      ),
+final sectionIdProvider = StateProvider.autoDispose<int>(
+  (ref) => 0,
+);
+
+final editProvider = StateProvider<bool>(
+  (ref) => false,
 );

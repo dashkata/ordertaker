@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../providers/controller_providers.dart';
+import '../../custom_widgets/custom_alert_dialog.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../controllers/login_screen_providers.dart';
 import '../../project_widgets.dart';
@@ -20,11 +21,30 @@ class LoginButton extends ConsumerWidget {
       child: CustomButton(
         buttonText: AppLocalizations.of(context)!.login,
         buttonFunc: () async {
-          await ref.read(loginStateProvider.notifier).login(
-                email,
-                password,
-                context,
-              );
+          if (email != '' && password != '') {
+            await ref
+                .read(loginControllerProvider.notifier)
+                .login(
+                  email,
+                  password,
+                  context,
+                )
+                .catchError(
+                  (e) => showDialog(
+                    context: context,
+                    builder: (_) => ErrorAlertDialog(
+                      errorMessage: e.toString(),
+                    ),
+                  ),
+                );
+          } else {
+            await showDialog(
+              context: context,
+              builder: (_) => const ErrorAlertDialog(
+                errorMessage: 'Please enter text in both fields!',
+              ),
+            );
+          }
         },
       ),
     );

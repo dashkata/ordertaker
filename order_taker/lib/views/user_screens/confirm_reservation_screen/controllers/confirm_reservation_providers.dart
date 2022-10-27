@@ -16,9 +16,9 @@ final confirmDateProvider = StateProvider<String>((ref) => '');
 
 final confirmTimeProvider = StateProvider<String>((ref) => '');
 
-final userConfirmReservationProvider =
-StateNotifierProvider<UserConfirmReservationNotifier, void>(
-      (ref) => UserConfirmReservationNotifier(
+final userConfirmReservationControllerProvider =
+StateNotifierProvider<UserConfirmReservationController, void>(
+      (ref) => UserConfirmReservationController(
     firestoreRepository: ref.watch(firestoreRepositoryProvider),
     authRepository: ref.watch(
       authRepositoryProvider,

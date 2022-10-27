@@ -13,8 +13,8 @@ import '../../../custom_widgets/custom_alert_dialog.dart';
 import '../../../resources/route_manager.dart';
 import 'onboarding_providers.dart';
 
-class OnboardingNotifier extends StateNotifier<void> {
-  OnboardingNotifier({required StateNotifierProviderRef ref})
+class OnboardingController extends StateNotifier<void> {
+  OnboardingController({required StateNotifierProviderRef ref})
       : _ref = ref,
         super(null);
   final StateNotifierProviderRef _ref;

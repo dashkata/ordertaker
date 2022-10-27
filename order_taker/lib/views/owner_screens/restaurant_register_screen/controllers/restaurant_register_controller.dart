@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../providers/repository_providers.dart';
 import '../../../resources/route_manager.dart';
 
-class RestaurantRegisterNotifier extends StateNotifier<void> {
-  RestaurantRegisterNotifier({required Ref ref})
+class RestaurantRegisterController extends StateNotifier<void> {
+  RestaurantRegisterController({required Ref ref})
       : _ref = ref,
         super(null);
   final Ref _ref;

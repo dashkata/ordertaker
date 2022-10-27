@@ -10,7 +10,7 @@ class _PageThreeBody extends ConsumerWidget {
       ref.watch(restaurantTitleProvider).when(
             data: (title) {
               final AsyncValue<List<MenuSection>> asyncMenu =
-                  ref.watch(fetchMenuProvider(title));
+                  ref.watch(menuProvider(title));
               return asyncMenu.when(
                 data: (menu) => ListView.builder(
                   shrinkWrap: true,
@@ -24,13 +24,15 @@ class _PageThreeBody extends ConsumerWidget {
                     ),
                   ),
                 ),
-                error: (e, s) => Text(
-                  e.toString(),
+                error: (e, s) => ErrorAlertDialog(
+                  errorMessage: e.toString(),
                 ),
                 loading: () => const CustomProgressIndicator(),
               );
             },
-            error: (e, s) => Text(e.toString()),
+            error: (e, s) => ErrorAlertDialog(
+              errorMessage: e.toString(),
+            ),
             loading: () => const CustomProgressIndicator(),
           );
 }

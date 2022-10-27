@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../providers/common_providers.dart';
 import '../../../../providers/repository_providers.dart';
 import '../../../custom_widgets/custom_alert_dialog.dart';
 import '../../../custom_widgets/custom_button.dart';
 import '../../../custom_widgets/custom_progress_indicator.dart';
-import '../../../owner_screens/owner_onboarding/controllers/onboarding_providers.dart';
-import '../../../project_widgets.dart';
 import '../../../resources/route_manager.dart';
 import '../restaurant_order_arguments.dart';
 
-class RestaurantOrderNotifier extends StateNotifier<void> {
-  RestaurantOrderNotifier({required Ref ref})
+class RestaurantOrderController extends StateNotifier<void> {
+  RestaurantOrderController({required Ref ref})
       : _ref = ref,
         super(null);
   final Ref _ref;
