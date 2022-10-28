@@ -90,5 +90,6 @@
     "selected_table" : "Selected table",
     "cancel_reservation_question" : "Are you sure you want to cancel your reservation?",
     "confirm" : "Confirm",
-    "remove_item" : "Are you sure you want to remove this item from the menu?"
-}
+    "remove_item" : "Are you sure you want to remove this item from the menu?",
+    "details" : "Details"
+    }

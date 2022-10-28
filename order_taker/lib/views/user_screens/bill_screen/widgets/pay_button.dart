@@ -9,13 +9,18 @@ class PayButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final reviewMessage = ref.watch(reviewMessageProvider);
+    final reviewRating = ref.watch(reviewRatingProvider);
     final text = AppLocalizations.of(context)!;
     return SizedBox(
       width: 150,
       child: CustomButton(
         buttonText: text.pay,
-        buttonFunc: () =>
-            ref.read(billScreenControllerProvider.notifier).pay(reservation),
+        buttonFunc: () => ref.read(billScreenControllerProvider.notifier).pay(
+              reservation,
+              reviewMessage,
+              reviewRating,
+            ),
       ),
     );
   }

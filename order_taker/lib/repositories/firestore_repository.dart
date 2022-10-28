@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 
 import '../models/menu_item_model.dart';
 import '../models/menu_section_model.dart';
 import '../models/order_model.dart';
 import '../models/reservation_model.dart';
-import '../models/restaurant_info_model.dart';
 import '../models/restaurant_model.dart';
+import '../models/review_model.dart';
 import '../models/user_model.dart';
 import 'auth_repository.dart';
 import 'firestore_paths.dart';
@@ -77,10 +75,14 @@ class FirestoreRepository {
   }
 
   Future<void> setCurrentReservation(
-      String restaurantTitle, int tableId, Reservation reservation) async {
+    String restaurantTitle,
+    int tableId,
+    Reservation reservation,
+  ) async {
     final reservationRef = await FirebaseFirestore.instance
         .collection(
-            FirestorePath.restaurantTable(tableId.toString(), restaurantTitle))
+          FirestorePath.restaurantTable(tableId.toString(), restaurantTitle),
+        )
         .where(
           'personName',
           isEqualTo: reservation.name,
@@ -290,7 +292,9 @@ class FirestoreRepository {
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> listenForOrders(
-      String restaurantTitle, String tableId) async* {
+    String restaurantTitle,
+    String tableId,
+  ) async* {
     final tablerRef = await FirebaseFirestore.instance
         .collection(FirestorePath.restaurantTable(tableId, restaurantTitle))
         .where('currentReservation', isEqualTo: true)
@@ -325,7 +329,9 @@ class FirestoreRepository {
   }
 
   Future<Map<String, bool>> fetchFreeTables(
-      String restaurantTitle, String date) async {
+    String restaurantTitle,
+    String date,
+  ) async {
     final tableRef = await FirebaseFirestore.instance
         .collection(FirestorePath.restaurantTables(restaurantTitle))
         .get();
@@ -437,12 +443,40 @@ class FirestoreRepository {
     );
   }
 
-  Future<void> removeMenuItem(
-      {required OrderItem item, required String restaurantTitle}) async {
+  Future<void> removeMenuItem({
+    required OrderItem item,
+    required String restaurantTitle,
+  }) async {
     await FirebaseFirestore.instance
         .doc(FirestorePath.restaurantMenuType(restaurantTitle, item.itemType))
         .update({
       '${item.itemType}.${item.itemTitle}': FieldValue.delete(),
     });
+  }
+
+  Stream<List<Review>> fetchReviews(String restaurantTitle) {
+    final reviewSnapshot = FirebaseFirestore.instance
+        .collection(FirestorePath.restaurantReviews(restaurantTitle))
+        .snapshots();
+    return reviewSnapshot.map(
+      (snapshot) => snapshot.docs
+          .map(
+            (review) => Review.fromMap(
+              data: review.data(),
+            ),
+          )
+          .toList(),
+    );
+  }
+
+  Future<void> addRestaurantReview(
+    String restaurantTitle,
+    Review review,
+  ) async {
+    await FirebaseFirestore.instance
+        .collection(FirestorePath.restaurantReviews(restaurantTitle))
+        .add(
+          review.toMap(),
+        );
   }
 }

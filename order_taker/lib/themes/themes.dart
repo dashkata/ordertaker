@@ -62,7 +62,7 @@ ThemeData getThemeData() => ThemeData(
           fontWeight: FontWeight.w700,
         ),
         headline2: GoogleFonts.roboto(
-          fontSize: 15,
+          fontSize: 18,
           fontWeight: FontWeight.bold,
           color: accentBlackColor,
         ),

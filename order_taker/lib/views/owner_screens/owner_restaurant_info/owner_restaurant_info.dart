@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../models/menu_section_model.dart';
 import '../../../models/restaurant_model.dart';
+import '../../../models/review_model.dart';
 import '../../../providers/common_providers.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../themes/themes.dart';
 import '../../custom_widgets/add_menu_button.dart';
 import '../../custom_widgets/custom_drawer.dart';
 import '../../custom_widgets/custom_menu_card.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../project_widgets.dart';
+import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
 import 'controllers/owner_restaurant_info_providers.dart';
 
@@ -22,11 +25,14 @@ part 'widgets/menu_section.dart';
 
 part 'widgets/reviews_section.dart';
 
+part 'widgets/review_card.dart';
+
 class OwnerRestaurantInfo extends StatelessWidget {
   const OwnerRestaurantInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
     final Restaurant? restaurant =
         ModalRoute.of(context)!.settings.arguments as Restaurant?;
     return Stack(
@@ -100,7 +106,10 @@ class OwnerRestaurantInfo extends StatelessWidget {
                               restaurant: restaurant,
                               admin: false,
                             ),
-                          if (sectionId == 2) const _ReviewsSection(),
+                          if (sectionId == 2)
+                            _ReviewsSection(
+                              restaurant: restaurant,
+                            ),
                         ] else
                           ref.watch(restaurantInformationProvider).when(
                                 data: (restaurantInfo) => Expanded(
@@ -116,7 +125,9 @@ class OwnerRestaurantInfo extends StatelessWidget {
                                           admin: true,
                                         ),
                                       if (sectionId == 2)
-                                        const _ReviewsSection(),
+                                        _ReviewsSection(
+                                          restaurant: restaurantInfo,
+                                        ),
                                     ],
                                   ),
                                 ),
@@ -130,17 +141,17 @@ class OwnerRestaurantInfo extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.end,
-                            children: const [
+                            children: [
                               _SectionButton(
-                                sectionText: 'Details',
+                                sectionText: text.details,
                                 id: 0,
                               ),
                               _SectionButton(
-                                sectionText: 'Menu',
+                                sectionText: text.menu,
                                 id: 1,
                               ),
                               _SectionButton(
-                                sectionText: 'Reviews',
+                                sectionText: text.reviews,
                                 id: 2,
                               ),
                             ],
