@@ -18,7 +18,7 @@ final restaurantTitleProvider = FutureProvider<String>(
           ),
 );
 
-final tablesProvider = FutureProvider.family<List<String>, String>(
+final tablesProvider = FutureProvider.family.autoDispose<List<String>, String>(
   (
     ref,
     restaurantTitle,

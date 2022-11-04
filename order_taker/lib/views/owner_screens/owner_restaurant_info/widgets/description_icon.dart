@@ -1,50 +1,79 @@
 part of '../owner_restaurant_info.dart';
 
-class _DescriptionIcon extends StatelessWidget {
+class _DescriptionIcon extends ConsumerWidget {
   const _DescriptionIcon({
     required this.information,
     required this.infoIcon,
+    required this.controllerProvider,
+    required this.restaurantDetailsType,
+    required this.restaurantTitle,
+    required this.admin,
     Key? key,
   }) : super(key: key);
+  final String restaurantTitle;
   final String information;
   final IconData infoIcon;
+  final RestaurantDetailsType restaurantDetailsType;
+  final bool admin;
+  final StateProviderFamily<TextEditingController, String> controllerProvider;
 
   @override
-  Widget build(BuildContext context) => Expanded(
-        child: Column(
-          children: [
-            Container(
-              width: 45,
-              height: 45,
-              decoration: BoxDecoration(
-                borderRadius: Styles.buildBorderRadius(50),
-                color: complementaryColor,
-                boxShadow: const [
-                  BoxShadow(blurRadius: 5),
-                ],
-              ),
-              child: Icon(
-                infoIcon,
-                color: complementaryColor2,
-              ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(controllerProvider(information));
+    return Expanded(
+      child: Column(
+        children: [
+          Container(
+            width: 45,
+            height: 45,
+            decoration: BoxDecoration(
+              borderRadius: Styles.buildBorderRadius(50),
+              color: complementaryColor,
+              boxShadow: const [
+                BoxShadow(blurRadius: 5),
+              ],
             ),
-            const SizedBox(
-              height: 10,
+            child: Icon(
+              infoIcon,
+              color: complementaryColor2,
             ),
-            Consumer(
-              builder: (context, ref, child) => ref.watch(editProvider)
-                  ? TextField(
-                      decoration: InputDecoration(
-                        hintText: information,
-                      ),
-                    )
-                  : Text(
-                      information,
-                      style: Theme.of(context).textTheme.headline6,
-                      textAlign: TextAlign.center,
-                    ),
-            )
-          ],
-        ),
-      );
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Consumer(
+            builder: (context, ref, child) => TextField(
+              controller: controller,
+              maxLines: null,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.zero,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                  ),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                  ),
+                ),
+              ),
+              onEditingComplete: () => ref
+                  .read(restaurantInfoControllerProvider.notifier)
+                  .submitRestaurantDetails(
+                    ref,
+                    restaurantDetailsType,
+                    controller.value.text,
+                    restaurantTitle,
+                  ),
+              readOnly: !admin,
+              enabled: admin,
+              textInputAction: TextInputAction.done,
+              textAlign: TextAlign.center,
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }

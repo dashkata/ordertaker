@@ -44,7 +44,7 @@ class FirestoreRepository {
   ) {
     final reservationSnapshot = FirebaseFirestore.instance
         .collection(
-          FirestorePath.restaurantTable(
+          FirestorePath.restaurantTableReservations(
             tableId.toString(),
             restaurantTitle,
           ),
@@ -63,7 +63,7 @@ class FirestoreRepository {
   ) async {
     final restaurantRef = await FirebaseFirestore.instance
         .collection(
-          FirestorePath.restaurantTable(
+          FirestorePath.restaurantTableReservations(
             tableId.toString(),
             restaurantTitle,
           ),
@@ -81,7 +81,8 @@ class FirestoreRepository {
   ) async {
     final reservationRef = await FirebaseFirestore.instance
         .collection(
-          FirestorePath.restaurantTable(tableId.toString(), restaurantTitle),
+          FirestorePath.restaurantTableReservations(
+              tableId.toString(), restaurantTitle),
         )
         .where(
           'personName',
@@ -98,32 +99,28 @@ class FirestoreRepository {
     );
   }
 
-  void addReservation(String uid, Reservation reservation) {
+  Future<void> addReservation(String uid, Reservation reservation) async {
     final userReservationRef = FirebaseFirestore.instance
         .collection(FirestorePath.userReservations(uid));
     final restaurantReservationRef = FirebaseFirestore.instance.collection(
-      FirestorePath.restaurantReservations(
+      FirestorePath.restaurantRequests(
         reservation.restaurant,
-        reservation.selectedTable,
       ),
     );
-    restaurantReservationRef.get().then(
-          (value) => restaurantReservationRef
-              .doc('$uid - ${reservation.date}')
-              .set(reservation.toMap()),
-        );
-    userReservationRef.get().then(
-          (value) => userReservationRef
-              .doc('${reservation.restaurant} - ${reservation.date}')
-              .set(reservation.toMap()),
-        );
+    await userReservationRef
+        .doc('${reservation.restaurant} - ${reservation.date}')
+        .set(reservation.toMap());
+
+    await restaurantReservationRef
+        .doc('$uid - ${reservation.date}')
+        .set(reservation.toMap());
   }
 
   Future<void> deleteReservation(String uid, Reservation reservation) async {
     final restaurantReservationRef = FirebaseFirestore.instance.collection(
       FirestorePath.restaurantReservations(
         reservation.restaurant,
-        reservation.selectedTable,
+        reservation.table!,
       ),
     );
     await restaurantReservationRef.doc('$uid - ${reservation.date}').delete();
@@ -269,7 +266,8 @@ class FirestoreRepository {
     String restaurant,
   ) async* {
     final currentReservationRef = await FirebaseFirestore.instance
-        .collection(FirestorePath.restaurantTable(tableId, restaurant))
+        .collection(
+            FirestorePath.restaurantTableReservations(tableId, restaurant))
         .where('currentReservation', isEqualTo: true)
         .limit(1)
         .get();
@@ -296,7 +294,8 @@ class FirestoreRepository {
     String tableId,
   ) async* {
     final tablerRef = await FirebaseFirestore.instance
-        .collection(FirestorePath.restaurantTable(tableId, restaurantTitle))
+        .collection(
+            FirestorePath.restaurantTableReservations(tableId, restaurantTitle))
         .where('currentReservation', isEqualTo: true)
         .get();
     yield* tablerRef.docs[0].reference
@@ -312,7 +311,8 @@ class FirestoreRepository {
     String restaurantTitle,
   ) async {
     final currentReservationRef = await FirebaseFirestore.instance
-        .collection(FirestorePath.restaurantTable(tableId, restaurantTitle))
+        .collection(
+            FirestorePath.restaurantTableReservations(tableId, restaurantTitle))
         .where('currentReservation', isEqualTo: true)
         .limit(1)
         .get();
@@ -419,7 +419,7 @@ class FirestoreRepository {
   Future<bool> checkUserReservation(Reservation reservation, String uid) async {
     final reservationRef = await FirebaseFirestore.instance
         .doc(
-          '${FirestorePath.restaurantReservations(reservation.restaurant, reservation.selectedTable)}/$uid - ${reservation.date}',
+          '${FirestorePath.restaurantReservations(reservation.restaurant, reservation.table!)}/$uid - ${reservation.date}',
         )
         .get();
     if (reservationRef.data() != null &&
@@ -478,5 +478,118 @@ class FirestoreRepository {
         .add(
           review.toMap(),
         );
+  }
+
+  Stream<List<Reservation>> fetchRestaurantRequests(
+    String restaurantTitle,
+  ) {
+    final requestsSnapshot = FirebaseFirestore.instance
+        .collection(FirestorePath.restaurantRequests(restaurantTitle))
+        .snapshots();
+
+    return requestsSnapshot.map(
+      (requests) => requests.docs
+          .map((request) => Reservation.fromMap(request.data()))
+          .toList(),
+    );
+  }
+
+  Future<void> disapproveRequest(Reservation reservation) async {
+    await FirebaseFirestore.instance
+        .doc(
+          FirestorePath.restaurantRequest(
+            reservation.restaurant,
+            reservation.userId,
+            reservation.date,
+          ),
+        )
+        .delete();
+    await FirebaseFirestore.instance
+        .doc(
+          FirestorePath.userReservation(
+            reservation.userId,
+            reservation.restaurant,
+            reservation.date,
+          ),
+        )
+        .delete();
+  }
+
+  Future<void> addApprovedReservation(Reservation reservation) async {
+    if (reservation.table != null) {
+      await FirebaseFirestore.instance
+          .doc(
+        FirestorePath.restaurantTable(
+          reservation.table!.toString(),
+          reservation.restaurant,
+        ),
+      )
+          .set(
+        {
+          'empty': '',
+        },
+      );
+      await FirebaseFirestore.instance
+          .doc(
+            FirestorePath.userReservation(
+              reservation.userId,
+              reservation.restaurant,
+              reservation.date,
+            ),
+          )
+          .set(
+            reservation.toMap(),
+          );
+      await FirebaseFirestore.instance
+          .doc(
+            FirestorePath.restaurantRequest(
+                reservation.restaurant, reservation.userId, reservation.date),
+          )
+          .delete();
+      await FirebaseFirestore.instance
+          .collection(
+            FirestorePath.restaurantReservations(
+              reservation.restaurant,
+              reservation.table!,
+            ),
+          )
+          .doc(
+            '${reservation.userId} - ${reservation.date}',
+          )
+          .set(
+            reservation.toMap(),
+          );
+    }
+  }
+
+  Future<void> setRestaurantEmail(String email, String uid) async {
+    await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).set(
+      {
+        'restaurant_email': email,
+      },
+      SetOptions(
+        merge: true,
+      ),
+    );
+  }
+
+  Future<String?> getRestauarntEmail(String uid) async {
+    final adminRef =
+        await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).get();
+    return adminRef.get('restaurant_email');
+  }
+
+  Future<void> updateRestaurantInformation(
+    String updatedInfo,
+    String restaurantTitle,
+    String detailType,
+  ) async {
+    await FirebaseFirestore.instance
+        .doc(
+      FirestorePath.restaurant(restaurantTitle),
+    )
+        .update({
+      detailType: updatedInfo,
+    });
   }
 }

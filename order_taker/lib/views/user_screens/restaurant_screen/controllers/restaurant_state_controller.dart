@@ -94,31 +94,28 @@ class RestaurantScreenController extends StateNotifier<void> {
     return;
   }
 
-  Future<void> showTableDialog(
-    Widget tablesDialog,
-    BuildContext context,
-  ) async {
-    await showDialog(
-      context: context,
-      builder: (_) => tablesDialog,
-    );
-  }
+  // Future<void> showTableDialog(
+  //   Widget tablesDialog,
+  //   BuildContext context,
+  // ) async {
+  //   await showDialog(
+  //     context: context,
+  //     builder: (_) => tablesDialog,
+  //   );
+  // }
 
   Future<void> navigateToConfirm(
     String restaurantTitle,
     WidgetRef ref,
-    String selectedTable,
   ) async {
-    final tableId = int.parse(
-      selectedTable.substring('Table '.length, 'Table '.length + 1),
-    );
     await navigatorKey.currentState!.pushNamed(
       Routes.userConfirmReserveration,
       arguments: ConfirmReservationArguments(
         restaurantTitle: restaurantTitle,
         userDate: ref.read(userDateProvider),
         numberOfPeople: ref.read(peopleProvider),
-        tableId: tableId,
+        preferredLocation:
+            ref.read(preferredLocationProvider) == 0 ? 'inside' : 'outside',
       ),
     );
   }

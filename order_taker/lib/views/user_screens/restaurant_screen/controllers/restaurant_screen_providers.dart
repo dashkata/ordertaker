@@ -24,3 +24,4 @@ final restaurantControllerProvider =
 final userDateProvider = StateProvider.autoDispose<String>((ref) => '');
 
 final peopleProvider = StateProvider.autoDispose<int>((ref) => 0);
+final preferredLocationProvider = StateProvider<int>((ref) => 0);

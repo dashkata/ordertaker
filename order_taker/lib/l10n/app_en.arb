@@ -58,6 +58,7 @@
     "restaurant_phone_number" : "Restaurant phone number",
     "restaurant_menu" : "Add the menu for your restaurant.",
     "restaurant_pictures" : "Add restaurant pictures",
+    "restaurant_payment" : "Restaurant payment methods",
     "add_menu_item" : "Add a menu item",
     "type_menu_item" : "Type of menu item",
     "title_menu_item" : "Menu item title",
@@ -91,5 +92,6 @@
     "cancel_reservation_question" : "Are you sure you want to cancel your reservation?",
     "confirm" : "Confirm",
     "remove_item" : "Are you sure you want to remove this item from the menu?",
-    "details" : "Details"
-    }
+    "details" : "Details",
+    "request" : "Requests"
+}

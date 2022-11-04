@@ -10,27 +10,37 @@ class _ReviewsSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final text = AppLocalizations.of(context)!;
-    final asyncReviews = ref.watch(restaurantReviewsProvider(restaurant.title));
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 50.0),
-          child: Text(
-            text.reviews,
-            style: Theme.of(context).textTheme.headline5,
+    final asyncReviews = ref.watch(
+      restaurantReviewsProvider(
+        restaurant.title,
+      ),
+    );
+    return Expanded(
+      child: Scrollbar(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 50.0),
+                child: Text(
+                  text.reviews,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+              ),
+              asyncReviews.when(
+                data: (reviews) => ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: reviews.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      ReviewCard(review: reviews[index]),
+                ),
+                error: (e, s) => ErrorAlertDialog(errorMessage: e.toString()),
+                loading: () => const CustomProgressIndicator(),
+              ),
+            ],
           ),
         ),
-        asyncReviews.when(
-          data: (reviews) => ListView.builder(
-            shrinkWrap: true,
-            itemCount: reviews.length,
-            itemBuilder: (BuildContext context, int index) =>
-                ReviewCard(review: reviews[index]),
-          ),
-          error: (e, s) => ErrorAlertDialog(errorMessage: e.toString()),
-          loading: () => const CustomProgressIndicator(),
-        ),
-      ],
+      ),
     );
   }
 }

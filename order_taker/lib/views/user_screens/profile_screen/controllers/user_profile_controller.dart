@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../Themes/themes.dart';
 import '../../../../enums/image_type.dart';
 import '../../../../enums/user_details.dart';
+import '../../../custom_widgets/custom_alert_dialog.dart';
 import 'profile_screen_providers.dart';
 import '../../../../repositories/auth_repository.dart';
 import '../../../../repositories/firestore_repository.dart';
@@ -32,6 +33,16 @@ class UserProfileNotifier extends StateNotifier<void> {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         backgroundColor: complementaryColor,
+        title: title,
+        content: content,
+      ),
+    );
+  }
+
+  Future<void> showResetPasswordDialog(Widget title, Widget content) async {
+    await showDialog(
+      context: navigatorKey.currentState!.context,
+      builder: (_) => CustomAlertDialog(
         title: title,
         content: content,
       ),
@@ -155,5 +166,19 @@ class UserProfileNotifier extends StateNotifier<void> {
         Routes.auth,
       );
     }
+  }
+
+  Future<void> registerAccount(
+    String email,
+    String password,
+  ) async {
+    final restaurantTitle = await _firestoreRepository.fetchRestaurantTitle(
+      _authRepository.getCurrentUser()!.uid,
+    );
+    await _authRepository.adminSignUp(
+      email: email,
+      password: password,
+      restaurantTitle: restaurantTitle,
+    );
   }
 }

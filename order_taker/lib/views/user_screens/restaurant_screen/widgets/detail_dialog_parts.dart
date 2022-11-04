@@ -18,6 +18,22 @@ class _DetailsDialog extends ConsumerWidget {
             restaurant: restaurant,
           ),
           const _NumberOfPeopleWidget(),
+          Row(
+            children: const [
+              _RadioTile(
+                text: 'Inside',
+                value: 0,
+              ),
+              _RadioTile(
+                text: 'Outside',
+                value: 1,
+              ),
+            ],
+          ),
+          Text(
+            'Select preferred table location',
+            style: Theme.of(context).textTheme.headline6,
+          )
         ],
       ),
       actions: [
@@ -28,16 +44,12 @@ class _DetailsDialog extends ConsumerWidget {
               builder: (context, ref, child) => ElevatedButton(
                 onPressed: ref.watch(userDateProvider) != '' &&
                         ref.watch(peopleProvider) != 0
-                    ? () {
-                        ref
-                            .read(restaurantControllerProvider.notifier)
-                            .showTableDialog(
-                              _TablesAlertDialog(
-                                restaurantTitle: restaurant.title,
-                              ),
-                              context,
-                            );
-                      }
+                    ? () => ref
+                        .read(restaurantControllerProvider.notifier)
+                        .navigateToConfirm(
+                          restaurant.title,
+                          ref,
+                        )
                     : null,
                 style: ElevatedButton.styleFrom(
                   shape: const StadiumBorder(),

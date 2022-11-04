@@ -34,22 +34,40 @@ class RestaurantTables extends ConsumerWidget {
                           tablesProvider(title),
                         );
                         return asyncTables.when(
-                          data: (tables) => ListView.builder(
+                          data: (tables) => GridView.builder(
                             itemCount: tables.length,
-                            itemBuilder: (context, index) => CustomButton(
-                              buttonText: tables[index],
-                              buttonFunc: () {
-                                ref
-                                    .read(
-                                      restaurantTablesControllerProvider.notifier,
-                                    )
-                                    .navigateToOrders(
-                                      int.parse(
-                                        tables[index].replaceAll('Table ', ''),
-                                      ),
-                                      title,
-                                    );
-                              },
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 60,
+                              vertical: 50,
+                            ),
+                            itemBuilder: (context, index) => ElevatedButton(
+                              onPressed: () => ref
+                                  .read(
+                                    restaurantTablesControllerProvider.notifier,
+                                  )
+                                  .navigateToOrders(
+                                    int.parse(
+                                      tables[index].replaceAll('Table ', ''),
+                                    ),
+                                    title,
+                                  ),
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  side: const BorderSide(
+                                      color: complementaryColor2, width: 2),
+                                  backgroundColor: complementaryColor),
+                              child: Text(
+                                tables[index].replaceAll('Table ', ''),
+                                style: Theme.of(context).textTheme.headline1,
+                              ),
+                            ),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 50,
+                              crossAxisSpacing: 50,
                             ),
                           ),
                           error: (e, s) => ErrorAlertDialog(

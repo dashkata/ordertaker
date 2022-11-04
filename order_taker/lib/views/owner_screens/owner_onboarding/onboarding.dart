@@ -37,43 +37,45 @@ class OnboardingScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final text = AppLocalizations.of(context)!;
-    return IntroductionScreen(
-      pages: [
-        PageViewModel(
-          image: const _PageOneImage(),
-          titleWidget: const _PageOneTitle(),
-          body: '',
+    return UnfocusDetector(
+      child: IntroductionScreen(
+        pages: [
+          PageViewModel(
+            image: const _PageOneImage(),
+            titleWidget: const _PageOneTitle(),
+            body: '',
+          ),
+          PageViewModel(
+            titleWidget: const _PageTwoTitle(),
+            bodyWidget: const _PageTwoForm(),
+          ),
+          PageViewModel(
+            titleWidget: const _PageThreeTitle(),
+            footer: const AddMenuButton(),
+            bodyWidget: const _PageThreeBody(),
+          ),
+        ],
+        done: Text(
+          text.done,
+          style: Theme.of(context).textTheme.headline1,
         ),
-        PageViewModel(
-          titleWidget: const _PageTwoTitle(),
-          bodyWidget: const _PageTwoForm(),
+        next: Text(
+          text.next,
+          style: Theme.of(context).textTheme.headline1,
         ),
-        PageViewModel(
-          titleWidget: const _PageThreeTitle(),
-          footer: const AddMenuButton(),
-          bodyWidget: const _PageThreeBody(),
+        back: Text(
+          text.back,
+          style: Theme.of(context).textTheme.headline1,
         ),
-      ],
-      done: Text(
-        text.done,
-        style: Theme.of(context).textTheme.headline1,
+        dotsDecorator: const DotsDecorator(
+          color: accentBlackColor,
+          activeColor: complementaryColor2,
+        ),
+        showBackButton: true,
+        onDone: () => ref
+            .read(onboardingControllerProvider.notifier)
+            .submitRestaurantDetails(),
       ),
-      next: Text(
-        text.next,
-        style: Theme.of(context).textTheme.headline1,
-      ),
-      back: Text(
-        text.back,
-        style: Theme.of(context).textTheme.headline1,
-      ),
-      dotsDecorator: const DotsDecorator(
-        color: accentBlackColor,
-        activeColor: complementaryColor2,
-      ),
-      showBackButton: true,
-      onDone: () => ref
-          .read(onboardingControllerProvider.notifier)
-          .submitRestaurantDetails(),
     );
   }
 }

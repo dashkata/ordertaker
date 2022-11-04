@@ -23,12 +23,21 @@ class _TitleColumn extends StatelessWidget {
           ),
           Text(
             reservation.date,
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.headline3,
           ),
           Text(
             '${reservation.numberOfPeople.toString()} ${text.people}',
             style: Theme.of(context).textTheme.headline6,
           ),
+          Text(
+            'status: ${reservation.approved == null ? 'waiting' : reservation.approved! ? 'approved' : 'not approved'}',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          if (reservation.table != null && reservation.table != 0)
+            Text(
+              'table: ${reservation.table}',
+              style: Theme.of(context).textTheme.headline6,
+            )
         ],
       );
 }
