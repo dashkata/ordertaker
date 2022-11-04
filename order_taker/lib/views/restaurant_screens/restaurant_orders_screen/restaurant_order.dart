@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../models/order_model.dart';
 import '../../../themes/themes.dart';
 import '../../custom_widgets/custom_button.dart';
+import '../../custom_widgets/custom_drawer.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../project_widgets.dart';
 import 'controllers/restaurant_orders_provider.dart';
@@ -22,13 +23,17 @@ class RestaurantOrders extends StatelessWidget {
     final restaurantOrderArguments =
         ModalRoute.of(context)!.settings.arguments as RestaurantOrderArguments;
     return Scaffold(
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: _RestaurantOrderFABRow(
-          restaurantOrderArguments: restaurantOrderArguments,
+      appBar: AppBar(
+        title: Text(
+          'Orders for table ${restaurantOrderArguments.id}',
+          style: Theme.of(context).textTheme.headline5,
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: _RestaurantOrderFABRow(
+        restaurantOrderArguments: restaurantOrderArguments,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
+      drawer: const CustomDrawer(),
       backgroundColor: mainColor,
       body: SafeArea(
         child: Consumer(

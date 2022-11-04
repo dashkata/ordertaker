@@ -26,9 +26,10 @@ class ReviewCard extends StatelessWidget {
                     review.name,
                     style: Theme.of(context).textTheme.headline2,
                   ),
-                  Text(
+                  ReadMoreText(
                     review.review,
                     style: Theme.of(context).textTheme.headline6,
+                    trimLength: 50,
                   ),
                   RatingBar.builder(
                     minRating: 1,

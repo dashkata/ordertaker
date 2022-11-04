@@ -5,6 +5,13 @@ class FirestorePath {
 
   static String userReservations(String uid) => 'Users/$uid/Reservations';
 
+  static String userReservation(
+    String uid,
+    String restaurantTitle,
+    String date,
+  ) =>
+      'Users/$uid/Reservations/$restaurantTitle - $date';
+
   static String restaurantReservations(
     String restaurantTitle,
     int selectedTable,
@@ -17,10 +24,12 @@ class FirestorePath {
       'Restaurants/$restaurantTitle';
 
   static String restaurantOrders(Reservation reservation, String uid) =>
-      'Restaurants/${reservation.restaurant}/Tables/Table ${reservation.selectedTable}/Reservations/$uid - ${reservation.date}/Orders';
+      'Restaurants/${reservation.restaurant}/Tables/Table ${reservation.table}/Reservations/$uid - ${reservation.date}/Orders';
 
-  static String restaurantTable(String tableId, String restaurant) =>
+  static String restaurantTableReservations(String tableId, String restaurant) =>
       'Restaurants/$restaurant/Tables/Table $tableId/Reservations';
+  static String restaurantTable(String tableId, String restaurant) =>
+      'Restaurants/$restaurant/Tables/Table $tableId';
 
   static String restaurantTables(String restaurant) =>
       'Restaurants/$restaurant/Tables';
@@ -33,4 +42,11 @@ class FirestorePath {
 
   static String restaurantReviews(String restaurant) =>
       'Restaurants/$restaurant/Reviews';
+
+  static String restaurantRequests(String restaurantTitle) =>
+      'Restaurants/$restaurantTitle/Requests';
+
+  static String restaurantRequest(
+          String restaurantTitle, String userId, String date) =>
+      'Restaurants/$restaurantTitle/Requests/$userId - $date';
 }

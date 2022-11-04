@@ -42,7 +42,7 @@ class _ConfirmOverview extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${text.selected_table}: ${reservationInfo.tableId}',
+                  '${text.selected_table}: ${reservationInfo.preferredLocation}',
                 ),
               ],
             ),

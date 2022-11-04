@@ -3,10 +3,10 @@ import '../auth_screen/auth_checker_screen.dart';
 import '../login_screen/login.dart';
 import '../owner_screens/owner_onboarding/onboarding.dart';
 import '../owner_screens/owner_restaurant_info/owner_restaurant_info.dart';
-import '../owner_screens/restaurant_accounts/edit_restaurant_accounts.dart';
 import '../owner_screens/restaurant_register_screen/restaurant_register.dart';
 import '../restaurant_screens/restaurant_menu_screen/restaurant_menu.dart';
 import '../restaurant_screens/restaurant_orders_screen/restaurant_order.dart';
+import '../restaurant_screens/restaurant_request_screen/restaurant_request.dart';
 import '../restaurant_screens/restaurant_reservations_screen/restaurant_reservations.dart';
 import '../restaurant_screens/restaurant_tables_screen/restaurant_tables.dart';
 import '../user_screens/bill_screen/bill.dart';
@@ -35,6 +35,7 @@ class Routes {
   static const String restaurantOrders = 'restaurant_orders';
   static const String restaurantTables = 'restaurant_tables';
   static const String restaurantReservations = 'restaurant_reservations';
+  static const String restaurantRequests = 'restaurant_requests';
   static const String restaurantMenu = 'restaurant_menu';
   static const String ownerOnboarding = 'onboarding';
   static const String ownerRestaurantInfo = 'owner_restaurant_info';
@@ -111,6 +112,11 @@ class AppRouter {
           builder: (_) => const RestaurantMenu(),
           settings: settings,
         );
+      case Routes.restaurantRequests:
+        return MaterialPageRoute(
+          builder: (_) => const RestaurantRequests(),
+          settings: settings,
+        );
       case Routes.ownerOnboarding:
         return MaterialPageRoute(
           builder: (_) => const OnboardingScreen(),
@@ -119,10 +125,6 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const OwnerRestaurantInfo(),
           settings: settings,
-        );
-      case Routes.ownerEditAccounts:
-        return MaterialPageRoute(
-          builder: (_) => const EditRestaurantAccounts(),
         );
 
       default:

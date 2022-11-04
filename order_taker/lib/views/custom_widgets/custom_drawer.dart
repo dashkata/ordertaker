@@ -98,17 +98,6 @@ class CustomDrawer extends ConsumerWidget {
                   ),
                   _DrawerTab(
                     icon: Icons.person,
-                    titleText: text.restaurant_accounts,
-                    func: () {
-                      Navigator.pop(context);
-                      Navigator.popAndPushNamed(
-                        context,
-                        Routes.ownerEditAccounts,
-                      );
-                    },
-                  ),
-                  _DrawerTab(
-                    icon: Icons.person,
                     titleText: text.profile,
                     func: () {
                       Navigator.pop(context);
@@ -132,6 +121,17 @@ class CustomDrawer extends ConsumerWidget {
                     },
                   ),
                   _DrawerTab(
+                    icon: Icons.request_page,
+                    titleText: text.request,
+                    func: () {
+                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(
+                        context,
+                        Routes.restaurantRequests,
+                      );
+                    },
+                  ),
+                  _DrawerTab(
                     icon: Icons.person,
                     titleText: text.menu,
                     func: () {
@@ -148,7 +148,7 @@ class CustomDrawer extends ConsumerWidget {
               icon: Icons.exit_to_app,
               titleText: text.log_out,
               func: () =>
-                  auth.signout().then((value) => Navigator.pop(context)).then(
+                  auth.signOut().then((value) => Navigator.pop(context)).then(
                         (value) =>
                             Navigator.popAndPushNamed(context, Routes.login),
                       ),

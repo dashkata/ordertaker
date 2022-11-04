@@ -9,25 +9,13 @@ class _RestaurantOrderFABRow extends ConsumerWidget {
   final RestaurantOrderArguments restaurantOrderArguments;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          RestaurantOrderFAB(
-            icon: Icons.table_bar,
-            onPressed: () => ref
-                .read(restaurantOrderControllerProvider.notifier)
-                .navigateToTables(),
-            heroTag: 'orderFab1',
-          ),
-          RestaurantOrderFAB(
-            onPressed: () => ref
-                .read(restaurantOrderControllerProvider.notifier)
-                .navigateToReservations(restaurantOrderArguments),
-            icon: Icons.note_alt_outlined,
-            heroTag: 'orderFab2',
-          )
-        ],
-      );
+  Widget build(BuildContext context, WidgetRef ref) => RestaurantOrderFAB(
+    onPressed: () => ref
+        .read(restaurantOrderControllerProvider.notifier)
+        .navigateToReservations(restaurantOrderArguments),
+    icon: Icons.note_alt_outlined,
+    heroTag: 'orderFab2',
+  );
 }
 
 class RestaurantOrderFAB extends StatelessWidget {

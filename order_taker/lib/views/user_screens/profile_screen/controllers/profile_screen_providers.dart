@@ -20,7 +20,6 @@ final changeControllerProvider = StateProvider.autoDispose((ref) => '');
 
 final picProvider = FutureProvider.autoDispose<String?>((ref) async {
   final storage = ref.watch(storageRepositoryProvider);
-
   return await storage.fetchProfilePic(
     email: ref.read(authRepositoryProvider).getCurrentUser()!.email!,
   );
@@ -36,3 +35,12 @@ final userProfileProvider = StateNotifierProvider<UserProfileNotifier, void>(
     ),
   ),
 );
+final restaurantEmailProvider = FutureProvider<String?>(
+  (ref) => ref.read(firestoreRepositoryProvider).getRestauarntEmail(
+        ref.read(authRepositoryProvider).getCurrentUser()!.uid,
+      ),
+);
+final restaurantEmailControllerProvider =
+    StateProvider.autoDispose<String>((ref) => '');
+final restaurantPasswordControllerProvider =
+    StateProvider.autoDispose<String>((ref) => '');

@@ -113,7 +113,7 @@ class RestaurantOrderController extends StateNotifier<void> {
   }
 
   void navigateToReservations(RestaurantOrderArguments arguments) {
-    navigatorKey.currentState!.pushNamed(
+    navigatorKey.currentState!.popAndPushNamed(
       Routes.restaurantReservations,
       arguments: arguments,
     );

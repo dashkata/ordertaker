@@ -24,9 +24,11 @@ part 'widgets/select_date.dart';
 
 part 'widgets/number_of_people.dart';
 
-part 'widgets/free_tables.dart';
+// part 'widgets/free_tables.dart';
 
 part 'widgets/detail_dialog_parts.dart';
+
+part 'widgets/radio_tile.dart';
 
 class RestaurantScreen extends StatelessWidget {
   const RestaurantScreen({Key? key}) : super(key: key);

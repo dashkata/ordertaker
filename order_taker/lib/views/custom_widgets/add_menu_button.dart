@@ -49,80 +49,82 @@ class _AlertDialogBody extends ConsumerWidget {
     final itemPrice = ref.watch(itemPriceProvider);
     final itemImage = ref.watch(itemImageProvider);
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CustomTextField(
-          hintText: text.type_menu_item,
-          icon: Icons.restaurant,
-          obscure: false,
-          inputType: TextInputType.text,
-          textInputAction: TextInputAction.next,
-          func: (value) => ref
-              .read(onboardingControllerProvider.notifier)
-              .updateTextField(itemTypeProvider, value),
-        ),
-        CustomTextField(
-          hintText: text.title_menu_item,
-          icon: Icons.restaurant,
-          obscure: false,
-          inputType: TextInputType.text,
-          textInputAction: TextInputAction.next,
-          func: (value) => ref
-              .read(onboardingControllerProvider.notifier)
-              .updateTextField(itemTitleProvider, value),
-        ),
-        CustomTextField(
-          hintText: text.ingredients_menu_item,
-          icon: Icons.restaurant,
-          obscure: false,
-          inputType: TextInputType.text,
-          textInputAction: TextInputAction.next,
-          func: (value) => ref
-              .read(onboardingControllerProvider.notifier)
-              .updateTextField(itemIngredientsProvider, value),
-        ),
-        CustomTextField(
-          hintText: text.price_menu_item,
-          icon: Icons.restaurant,
-          obscure: false,
-          textInputAction: TextInputAction.done,
-          inputType: const TextInputType.numberWithOptions(decimal: true),
-          func: (value) => ref
-              .read(onboardingControllerProvider.notifier)
-              .updateTextField(itemPriceProvider, value),
-        ),
-        Center(
-          child: TextButton(
-            onPressed: () async => await ref
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CustomTextField(
+            hintText: text.type_menu_item,
+            icon: Icons.restaurant,
+            obscure: false,
+            inputType: TextInputType.text,
+            textInputAction: TextInputAction.next,
+            func: (value) => ref
                 .read(onboardingControllerProvider.notifier)
-                .pickItemImage(
-              context,
-              const _ImageAlertDialog(),
-            ),
-            child: Text(
-              text.picture_menu_item,
-              style: Theme.of(context).textTheme.headline3,
+                .updateTextField(itemTypeProvider, value),
+          ),
+          CustomTextField(
+            hintText: text.title_menu_item,
+            icon: Icons.restaurant,
+            obscure: false,
+            inputType: TextInputType.text,
+            textInputAction: TextInputAction.next,
+            func: (value) => ref
+                .read(onboardingControllerProvider.notifier)
+                .updateTextField(itemTitleProvider, value),
+          ),
+          CustomTextField(
+            hintText: text.ingredients_menu_item,
+            icon: Icons.restaurant,
+            obscure: false,
+            inputType: TextInputType.text,
+            textInputAction: TextInputAction.next,
+            func: (value) => ref
+                .read(onboardingControllerProvider.notifier)
+                .updateTextField(itemIngredientsProvider, value),
+          ),
+          CustomTextField(
+            hintText: text.price_menu_item,
+            icon: Icons.restaurant,
+            obscure: false,
+            textInputAction: TextInputAction.done,
+            inputType: const TextInputType.numberWithOptions(decimal: true),
+            func: (value) => ref
+                .read(onboardingControllerProvider.notifier)
+                .updateTextField(itemPriceProvider, value),
+          ),
+          Center(
+            child: TextButton(
+              onPressed: () async => await ref
+                  .read(onboardingControllerProvider.notifier)
+                  .pickItemImage(
+                context,
+                const _ImageAlertDialog(),
+              ),
+              child: Text(
+                text.picture_menu_item,
+                style: Theme.of(context).textTheme.headline3,
+              ),
             ),
           ),
-        ),
-        CustomButton(
-          buttonText: text.submit,
-          buttonFunc: () async {
-            await ref.read(onboardingControllerProvider.notifier).addMenuItem(
-              OrderItem(
-                itemType: itemType,
-                itemTitle: itemTitle,
-                itemIngredients: itemIngredients,
-                itemPrice: itemPrice,
-                itemImage: itemImage,
-                available: true,
-              ),
-            );
-            Navigator.pop(context);
-          },
-        ),
-      ],
+          CustomButton(
+            buttonText: text.submit,
+            buttonFunc: () async {
+              await ref.read(onboardingControllerProvider.notifier).addMenuItem(
+                OrderItem(
+                  itemType: itemType,
+                  itemTitle: itemTitle,
+                  itemIngredients: itemIngredients,
+                  itemPrice: itemPrice,
+                  itemImage: itemImage,
+                  available: true,
+                ),
+              );
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
     );
   }
 }

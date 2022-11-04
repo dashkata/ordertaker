@@ -127,7 +127,11 @@ class AuthRepository {
 
   User? getCurrentUser() => _firebaseAuth.currentUser;
 
-  Future<void> signout() async {
+  Future<void> signOut() async {
     await _firebaseAuth.signOut();
+  }
+
+  Future<void> sendPasswordResetLink(String email) async {
+    await _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 }

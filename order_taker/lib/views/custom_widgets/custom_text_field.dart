@@ -55,7 +55,7 @@ class DoubleTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-    height: 50,
+    // height: 50,
     child: Material(
       borderRadius: Styles.buildBorderRadius(30),
       elevation: 5,

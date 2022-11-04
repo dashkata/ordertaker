@@ -7,6 +7,7 @@ import '../../../providers/repository_providers.dart';
 import '../../../themes/themes.dart';
 import '../../custom_widgets/custom_alert_dialog.dart';
 import '../../custom_widgets/custom_button.dart';
+import '../../custom_widgets/custom_drawer.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
@@ -29,21 +30,17 @@ class RestaurantReservations extends ConsumerWidget {
     final restaurantOrderArguments =
         ModalRoute.of(context)!.settings.arguments as RestaurantOrderArguments;
     return Scaffold(
-      floatingActionButton: RestaurantOrderFAB(
-        icon: Icons.table_bar,
-        onPressed: () => ref
-            .read(restaurantOrderControllerProvider.notifier)
-            .navigateToTables(),
-        heroTag: 'orderFab1',
+      drawer: const CustomDrawer(),
+      appBar: AppBar(
+        title: Text(
+          '${text.tables} ${restaurantOrderArguments.id} ${text.reservations}',
+          style: Theme.of(context).textTheme.headline5,
+        ),
       ),
       backgroundColor: mainColor,
       body: SafeArea(
         child: Column(
           children: [
-            Text(
-              '${text.tables} ${restaurantOrderArguments.id} ${text.reservations}',
-              style: Theme.of(context).textTheme.headline5,
-            ),
             Consumer(
               builder: (BuildContext context, WidgetRef ref, Widget? child) {
                 final AsyncValue<List<Reservation>> asyncReservations =

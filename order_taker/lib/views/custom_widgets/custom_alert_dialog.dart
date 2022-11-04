@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../themes/themes.dart';
+import '../project_widgets.dart';
 
 class CustomAlertDialog extends StatelessWidget {
   const CustomAlertDialog({
-    Key? key,
     required this.content,
+    Key? key,
     this.actions,
     this.title,
   }) : super(key: key);
@@ -14,15 +15,17 @@ class CustomAlertDialog extends StatelessWidget {
   final Widget? title;
 
   @override
-  Widget build(BuildContext context) => AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            30,
+  Widget build(BuildContext context) => UnfocusDetector(
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              30,
+            ),
           ),
+          title: title,
+          content: content,
+          backgroundColor: mainColor,
+          actions: actions,
         ),
-        title: title,
-        content: content,
-        backgroundColor: mainColor,
-        actions: actions,
       );
 }

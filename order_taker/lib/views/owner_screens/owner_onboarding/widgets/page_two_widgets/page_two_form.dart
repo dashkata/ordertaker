@@ -27,7 +27,7 @@ class _PageTwoForm extends ConsumerWidget {
           icon: Icons.watch_later,
           obscure: false,
           textInputAction: TextInputAction.next,
-          inputType: TextInputType.none,
+          inputType: TextInputType.text,
           func: (val) =>
               ref.read(onboardingControllerProvider.notifier).updateTextField(
                     restaurantHoursProvider,
@@ -71,7 +71,7 @@ class _PageTwoForm extends ConsumerWidget {
                   ),
         ),
         CustomTextField(
-          hintText: text.restaurant_descriptions,
+          hintText: 'Restaurant payment methods',
           icon: Icons.payment,
           obscure: false,
           textInputAction: TextInputAction.done,
@@ -93,23 +93,6 @@ class _PageTwoForm extends ConsumerWidget {
           obscure: false,
           textInputAction: TextInputAction.next,
         ),
-        CustomTextField(
-          func: (value) =>
-              ref.read(restaurantInsideTablesProvider.notifier).update(
-                    (state) => value,
-                  ),
-          inputType: TextInputType.number,
-          icon: Icons.table_restaurant,
-          hintText: text.inside_tables,
-          obscure: false,
-          textInputAction: TextInputAction.next,
-        ),
-        CustomButton(
-          buttonText: text.restaurant_pictures,
-          buttonFunc: () => ref
-              .read(onboardingControllerProvider.notifier)
-              .addRestaurantPictures(),
-        )
       ],
     );
   }
