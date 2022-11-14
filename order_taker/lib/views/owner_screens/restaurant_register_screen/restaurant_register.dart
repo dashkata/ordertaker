@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../themes/themes.dart';
 import '../../custom_widgets/custom_button.dart';
+import '../../custom_widgets/custom_error_alert_dialog.dart';
+import '../../custom_widgets/custom_remove_focus.dart';
 import '../../custom_widgets/custom_text_field.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
@@ -23,7 +25,7 @@ class RestaurantRegister extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final text = AppLocalizations.of(context)!;
-    return UnfocusDetector(
+    return RemoveFocusDetector(
       child: Scaffold(
         floatingActionButton: const _BackArrowFAB(),
         floatingActionButtonLocation: FloatingActionButtonLocation.miniStartTop,

@@ -352,28 +352,20 @@ class FirestoreRepository {
 
   Future<void> submitRestaurantDetails(
     Restaurant restaurant,
-    int insideTables,
-    int outsideTables,
+    int tables,
   ) async {
     await FirebaseFirestore.instance
         .doc(FirestorePath.restaurant(restaurant.title))
         .set(
           restaurant.restaurantToMap(),
         );
-    // for (int i = 0; i < insideTables; i++) {
-    //   await FirebaseFirestore.instance
-    //       .doc(FirestorePath.restaurantTable(i.toString(), restaurant.title))
-    //       .set({
-    //     'location': 'inside',
-    //   });
-    // }
-    // for (int i = 0; i < outsideTables; i++) {
-    //   await FirebaseFirestore.instance
-    //       .doc(FirestorePath.restaurantTable(i.toString(), restaurant.title))
-    //       .set({
-    //     'location': 'outside',
-    //   });
-    // }
+    for (int i = 1; i <= tables; i++) {
+      await FirebaseFirestore.instance
+          .doc(FirestorePath.restaurantTable(i.toString(), restaurant.title))
+          .set({
+        'id': i,
+      });
+    }
   }
 
   Future<void> addMenuItem(OrderItem orderItem, String restaurant) async {

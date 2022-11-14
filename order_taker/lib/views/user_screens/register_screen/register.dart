@@ -4,8 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../Themes/themes.dart';
 import '../../custom_widgets/custom_button.dart';
+import '../../custom_widgets/custom_error_alert_dialog.dart';
+import '../../custom_widgets/custom_remove_focus.dart';
 import '../../custom_widgets/custom_text_field.dart';
-import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
 import 'controllers/user_register_providers.dart';
@@ -22,7 +23,7 @@ class RegisterScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final text = AppLocalizations.of(context)!;
-    return UnfocusDetector(
+    return RemoveFocusDetector(
       child: Scaffold(
         backgroundColor: mainColor,
         body: SafeArea(

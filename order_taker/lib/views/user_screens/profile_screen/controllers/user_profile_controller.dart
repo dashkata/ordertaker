@@ -31,8 +31,7 @@ class UserProfileNotifier extends StateNotifier<void> {
   void showPicDialog(Widget title, Widget content, BuildContext context) {
     showDialog(
       context: context,
-      builder: (BuildContext context) => AlertDialog(
-        backgroundColor: complementaryColor,
+      builder: (BuildContext context) => CustomAlertDialog(
         title: title,
         content: content,
       ),

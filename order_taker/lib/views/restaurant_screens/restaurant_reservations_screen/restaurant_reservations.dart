@@ -8,12 +8,10 @@ import '../../../themes/themes.dart';
 import '../../custom_widgets/custom_alert_dialog.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/custom_drawer.dart';
+import '../../custom_widgets/custom_error_alert_dialog.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
-import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/route_manager.dart';
-import '../restaurant_orders_screen/controllers/restaurant_orders_provider.dart';
-import '../restaurant_orders_screen/restaurant_order.dart';
 import '../restaurant_orders_screen/restaurant_order_arguments.dart';
 import 'controllers/restaurant_reservation_provider.dart';
 

@@ -5,10 +5,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../Themes/themes.dart';
 import '../../../providers/common_providers.dart';
 import '../../custom_widgets/custom_drawer.dart';
+import '../../custom_widgets/custom_error_alert_dialog.dart';
 import '../../custom_widgets/custom_menu_card.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
-import '../../owner_screens/owner_onboarding/controllers/onboarding_providers.dart';
-import '../../project_widgets.dart';
 
 class RestaurantMenu extends StatelessWidget {
   const RestaurantMenu({Key? key}) : super(key: key);

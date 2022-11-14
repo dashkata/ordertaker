@@ -1,4 +1,4 @@
- part of '../profile.dart';
+part of '../profile.dart';
 
 class _ContainerPicture extends StatelessWidget {
   const _ContainerPicture({
@@ -44,26 +44,25 @@ class _ContainerPicture extends StatelessWidget {
               const CustomProfilePicture(
                 radius: 60,
               ),
-              // Consumer(
-              //   builder: (_, ref, child) => GFIconButton(
-              //     color: GFColors.WHITE,
-              //     size: GFSize.SMALL,
-              //     borderSide: const BorderSide(
-              //       width: 1.5,
-              //     ),
-              //     shape: GFIconButtonShape.circle,
-              //     icon: const Icon(
-              //       Icons.camera_alt,
-              //       color: Colors.black,
-              //     ),
-              //     onPressed: () =>
-              //         ref.read(userProfileProvider.notifier).showPicDialog(
-              //               DialogTitle(text: text),
-              //               DialogContent(text: text),
-              //               context,
-              //             ),
-              //   ),
-              // ),
+              Consumer(
+                builder: (_, ref, child) => IconButton(
+                  style: IconButton.styleFrom(
+                    side: const BorderSide(
+                      width: 1.5,
+                    ),
+                  ),
+                  icon: const Icon(
+                    Icons.camera_alt,
+                    color: accentBlackColor,
+                  ),
+                  onPressed: () =>
+                      ref.read(userProfileProvider.notifier).showPicDialog(
+                            _DialogTitle(text: text),
+                            DialogContent(text: text),
+                            context,
+                          ),
+                ),
+              ),
             ],
           ),
         ],

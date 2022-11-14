@@ -30,6 +30,7 @@ class _DetailsDialog extends ConsumerWidget {
               ),
             ],
           ),
+          //TODO get this in localization
           Text(
             'Select preferred table location',
             style: Theme.of(context).textTheme.headline6,

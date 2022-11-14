@@ -5,8 +5,8 @@ import '../../providers/repository_providers.dart';
 
 import '../custom_widgets/custom_progress_indicator.dart';
 import '../login_screen/login.dart';
+import '../owner_restaurant_info/owner_restaurant_info.dart';
 import '../owner_screens/owner_onboarding/onboarding.dart';
-import '../owner_screens/owner_restaurant_info/owner_restaurant_info.dart';
 import '../restaurant_screens/restaurant_tables_screen/restaurant_tables.dart';
 import '../user_screens/restaurant_screen/restaurants.dart';
 

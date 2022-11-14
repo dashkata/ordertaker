@@ -9,6 +9,7 @@ import '../../../themes/themes.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/custom_button_outlined.dart';
 import '../../custom_widgets/custom_drawer.dart';
+import '../../custom_widgets/custom_error_alert_dialog.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../custom_widgets/custom_text_field.dart';
 import '../../project_widgets.dart';
@@ -45,8 +46,11 @@ class RestaurantRequests extends StatelessWidget {
                   return asyncRequests.when(
                     data: (requests) => ListView.builder(
                       itemCount: requests.length,
-                      itemBuilder: (_, index) => _RequestCard(
-                        reservation: requests[index],
+                      itemBuilder: (_, index) => Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: _RequestCard(
+                          reservation: requests[index],
+                        ),
                       ),
                     ),
                     error: (e, s) => ErrorAlertDialog(

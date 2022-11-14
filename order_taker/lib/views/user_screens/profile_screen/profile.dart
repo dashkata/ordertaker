@@ -11,6 +11,7 @@ import '../../../themes/themes.dart';
 import '../../custom_widgets/custom_alert_dialog.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/custom_drawer.dart';
+import '../../custom_widgets/custom_error_alert_dialog.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../custom_widgets/custom_text_field.dart';
 import '../../custom_widgets/profile_picture.dart';

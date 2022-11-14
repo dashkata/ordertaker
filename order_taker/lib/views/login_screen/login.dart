@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../themes/themes.dart';
+import '../custom_widgets/custom_remove_focus.dart';
 import '../project_widgets.dart';
 import '../resources/padding_manager.dart';
 import '../resources/style_manager.dart';
@@ -15,7 +16,7 @@ class LoginScreen extends ConsumerWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => UnfocusDetector(
+  Widget build(BuildContext context, WidgetRef ref) => RemoveFocusDetector(
         child: Scaffold(
           backgroundColor: mainColor,
           body: SafeArea(

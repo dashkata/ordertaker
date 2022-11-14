@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../auth_screen/auth_checker_screen.dart';
 import '../login_screen/login.dart';
+import '../owner_restaurant_info/owner_restaurant_info.dart';
 import '../owner_screens/owner_onboarding/onboarding.dart';
-import '../owner_screens/owner_restaurant_info/owner_restaurant_info.dart';
 import '../owner_screens/restaurant_register_screen/restaurant_register.dart';
 import '../restaurant_screens/restaurant_menu_screen/restaurant_menu.dart';
 import '../restaurant_screens/restaurant_orders_screen/restaurant_order.dart';
@@ -15,7 +15,6 @@ import '../user_screens/menu_screen/menu.dart';
 import '../user_screens/profile_screen/profile.dart';
 import '../user_screens/register_screen/register.dart';
 import '../user_screens/reservations_screen/reservations.dart';
-import '../user_screens/restaurant_info_screen/restaurant_info.dart';
 import '../user_screens/restaurant_screen/restaurants.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -68,11 +67,6 @@ class AppRouter {
       case Routes.userReservations:
         return MaterialPageRoute(
           builder: (_) => const ReservationScreen(),
-        );
-      case Routes.userRestaurantInfo:
-        return MaterialPageRoute(
-          builder: (_) => const RestaurantInfoScreen(),
-          settings: settings,
         );
       case Routes.userMenu:
         return MaterialPageRoute(

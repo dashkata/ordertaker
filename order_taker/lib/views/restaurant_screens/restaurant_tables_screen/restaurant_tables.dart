@@ -3,10 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../Themes/themes.dart';
-import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/custom_drawer.dart';
+import '../../custom_widgets/custom_error_alert_dialog.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
-import '../../project_widgets.dart';
 import 'controllers/restaurant_tables_providers.dart';
 
 class RestaurantTables extends ConsumerWidget {
@@ -52,15 +51,14 @@ class RestaurantTables extends ConsumerWidget {
                                     title,
                                   ),
                               style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                  ),
-                                  side: const BorderSide(
-                                      color: complementaryColor2, width: 2),
-                                  backgroundColor: complementaryColor),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                                backgroundColor: complementaryColor2,
+                              ),
                               child: Text(
                                 tables[index].replaceAll('Table ', ''),
-                                style: Theme.of(context).textTheme.headline1,
+                                style: Theme.of(context).textTheme.headline4,
                               ),
                             ),
                             gridDelegate:

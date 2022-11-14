@@ -31,8 +31,8 @@ class _ReservationCard extends ConsumerWidget {
                       restaurantPictureProvider(reservation.restaurant),
                     );
                     return restaurantPic.when(
-                      data: (imageUrl) => CachedNetworkImage(
-                        imageUrl: restaurantPic.value,
+                      data: (picValue) => CachedNetworkImage(
+                        imageUrl: picValue,
                         imageBuilder: (context, url) => CircleAvatar(
                           backgroundImage: url,
                           radius: 40,
@@ -46,7 +46,7 @@ class _ReservationCard extends ConsumerWidget {
                   },
                 ),
               ),
-              Flexible(
+              Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: _TitleColumn(

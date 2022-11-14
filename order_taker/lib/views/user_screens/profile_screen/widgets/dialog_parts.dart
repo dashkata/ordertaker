@@ -12,7 +12,7 @@ class _DialogTitle extends StatelessWidget {
   Widget build(BuildContext context) => Center(
         child: Text(
           text.choose_an_option,
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headline5,
         ),
       );
 }

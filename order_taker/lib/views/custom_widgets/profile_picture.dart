@@ -22,7 +22,10 @@ class CustomProfilePicture extends ConsumerWidget {
           radius: radius,
         ),
         placeholder: (context, url) => const CircularProgressIndicator(),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
+        errorWidget: (context, url, error) => CircleAvatar(
+          backgroundImage: const AssetImage('assets/noavatar.png'),
+          radius: radius,
+        ),
       ),
       loading: () => const CircularProgressIndicator(),
       error: (e, s) => Text('Error $e'),

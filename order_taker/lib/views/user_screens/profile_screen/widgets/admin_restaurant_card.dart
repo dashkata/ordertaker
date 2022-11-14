@@ -23,7 +23,6 @@ class _AdminRestaurantCard extends ConsumerWidget {
                   CustomButton(
                     buttonText: 'Reset password',
                     buttonFunc: () async {
-                      print(email);
                       await ref
                           .read(authRepositoryProvider)
                           .sendPasswordResetLink(

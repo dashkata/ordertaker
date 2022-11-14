@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../providers/controller_providers.dart';
 import '../../custom_widgets/custom_alert_dialog.dart';
 import '../../custom_widgets/custom_button.dart';
+import '../../custom_widgets/custom_error_alert_dialog.dart';
 import '../controllers/login_screen_providers.dart';
 import '../../project_widgets.dart';
 

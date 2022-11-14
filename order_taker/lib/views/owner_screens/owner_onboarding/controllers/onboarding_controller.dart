@@ -75,25 +75,21 @@ class OnboardingController extends StateNotifier<void> {
         );
   }
 
-  Future<void> addRestaurantPictures() async {
-    final List<XFile>? images = await ImagePicker().pickMultiImage();
-    final List<String> downloadUrls = [];
-    if (images != null) {
-      for (int i = 0; i < images.length; i++) {
-        final downloadUrl =
-            await _ref.read(storageRepositoryProvider).uploadRestaurantImage(
-                  photoFile: File(images[i].path),
-                  index: i,
-                  restaurantName: await _ref
-                      .read(firestoreRepositoryProvider)
-                      .fetchRestaurantTitle(
-                        _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
-                      ),
-                );
-        downloadUrls.add(downloadUrl);
-      }
-      _ref.read(restaurantPhotosProvider.notifier).update(
-            (state) => downloadUrls,
+  Future<void> addRestaurantPicture() async {
+    final XFile? image =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      final downloadUrl =
+          await _ref.read(storageRepositoryProvider).uploadRestaurantImage(
+                photoFile: File(image.path),
+                restaurantName: await _ref
+                    .read(firestoreRepositoryProvider)
+                    .fetchRestaurantTitle(
+                      _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
+                    ),
+              );
+      _ref.read(restaurantPhotoProvider.notifier).update(
+            (state) => downloadUrl,
           );
     }
   }
@@ -111,10 +107,10 @@ class OnboardingController extends StateNotifier<void> {
             website: _ref.read(restaurantWebsiteProvider),
             phoneNumber: _ref.read(restaurantPhoneNumberProvider),
             paymentMethods: _ref.read(restaurantPaymentProvider),
-            photos: _ref.read(restaurantPhotosProvider),
+            address: _ref.read(restaurantAddressProvider),
+            photo: _ref.read(restaurantPhotoProvider),
           ),
-          int.parse(_ref.read(restaurantInsideTablesProvider)),
-          int.parse(_ref.read(restaurantOutsideTablesProvider)),
+          int.parse(_ref.read(restaurantTablesProvider)),
         );
     await _ref.read(firestoreRepositoryProvider).setOnBoarding(
           _ref.read(authRepositoryProvider).getCurrentUser()!.uid,

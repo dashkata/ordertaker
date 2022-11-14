@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../models/restaurant_model.dart';
 import '../../../../themes/themes.dart';
-import '../../../project_widgets.dart';
+import '../../../custom_widgets/custom_error_alert_dialog.dart';
 import '../../../resources/route_manager.dart';
 import '../../confirm_reservation_screen/confirm_reservation_arguments.dart';
 import '../../confirm_reservation_screen/controllers/confirm_reservation_providers.dart';
@@ -93,17 +93,6 @@ class RestaurantScreenController extends StateNotifier<void> {
     }
     return;
   }
-
-  // Future<void> showTableDialog(
-  //   Widget tablesDialog,
-  //   BuildContext context,
-  // ) async {
-  //   await showDialog(
-  //     context: context,
-  //     builder: (_) => tablesDialog,
-  //   );
-  // }
-
   Future<void> navigateToConfirm(
     String restaurantTitle,
     WidgetRef ref,

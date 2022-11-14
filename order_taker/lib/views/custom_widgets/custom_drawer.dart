@@ -8,6 +8,7 @@ import '../../providers/repository_providers.dart';
 import '../../themes/themes.dart';
 import '../project_widgets.dart';
 import '../resources/route_manager.dart';
+import 'custom_error_alert_dialog.dart';
 import 'custom_progress_indicator.dart';
 import 'profile_picture.dart';
 
@@ -36,14 +37,16 @@ class CustomDrawer extends ConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const CustomProfilePicture(radius: 45),
+                  if(userType != 'Restaurant')
+                    const CustomProfilePicture(radius: 45),
                   const SizedBox(
                     height: 10,
                   ),
-                  // Text(
-                  //   user.displayName!,
-                  //   style: Theme.of(context).textTheme.headline5,
-                  // ),
+                  if(userType != 'Restaurant')
+                    Text(
+                      user.displayName!,
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
                 ],
               ),
             ),

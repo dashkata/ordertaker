@@ -9,20 +9,27 @@ import '../../../models/restaurant_model.dart';
 import '../../../models/review_model.dart';
 import '../../../providers/common_providers.dart';
 import '../../../themes/themes.dart';
-import '../../custom_widgets/add_menu_button.dart';
-import '../../custom_widgets/custom_drawer.dart';
-import '../../custom_widgets/custom_menu_card.dart';
-import '../../custom_widgets/custom_progress_indicator.dart';
-import '../../project_widgets.dart';
-import '../../resources/padding_manager.dart';
-import '../../resources/style_manager.dart';
+
+import '../custom_widgets/add_menu_button.dart';
+import '../custom_widgets/custom_drawer.dart';
+import '../custom_widgets/custom_error_alert_dialog.dart';
+import '../custom_widgets/custom_menu_card.dart';
+import '../custom_widgets/custom_progress_indicator.dart';
+import '../custom_widgets/custom_remove_focus.dart';
+import '../resources/padding_manager.dart';
+import '../resources/style_manager.dart';
 import 'controllers/owner_restaurant_info_providers.dart';
 
 part 'widgets/description_icon.dart';
+
 part 'widgets/details_section.dart';
+
 part 'widgets/menu_section.dart';
+
 part 'widgets/review_card.dart';
+
 part 'widgets/reviews_section.dart';
+
 part 'widgets/section_button.dart';
 
 class OwnerRestaurantInfo extends StatelessWidget {
@@ -33,7 +40,7 @@ class OwnerRestaurantInfo extends StatelessWidget {
     final text = AppLocalizations.of(context)!;
     final Restaurant? restaurant =
         ModalRoute.of(context)!.settings.arguments as Restaurant?;
-    return UnfocusDetector(
+    return RemoveFocusDetector(
       child: Stack(
         alignment: AlignmentDirectional.center,
         children: [
@@ -61,13 +68,27 @@ class OwnerRestaurantInfo extends StatelessWidget {
             backgroundColor: mainColor,
             body: Stack(
               children: [
-                Image(
-                  height: MediaQuery.of(context).size.height / 3,
-                  image: const AssetImage(
-                    'assets/PizzaDonVito.jpg',
+                if (restaurant != null)
+                  Image(
+                    height: MediaQuery.of(context).size.height / 3,
+                    image: NetworkImage(restaurant!.photo),
+                    fit: BoxFit.cover,
+                  )
+                else
+                  Consumer(
+                    builder: (context, ref, child) =>
+                        ref.watch(restaurantInformationProvider).when(
+                              data: (restaurantInfo) => Image(
+                                height: MediaQuery.of(context).size.height / 3,
+                                image: NetworkImage(restaurantInfo.photo),
+                                fit: BoxFit.cover,
+                              ),
+                              error: (e, s) => ErrorAlertDialog(
+                                errorMessage: e.toString(),
+                              ),
+                              loading: () => const CustomProgressIndicator(),
+                            ),
                   ),
-                  fit: BoxFit.cover,
-                ),
                 Container(
                   height: double.maxFinite,
                   width: double.maxFinite,
@@ -135,7 +156,8 @@ class OwnerRestaurantInfo extends StatelessWidget {
                                   error: (e, s) => ErrorAlertDialog(
                                     errorMessage: e.toString(),
                                   ),
-                                  loading: () => const CustomProgressIndicator(),
+                                  loading: () =>
+                                      const CustomProgressIndicator(),
                                 ),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20.0),

@@ -4,17 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 import '../../../Themes/themes.dart';
-import '../../../enums/image_type.dart';
-import '../../../models/menu_item_model.dart';
 import '../../../models/menu_section_model.dart';
 import '../../../providers/common_providers.dart';
 import '../../custom_widgets/add_menu_button.dart';
-import '../../custom_widgets/custom_alert_dialog.dart';
-import '../../custom_widgets/custom_button.dart';
+import '../../custom_widgets/custom_error_alert_dialog.dart';
 import '../../custom_widgets/custom_menu_card.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
+import '../../custom_widgets/custom_remove_focus.dart';
 import '../../custom_widgets/custom_text_field.dart';
-import '../../project_widgets.dart';
 import 'controllers/onboarding_providers.dart';
 
 part 'widgets/page_one_widgets/page_one_image.dart';
@@ -31,13 +28,15 @@ part 'widgets/page_two_widgets/page_two_form.dart';
 
 part 'widgets/page_two_widgets/page_two_title.dart';
 
+part 'widgets/page_two_widgets/header_picture_button.dart';
+
 class OnboardingScreen extends ConsumerWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final text = AppLocalizations.of(context)!;
-    return UnfocusDetector(
+    return RemoveFocusDetector(
       child: IntroductionScreen(
         pages: [
           PageViewModel(

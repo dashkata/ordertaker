@@ -7,7 +7,9 @@ import '../../../models/order_model.dart';
 import '../../../models/reservation_model.dart';
 import '../../../themes/themes.dart';
 import '../../custom_widgets/custom_button.dart';
+import '../../custom_widgets/custom_error_alert_dialog.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
+import '../../custom_widgets/custom_remove_focus.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
@@ -28,7 +30,7 @@ class BillScreen extends StatelessWidget {
     final reservation =
         ModalRoute.of(context)!.settings.arguments as Reservation;
     final text = AppLocalizations.of(context)!;
-    return UnfocusDetector(
+    return RemoveFocusDetector(
       child: Scaffold(
         appBar: AppBar(
           title: Text(

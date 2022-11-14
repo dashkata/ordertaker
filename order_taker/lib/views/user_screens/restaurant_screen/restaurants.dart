@@ -10,6 +10,7 @@ import '../../../providers/common_providers.dart';
 import '../../custom_widgets/custom_alert_dialog.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/custom_drawer.dart';
+import '../../custom_widgets/custom_error_alert_dialog.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';

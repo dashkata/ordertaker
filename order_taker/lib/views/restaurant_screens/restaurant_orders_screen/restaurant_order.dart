@@ -6,8 +6,8 @@ import '../../../models/order_model.dart';
 import '../../../themes/themes.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/custom_drawer.dart';
+import '../../custom_widgets/custom_error_alert_dialog.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
-import '../../project_widgets.dart';
 import 'controllers/restaurant_orders_provider.dart';
 import 'restaurant_order_arguments.dart';
 

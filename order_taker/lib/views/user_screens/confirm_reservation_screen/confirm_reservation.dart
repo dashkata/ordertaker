@@ -10,7 +10,6 @@ import '../../custom_widgets/custom_button.dart';
 import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
-import '../../user_screens/restaurant_info_screen/restaurant_info_widget.dart';
 import 'confirm_reservation_arguments.dart';
 import 'controllers/confirm_reservation_providers.dart';
 
@@ -53,7 +52,6 @@ class ConfirmReservationScreen extends ConsumerWidget {
                         reservationInfo: reservationInfo,
                         text: text,
                       ),
-                      const InfoDivider(),
                       _UserDetail(
                         detailType: text.name,
                         userDetail: data['name'],

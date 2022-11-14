@@ -24,33 +24,17 @@ class _RestaurantCard extends ConsumerWidget {
                   Stack(
                     alignment: Alignment.center,
                     children: [
-                      Consumer(
-                        builder: (context, ref, child) {
-                          final AsyncValue restaurantPic = ref.watch(
-                            restaurantPictureProvider(
-                              restaurant.title,
-                            ),
-                          );
-                          return restaurantPic.when(
-                            data: (imageUrl) => CachedNetworkImage(
-                              imageUrl: restaurantPic.value,
-                              imageBuilder: (context, url) => Ink.image(
-                                colorFilter: ColorFilter.mode(
-                                  Colors.black.withOpacity(0.8),
-                                  BlendMode.dstATop,
-                                ),
-                                image: url,
-                                fit: BoxFit.cover,
-                                height: 100,
-                              ),
-                            ),
-                            error: (e, s) => Text(
-                              e.toString(),
-                            ),
-                            loading: () => const CustomProgressIndicator(),
-                          );
-                          // return Container();
-                        },
+                      CachedNetworkImage(
+                        imageUrl: restaurant.photo,
+                        imageBuilder: (context, url) => Ink.image(
+                          colorFilter: ColorFilter.mode(
+                            Colors.black.withOpacity(0.8),
+                            BlendMode.dstATop,
+                          ),
+                          image: url,
+                          fit: BoxFit.cover,
+                          height: 100,
+                        ),
                       ),
                     ],
                   ),

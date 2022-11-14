@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../themes/themes.dart';
 import '../project_widgets.dart';
+import 'custom_remove_focus.dart';
 
 class CustomAlertDialog extends StatelessWidget {
   const CustomAlertDialog({
@@ -15,7 +16,7 @@ class CustomAlertDialog extends StatelessWidget {
   final Widget? title;
 
   @override
-  Widget build(BuildContext context) => UnfocusDetector(
+  Widget build(BuildContext context) => RemoveFocusDetector(
         child: AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(

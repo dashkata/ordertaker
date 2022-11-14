@@ -5,7 +5,8 @@ class Restaurant {
   final String website;
   final String phoneNumber;
   final String paymentMethods;
-  final List<String> photos;
+  final String photo;
+  final String address;
   final List<String>? reviews;
 
   Restaurant({
@@ -15,7 +16,8 @@ class Restaurant {
     required this.website,
     required this.phoneNumber,
     required this.paymentMethods,
-    required this.photos,
+    required this.photo,
+    required this.address,
     this.reviews,
   });
 
@@ -26,8 +28,9 @@ class Restaurant {
         website: data['website'],
         phoneNumber: data['phoneNumber'],
         paymentMethods: data['paymentMethods'],
-        photos: List<String>.from(data['photos']),
+        photo: data['photo'],
         reviews: List<String>.from(data['reviews'] ?? []),
+        address: data['address'],
       );
 
   Map<String, dynamic> restaurantToMap() => {
@@ -37,6 +40,7 @@ class Restaurant {
         'website': website,
         'phoneNumber': phoneNumber,
         'paymentMethods': paymentMethods,
-        'photos': photos,
+        'photo': photo,
+        'address' : address,
       };
 }

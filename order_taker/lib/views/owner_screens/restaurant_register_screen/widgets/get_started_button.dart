@@ -48,8 +48,9 @@ class _ConfirmButton extends ConsumerWidget {
                 .catchError(
                   (e) => showDialog(
                     context: context,
-                    builder: (_) =>
-                        ErrorAlertDialog(errorMessage: e.toString()),
+                    builder: (_) => ErrorAlertDialog(
+                      errorMessage: e.toString(),
+                    ),
                   ),
                 );
           } else {

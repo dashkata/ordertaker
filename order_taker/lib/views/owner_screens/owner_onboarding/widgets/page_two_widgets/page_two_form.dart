@@ -84,7 +84,7 @@ class _PageTwoForm extends ConsumerWidget {
         ),
         CustomTextField(
           func: (value) =>
-              ref.read(restaurantOutsideTablesProvider.notifier).update(
+              ref.read(restaurantTablesProvider.notifier).update(
                     (state) => value,
                   ),
           inputType: TextInputType.number,
@@ -93,6 +93,7 @@ class _PageTwoForm extends ConsumerWidget {
           obscure: false,
           textInputAction: TextInputAction.next,
         ),
+        const _HeaderPictureButton(),
       ],
     );
   }

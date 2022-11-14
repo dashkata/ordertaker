@@ -31,7 +31,7 @@ class StorageRepository {
     final parsedRestaurant = restaurantName.replaceAll(' ', '');
     final storageRef = FirebaseStorage.instance
         .ref()
-        .child('Images/Restaurants/$parsedRestaurant/$parsedRestaurant.jpg');
+        .child('Images/Restaurants/$parsedRestaurant/$parsedRestaurant');
     try {
       return await storageRef.getDownloadURL();
     } on FirebaseException catch (e) {
@@ -58,13 +58,12 @@ class StorageRepository {
 
   Future<String> uploadRestaurantImage({
     required File photoFile,
-    required int index,
     required String restaurantName,
   }) async {
     final parsedRestaurant = restaurantName.replaceAll(' ', '');
     final storageRef = FirebaseStorage.instance.ref();
     final restaurantRef = storageRef.child(
-      'Images/Restaurants/$parsedRestaurant/Photos/$parsedRestaurant $index',
+      'Images/Restaurants/$parsedRestaurant/$parsedRestaurant',
     );
     try {
       await restaurantRef.putFile(photoFile);
