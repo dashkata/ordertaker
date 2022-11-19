@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import '../models/menu_item_model.dart';
 import '../models/menu_section_model.dart';
@@ -120,10 +121,20 @@ class FirestoreRepository {
     final restaurantReservationRef = FirebaseFirestore.instance.collection(
       FirestorePath.restaurantReservations(
         reservation.restaurant,
+
         reservation.table!,
       ),
     );
     await restaurantReservationRef.doc('$uid - ${reservation.date}').delete();
+    await FirebaseFirestore.instance
+        .doc(
+          FirestorePath.restaurantRequest(
+            reservation.restaurant,
+            reservation.userId,
+            reservation.date,
+          ),
+        )
+        .delete();
 
     final reservationRef = FirebaseFirestore.instance
         .collection(FirestorePath.userReservations(uid));
