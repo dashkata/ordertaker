@@ -12,44 +12,55 @@ class _DetailRow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(
-              right: 8.0,
-            ),
-            child: Icon(
-              Icons.calendar_month,
-              size: 15,
-              color: accentBlackColor,
-            ),
+          const Icon(
+            Icons.calendar_month,
+            size: 15,
+            color: accentBlackColor,
           ),
-          Text(
-            ref.watch(confirmDateProvider),
-            style: Theme.of(context).textTheme.headline6,
+          const SizedBox(
+            width: 5,
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 10.0, right: 5),
-            child: Icon(
-              Icons.watch_later_outlined,
-              size: 15,
-              color: accentBlackColor,
+          Flexible(
+            child: Text(
+              ref.watch(confirmDateProvider),
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
-          Text(
-            ref.watch(confirmTimeProvider),
-            style: Theme.of(context).textTheme.headline6,
+          const SizedBox(
+            width: 10,
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 10.0, right: 5),
-            child: Icon(
-              Icons.person,
-              size: 15,
-              color: accentBlackColor,
+          const Icon(
+            Icons.watch_later_outlined,
+            size: 15,
+            color: accentBlackColor,
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          Flexible(
+            child: Text(
+              ref.watch(confirmTimeProvider),
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
-          Text(
-            '${reservationInfo.numberOfPeople} ${text.people}',
-            style: Theme.of(context).textTheme.headline6,
+          const SizedBox(
+            width: 10,
+          ),
+          const Icon(
+            Icons.person,
+            size: 15,
+            color: accentBlackColor,
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          Flexible(
+            child: Text(
+              '${reservationInfo.numberOfPeople} ${text.people}',
+              style: Theme.of(context).textTheme.headline6,
+            ),
           ),
         ],
       );

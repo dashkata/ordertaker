@@ -1,4 +1,4 @@
-part of '../owner_restaurant_info.dart';
+part of '../restaurant_info.dart';
 
 class _SectionButton extends ConsumerWidget {
   const _SectionButton({

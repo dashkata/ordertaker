@@ -1,4 +1,4 @@
-part of '../owner_restaurant_info.dart';
+part of '../restaurant_info.dart';
 
 class _DescriptionIcon extends ConsumerWidget {
   const _DescriptionIcon({
@@ -20,7 +20,7 @@ class _DescriptionIcon extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(controllerProvider(information));
-    return Expanded(
+    return Flexible(
       child: Column(
         children: [
           Container(

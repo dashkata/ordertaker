@@ -46,23 +46,19 @@ class _ProfileListTile extends ConsumerWidget {
             : CrossFadeState.showFirst,
         duration: const Duration(milliseconds: 200),
       ),
-      // trailing:
-      // GFIconButton(
-      //   icon: const Icon(Icons.edit),
-      //   size: GFSize.SMALL,
-      //   type: GFButtonType.transparent,
-      //   shape: GFIconButtonShape.pills,
-      //   color: Colors.white,
-      //   onPressed: () =>
-      //       ref.read(userProfileProvider.notifier).updateUserDetails(
-      //             ref,
-      //             detail,
-      //             context,
-      //             text,
-      //             detailType,
-      //             changeProvider,
-      //           ),
-      // ),
+      trailing: IconButton(
+        icon: const Icon(Icons.edit),
+        color: Colors.white,
+        onPressed: () =>
+            ref.read(userProfileProvider.notifier).updateUserDetails(
+                  ref,
+                  detail,
+                  context,
+                  text,
+                  detailType,
+                  changeProvider,
+                ),
+      ),
     );
   }
 }

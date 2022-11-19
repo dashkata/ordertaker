@@ -88,7 +88,7 @@
     "reservation_date" : "Reservation date",
     "number_of_people" : "Number of people",
     "bill" : "Bill",
-    "selected_table" : "Selected table",
+    "preferred_location" : "Preferred location",
     "cancel_reservation_question" : "Are you sure you want to cancel your reservation?",
     "confirm" : "Confirm",
     "remove_item" : "Are you sure you want to remove this item from the menu?",

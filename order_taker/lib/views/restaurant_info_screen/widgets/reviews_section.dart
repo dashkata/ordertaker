@@ -1,4 +1,4 @@
-part of '../owner_restaurant_info.dart';
+part of '../restaurant_info.dart';
 
 class _ReviewsSection extends ConsumerWidget {
   const _ReviewsSection({

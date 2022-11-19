@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../auth_screen/auth_checker_screen.dart';
 import '../login_screen/login.dart';
-import '../owner_restaurant_info/owner_restaurant_info.dart';
 import '../owner_screens/owner_onboarding/onboarding.dart';
 import '../owner_screens/restaurant_register_screen/restaurant_register.dart';
+import '../restaurant_info_screen/restaurant_info.dart';
 import '../restaurant_screens/restaurant_menu_screen/restaurant_menu.dart';
 import '../restaurant_screens/restaurant_orders_screen/restaurant_order.dart';
 import '../restaurant_screens/restaurant_request_screen/restaurant_request.dart';
@@ -117,7 +117,7 @@ class AppRouter {
         );
       case Routes.ownerRestaurantInfo:
         return MaterialPageRoute(
-          builder: (_) => const OwnerRestaurantInfo(),
+          builder: (_) => const RestaurantInfo(),
           settings: settings,
         );
 

@@ -5,8 +5,8 @@ import '../../providers/repository_providers.dart';
 
 import '../custom_widgets/custom_progress_indicator.dart';
 import '../login_screen/login.dart';
-import '../owner_restaurant_info/owner_restaurant_info.dart';
 import '../owner_screens/owner_onboarding/onboarding.dart';
+import '../restaurant_info_screen/restaurant_info.dart';
 import '../restaurant_screens/restaurant_tables_screen/restaurant_tables.dart';
 import '../user_screens/restaurant_screen/restaurants.dart';
 
@@ -31,7 +31,7 @@ class AuthChecker extends ConsumerWidget {
                 } else if (value == 'Admin') {
                   return ref.watch(onBoardingProvider).when(
                         data: (onBoarding) => onBoarding
-                            ? const OwnerRestaurantInfo()
+                            ? const RestaurantInfo()
                             : const OnboardingScreen(),
                         error: (e, s) => Text(e.toString()),
                         loading: () => const CustomProgressIndicator(),

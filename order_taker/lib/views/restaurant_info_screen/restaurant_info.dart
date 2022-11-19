@@ -32,8 +32,8 @@ part 'widgets/reviews_section.dart';
 
 part 'widgets/section_button.dart';
 
-class OwnerRestaurantInfo extends StatelessWidget {
-  const OwnerRestaurantInfo({Key? key}) : super(key: key);
+class RestaurantInfo extends StatelessWidget {
+  const RestaurantInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -133,25 +133,23 @@ class OwnerRestaurantInfo extends StatelessWidget {
                               ),
                           ] else
                             ref.watch(restaurantInformationProvider).when(
-                                  data: (restaurantInfo) => Expanded(
-                                    child: Column(
-                                      children: [
-                                        if (sectionId == 0)
-                                          _DetailsSection(
-                                            restaurant: restaurantInfo,
-                                            admin: true,
-                                          ),
-                                        if (sectionId == 1)
-                                          _MenuSection(
-                                            restaurant: restaurantInfo,
-                                            admin: true,
-                                          ),
-                                        if (sectionId == 2)
-                                          _ReviewsSection(
-                                            restaurant: restaurantInfo,
-                                          ),
-                                      ],
-                                    ),
+                                  data: (restaurantInfo) => Column(
+                                    children: [
+                                      if (sectionId == 0)
+                                        _DetailsSection(
+                                          restaurant: restaurantInfo,
+                                          admin: true,
+                                        ),
+                                      if (sectionId == 1)
+                                        _MenuSection(
+                                          restaurant: restaurantInfo,
+                                          admin: true,
+                                        ),
+                                      if (sectionId == 2)
+                                        _ReviewsSection(
+                                          restaurant: restaurantInfo,
+                                        ),
+                                    ],
                                   ),
                                   error: (e, s) => ErrorAlertDialog(
                                     errorMessage: e.toString(),

@@ -10,7 +10,6 @@ import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/custom_error_alert_dialog.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../custom_widgets/custom_remove_focus.dart';
-import '../../project_widgets.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
 import '../menu_screen/menu.dart';

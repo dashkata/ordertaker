@@ -14,6 +14,7 @@ class _ConfirmOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Row(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -25,28 +26,30 @@ class _ConfirmOverview extends StatelessWidget {
               radius: 45,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 5, top: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  reservationInfo.restaurantTitle,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5.0),
-                  child: _DetailRow(
-                    reservationInfo: reservationInfo,
-                    text: text,
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 5, top: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    reservationInfo.restaurantTitle,
+                    style: Theme.of(context).textTheme.headline5,
                   ),
-                ),
-                Text(
-                  '${text.selected_table}: ${reservationInfo.preferredLocation}',
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: _DetailRow(
+                      reservationInfo: reservationInfo,
+                      text: text,
+                    ),
+                  ),
+                  Text(
+                    '${text.preferred_location}: ${reservationInfo.preferredLocation}',
+                  ),
+                ],
+              ),
             ),
-          )
+          ),
         ],
       );
 }

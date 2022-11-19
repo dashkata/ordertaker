@@ -33,6 +33,7 @@ class ConfirmReservationScreen extends ConsumerWidget {
     final AsyncValue restaurantPic =
         ref.watch(restaurantPictureProvider(reservationInfo.restaurantTitle));
     return Scaffold(
+      appBar: AppBar(),
       backgroundColor: mainColor,
       body: SafeArea(
         child: Center(
@@ -67,20 +68,12 @@ class ConfirmReservationScreen extends ConsumerWidget {
                         detailType: text.mobile_number,
                         userDetail: data['phoneNumber'],
                       ),
-                      _ConfirmButton(
-                        text: text,
-                        reservationInfo: reservationInfo,
-                        name: data['name'],
-                      ),
                       Padding(
-                        padding: PaddingManager.p2,
-                        child: Center(
-                          child: CustomButton(
-                            buttonText: text.change_details,
-                            buttonFunc: () {
-                              //TODO change details
-                            },
-                          ),
+                        padding: const EdgeInsets.only(top: 60.0),
+                        child: _ConfirmButton(
+                          text: text,
+                          reservationInfo: reservationInfo,
+                          name: data['name'],
                         ),
                       ),
                     ],
