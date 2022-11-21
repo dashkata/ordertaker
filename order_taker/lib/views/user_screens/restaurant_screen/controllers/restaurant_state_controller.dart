@@ -27,9 +27,9 @@ class RestaurantScreenController extends StateNotifier<void> {
       minute: int.parse(closeHour.split(':')[1]),
     );
     if ((openTimeHour.hour * 60 + openTimeHour.minute) <
-            (dateTime.hour * 60 + openTimeHour.minute) &&
+            (dateTime.hour * 60 + dateTime.minute) &&
         (closeTimeHour.hour * 60 + closeTimeHour.minute) >
-            (dateTime.hour * 60 + openTimeHour.minute) &&
+            (dateTime.hour * 60 + dateTime.minute) &&
         dateTime.isAfter(DateTime.now())) {
       return true;
     }
