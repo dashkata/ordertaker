@@ -37,7 +37,7 @@ class _ConfirmOverview extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline5,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 5.0),
+                    padding: const EdgeInsets.only(top: 5.0, bottom: 5),
                     child: _DetailRow(
                       reservationInfo: reservationInfo,
                       text: text,
@@ -45,6 +45,7 @@ class _ConfirmOverview extends StatelessWidget {
                   ),
                   Text(
                     '${text.preferred_location}: ${reservationInfo.preferredLocation}',
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),

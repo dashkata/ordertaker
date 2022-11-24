@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../models/reservation_model.dart';
 import '../../../../repositories/firestore_repository.dart';
 import '../../../resources/route_manager.dart';
 import '../../restaurant_orders_screen/restaurant_order_arguments.dart';
@@ -18,7 +17,7 @@ class RestaurantTablesController extends StateNotifier<void> {
       tableId,
     );
     if (currentRes) {
-      await navigatorKey.currentState!.popAndPushNamed(
+      await navigatorKey.currentState!.pushNamed(
         Routes.restaurantReservations,
         arguments: RestaurantOrderArguments(
           id: tableId,
@@ -26,7 +25,7 @@ class RestaurantTablesController extends StateNotifier<void> {
         ),
       );
     } else {
-      await navigatorKey.currentState!.popAndPushNamed(
+      await navigatorKey.currentState!.pushNamed(
         Routes.restaurantOrders,
         arguments: RestaurantOrderArguments(
           id: tableId,

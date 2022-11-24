@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../models/reservation_model.dart';
 import '../../../providers/repository_providers.dart';
 import '../../../themes/themes.dart';
 import '../../custom_widgets/custom_alert_dialog.dart';
 import '../../custom_widgets/custom_button.dart';
-import '../../custom_widgets/custom_drawer.dart';
 import '../../custom_widgets/custom_error_alert_dialog.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../resources/padding_manager.dart';
@@ -16,7 +15,6 @@ import '../restaurant_orders_screen/restaurant_order_arguments.dart';
 import 'controllers/restaurant_reservation_provider.dart';
 
 part 'widgets/restaurant_reservation_card.dart';
-
 part 'widgets/restaurant_reservation_card_alert_dialog.dart';
 
 class RestaurantReservations extends ConsumerWidget {
@@ -28,7 +26,7 @@ class RestaurantReservations extends ConsumerWidget {
     final restaurantOrderArguments =
         ModalRoute.of(context)!.settings.arguments as RestaurantOrderArguments;
     return Scaffold(
-      drawer: const CustomDrawer(),
+      // drawer: const CustomDrawer(),
       appBar: AppBar(
         title: Text(
           '${text.tables} ${restaurantOrderArguments.id} ${text.reservations}',

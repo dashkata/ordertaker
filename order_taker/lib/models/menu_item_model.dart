@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+
 
 class OrderItem {
   final String itemType;
@@ -21,7 +21,7 @@ class OrderItem {
         'itemType': itemType,
         'itemTitle': itemTitle,
         'itemIngredients': itemIngredients,
-        'itemPrice': '$itemPrice lv.',
+        'itemPrice': '$itemPrice',
         'itemImage': itemImage,
         'available': available,
       };

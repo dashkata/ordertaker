@@ -28,11 +28,11 @@ class _ReviewsSection extends ConsumerWidget {
                 ),
               ),
               asyncReviews.when(
-                data: (reviews) => ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: reviews.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      ReviewCard(review: reviews[index]),
+                data: (reviews) => Column(
+                  children: List.generate(
+                    reviews.length,
+                    (int index) => ReviewCard(review: reviews[index]),
+                  ),
                 ),
                 error: (e, s) => ErrorAlertDialog(errorMessage: e.toString()),
                 loading: () => const CustomProgressIndicator(),

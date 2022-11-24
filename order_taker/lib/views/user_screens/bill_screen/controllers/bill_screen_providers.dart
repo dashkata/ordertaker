@@ -19,3 +19,7 @@ final billScreenControllerProvider =
 
 final reviewMessageProvider = StateProvider<String>((ref) => '');
 final reviewRatingProvider = StateProvider<double>((ref) => 0);
+final totalPriceProvider = StateProvider.family<double, List<Order>>(
+  (ref, orders) =>
+      ref.read(billScreenControllerProvider.notifier).getTotalPrice(orders),
+);

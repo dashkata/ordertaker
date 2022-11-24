@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../models/order_model.dart';
 import '../../../themes/themes.dart';
 import '../../custom_widgets/custom_button.dart';
-import '../../custom_widgets/custom_drawer.dart';
 import '../../custom_widgets/custom_error_alert_dialog.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
 import 'controllers/restaurant_orders_provider.dart';
 import 'restaurant_order_arguments.dart';
 
-part 'widgets/restaurant_order_fab.dart';
-
 part 'widgets/order_container.dart';
+part 'widgets/restaurant_order_fab.dart';
 
 class RestaurantOrders extends StatelessWidget {
   const RestaurantOrders({Key? key}) : super(key: key);
@@ -33,7 +31,7 @@ class RestaurantOrders extends StatelessWidget {
         restaurantOrderArguments: restaurantOrderArguments,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
-      drawer: const CustomDrawer(),
+      // drawer: const CustomDrawer(),
       backgroundColor: mainColor,
       body: SafeArea(
         child: Consumer(

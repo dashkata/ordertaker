@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../models/order_model.dart';
 import '../../../../models/reservation_model.dart';
 import '../../../../models/review_model.dart';
 import '../../../../providers/repository_providers.dart';
@@ -16,6 +17,19 @@ class BillScreenController extends StateNotifier<void> {
       Routes.userMenu,
       arguments: reservation,
     );
+  }
+
+  double getTotalPrice(List<Order> orders) {
+    double totalPrice = 0.0;
+    for (final order in orders) {
+      for (final item in order.menuItems.keys) {
+        if (order.menuItems[item] != null) {
+          totalPrice += double.parse(item.itemPrice.replaceAll('lv.', '')) *
+              order.menuItems[item]!;
+        }
+      }
+    }
+    return totalPrice;
   }
 
   Future<void> pay(
