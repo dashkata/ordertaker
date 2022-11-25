@@ -15,7 +15,7 @@ class _ReviewsSection extends ConsumerWidget {
         restaurant.title,
       ),
     );
-    return Expanded(
+    return Flexible(
       child: Scrollbar(
         child: SingleChildScrollView(
           child: Column(

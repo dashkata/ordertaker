@@ -9,7 +9,6 @@ import '../../../models/restaurant_model.dart';
 import '../../../models/review_model.dart';
 import '../../../providers/common_providers.dart';
 import '../../../themes/themes.dart';
-
 import '../custom_widgets/add_menu_button.dart';
 import '../custom_widgets/custom_drawer.dart';
 import '../custom_widgets/custom_error_alert_dialog.dart';
@@ -21,15 +20,10 @@ import '../resources/style_manager.dart';
 import 'controllers/owner_restaurant_info_providers.dart';
 
 part 'widgets/description_icon.dart';
-
 part 'widgets/details_section.dart';
-
 part 'widgets/menu_section.dart';
-
 part 'widgets/review_card.dart';
-
 part 'widgets/reviews_section.dart';
-
 part 'widgets/section_button.dart';
 
 class RestaurantInfo extends StatelessWidget {
@@ -133,24 +127,25 @@ class RestaurantInfo extends StatelessWidget {
                               ),
                           ] else
                             ref.watch(restaurantInformationProvider).when(
-                                  data: (restaurantInfo) => Column(
-                                    children: [
-                                      if (sectionId == 0)
-                                        _DetailsSection(
-                                          restaurant: restaurantInfo,
-                                          admin: true,
-                                        ),
-                                      if (sectionId == 1)
-                                        _MenuSection(
-                                          restaurant: restaurantInfo,
-                                          admin: true,
-                                        ),
-                                      if (sectionId == 2)
-                                        _ReviewsSection(
-                                          restaurant: restaurantInfo,
-                                        ),
-                                    ],
-                                  ),
+                                  data: (restaurantInfo) {
+                                    if (sectionId == 0) {
+                                      return _DetailsSection(
+                                        restaurant: restaurantInfo,
+                                        admin: true,
+                                      );
+                                    } else if (sectionId == 1) {
+                                      return _MenuSection(
+                                        restaurant: restaurantInfo,
+                                        admin: true,
+                                      );
+                                    } else if (sectionId == 2) {
+                                      return _ReviewsSection(
+                                        restaurant: restaurantInfo,
+                                      );
+                                    } else {
+                                      return const SizedBox.shrink();
+                                    }
+                                  },
                                   error: (e, s) => ErrorAlertDialog(
                                     errorMessage: e.toString(),
                                   ),

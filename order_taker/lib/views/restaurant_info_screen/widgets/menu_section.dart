@@ -27,6 +27,7 @@ class _MenuSection extends ConsumerWidget {
                       children: List.generate(
                         menu.length,
                         (index) => Column(
+                          mainAxisSize: MainAxisSize.min,
                           children: List.generate(
                             menu[index].items.length,
                             (indexSelection) => MenuCard(

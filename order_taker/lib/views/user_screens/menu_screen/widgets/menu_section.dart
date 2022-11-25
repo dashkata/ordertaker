@@ -28,11 +28,12 @@ class _MenuSection extends StatelessWidget {
               child: Container(
                 width: double.infinity,
                 decoration: Styles.buildBoxDecoration(40, complementaryColor2),
-                child: ListView.builder(
-                  itemCount: menuList.length,
-                  shrinkWrap: true,
-                  itemBuilder: (_, index) => MenuCard(
-                    orderItem: menuList[index],
+                child: Column(
+                  children: List.generate(
+                    menuList.length,
+                    (index) => MenuCard(
+                      orderItem: menuList[index],
+                    ),
                   ),
                 ),
               ),
