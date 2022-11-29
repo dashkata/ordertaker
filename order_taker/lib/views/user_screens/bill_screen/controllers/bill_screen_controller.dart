@@ -19,7 +19,7 @@ class BillScreenController extends StateNotifier<void> {
     );
   }
 
-  double getTotalPrice(List<Order> orders) {
+  double getTotalPrice(List<UserOrder> orders) {
     double totalPrice = 0.0;
     for (final order in orders) {
       for (final item in order.menuItems.keys) {

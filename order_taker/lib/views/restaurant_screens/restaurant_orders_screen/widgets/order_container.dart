@@ -6,7 +6,7 @@ class _OrderContainer extends ConsumerWidget {
     required this.tableId,
     Key? key,
   }) : super(key: key);
-  final Order order;
+  final UserOrder order;
   final int tableId;
 
   @override

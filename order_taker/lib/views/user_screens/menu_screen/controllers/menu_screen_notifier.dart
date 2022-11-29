@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../models/menu_item_model.dart';
 import '../../../../models/order_model.dart';
 import '../../../../models/reservation_model.dart';
@@ -62,7 +63,7 @@ class MenuOrderStateNotifier extends StateNotifier<Map<OrderItem, int>> {
 
   void completeOrder(Reservation reservation) {
     ref.read(firestoreRepositoryProvider).completeOrder(
-          Order(
+          UserOrder(
             menuItems: state,
             id: 0,
             status: '',

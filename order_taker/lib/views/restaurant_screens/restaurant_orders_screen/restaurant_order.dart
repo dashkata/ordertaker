@@ -36,7 +36,7 @@ class RestaurantOrders extends StatelessWidget {
       body: SafeArea(
         child: Consumer(
           builder: (context, ref, child) {
-            final AsyncValue<List<Order>> orders = ref.watch(
+            final AsyncValue<List<UserOrder>> orders = ref.watch(
               restaurantOrdersProvider(restaurantOrderArguments),
             );
             return RefreshIndicator(

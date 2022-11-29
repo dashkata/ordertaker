@@ -7,7 +7,7 @@ import '../restaurant_order_arguments.dart';
 import 'restaurant_order_controller.dart';
 
 final restaurantOrdersProvider =
-    StreamProvider.family<List<Order>, RestaurantOrderArguments>(
+    StreamProvider.family<List<UserOrder>, RestaurantOrderArguments>(
   (ref, args) => ref
       .watch(firestoreRepositoryProvider)
       .fetchOrdersRestaurant(args.id.toString(), args.restaurantTitle),
@@ -19,7 +19,6 @@ final docChangesProvider = StreamProvider<QuerySnapshot<Map<String, dynamic>>>(
 );
 
 final restaurantOrderControllerProvider =
-StateNotifierProvider<RestaurantOrderController, void>(
-        (ref) => RestaurantOrderController(ref: ref),
+    StateNotifierProvider<RestaurantOrderController, void>(
+  (ref) => RestaurantOrderController(ref: ref),
 );
-

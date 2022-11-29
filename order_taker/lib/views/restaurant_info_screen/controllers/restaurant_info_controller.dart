@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:map_launcher/map_launcher.dart';
 
 import '../../../../enums/restaurant_details.dart';
-import '../../../../models/restaurant_model.dart';
 import '../../../../providers/repository_providers.dart';
-import 'owner_restaurant_info_providers.dart';
+import '../../resources/route_manager.dart';
 
 class RestaurantInfoController extends StateNotifier<void> {
   RestaurantInfoController() : super(null);
@@ -19,5 +22,39 @@ class RestaurantInfoController extends StateNotifier<void> {
           restaurantTitle,
           restaurantDetailsType.name,
         );
+  }
+
+  Future<void> launchMapWithAddress(String address) async {
+    final List<Location> locations = await locationFromAddress(address);
+    final availableMaps = await MapLauncher.installedMaps;
+    await showModalBottomSheet(
+      context: navigatorKey.currentState!.context,
+      builder: (_) => SafeArea(
+        child: SingleChildScrollView(
+          child: Wrap(
+            children: <Widget>[
+              for (var map in availableMaps)
+                ListTile(
+                  onTap: () => map.showMarker(
+                    coords:
+                        Coords(locations[0].latitude, locations[0].longitude),
+                    title: address,
+                  ),
+                  title: Text(map.mapName),
+                  leading: SvgPicture.asset(
+                    map.icon,
+                    height: 30.0,
+                    width: 30.0,
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+    // await availableMaps.first.showMarker(
+    //   coords: Coords(locations[0].latitude, locations[0].longitude),
+    //   title: address,
+    // );
   }
 }

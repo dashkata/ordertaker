@@ -5,7 +5,7 @@ import '../../../../models/reservation_model.dart';
 import '../../../../providers/repository_providers.dart';
 import 'bill_screen_controller.dart';
 
-final fetchOrdersProvider = StreamProvider.family<List<Order>, Reservation>(
+final fetchOrdersProvider = StreamProvider.family<List<UserOrder>, Reservation>(
   (ref, reservation) => ref.watch(firestoreRepositoryProvider).fetchOrdersUser(
         reservation,
         ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
@@ -19,7 +19,7 @@ final billScreenControllerProvider =
 
 final reviewMessageProvider = StateProvider<String>((ref) => '');
 final reviewRatingProvider = StateProvider<double>((ref) => 0);
-final totalPriceProvider = StateProvider.family<double, List<Order>>(
+final totalPriceProvider = StateProvider.family<double, List<UserOrder>>(
   (ref, orders) =>
       ref.read(billScreenControllerProvider.notifier).getTotalPrice(orders),
 );

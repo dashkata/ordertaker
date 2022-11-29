@@ -1,12 +1,12 @@
 import 'menu_item_model.dart';
 
-class Order {
+class UserOrder {
   final int id;
   final String status;
   final Map<OrderItem, int> menuItems;
   final String additionalMessage;
 
-  Order({
+  UserOrder({
     required this.id,
     required this.status,
     required this.menuItems,
@@ -24,7 +24,7 @@ class Order {
     return orderList;
   }
 
-  factory Order.fromMap(
+  factory UserOrder.fromMap(
     List<dynamic> menuItems,
     int id,
     String status,
@@ -34,7 +34,7 @@ class Order {
     for (final menuItem in menuItems) {
       parsedItems[OrderItem.fromMap(menuItem['item'])] = menuItem['count'];
     }
-    return Order(
+    return UserOrder(
       id: id,
       status: status,
       menuItems: parsedItems,

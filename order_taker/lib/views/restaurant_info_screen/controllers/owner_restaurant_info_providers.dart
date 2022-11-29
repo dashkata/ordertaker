@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../models/menu_item_model.dart';
-import '../../../../models/menu_section_model.dart';
 import '../../../../models/restaurant_model.dart';
 import '../../../../models/review_model.dart';
 import '../../../../providers/repository_providers.dart';
@@ -60,5 +58,11 @@ final websiteControllerProvider =
     StateProvider.family<TextEditingController, String>(
   (ref, website) => TextEditingController(
     text: website,
+  ),
+);
+final locationControllerProvider =
+    StateProvider.family<TextEditingController, String>(
+  (ref, location) => TextEditingController(
+    text: location,
   ),
 );

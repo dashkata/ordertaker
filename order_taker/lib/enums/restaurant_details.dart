@@ -4,5 +4,6 @@ enum RestaurantDetailsType {
   openHours,
   paymentMethods,
   phoneNumber,
+  address,
   website,
 }

@@ -18,6 +18,7 @@ import '../custom_widgets/custom_remove_focus.dart';
 import '../resources/padding_manager.dart';
 import '../resources/style_manager.dart';
 import 'controllers/owner_restaurant_info_providers.dart';
+import 'widgets/location_button.dart';
 
 part 'widgets/description_icon.dart';
 part 'widgets/details_section.dart';

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 import '../models/menu_item_model.dart';
 import '../models/menu_section_model.dart';
@@ -121,7 +120,6 @@ class FirestoreRepository {
     final restaurantReservationRef = FirebaseFirestore.instance.collection(
       FirestorePath.restaurantReservations(
         reservation.restaurant,
-
         reservation.table!,
       ),
     );
@@ -227,7 +225,7 @@ class FirestoreRepository {
   }
 
   Future<void> completeOrder(
-    Order orders,
+    UserOrder orders,
     String uid,
     Reservation reservation,
   ) async {
@@ -251,7 +249,7 @@ class FirestoreRepository {
     }
   }
 
-  Stream<List<Order>> fetchOrdersUser(
+  Stream<List<UserOrder>> fetchOrdersUser(
     Reservation reservation,
     String uid,
   ) {
@@ -261,7 +259,7 @@ class FirestoreRepository {
     return orderRef.map(
       (orders) => orders.docs
           .map(
-            (order) => Order.fromMap(
+            (order) => UserOrder.fromMap(
               order['order'],
               order['id'],
               order['status'],
@@ -272,7 +270,7 @@ class FirestoreRepository {
     );
   }
 
-  Stream<List<Order>> fetchOrdersRestaurant(
+  Stream<List<UserOrder>> fetchOrdersRestaurant(
     String tableId,
     String restaurant,
   ) async* {
@@ -289,7 +287,7 @@ class FirestoreRepository {
     yield* ordersCollection.map(
       (orders) => orders.docs
           .map(
-            (order) => Order.fromMap(
+            (order) => UserOrder.fromMap(
               order['order'],
               order['id'],
               order['status'],

@@ -20,7 +20,7 @@ class OrdersList extends StatelessWidget {
           ),
           child: Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              final AsyncValue<List<Order>> futureOrders =
+              final AsyncValue<List<UserOrder>> futureOrders =
                   ref.watch(fetchOrdersProvider(reservation));
               return futureOrders.when(
                 data: (orders) => Padding(
