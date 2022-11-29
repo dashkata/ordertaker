@@ -85,12 +85,11 @@ class _DetailsSection extends ConsumerWidget {
                   restaurantTitle: restaurant.title,
                   restaurantDetailsType: RestaurantDetailsType.phoneNumber,
                   admin: admin,
-                  onTap: () => launchUrl(
-                    Uri(
-                      scheme: 'tel',
-                      path: restaurant.phoneNumber,
-                    ),
-                  ),
+                  onTap: () => ref
+                      .read(restaurantInfoControllerProvider.notifier)
+                      .callPhoneNumber(
+                        restaurant.phoneNumber,
+                      ),
                 ),
                 _DescriptionIcon(
                   information: restaurant.paymentMethods,
@@ -107,13 +106,11 @@ class _DetailsSection extends ConsumerWidget {
                   restaurantTitle: restaurant.title,
                   restaurantDetailsType: RestaurantDetailsType.website,
                   admin: admin,
-                  onTap: () => restaurant.website.contains('https://')
-                      ? launchUrl(Uri.parse(restaurant.website))
-                      : launchUrl(
-                          Uri.parse(
-                            'https://${restaurant.website}',
-                          ),
-                        ),
+                  onTap: () => ref
+                      .read(restaurantInfoControllerProvider.notifier)
+                      .launchWebsite(
+                        restaurant.website,
+                      ),
                 ),
               ],
             ),

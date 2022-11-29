@@ -15,8 +15,9 @@ final restaurantInformationProvider = FutureProvider<Restaurant>(
           ),
 );
 final restaurantReviewsProvider = StreamProvider.family<List<Review>, String>(
-    (ref, restaurantTitle) =>
-        ref.watch(firestoreRepositoryProvider).fetchReviews(restaurantTitle));
+  (ref, restaurantTitle) =>
+      ref.watch(firestoreRepositoryProvider).fetchReviews(restaurantTitle),
+);
 final sectionIdProvider = StateProvider.autoDispose<int>(
   (ref) => 0,
 );

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:map_launcher/map_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../enums/restaurant_details.dart';
 import '../../../../providers/repository_providers.dart';
@@ -52,9 +53,26 @@ class RestaurantInfoController extends StateNotifier<void> {
         ),
       ),
     );
-    // await availableMaps.first.showMarker(
-    //   coords: Coords(locations[0].latitude, locations[0].longitude),
-    //   title: address,
-    // );
+  }
+
+  Future<void> launchWebsite(String website) async {
+    if (website.contains('https://')) {
+      await launchUrl(Uri.parse(website));
+    } else {
+      await launchUrl(
+        Uri.parse(
+          'https://$website',
+        ),
+      );
+    }
+  }
+
+  Future<void> callPhoneNumber(String phoneNumber) async {
+    await launchUrl(
+      Uri(
+        scheme: 'tel',
+        path: phoneNumber,
+      ),
+    );
   }
 }
