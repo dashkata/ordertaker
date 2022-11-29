@@ -65,6 +65,11 @@
         <string>here-location</string>
         <string>tomtomgo</string>
     </array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+  		<string>sms</string>
+  		<string>tel</string>
+	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>

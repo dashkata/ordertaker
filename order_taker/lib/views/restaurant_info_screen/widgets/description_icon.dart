@@ -8,6 +8,7 @@ class _DescriptionIcon extends ConsumerWidget {
     required this.restaurantDetailsType,
     required this.restaurantTitle,
     required this.admin,
+    this.onTap,
     Key? key,
   }) : super(key: key);
   final String restaurantTitle;
@@ -15,64 +16,75 @@ class _DescriptionIcon extends ConsumerWidget {
   final IconData infoIcon;
   final RestaurantDetailsType restaurantDetailsType;
   final bool admin;
+  final VoidCallback? onTap;
   final StateProviderFamily<TextEditingController, String> controllerProvider;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(controllerProvider(information));
-    return Flexible(
-      child: Column(
-        children: [
-          Container(
-            width: 45,
-            height: 45,
-            decoration: BoxDecoration(
-              borderRadius: Styles.buildBorderRadius(50),
-              color: complementaryColor,
-              boxShadow: const [
-                BoxShadow(blurRadius: 5),
-              ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20.0,
+          vertical: 10,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 45,
+              height: 45,
+              decoration: BoxDecoration(
+                borderRadius: Styles.buildBorderRadius(50),
+                color: complementaryColor,
+                boxShadow: const [
+                  BoxShadow(blurRadius: 5),
+                ],
+              ),
+              child: Icon(
+                infoIcon,
+                color: complementaryColor2,
+              ),
             ),
-            child: Icon(
-              infoIcon,
-              color: complementaryColor2,
+            const SizedBox(
+              width: 20,
             ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Consumer(
-            builder: (context, ref, child) => TextField(
-              controller: controller,
-              maxLines: null,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.zero,
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.transparent,
+            Consumer(
+              builder: (context, ref, child) => Flexible(
+                child: TextField(
+                  controller: controller,
+                  maxLines: null,
+                  decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.zero,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                      ),
+                    ),
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                      ),
+                    ),
                   ),
-                ),
-                disabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.transparent,
-                  ),
+                  onEditingComplete: () => ref
+                      .read(restaurantInfoControllerProvider.notifier)
+                      .submitRestaurantDetails(
+                        ref,
+                        restaurantDetailsType,
+                        controller.value.text,
+                        restaurantTitle,
+                      ),
+                  readOnly: !admin,
+                  enabled: admin,
+                  textInputAction: TextInputAction.done,
                 ),
               ),
-              onEditingComplete: () => ref
-                  .read(restaurantInfoControllerProvider.notifier)
-                  .submitRestaurantDetails(
-                    ref,
-                    restaurantDetailsType,
-                    controller.value.text,
-                    restaurantTitle,
-                  ),
-              readOnly: !admin,
-              enabled: admin,
-              textInputAction: TextInputAction.done,
-              textAlign: TextAlign.center,
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

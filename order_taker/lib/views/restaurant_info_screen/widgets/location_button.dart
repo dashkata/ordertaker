@@ -44,15 +44,22 @@ class AddressButton extends ConsumerWidget {
             enabled: admin,
             textInputAction: TextInputAction.done,
           )
-        : TextButton(
-            onPressed: () {
-              ref
-                  .read(restaurantInfoControllerProvider.notifier)
-                  .launchMapWithAddress(
-                    restaurant.address,
-                  );
-            },
-            child: Text(restaurant.address),
+        : Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: TextButton(
+              onPressed: () {
+                ref
+                    .read(restaurantInfoControllerProvider.notifier)
+                    .launchMapWithAddress(
+                      restaurant.address,
+                    );
+              },
+              child: Text(
+                restaurant.address,
+                style: Theme.of(context).textTheme.headline1,
+                // textAlign: TextAlign.left,
+              ),
+            ),
           );
   }
 }
