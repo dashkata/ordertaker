@@ -8,12 +8,12 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../Themes/themes.dart';
 import '../../../../enums/image_type.dart';
 import '../../../../enums/user_details.dart';
-import '../../../custom_widgets/custom_alert_dialog.dart';
-import 'profile_screen_providers.dart';
 import '../../../../repositories/auth_repository.dart';
 import '../../../../repositories/firestore_repository.dart';
 import '../../../../repositories/storage_repository.dart';
+import '../../../custom_widgets/custom_alert_dialog.dart';
 import '../../../resources/route_manager.dart';
+import 'profile_screen_providers.dart';
 
 class UserProfileNotifier extends StateNotifier<void> {
   UserProfileNotifier({
@@ -54,18 +54,15 @@ class UserProfileNotifier extends StateNotifier<void> {
     BuildContext context,
     AppLocalizations text,
     UserDetails detailType,
-    StateProvider<bool> changeProvider,
+    AutoDisposeStateProvider<bool> changeProvider,
   ) async {
     final newDetail = ref.watch(changeControllerProvider);
+    String update = '';
     if (ref.watch(changeProvider)) {
       if (detail != newDetail && newDetail != '') {
         switch (detailType) {
           case UserDetails.name:
-            // GFToast.showToast(
             await _authRepository.updateUserName(name: newDetail);
-            // context,
-            // toastDuration: 5,
-            // );
             await navigatorKey.currentState!.popAndPushNamed(
               Routes.auth,
             );
@@ -108,23 +105,15 @@ class UserProfileNotifier extends StateNotifier<void> {
             );
             break;
           case UserDetails.password:
-            // GFToast.showToast(
             await _authRepository.updatePassword(
               passowrd: newDetail,
             );
-            // context,
-            // toastDuration: 5,
-            // );
             break;
           case UserDetails.mobileNumber:
-            // GFToast.showToast(
             await _firestoreRepository.setMobileNumber(
               _authRepository.getCurrentUser()!.uid,
               newDetail,
             );
-            // context,
-            // toastDuration: 5,
-            // );
             break;
         }
       }
@@ -153,12 +142,9 @@ class UserProfileNotifier extends StateNotifier<void> {
         break;
     }
     if (image != null) {
-      // GFToast.showToast(
       await _storageRepository.uploadProfilePic(
         photoFile: File(image.path),
         email: _authRepository.getCurrentUser()!.email!,
-        // ),
-        // context,
       );
       navigatorKey.currentState!.pop();
       await navigatorKey.currentState!.popAndPushNamed(

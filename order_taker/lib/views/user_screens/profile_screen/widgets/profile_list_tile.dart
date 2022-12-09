@@ -13,7 +13,7 @@ class _ProfileListTile extends ConsumerWidget {
   final String detail;
   final IconData icon;
   final String hintText;
-  final StateProvider<bool> changeProvider;
+  final AutoDisposeStateProvider<bool> changeProvider;
   final UserDetails detailType;
   final bool obscure;
 
@@ -48,16 +48,17 @@ class _ProfileListTile extends ConsumerWidget {
       ),
       trailing: IconButton(
         icon: const Icon(Icons.edit),
-        color: Colors.white,
-        onPressed: () =>
-            ref.read(userProfileProvider.notifier).updateUserDetails(
-                  ref,
-                  detail,
-                  context,
-                  text,
-                  detailType,
-                  changeProvider,
-                ),
+        color: accentBlackColor,
+        onPressed: () async {
+          await ref.read(userProfileProvider.notifier).updateUserDetails(
+                ref,
+                detail,
+                context,
+                text,
+                detailType,
+                changeProvider,
+              );
+        },
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../providers/repository_providers.dart';
 import 'user_profile_controller.dart';
 
@@ -9,14 +10,14 @@ final phoneNumberProvider = FutureProvider<String>((ref) async {
   );
   return mobileNumber;
 });
-final passwordChangeProvider = StateProvider((ref) => false);
-final nameChangeProvider = StateProvider((ref) => false);
+final passwordChangeProvider = StateProvider.autoDispose((ref) => false);
+final nameChangeProvider = StateProvider.autoDispose((ref) => false);
 
-final emailChangeProvider = StateProvider((ref) => false);
+final emailChangeProvider = StateProvider.autoDispose((ref) => false);
 
-final phoneChangeProvider = StateProvider((ref) => false);
+final phoneChangeProvider = StateProvider.autoDispose((ref) => false);
 
-final changeControllerProvider = StateProvider.autoDispose((ref) => '');
+final changeControllerProvider = StateProvider((ref) => '');
 
 final picProvider = FutureProvider.autoDispose<String?>((ref) async {
   final storage = ref.watch(storageRepositoryProvider);
