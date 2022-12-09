@@ -19,8 +19,12 @@ class _BottomTexts extends ConsumerWidget {
                 style: Theme.of(context).textTheme.headline3,
               ),
               TextButton(
-                onPressed: () =>
-                    ref.read(userRegisterControllerProvider.notifier).navigateToLogin(),
+                onPressed: () => ref
+                    .read(userRegisterControllerProvider.notifier)
+                    .navigateToLogin(),
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                ),
                 child: Text(
                   text.login,
                   style: Theme.of(context).textTheme.headline1,
@@ -39,6 +43,9 @@ class _BottomTexts extends ConsumerWidget {
                 onPressed: () => ref
                     .read(userRegisterControllerProvider.notifier)
                     .navigateToRestaurantRegister(),
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                ),
                 child: Text(
                   text.click_here,
                   style: Theme.of(context).textTheme.headline1,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/menu_item_model.dart';
 import '../../providers/auth_provider.dart';
@@ -42,7 +42,9 @@ class MenuCard extends ConsumerWidget {
                         .statusDialog(
                           _StatusDialogTitle(text: text),
                           _StatusDialogContent(
-                              text: text, orderItem: orderItem),
+                            text: text,
+                            orderItem: orderItem,
+                          ),
                         );
                   }
                 }
@@ -229,8 +231,9 @@ class _RemoveDialogTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Center(
         child: Text(
-          text.change_status,
+          text.remove_item,
           style: Theme.of(context).textTheme.headline5,
+          textAlign: TextAlign.center,
         ),
       );
 }

@@ -57,7 +57,7 @@ class _DescriptionIcon extends ConsumerWidget {
                   controller: controller,
                   maxLines: null,
                   decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.zero,
+                    contentPadding: EdgeInsets.only(left: 10),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.transparent,

@@ -22,15 +22,15 @@ class AuthRepository {
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'wrong-password':
-          throw 'The password you entered is wrong, please try again.';
+          throw 'Wrong credentials, please try again!';
         case 'user-not-found':
-          throw "User with this email doesn't exist.";
+          throw 'Wrong credentials, please try again!';
         case 'user-disabled':
           throw 'User with this email has been disabled.';
         case 'operation-not-allowed':
           throw 'Too many requests. Try again later.';
         default:
-          throw 'An undefined Error happened.';
+          throw 'An undefined error happened.';
       }
     }
   }

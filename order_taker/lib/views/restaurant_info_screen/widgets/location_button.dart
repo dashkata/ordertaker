@@ -45,7 +45,7 @@ class AddressButton extends ConsumerWidget {
             textInputAction: TextInputAction.done,
           )
         : Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.only(left: 10.0),
             child: TextButton(
               onPressed: () {
                 ref

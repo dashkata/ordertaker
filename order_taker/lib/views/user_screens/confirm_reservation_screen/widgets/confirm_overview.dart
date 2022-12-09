@@ -19,11 +19,17 @@ class _ConfirmOverview extends StatelessWidget {
         children: [
           Padding(
             padding: PaddingManager.p9,
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(
-                restaurantPic.value,
+            child: restaurantPic.when(
+              data: (picValue) => CircleAvatar(
+                backgroundImage: NetworkImage(
+                  picValue,
+                ),
+                radius: 45,
               ),
-              radius: 45,
+              error: (e, s) => ErrorAlertDialog(
+                errorMessage: e.toString(),
+              ),
+              loading: CustomProgressIndicator.new,
             ),
           ),
           Flexible(

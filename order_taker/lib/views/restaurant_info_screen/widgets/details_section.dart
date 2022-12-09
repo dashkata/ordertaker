@@ -24,59 +24,58 @@ class _DetailsSection extends ConsumerWidget {
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 10,
-                  ),
-                  child: Consumer(
-                    builder: (context, ref, child) {
-                      final controller = ref.watch(
-                        descriptionControllerProvider(
-                          restaurant.desc,
-                        ),
-                      );
-                      return TextField(
-                        controller: controller,
-                        decoration: const InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                            ),
-                          ),
-                          disabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                            ),
+                Consumer(
+                  builder: (context, ref, child) {
+                    final controller = ref.watch(
+                      descriptionControllerProvider(
+                        restaurant.desc,
+                      ),
+                    );
+                    return TextField(
+                      controller: controller,
+                      decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
                           ),
                         ),
-                        readOnly: !admin,
-                        maxLines: null,
-                        onEditingComplete: () => ref
-                            .read(restaurantInfoControllerProvider.notifier)
-                            .submitRestaurantDetails(
-                              ref,
-                              RestaurantDetailsType.address,
-                              controller.value.text,
-                              restaurant.title,
-                            ),
-                        enabled: admin,
-                        textInputAction: TextInputAction.done,
-                      );
-                    },
-                  ),
+                        disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                          ),
+                        ),
+                      ),
+                      readOnly: !admin,
+                      maxLines: null,
+                      onEditingComplete: () => ref
+                          .read(restaurantInfoControllerProvider.notifier)
+                          .submitRestaurantDetails(
+                            ref,
+                            RestaurantDetailsType.address,
+                            controller.value.text,
+                            restaurant.title,
+                          ),
+                      enabled: admin,
+                      textInputAction: TextInputAction.done,
+                    );
+                  },
                 ),
                 AddressButton(
                   restaurant: restaurant,
                   admin: admin,
                 ),
                 _DescriptionIcon(
-                  information: restaurant.openHours,
-                  infoIcon: Icons.watch_later,
-                  controllerProvider: workingHoursControllerProvider,
+                  information: restaurant.website,
+                  infoIcon: Icons.web_asset,
+                  controllerProvider: websiteControllerProvider,
                   restaurantTitle: restaurant.title,
-                  restaurantDetailsType: RestaurantDetailsType.openHours,
+                  restaurantDetailsType: RestaurantDetailsType.website,
                   admin: admin,
+                  onTap: () => ref
+                      .read(restaurantInfoControllerProvider.notifier)
+                      .launchWebsite(
+                        restaurant.website,
+                      ),
                 ),
                 _DescriptionIcon(
                   information: restaurant.phoneNumber,
@@ -92,25 +91,20 @@ class _DetailsSection extends ConsumerWidget {
                       ),
                 ),
                 _DescriptionIcon(
+                  information: restaurant.openHours,
+                  infoIcon: Icons.watch_later,
+                  controllerProvider: workingHoursControllerProvider,
+                  restaurantTitle: restaurant.title,
+                  restaurantDetailsType: RestaurantDetailsType.openHours,
+                  admin: admin,
+                ),
+                _DescriptionIcon(
                   information: restaurant.paymentMethods,
                   infoIcon: Icons.payment,
                   controllerProvider: paymentMethodsControllerProvider,
                   restaurantTitle: restaurant.title,
                   restaurantDetailsType: RestaurantDetailsType.paymentMethods,
                   admin: admin,
-                ),
-                _DescriptionIcon(
-                  information: restaurant.website,
-                  infoIcon: Icons.web_asset,
-                  controllerProvider: websiteControllerProvider,
-                  restaurantTitle: restaurant.title,
-                  restaurantDetailsType: RestaurantDetailsType.website,
-                  admin: admin,
-                  onTap: () => ref
-                      .read(restaurantInfoControllerProvider.notifier)
-                      .launchWebsite(
-                        restaurant.website,
-                      ),
                 ),
               ],
             ),

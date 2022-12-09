@@ -2,24 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../providers/repository_providers.dart';
-import '../../../themes/themes.dart';
 import '../../../models/reservation_model.dart';
 import '../../../providers/common_providers.dart';
+import '../../../providers/repository_providers.dart';
+import '../../../themes/themes.dart';
 import '../../custom_widgets/custom_button.dart';
-import '../../project_widgets.dart';
+import '../../custom_widgets/custom_error_alert_dialog.dart';
+import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
 import 'confirm_reservation_arguments.dart';
 import 'controllers/confirm_reservation_providers.dart';
 
-part 'widgets/user_detail.dart';
-
-part 'widgets/confirm_overview.dart';
-
-part 'widgets/detail_row.dart';
-
 part 'widgets/confirm_button.dart';
+part 'widgets/confirm_overview.dart';
+part 'widgets/detail_row.dart';
+part 'widgets/user_detail.dart';
 
 class ConfirmReservationScreen extends ConsumerWidget {
   const ConfirmReservationScreen({Key? key}) : super(key: key);
