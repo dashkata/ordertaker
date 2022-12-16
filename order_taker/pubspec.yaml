@@ -37,11 +37,11 @@ dev_dependencies:
 flutter_icons:
   android: launcher_icon
   ios: true
-  image_path: assets/ikona.png
+  adaptive_icon_background: "#ffffff"
+  image_path: assets/logo.png
 flutter_native_splash:
-  android_12: true
-  background_image: assets/Background2.png
-  image: assets/eto.png
+  color: "#ffffff"
+  image: assets/logo_words.png
 flutter:
   generate: true
   uses-material-design: true

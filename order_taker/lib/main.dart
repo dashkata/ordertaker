@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'themes/themes.dart';
+import 'package:order_taker/presentation/themes/themes.dart';
 
-import 'views/resources/route_manager.dart';
+import 'presentation/views/resources/route_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
