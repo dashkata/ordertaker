@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'firestore_repository.dart';
+import '../api/firestore_api.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth;
@@ -75,7 +75,7 @@ class AuthRepository {
     try {
       final UserCredential result = await FirebaseAuth.instanceFor(app: tempApp)
           .createUserWithEmailAndPassword(email: email, password: password);
-      final FirestoreRepository tempRepo = FirestoreRepository();
+      final API tempRepo = API();
       await tempRepo.setUserType('Restaurant', result.user!.uid);
       await tempRepo.setRestaurantTitle(restaurantTitle, result.user!.uid);
       await FirebaseAuth.instanceFor(app: tempApp).signOut();

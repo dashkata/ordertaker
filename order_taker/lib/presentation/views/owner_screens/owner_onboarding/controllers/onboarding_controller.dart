@@ -53,7 +53,7 @@ class OnboardingController extends StateNotifier<void> {
           await _ref.read(storageRepositoryProvider).uploadItemImage(
                 photoFile: File(image!.path),
                 restaurantName: await _ref
-                    .read(firestoreRepositoryProvider)
+                    .read(firestoreAPIProvider)
                     .fetchRestaurantTitle(
                       _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
                     ),
@@ -66,9 +66,9 @@ class OnboardingController extends StateNotifier<void> {
   Future<void> addMenuItem(
     OrderItem orderItem,
   ) async {
-    await _ref.read(firestoreRepositoryProvider).addMenuItem(
+    await _ref.read(firestoreAPIProvider).addMenuItem(
           orderItem,
-          await _ref.read(firestoreRepositoryProvider).fetchRestaurantTitle(
+          await _ref.read(firestoreAPIProvider).fetchRestaurantTitle(
                 _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
               ),
         );
@@ -82,7 +82,7 @@ class OnboardingController extends StateNotifier<void> {
           await _ref.read(storageRepositoryProvider).uploadRestaurantImage(
                 photoFile: File(image.path),
                 restaurantName: await _ref
-                    .read(firestoreRepositoryProvider)
+                    .read(firestoreAPIProvider)
                     .fetchRestaurantTitle(
                       _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
                     ),
@@ -95,23 +95,23 @@ class OnboardingController extends StateNotifier<void> {
 
   Future<void> submitRestaurantDetails() async {
     final String title =
-        await _ref.read(firestoreRepositoryProvider).fetchRestaurantTitle(
+        await _ref.read(firestoreAPIProvider).fetchRestaurantTitle(
               _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
             );
-    await _ref.read(firestoreRepositoryProvider).submitRestaurantDetails(
-          Restaurant(
-            title: title,
-            desc: _ref.read(restaurantDescriptionProvider),
-            openHours: _ref.read(restaurantHoursProvider),
-            website: _ref.read(restaurantWebsiteProvider),
-            phoneNumber: _ref.read(restaurantPhoneNumberProvider),
-            paymentMethods: _ref.read(restaurantPaymentProvider),
-            address: _ref.read(restaurantAddressProvider),
-            photo: _ref.read(restaurantPhotoProvider),
-          ),
-          int.parse(_ref.read(restaurantTablesProvider)),
-        );
-    await _ref.read(firestoreRepositoryProvider).setOnBoarding(
+    // await _ref.read(firestoreAPIProvider).submitRestaurantDetails(
+    //       Restaurant(
+    //         title: title,
+    //         desc: _ref.read(restaurantDescriptionProvider),
+    //         openHours: _ref.read(restaurantHoursProvider),
+    //         website: _ref.read(restaurantWebsiteProvider),
+    //         phoneNumber: _ref.read(restaurantPhoneNumberProvider),
+    //         paymentMethods: _ref.read(restaurantPaymentProvider),
+    //         address: _ref.read(restaurantAddressProvider),
+    //         photo: _ref.read(restaurantPhotoProvider),
+    //       ),
+    //       int.parse(_ref.read(restaurantTablesProvider)),
+    //     );
+    await _ref.read(firestoreAPIProvider).setOnBoarding(
           _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
           onBoarding: true,
         );

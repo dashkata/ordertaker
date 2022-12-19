@@ -4,7 +4,7 @@ import 'package:order_taker/presentation/providers/repository_providers.dart';
 import 'user_profile_controller.dart';
 
 final phoneNumberProvider = FutureProvider<String>((ref) async {
-  final db = ref.watch(firestoreRepositoryProvider);
+  final db = ref.watch(firestoreAPIProvider);
   final mobileNumber = await db.fetchMobileNumber(
     ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
   );
@@ -28,16 +28,17 @@ final picProvider = FutureProvider.autoDispose<String?>((ref) async {
 final userProfileProvider = StateNotifierProvider<UserProfileNotifier, void>(
   (ref) => UserProfileNotifier(
     authRepository: ref.watch(authRepositoryProvider),
-    firestoreRepository: ref.watch(
-      firestoreRepositoryProvider,
+    userRepo: ref.watch(
+      userRepositoryProvider,
     ),
+    restaurantRepo: ref.watch(restaurantRepositoryProvider),
     storageRepository: ref.watch(
       storageRepositoryProvider,
     ),
   ),
 );
 final restaurantEmailProvider = FutureProvider<String?>(
-  (ref) => ref.read(firestoreRepositoryProvider).getRestauarntEmail(
+  (ref) => ref.read(firestoreAPIProvider).getRestauarntEmail(
         ref.read(authRepositoryProvider).getCurrentUser()!.uid,
       ),
 );

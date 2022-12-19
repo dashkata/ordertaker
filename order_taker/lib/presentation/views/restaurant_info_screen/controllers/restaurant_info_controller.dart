@@ -18,7 +18,7 @@ class RestaurantInfoController extends StateNotifier<void> {
     String updateInfo,
     String restaurantTitle,
   ) {
-    ref.read(firestoreRepositoryProvider).updateRestaurantInformation(
+    ref.read(firestoreAPIProvider).updateRestaurantInformation(
           updateInfo,
           restaurantTitle,
           restaurantDetailsType.name,

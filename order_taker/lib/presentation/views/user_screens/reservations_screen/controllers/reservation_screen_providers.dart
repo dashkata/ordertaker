@@ -5,14 +5,14 @@ import 'package:order_taker/presentation/providers/repository_providers.dart';
 import 'user_reservation_controller.dart';
 
 final reservationListProvider = StreamProvider.autoDispose<List<Reservation>>(
-  (ref) => ref.watch(firestoreRepositoryProvider).fetchReservations(
+  (ref) => ref.watch(reservationRepositoryProvider).fetchReservations(
         ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
       ),
 );
 final reservationsControllerProvider =
     StateNotifierProvider<UserReservationController, void>(
   (ref) => UserReservationController(
-    firestoreRepository: ref.watch(firestoreRepositoryProvider),
+    reservationRepo: ref.watch(reservationRepositoryProvider),
     authRepository: ref.watch(authRepositoryProvider),
   ),
 );

@@ -1,23 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/data/repositories/auth_repository.dart';
-import 'package:order_taker/data/repositories/firestore_repository.dart';
 import 'package:order_taker/domain/models/reservation_model.dart';
 
+import '../../../../../domain/repositories/reservation_repo.dart';
 import '../../../resources/route_manager.dart';
 
 class UserConfirmReservationController extends StateNotifier<void> {
   UserConfirmReservationController({
-    required FirestoreRepository firestoreRepository,
+    required ReservationRepo reservationRepo,
     required AuthRepository authRepository,
-  })  : _firestoreRepository = firestoreRepository,
+  })  : _reservationRepo = reservationRepo,
         _authRepository = authRepository,
         super(null);
-  final FirestoreRepository _firestoreRepository;
+  final ReservationRepo _reservationRepo;
   final AuthRepository _authRepository;
 
   void addReservation(Reservation reservation) {
-    _firestoreRepository.addReservation(
+    _reservationRepo.addReservation(
       _authRepository.getCurrentUser()!.uid,
       reservation,
     );

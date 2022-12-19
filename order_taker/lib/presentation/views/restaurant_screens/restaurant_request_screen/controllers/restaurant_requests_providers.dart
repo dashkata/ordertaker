@@ -6,9 +6,8 @@ import 'restaurant_requests_controller.dart';
 
 final restaurantRequestsProvider =
     StreamProvider.autoDispose.family<List<Reservation>, String>(
-  (ref, restaurantTitle) => ref
-      .watch(firestoreRepositoryProvider)
-      .fetchRestaurantRequests(restaurantTitle),
+  (ref, restaurantTitle) =>
+      ref.watch(firestoreAPIProvider).fetchRestaurantRequests(restaurantTitle),
 );
 final tableProvider = StateProvider<int>(
   (ref) => 0,

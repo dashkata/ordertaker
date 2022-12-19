@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/data/repositories/auth_repository.dart';
-import 'package:order_taker/data/repositories/firestore_repository.dart';
 import 'package:order_taker/domain/models/reservation_model.dart';
+import 'package:order_taker/domain/repositories/reservation_repo.dart';
 
 import '../../../resources/route_manager.dart';
 
 class UserReservationController extends StateNotifier<void> {
-  final FirestoreRepository _firestoreRepository;
+  final ReservationRepo _reservationRepo;
   final AuthRepository _authRepository;
 
   UserReservationController({
-    required FirestoreRepository firestoreRepository,
+    required ReservationRepo reservationRepo,
     required AuthRepository authRepository,
-  })  : _firestoreRepository = firestoreRepository,
+  })  : _reservationRepo = reservationRepo,
         _authRepository = authRepository,
         super(null);
 
@@ -28,7 +28,7 @@ class UserReservationController extends StateNotifier<void> {
   }
 
   Future<void> navigateToMenu(Reservation reservation) async {
-    if (await _firestoreRepository.checkUserReservation(
+    if (await _reservationRepo.checkUserReservation(
       reservation,
       _authRepository.getCurrentUser()!.uid,
     )) {

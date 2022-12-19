@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/data/repositories/auth_repository.dart';
-import 'package:order_taker/data/repositories/firestore_repository.dart';
+import 'package:order_taker/domain/repositories/user_repo.dart';
 
 import '../../../resources/route_manager.dart';
 
 class UserRegisterController extends StateNotifier<void> {
   UserRegisterController({
     required AuthRepository authRepository,
-    required FirestoreRepository firestoreRepository,
+    required UserRepo userRepo,
   })  : _authRepository = authRepository,
-        _firestoreRepository = firestoreRepository,
+        _userRepo = userRepo,
         super(null);
   final AuthRepository _authRepository;
-  final FirestoreRepository _firestoreRepository;
+  final UserRepo _userRepo;
 
   void navigateToAuth() {
     navigatorKey.currentState!.popAndPushNamed(Routes.auth);
@@ -44,13 +44,13 @@ class UserRegisterController extends StateNotifier<void> {
           (value) => _authRepository.getCurrentUser()!.sendEmailVerification(),
         )
         .then(
-          (value) => _firestoreRepository.setMobileNumber(
+          (value) => _userRepo.setMobileNumber(
             _authRepository.getCurrentUser()!.uid,
             mobileNumber,
           ),
         )
         .then(
-          (value) => _firestoreRepository.setUserType(
+          (value) => _userRepo.setUserType(
             'Customer',
             _authRepository.getCurrentUser()!.uid,
           ),

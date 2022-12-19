@@ -38,7 +38,7 @@ class BillScreenController extends StateNotifier<void> {
     double reviewRating,
   ) async {
     if (reviewMessage.isNotEmpty && reviewRating != 0) {
-      await _ref.read(firestoreRepositoryProvider).addRestaurantReview(
+      await _ref.read(firestoreAPIProvider).addRestaurantReview(
             reservation.restaurant,
             Review(
               name: reservation.name,
@@ -49,7 +49,7 @@ class BillScreenController extends StateNotifier<void> {
             ),
           );
     }
-    await _ref.read(firestoreRepositoryProvider).deleteReservation(
+    await _ref.read(reservationRepositoryProvider).deleteReservation(
           _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
           reservation,
         );

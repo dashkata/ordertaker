@@ -18,15 +18,10 @@ import 'controllers/restaurant_screen_providers.dart';
 // part 'widgets/free_tables.dart';
 
 part 'widgets/detail_dialog_parts.dart';
-
 part 'widgets/find_a_table_button.dart';
-
 part 'widgets/number_of_people.dart';
-
 part 'widgets/radio_tile.dart';
-
 part 'widgets/restaurant_card.dart';
-
 part 'widgets/select_date.dart';
 
 class RestaurantScreen extends StatelessWidget {

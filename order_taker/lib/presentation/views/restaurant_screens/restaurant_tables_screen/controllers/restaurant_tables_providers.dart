@@ -6,8 +6,8 @@ import 'restaurant_tables_controller.dart';
 final restaurantTablesControllerProvider =
     StateNotifierProvider<RestaurantTablesController, void>(
   (ref) => RestaurantTablesController(
-    firestoreRepository: ref.watch(
-      firestoreRepositoryProvider,
+    reservationRepo: ref.watch(
+      reservationRepositoryProvider,
     ),
   ),
 );
@@ -23,5 +23,5 @@ final tablesProvider = FutureProvider.family.autoDispose<List<String>, String>(
     ref,
     restaurantTitle,
   ) async =>
-      await ref.read(firestoreRepositoryProvider).fetchTables(restaurantTitle),
+      await ref.read(firestoreAPIProvider).fetchTables(restaurantTitle),
 );

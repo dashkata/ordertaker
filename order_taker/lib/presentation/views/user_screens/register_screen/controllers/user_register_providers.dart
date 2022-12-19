@@ -26,6 +26,6 @@ final userRegisterControllerProvider =
     StateNotifierProvider<UserRegisterController, void>(
   (ref) => UserRegisterController(
     authRepository: ref.watch(authRepositoryProvider),
-    firestoreRepository: ref.watch(firestoreRepositoryProvider),
+    userRepo: ref.watch(userRepositoryProvider),
   ),
 );

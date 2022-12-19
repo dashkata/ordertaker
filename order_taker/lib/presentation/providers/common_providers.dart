@@ -10,12 +10,12 @@ final restaurantPictureProvider =
       .fetchRestaurantPic(restaurantName: restaurantName),
 );
 final menuProvider = StreamProvider.family<List<MenuSection>, String>(
-  (ref, restaurantTitle) => ref.watch(firestoreRepositoryProvider).fetchMenu(
+  (ref, restaurantTitle) => ref.watch(firestoreAPIProvider).fetchMenu(
         restaurantTitle,
       ),
 );
 final restaurantTitleProvider = FutureProvider<String>(
-  (ref) async => ref.watch(firestoreRepositoryProvider).fetchRestaurantTitle(
+  (ref) async => ref.watch(firestoreAPIProvider).fetchRestaurantTitle(
         ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
       ),
 );

@@ -28,7 +28,7 @@ class _CancelReservationDialog extends ConsumerWidget {
           CustomButton(
             buttonText: text.confirm,
             buttonFunc: () async {
-              await ref.read(firestoreRepositoryProvider).deleteReservation(
+              await ref.read(reservationRepositoryProvider).deleteReservation(
                     ref.read(authRepositoryProvider).getCurrentUser()!.uid,
                     reservation,
                   );

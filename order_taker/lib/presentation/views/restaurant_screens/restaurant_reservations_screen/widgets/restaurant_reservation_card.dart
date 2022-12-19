@@ -19,7 +19,7 @@ class _RestaurantReservationCard extends ConsumerWidget {
       padding: PaddingManager.p11,
       child: GestureDetector(
         onTap: () async => await ref
-                .read(firestoreRepositoryProvider)
+                .read(firestoreAPIProvider)
                 .checkForCurrentReservation(args.restaurantTitle, args.id)
             ? await showDialog(
                 context: context,

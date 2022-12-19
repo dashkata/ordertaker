@@ -45,65 +45,62 @@ class RestaurantOrderController extends StateNotifier<void> {
     await showDialog(
       context: context,
       builder: (BuildContext context) => Consumer(
-        builder: (context, ref, child) =>
-            _ref.watch(restaurantTitleProvider).when(
-                  data: (title) => CustomAlertDialog(
-                    title: Column(
-                      children: [
-                        Center(
-                          child: Text(
-                            'Set order status',
-                            style: Theme.of(context).textTheme.headline5,
-                          ),
-                        ),
-                        Center(
-                          child: Text(
-                            'Current status: $currentStatus',
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                        ),
-                      ],
+        builder: (context, ref, child) => _ref
+            .watch(restaurantTitleProvider)
+            .when(
+              data: (title) => CustomAlertDialog(
+                title: Column(
+                  children: [
+                    Center(
+                      child: Text(
+                        'Set order status',
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
                     ),
-                    content: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CustomButton(
-                          buttonText: 'In progress',
-                          buttonFunc: () async {
-                            await _ref
-                                .read(firestoreRepositoryProvider)
-                                .updateOrderStatus(
-                                  orderId,
-                                  'In progress',
-                                  tableId.toString(),
-                                  title,
-                                );
-
-                            navigatorKey.currentState!.pop();
-                          },
-                        ),
-                        CustomButton(
-                          buttonText: 'Completed',
-                          buttonFunc: () async {
-                            await _ref
-                                .read(firestoreRepositoryProvider)
-                                .updateOrderStatus(
-                                  orderId,
-                                  'Completed',
-                                  tableId.toString(),
-                                  title,
-                                );
-                            navigatorKey.currentState!.pop();
-                          },
-                        ),
-                      ],
+                    Center(
+                      child: Text(
+                        'Current status: $currentStatus',
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
                     ),
-                  ),
-                  error: (e, s) => Text(
-                    e.toString(),
-                  ),
-                  loading: CustomProgressIndicator.new,
+                  ],
                 ),
+                content: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CustomButton(
+                      buttonText: 'In progress',
+                      buttonFunc: () async {
+                        await _ref.read(firestoreAPIProvider).updateOrderStatus(
+                              orderId,
+                              'In progress',
+                              tableId.toString(),
+                              title,
+                            );
+
+                        navigatorKey.currentState!.pop();
+                      },
+                    ),
+                    CustomButton(
+                      buttonText: 'Completed',
+                      buttonFunc: () async {
+                        await _ref.read(firestoreAPIProvider).updateOrderStatus(
+                              orderId,
+                              'Completed',
+                              tableId.toString(),
+                              title,
+                            );
+                        navigatorKey.currentState!.pop();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              error: (e, s) => Text(
+                e.toString(),
+              ),
+              loading: CustomProgressIndicator.new,
+            ),
       ),
     );
   }

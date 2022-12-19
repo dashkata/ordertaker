@@ -9,13 +9,12 @@ import 'restaurant_order_controller.dart';
 final restaurantOrdersProvider =
     StreamProvider.family<List<UserOrder>, RestaurantOrderArguments>(
   (ref, args) => ref
-      .watch(firestoreRepositoryProvider)
+      .watch(firestoreAPIProvider)
       .fetchOrdersRestaurant(args.id.toString(), args.restaurantTitle),
 );
 final docChangesProvider = StreamProvider<QuerySnapshot<Map<String, dynamic>>>(
-  (ref) => ref
-      .watch(firestoreRepositoryProvider)
-      .listenForOrders('Pizza Don Vito', '2'),
+  (ref) =>
+      ref.watch(firestoreAPIProvider).listenForOrders('Pizza Don Vito', '2'),
 );
 
 final restaurantOrderControllerProvider =

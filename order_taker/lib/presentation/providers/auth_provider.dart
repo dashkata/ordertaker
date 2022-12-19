@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'repository_providers.dart';
 
 final firebaseAuthProvider = Provider<FirebaseAuth>(
@@ -12,11 +13,11 @@ final authStateProvider = StreamProvider<User?>(
 
 final userTypeProvider = FutureProvider.autoDispose(
   (ref) async => await ref
-      .watch(firestoreRepositoryProvider)
+      .watch(userRepositoryProvider)
       .fetchUserType(ref.read(authRepositoryProvider).getCurrentUser()!.uid),
 );
 final onBoardingProvider = FutureProvider.autoDispose<bool>(
   (ref) async => await ref
-      .watch(firestoreRepositoryProvider)
+      .watch(firestoreAPIProvider)
       .fetchOnBoarding(ref.read(authRepositoryProvider).getCurrentUser()!.uid),
 );

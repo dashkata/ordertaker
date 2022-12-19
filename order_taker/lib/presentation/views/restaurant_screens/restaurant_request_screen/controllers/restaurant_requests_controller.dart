@@ -18,13 +18,11 @@ class RestaurantRequestsController extends StateNotifier<void> {
     switch (requestStatus) {
       case RequestStatus.approved:
         await ref
-            .read(firestoreRepositoryProvider)
+            .read(reservationRepositoryProvider)
             .addApprovedReservation(reservation);
         break;
       case RequestStatus.disapproved:
-        await ref
-            .read(firestoreRepositoryProvider)
-            .disapproveRequest(reservation);
+        await ref.read(firestoreAPIProvider).disapproveRequest(reservation);
         break;
     }
   }

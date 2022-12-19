@@ -47,7 +47,7 @@ class _RestaurantCard extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ReadMoreText(
-                          restaurant.desc,
+                          restaurant.description,
                           style: Theme.of(context).textTheme.headline6,
                           trimLength: 100,
                           moreStyle: Theme.of(context).textTheme.headline1,

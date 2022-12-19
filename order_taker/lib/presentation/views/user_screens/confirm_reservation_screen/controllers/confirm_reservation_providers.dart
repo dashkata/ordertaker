@@ -5,7 +5,7 @@ import 'user_confirm_reservation_controller.dart';
 
 final detailsProvider = FutureProvider<Map<String, dynamic>>((ref) async {
   final auth = ref.watch(authRepositoryProvider);
-  final db = ref.watch(firestoreRepositoryProvider);
+  final db = ref.watch(firestoreAPIProvider);
   return {
     'name': auth.getCurrentUser()!.displayName,
     'email': auth.getCurrentUser()!.email,
@@ -19,7 +19,7 @@ final confirmTimeProvider = StateProvider<String>((ref) => '');
 final userConfirmReservationControllerProvider =
     StateNotifierProvider<UserConfirmReservationController, void>(
   (ref) => UserConfirmReservationController(
-    firestoreRepository: ref.watch(firestoreRepositoryProvider),
+    reservationRepo: ref.watch(reservationRepositoryProvider),
     authRepository: ref.watch(
       authRepositoryProvider,
     ),

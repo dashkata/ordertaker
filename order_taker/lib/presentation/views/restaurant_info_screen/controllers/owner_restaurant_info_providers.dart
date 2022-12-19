@@ -6,17 +6,17 @@ import 'package:order_taker/presentation/providers/repository_providers.dart';
 
 import 'restaurant_info_controller.dart';
 
-final restaurantInformationProvider = FutureProvider<Restaurant>(
-  (ref) async =>
-      await ref.read(firestoreRepositoryProvider).fetchRestaurantInfo(
-            await ref.read(firestoreRepositoryProvider).fetchRestaurantTitle(
-                  ref.read(authRepositoryProvider).getCurrentUser()!.uid,
-                ),
-          ),
-);
+// final restaurantInformationProvider = FutureProvider<Restaurant>(
+//   (ref) async
+//       // await ref.read(firestoreAPIProvider).fetchRestaurantInfo(
+//       //       await ref.read(firestoreAPIProvider).fetchRestaurantTitle(
+//       //             ref.read(authRepositoryProvider).getCurrentUser()!.uid,
+//       //           ),
+//       //     ),
+// );
 final restaurantReviewsProvider = StreamProvider.family<List<Review>, String>(
   (ref, restaurantTitle) =>
-      ref.watch(firestoreRepositoryProvider).fetchReviews(restaurantTitle),
+      ref.watch(firestoreAPIProvider).fetchReviews(restaurantTitle),
 );
 final sectionIdProvider = StateProvider.autoDispose<int>(
   (ref) => 0,

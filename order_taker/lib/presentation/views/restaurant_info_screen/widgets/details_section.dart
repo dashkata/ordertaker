@@ -28,7 +28,7 @@ class _DetailsSection extends ConsumerWidget {
                   builder: (context, ref, child) {
                     final controller = ref.watch(
                       descriptionControllerProvider(
-                        restaurant.desc,
+                        restaurant.description,
                       ),
                     );
                     return TextField(

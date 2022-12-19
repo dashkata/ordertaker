@@ -5,8 +5,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:order_taker/data/repositories/auth_repository.dart';
-import 'package:order_taker/data/repositories/firestore_repository.dart';
 import 'package:order_taker/data/repositories/storage_repository.dart';
+import 'package:order_taker/domain/repositories/restaurant_repo.dart';
+import 'package:order_taker/domain/repositories/user_repo.dart';
 import 'package:order_taker/enums/image_type.dart';
 import 'package:order_taker/enums/user_details.dart';
 import 'package:order_taker/presentation/themes/themes.dart';
@@ -18,15 +19,18 @@ import 'profile_screen_providers.dart';
 class UserProfileNotifier extends StateNotifier<void> {
   UserProfileNotifier({
     required AuthRepository authRepository,
-    required FirestoreRepository firestoreRepository,
+    required UserRepo userRepo,
+    required RestaurantRepo restaurantRepo,
     required StorageRepository storageRepository,
   })  : _authRepository = authRepository,
-        _firestoreRepository = firestoreRepository,
+        _userRepo = userRepo,
+        _restaurantRepo = restaurantRepo,
         _storageRepository = storageRepository,
         super(null);
   final AuthRepository _authRepository;
   final StorageRepository _storageRepository;
-  final FirestoreRepository _firestoreRepository;
+  final UserRepo _userRepo;
+  final RestaurantRepo _restaurantRepo;
 
   void showPicDialog(Widget title, Widget content, BuildContext context) {
     showDialog(
@@ -110,7 +114,7 @@ class UserProfileNotifier extends StateNotifier<void> {
             );
             break;
           case UserDetails.mobileNumber:
-            await _firestoreRepository.setMobileNumber(
+            await _userRepo.setMobileNumber(
               _authRepository.getCurrentUser()!.uid,
               newDetail,
             );
@@ -158,7 +162,7 @@ class UserProfileNotifier extends StateNotifier<void> {
     String email,
     String password,
   ) async {
-    final restaurantTitle = await _firestoreRepository.fetchRestaurantTitle(
+    final restaurantTitle = await _restaurantRepo.fetchRestaurantTitle(
       _authRepository.getCurrentUser()!.uid,
     );
     await _authRepository.adminSignUp(

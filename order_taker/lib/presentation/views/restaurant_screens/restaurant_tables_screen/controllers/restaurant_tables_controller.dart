@@ -1,18 +1,18 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/data/repositories/firestore_repository.dart';
+import 'package:order_taker/domain/repositories/reservation_repo.dart';
 
 import '../../../resources/route_manager.dart';
 import '../../restaurant_orders_screen/restaurant_order_arguments.dart';
 
 class RestaurantTablesController extends StateNotifier<void> {
   RestaurantTablesController({
-    required FirestoreRepository firestoreRepository,
-  })  : _firestoreRepository = firestoreRepository,
+    required ReservationRepo reservationRepo,
+  })  : _reservationRepo = reservationRepo,
         super(null);
-  final FirestoreRepository _firestoreRepository;
+  final ReservationRepo _reservationRepo;
 
   Future<void> navigateToOrders(int tableId, String restaurantTitle) async {
-    final currentRes = await _firestoreRepository.checkForCurrentReservation(
+    final currentRes = await _reservationRepo.checkForCurrentReservation(
       restaurantTitle,
       tableId,
     );

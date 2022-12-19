@@ -1,6 +1,6 @@
 class Restaurant {
   final String title;
-  final String desc;
+  final String description;
   final String openHours;
   final String website;
   final String phoneNumber;
@@ -11,7 +11,7 @@ class Restaurant {
 
   Restaurant({
     required this.title,
-    required this.desc,
+    required this.description,
     required this.openHours,
     required this.website,
     required this.phoneNumber,
@@ -23,7 +23,7 @@ class Restaurant {
 
   factory Restaurant.fromMap(Map data) => Restaurant(
         title: data['title'],
-        desc: data['description'],
+        description: data['description'],
         openHours: data['openHours'],
         website: data['website'],
         phoneNumber: data['phoneNumber'],
@@ -35,12 +35,12 @@ class Restaurant {
 
   Map<String, dynamic> restaurantToMap() => {
         'title': title,
-        'description': desc,
+        'description': description,
         'openHours': openHours,
         'website': website,
         'phoneNumber': phoneNumber,
         'paymentMethods': paymentMethods,
         'photo': photo,
-        'address' : address,
+        'address': address,
       };
 }

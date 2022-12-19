@@ -18,7 +18,7 @@ class RestaurantRegisterController extends StateNotifier<void> {
     String restaurantName,
   ) async {
     final auth = _ref.watch(authRepositoryProvider);
-    final firestore = _ref.watch(firestoreRepositoryProvider);
+    final firestore = _ref.watch(firestoreAPIProvider);
     await auth
         .signUp(email: email, password: password)
         .then(
