@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/domain/models/order_model.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
@@ -11,10 +10,6 @@ final restaurantOrdersProvider =
   (ref, args) => ref
       .watch(firestoreAPIProvider)
       .fetchOrdersRestaurant(args.id.toString(), args.restaurantTitle),
-);
-final docChangesProvider = StreamProvider<QuerySnapshot<Map<String, dynamic>>>(
-  (ref) =>
-      ref.watch(firestoreAPIProvider).listenForOrders('Pizza Don Vito', '2'),
 );
 
 final restaurantOrderControllerProvider =

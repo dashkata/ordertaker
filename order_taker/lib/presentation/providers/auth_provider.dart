@@ -18,6 +18,6 @@ final userTypeProvider = FutureProvider.autoDispose(
 );
 final onBoardingProvider = FutureProvider.autoDispose<bool>(
   (ref) async => await ref
-      .watch(firestoreAPIProvider)
+      .watch(userRepositoryProvider)
       .fetchOnBoarding(ref.read(authRepositoryProvider).getCurrentUser()!.uid),
 );

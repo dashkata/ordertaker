@@ -44,10 +44,10 @@ class RestaurantMenuController extends StateNotifier<void> {
     required OrderItem item,
   }) async {
     final restaurantTitle =
-        await _ref.watch(firestoreAPIProvider).fetchRestaurantTitle(
+        await _ref.watch(restaurantRepositoryProvider).fetchRestaurantTitle(
               _ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
             );
-    await _ref.watch(firestoreAPIProvider).changeMenuItemStatus(
+    await _ref.watch(menuRepositoryProvider).changeMenuItemStatus(
           status: status,
           restaurantTitle: restaurantTitle,
           item: item,
@@ -56,10 +56,10 @@ class RestaurantMenuController extends StateNotifier<void> {
 
   Future<void> removeMenuItem({required OrderItem item}) async {
     final restaurantTitle =
-        await _ref.watch(firestoreAPIProvider).fetchRestaurantTitle(
+        await _ref.watch(restaurantRepositoryProvider).fetchRestaurantTitle(
               _ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
             );
-    await _ref.watch(firestoreAPIProvider).removeMenuItem(
+    await _ref.watch(menuRepositoryProvider).removeMenuItem(
           restaurantTitle: restaurantTitle,
           item: item,
         );

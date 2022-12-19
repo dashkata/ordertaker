@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:order_taker/domain/models/menu_item_model.dart';
-import 'package:order_taker/domain/models/restaurant_model.dart';
 import 'package:order_taker/enums/image_type.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
 
@@ -53,7 +52,7 @@ class OnboardingController extends StateNotifier<void> {
           await _ref.read(storageRepositoryProvider).uploadItemImage(
                 photoFile: File(image!.path),
                 restaurantName: await _ref
-                    .read(firestoreAPIProvider)
+                    .read(restaurantRepositoryProvider)
                     .fetchRestaurantTitle(
                       _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
                     ),
@@ -66,9 +65,9 @@ class OnboardingController extends StateNotifier<void> {
   Future<void> addMenuItem(
     OrderItem orderItem,
   ) async {
-    await _ref.read(firestoreAPIProvider).addMenuItem(
+    await _ref.read(menuRepositoryProvider).addMenuItem(
           orderItem,
-          await _ref.read(firestoreAPIProvider).fetchRestaurantTitle(
+          await _ref.read(restaurantRepositoryProvider).fetchRestaurantTitle(
                 _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
               ),
         );
@@ -82,7 +81,7 @@ class OnboardingController extends StateNotifier<void> {
           await _ref.read(storageRepositoryProvider).uploadRestaurantImage(
                 photoFile: File(image.path),
                 restaurantName: await _ref
-                    .read(firestoreAPIProvider)
+                    .read(restaurantRepositoryProvider)
                     .fetchRestaurantTitle(
                       _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
                     ),
@@ -95,7 +94,7 @@ class OnboardingController extends StateNotifier<void> {
 
   Future<void> submitRestaurantDetails() async {
     final String title =
-        await _ref.read(firestoreAPIProvider).fetchRestaurantTitle(
+        await _ref.read(restaurantRepositoryProvider).fetchRestaurantTitle(
               _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
             );
     // await _ref.read(firestoreAPIProvider).submitRestaurantDetails(
@@ -111,7 +110,7 @@ class OnboardingController extends StateNotifier<void> {
     //       ),
     //       int.parse(_ref.read(restaurantTablesProvider)),
     //     );
-    await _ref.read(firestoreAPIProvider).setOnBoarding(
+    await _ref.read(userRepositoryProvider).setOnBoarding(
           _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
           onBoarding: true,
         );

@@ -71,7 +71,7 @@ class RestaurantOrderController extends StateNotifier<void> {
                     CustomButton(
                       buttonText: 'In progress',
                       buttonFunc: () async {
-                        await _ref.read(firestoreAPIProvider).updateOrderStatus(
+                        await _ref.read().updateOrderStatus(
                               orderId,
                               'In progress',
                               tableId.toString(),

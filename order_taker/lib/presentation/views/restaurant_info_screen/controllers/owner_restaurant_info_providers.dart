@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/domain/models/restaurant_model.dart';
 import 'package:order_taker/domain/models/review_model.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
 
@@ -16,7 +15,7 @@ import 'restaurant_info_controller.dart';
 // );
 final restaurantReviewsProvider = StreamProvider.family<List<Review>, String>(
   (ref, restaurantTitle) =>
-      ref.watch(firestoreAPIProvider).fetchReviews(restaurantTitle),
+      ref.watch(reviewRepositoryProvider).fetchReviews(restaurantTitle),
 );
 final sectionIdProvider = StateProvider.autoDispose<int>(
   (ref) => 0,

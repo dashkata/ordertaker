@@ -32,4 +32,10 @@ abstract class ReservationRepo {
   );
 
   Future<void> addApprovedReservation(Reservation reservation);
+
+  Stream<List<Reservation>> fetchRestaurantRequests(
+    String restaurantTitle,
+  );
+
+  Future<void> disapproveRequest(Reservation reservation);
 }

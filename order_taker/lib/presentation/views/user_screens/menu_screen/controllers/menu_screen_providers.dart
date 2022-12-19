@@ -15,6 +15,6 @@ final menuOrderStateProvider =
   MenuOrderStateNotifier.new,
 );
 final menuListProvider = StreamProvider.family<List<MenuSection>, String>(
-  (ref, title) => ref.watch(firestoreAPIProvider).fetchMenu(title),
+  (ref, title) => ref.watch(menuRepositoryProvider).fetchMenu(title),
 );
 final additionalMessagesProvider = StateProvider<String>((ref) => '');

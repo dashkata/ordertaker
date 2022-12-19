@@ -410,21 +410,21 @@ class API {
     );
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> listenForOrders(
-    String restaurantTitle,
-    String tableId,
-  ) async* {
-    final tablerRef = await FirebaseFirestore.instance
-        .collection(
-          FirestorePath.restaurantTableReservations(tableId, restaurantTitle),
-        )
-        .where('currentReservation', isEqualTo: true)
-        .get();
-    yield* tablerRef.docs[0].reference
-        .collection('Orders')
-        .where('timeStamp', isGreaterThanOrEqualTo: DateTime.now())
-        .snapshots();
-  }
+  // Stream<QuerySnapshot<Map<String, dynamic>>> listenForOrders(
+  //   String restaurantTitle,
+  //   String tableId,
+  // ) async* {
+  //   final tablerRef = await FirebaseFirestore.instance
+  //       .collection(
+  //         FirestorePath.restaurantTableReservations(tableId, restaurantTitle),
+  //       )
+  //       .where('currentReservation', isEqualTo: true)
+  //       .get();
+  //   yield* tablerRef.docs[0].reference
+  //       .collection('Orders')
+  //       .where('timeStamp', isGreaterThanOrEqualTo: DateTime.now())
+  //       .snapshots();
+  // }
 
   Future<void> updateOrderStatus(
     int id,

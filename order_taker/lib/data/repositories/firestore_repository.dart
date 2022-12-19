@@ -1,13 +1,19 @@
 import 'package:order_taker/data/api/firestore_api.dart';
 import 'package:order_taker/data/entities/reservation_entity.dart';
 import 'package:order_taker/data/entities/restaurant_entity.dart';
+import 'package:order_taker/domain/models/menu_item_model.dart';
+import 'package:order_taker/domain/models/menu_section_model.dart';
 import 'package:order_taker/domain/models/reservation_model.dart';
 import 'package:order_taker/domain/models/restaurant_model.dart';
+import 'package:order_taker/domain/models/review_model.dart';
+import 'package:order_taker/domain/repositories/menu_repo.dart';
 import 'package:order_taker/domain/repositories/reservation_repo.dart';
 import 'package:order_taker/domain/repositories/restaurant_repo.dart';
+import 'package:order_taker/domain/repositories/review_repo.dart';
 import 'package:order_taker/domain/repositories/user_repo.dart';
 
-class FirestoreRepository implements RestaurantRepo, ReservationRepo, UserRepo {
+class FirestoreRepository
+    implements RestaurantRepo, ReservationRepo, UserRepo, MenuRepo, ReviewRepo {
   final API _api;
 
   FirestoreRepository({required API api}) : _api = api;
@@ -160,4 +166,53 @@ class FirestoreRepository implements RestaurantRepo, ReservationRepo, UserRepo {
   @override
   Future<void> setUserType(String type, String uid) async =>
       await _api.setUserType(type, uid);
+
+  @override
+  Future<void> disapproveRequest(Reservation reservation) async =>
+      await _api.disapproveRequest(reservation);
+
+  @override
+  Stream<List<Reservation>> fetchRestaurantRequests(String restaurantTitle) =>
+      _api.fetchRestaurantRequests(restaurantTitle);
+
+  @override
+  Future<void> addMenuItem(OrderItem orderItem, String restaurant) async =>
+      await _api.addMenuItem(orderItem, restaurant);
+
+  @override
+  Future<void> changeMenuItemStatus({
+    required bool status,
+    required String restaurantTitle,
+    required OrderItem item,
+  }) async =>
+      await _api.changeMenuItemStatus(
+        status: status,
+        restaurantTitle: restaurantTitle,
+        item: item,
+      );
+
+  @override
+  Stream<List<MenuSection>> fetchMenu(String title) => _api.fetchMenu(title);
+
+  @override
+  Future<void> removeMenuItem({
+    required OrderItem item,
+    required String restaurantTitle,
+  }) async =>
+      await _api.removeMenuItem(
+        item: item,
+        restaurantTitle: restaurantTitle,
+      );
+
+  @override
+  Future<void> addRestaurantReview(
+          String restaurantTitle, Review review) async =>
+      await _api.addRestaurantReview(
+        restaurantTitle,
+        review,
+      );
+
+  @override
+  Stream<List<Review>> fetchReviews(String restaurantTitle) =>
+      _api.fetchReviews(restaurantTitle);
 }

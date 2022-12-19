@@ -38,7 +38,7 @@ final userProfileProvider = StateNotifierProvider<UserProfileNotifier, void>(
   ),
 );
 final restaurantEmailProvider = FutureProvider<String?>(
-  (ref) => ref.read(firestoreAPIProvider).getRestauarntEmail(
+  (ref) => ref.read(restaurantRepositoryProvider).getRestauarntEmail(
         ref.read(authRepositoryProvider).getCurrentUser()!.uid,
       ),
 );

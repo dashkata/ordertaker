@@ -38,7 +38,7 @@ class BillScreenController extends StateNotifier<void> {
     double reviewRating,
   ) async {
     if (reviewMessage.isNotEmpty && reviewRating != 0) {
-      await _ref.read(firestoreAPIProvider).addRestaurantReview(
+      await _ref.read(reviewRepositoryProvider).addRestaurantReview(
             reservation.restaurant,
             Review(
               name: reservation.name,
