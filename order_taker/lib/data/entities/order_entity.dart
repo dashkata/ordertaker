@@ -63,7 +63,7 @@ class UserOrderEntity {
   UserOrder toUserOrder() {
     final Map<OrderItem, int> parsedItems = {};
     for (final menuItem in menuItems.keys) {
-      parsedItems[menuItem.toOrderItem()] = parsedItems[menuItems[menuItem]]!;
+      parsedItems[menuItem.toOrderItem()] = menuItems[menuItem]!;
     }
     return UserOrder(
       id: id,

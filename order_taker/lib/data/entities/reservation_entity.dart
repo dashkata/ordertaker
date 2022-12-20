@@ -54,6 +54,9 @@ class ReservationEntity {
         date: date,
         numberOfPeople: numberOfPeople,
         preferredLocation: preferredLocation,
+        currentReservation: currentReservation,
+        table: table,
+        approved: approved,
       );
 
   factory ReservationEntity.fromReservation(Reservation reservation) =>
@@ -64,5 +67,8 @@ class ReservationEntity {
         date: reservation.date,
         numberOfPeople: reservation.numberOfPeople,
         preferredLocation: reservation.preferredLocation,
+        currentReservation: reservation.currentReservation,
+        table: reservation.table,
+        approved: reservation.approved,
       );
 }

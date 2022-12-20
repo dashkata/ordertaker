@@ -49,13 +49,10 @@ class AuthRepository {
       switch (e.code) {
         case 'email-already-in-use':
           throw 'There is already a registration made with this email.';
-          break;
         case 'invalid-email':
           throw 'The email you have entered is not valid.';
-          break;
         case 'weak-password':
           throw 'The password you have entered is too weak, it must be at least 6 characters.';
-          break;
 
         default:
           throw 'An undefined Error happened.';

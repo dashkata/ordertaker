@@ -196,14 +196,19 @@ class API {
   }
 
   Future<void> deleteReservation(
-      String uid, ReservationEntity reservation) async {
-    final restaurantReservationRef = FirebaseFirestore.instance.collection(
-      FirestorePath.restaurantReservations(
-        reservation.restaurant,
-        reservation.table!,
-      ),
-    );
-    await restaurantReservationRef.doc('$uid - ${reservation.date}').delete();
+    String uid,
+    ReservationEntity reservation,
+  ) async {
+    if (reservation.table != null) {
+      final restaurantReservationRef = FirebaseFirestore.instance.collection(
+        FirestorePath.restaurantReservations(
+          reservation.restaurant,
+          reservation.table!,
+        ),
+      );
+      await restaurantReservationRef.doc('$uid - ${reservation.date}').delete();
+    }
+
     await FirebaseFirestore.instance
         .doc(
           FirestorePath.restaurantRequest(
@@ -213,7 +218,6 @@ class API {
           ),
         )
         .delete();
-
     final reservationRef = FirebaseFirestore.instance
         .collection(FirestorePath.userReservations(uid));
     await reservationRef
