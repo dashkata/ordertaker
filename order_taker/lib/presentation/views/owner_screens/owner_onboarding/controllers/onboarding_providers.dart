@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:order_taker/presentation/providers/repository_providers.dart';
 
 import 'onboarding_controller.dart';
 
@@ -18,5 +19,12 @@ final restaurantPhotoProvider = StateProvider<String>((ref) => '');
 
 final onboardingControllerProvider =
     StateNotifierProvider<OnboardingController, void>(
-  (ref) => OnboardingController(ref: ref),
+  (ref) => OnboardingController(
+    ref: ref,
+    authRepository: ref.read(authRepositoryProvider),
+    storageRepository: ref.read(storageRepositoryProvider),
+    restaurantRepo: ref.read(restaurantRepositoryProvider),
+    userRepo: ref.read(userRepositoryProvider),
+    menuRepo: ref.read(menuRepositoryProvider),
+  ),
 );

@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/domain/models/menu_item_model.dart';
 import 'package:order_taker/enums/image_type.dart';
+import 'package:order_taker/presentation/views/resources/route_manager.dart';
 
 import '../owner_screens/owner_onboarding/controllers/onboarding_providers.dart';
 import 'custom_alert_dialog.dart';
@@ -60,9 +61,8 @@ class _AlertDialogBody extends ConsumerWidget {
             obscure: false,
             inputType: TextInputType.text,
             textInputAction: TextInputAction.next,
-            func: (value) => ref
-                .read(onboardingControllerProvider.notifier)
-                .updateTextField(itemTypeProvider, value),
+            func: (value) =>
+                ref.read(itemTypeProvider.notifier).update((state) => value),
           ),
           CustomTextField(
             hintText: text.title_menu_item,
@@ -70,9 +70,8 @@ class _AlertDialogBody extends ConsumerWidget {
             obscure: false,
             inputType: TextInputType.text,
             textInputAction: TextInputAction.next,
-            func: (value) => ref
-                .read(onboardingControllerProvider.notifier)
-                .updateTextField(itemTitleProvider, value),
+            func: (value) =>
+                ref.read(itemTitleProvider.notifier).update((state) => value),
           ),
           CustomTextField(
             hintText: text.ingredients_menu_item,
@@ -81,8 +80,8 @@ class _AlertDialogBody extends ConsumerWidget {
             inputType: TextInputType.text,
             textInputAction: TextInputAction.next,
             func: (value) => ref
-                .read(onboardingControllerProvider.notifier)
-                .updateTextField(itemIngredientsProvider, value),
+                .read(itemIngredientsProvider.notifier)
+                .update((state) => value),
           ),
           CustomTextField(
             hintText: text.price_menu_item,
@@ -90,9 +89,8 @@ class _AlertDialogBody extends ConsumerWidget {
             obscure: false,
             textInputAction: TextInputAction.done,
             inputType: const TextInputType.numberWithOptions(decimal: true),
-            func: (value) => ref
-                .read(onboardingControllerProvider.notifier)
-                .updateTextField(itemPriceProvider, value),
+            func: (value) =>
+                ref.read(itemPriceProvider.notifier).update((state) => value),
           ),
           Center(
             child: TextButton(
@@ -121,7 +119,7 @@ class _AlertDialogBody extends ConsumerWidget {
                       available: true,
                     ),
                   );
-              Navigator.pop(context);
+              navigatorKey.currentState!.pop();
             },
           ),
         ],
@@ -151,7 +149,7 @@ class _ImageAlertDialog extends ConsumerWidget {
                       itemTitleProvider,
                     ),
                   );
-              Navigator.of(context).pop();
+              navigatorKey.currentState!.pop();
             },
           ),
           ListTile(
@@ -166,7 +164,7 @@ class _ImageAlertDialog extends ConsumerWidget {
                       itemTitleProvider,
                     ),
                   );
-              Navigator.of(context).pop();
+              navigatorKey.currentState!.pop();
             },
           ),
         ],

@@ -50,7 +50,6 @@ class _DetailsSection extends ConsumerWidget {
                       onEditingComplete: () => ref
                           .read(restaurantInfoControllerProvider.notifier)
                           .submitRestaurantDetails(
-                            ref,
                             RestaurantDetailsType.address,
                             controller.value.text,
                             restaurant.title,

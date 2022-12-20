@@ -16,11 +16,9 @@ class _PageTwoForm extends ConsumerWidget {
           obscure: false,
           textInputAction: TextInputAction.next,
           inputType: TextInputType.streetAddress,
-          func: (val) =>
-              ref.read(onboardingControllerProvider.notifier).updateTextField(
-                    restaurantAddressProvider,
-                    val,
-                  ),
+          func: (val) => ref
+              .read(restaurantAddressProvider.notifier)
+              .update((state) => val),
         ),
         CustomTextField(
           hintText: text.restaurant_working_hours,
@@ -29,10 +27,7 @@ class _PageTwoForm extends ConsumerWidget {
           textInputAction: TextInputAction.next,
           inputType: TextInputType.text,
           func: (val) =>
-              ref.read(onboardingControllerProvider.notifier).updateTextField(
-                    restaurantHoursProvider,
-                    val,
-                  ),
+              ref.read(restaurantHoursProvider.notifier).update((state) => val),
         ),
         CustomTextField(
           hintText: text.restaurant_website,
@@ -40,11 +35,9 @@ class _PageTwoForm extends ConsumerWidget {
           obscure: false,
           textInputAction: TextInputAction.next,
           inputType: TextInputType.url,
-          func: (val) =>
-              ref.read(onboardingControllerProvider.notifier).updateTextField(
-                    restaurantWebsiteProvider,
-                    val,
-                  ),
+          func: (val) => ref
+              .read(restaurantWebsiteProvider.notifier)
+              .update((state) => val),
         ),
         CustomTextField(
           hintText: text.restaurant_phone_number,
@@ -52,11 +45,9 @@ class _PageTwoForm extends ConsumerWidget {
           obscure: false,
           textInputAction: TextInputAction.next,
           inputType: TextInputType.phone,
-          func: (val) =>
-              ref.read(onboardingControllerProvider.notifier).updateTextField(
-                    restaurantPhoneNumberProvider,
-                    val,
-                  ),
+          func: (val) => ref
+              .read(restaurantPhoneNumberProvider.notifier)
+              .update((state) => val),
         ),
         CustomTextField(
           hintText: text.restaurant_descriptions,
@@ -64,11 +55,9 @@ class _PageTwoForm extends ConsumerWidget {
           obscure: false,
           textInputAction: TextInputAction.next,
           inputType: TextInputType.text,
-          func: (val) =>
-              ref.read(onboardingControllerProvider.notifier).updateTextField(
-                    restaurantDescriptionProvider,
-                    val,
-                  ),
+          func: (val) => ref
+              .read(restaurantDescriptionProvider.notifier)
+              .update((state) => val),
         ),
         CustomTextField(
           hintText: 'Restaurant payment methods',
@@ -76,16 +65,14 @@ class _PageTwoForm extends ConsumerWidget {
           obscure: false,
           textInputAction: TextInputAction.done,
           inputType: TextInputType.text,
-          func: (val) =>
-              ref.read(onboardingControllerProvider.notifier).updateTextField(
-                    restaurantPaymentProvider,
-                    val,
-                  ),
+          func: (val) => ref
+              .read(restaurantPaymentProvider.notifier)
+              .update((state) => val),
         ),
         CustomTextField(
-          func: (value) => ref.read(restaurantTablesProvider.notifier).update(
-                (state) => value,
-              ),
+          func: (value) => ref
+              .read(restaurantTablesProvider.notifier)
+              .update((state) => value),
           inputType: TextInputType.number,
           icon: Icons.table_bar,
           hintText: text.outside_tables,

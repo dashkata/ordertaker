@@ -13,18 +13,28 @@ class ReviewCard extends StatelessWidget {
           elevation: 5,
           child: Row(
             children: [
-              Padding(
-                padding: PaddingManager.p5,
-                child: review.photoURL != null
-                    ? CircleAvatar(
-                        backgroundImage: NetworkImage(review.photoURL!),
-                        maxRadius: 35,
-                      )
-                    // CachedNetworkImage(imageUrl: review.photoURL!)
-                    : const CircleAvatar(
-                        backgroundImage: AssetImage('assets/noavatar.png'),
-                        maxRadius: 35,
+              Consumer(
+                builder: (context, ref, child) => ref
+                    .read(reviewPhotoProvider('alexandergeorgiev04@gmail.com'))
+                    .when(
+                      data: (photoURL) => Padding(
+                        padding: PaddingManager.p5,
+                        child: photoURL != null
+                            ? CircleAvatar(
+                                backgroundImage: NetworkImage(photoURL),
+                                maxRadius: 35,
+                              )
+                            : const CircleAvatar(
+                                backgroundImage:
+                                    AssetImage('assets/noavatar.png'),
+                                maxRadius: 35,
+                              ),
                       ),
+                      error: (e, s) => ErrorAlertDialog(
+                        errorMessage: e.toString(),
+                      ),
+                      loading: CustomProgressIndicator.new,
+                    ),
               ),
               Expanded(
                 child: Column(

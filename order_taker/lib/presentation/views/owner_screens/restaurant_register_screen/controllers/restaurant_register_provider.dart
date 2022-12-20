@@ -1,4 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:order_taker/presentation/providers/repository_providers.dart';
+
 import 'restaurant_register_controller.dart';
 
 final restaurantRegisterFirstNameControllerProvider =
@@ -21,5 +23,9 @@ final restaurantRegisterNameControllerProvider =
 
 final restaurantRegisterControllerProvider =
     StateNotifierProvider<RestaurantRegisterController, void>(
-  (ref) => RestaurantRegisterController(ref: ref),
+  (ref) => RestaurantRegisterController(
+    authRepository: ref.read(authRepositoryProvider),
+    userRepo: ref.read(userRepositoryProvider),
+    restaurantRepo: ref.read(restaurantRepositoryProvider),
+  ),
 );

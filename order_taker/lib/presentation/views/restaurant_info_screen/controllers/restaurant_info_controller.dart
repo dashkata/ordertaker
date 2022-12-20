@@ -3,26 +3,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:map_launcher/map_launcher.dart';
-import 'package:order_taker/presentation/providers/repository_providers.dart';
+import 'package:order_taker/data/repositories/storage_repository.dart';
+import 'package:order_taker/domain/repositories/restaurant_repo.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../enums/restaurant_details.dart';
 import '../../resources/route_manager.dart';
 
 class RestaurantInfoController extends StateNotifier<void> {
-  RestaurantInfoController() : super(null);
+  RestaurantInfoController({
+    required RestaurantRepo restaurantRepo,
+    required StorageRepository storageRepository,
+  })  : _restaurantRepo = restaurantRepo,
+        _storageRepository = storageRepository,
+        super(null);
+  final RestaurantRepo _restaurantRepo;
+  final StorageRepository _storageRepository;
 
   void submitRestaurantDetails(
-    WidgetRef ref,
     RestaurantDetailsType restaurantDetailsType,
     String updateInfo,
     String restaurantTitle,
   ) {
-    ref.read(restaurantRepositoryProvider).updateRestaurantInformation(
-          updateInfo,
-          restaurantTitle,
-          restaurantDetailsType.name,
-        );
+    _restaurantRepo.updateRestaurantInformation(
+      updateInfo,
+      restaurantTitle,
+      restaurantDetailsType.name,
+    );
   }
 
   Future<void> launchMapWithAddress(String address) async {
@@ -54,6 +61,9 @@ class RestaurantInfoController extends StateNotifier<void> {
       ),
     );
   }
+
+  Future<String?> fetchProfilePicture(String email) async =>
+      await _storageRepository.fetchProfilePic(email: email);
 
   Future<void> launchWebsite(String website) async {
     if (website.contains('https://')) {

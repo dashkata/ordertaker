@@ -70,117 +70,116 @@ class RestaurantInfo extends StatelessWidget {
                     fit: BoxFit.cover,
                   )
                 else
-                  // Consumer(
-                  //   builder: (context, ref, child) =>
-                  //       ref.watch(restaurantInformationProvider).when(
-                  //             data: (restaurantInfo) => Image(
-                  //               height: MediaQuery.of(context).size.height / 3,
-                  //               image: NetworkImage(restaurantInfo.photo),
-                  //               fit: BoxFit.cover,
-                  //             ),
-                  //             error: (e, s) => ErrorAlertDialog(
-                  //               errorMessage: e.toString(),
-                  //             ),
-                  //             loading: () => const CustomProgressIndicator(),
-                  //           ),
-                  // ),
-                  Container(
-                    height: double.maxFinite,
-                    width: double.maxFinite,
-                    margin: const EdgeInsets.only(
-                      top: 200,
-                      bottom: 100,
-                      left: 40,
-                      right: 40,
-                    ),
-                    decoration: BoxDecoration(
-                      color: complementaryColor,
-                      borderRadius: Styles.buildBorderRadius(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.3),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
-                    ),
-                    child: Consumer(
-                      builder: (context, ref, child) {
-                        final sectionId = ref.watch(sectionIdProvider);
-                        return Column(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            if (restaurant != null) ...[
-                              if (sectionId == 0)
-                                _DetailsSection(
-                                  restaurant: restaurant,
-                                  admin: false,
-                                ),
-                              if (sectionId == 1)
-                                _MenuSection(
-                                  restaurant: restaurant,
-                                  admin: false,
-                                ),
-                              if (sectionId == 2)
-                                _ReviewsSection(
-                                  restaurant: restaurant,
-                                ),
-                            ] else
-                              // ref.watch(restaurantInformationProvider).when(
-                              //       data: (restaurantInfo) {
-                              //         if (sectionId == 0) {
-                              //           return _DetailsSection(
-                              //             restaurant: restaurantInfo,
-                              //             admin: true,
-                              //           );
-                              //         } else if (sectionId == 1) {
-                              //           return _MenuSection(
-                              //             restaurant: restaurantInfo,
-                              //             admin: true,
-                              //           );
-                              //         } else if (sectionId == 2) {
-                              //           return _ReviewsSection(
-                              //             restaurant: restaurantInfo,
-                              //           );
-                              //         } else {
-                              //           return const SizedBox.shrink();
-                              //         }
-                              //       },
-                              //       error: (e, s) => ErrorAlertDialog(
-                              //         errorMessage: e.toString(),
-                              //       ),
-                              //       loading: () =>
-                              //           const CustomProgressIndicator(),
-                              //     ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 20.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    _SectionButton(
-                                      sectionText: text.details,
-                                      id: 0,
-                                    ),
-                                    _SectionButton(
-                                      sectionText: text.menu,
-                                      id: 1,
-                                    ),
-                                    _SectionButton(
-                                      sectionText: text.reviews,
-                                      id: 2,
-                                    ),
-                                  ],
-                                ),
-                              )
-                          ],
-                        );
-                      },
-                    ),
+                  Consumer(
+                    builder: (context, ref, child) =>
+                        ref.watch(restaurantInformationProvider).when(
+                              data: (restaurantInfo) => Image(
+                                height: MediaQuery.of(context).size.height / 3,
+                                image: NetworkImage(restaurantInfo.photo),
+                                fit: BoxFit.cover,
+                              ),
+                              error: (e, s) => ErrorAlertDialog(
+                                errorMessage: e.toString(),
+                              ),
+                              loading: () => const CustomProgressIndicator(),
+                            ),
                   ),
+                Container(
+                  height: double.maxFinite,
+                  width: double.maxFinite,
+                  margin: const EdgeInsets.only(
+                    top: 200,
+                    bottom: 100,
+                    left: 40,
+                    right: 40,
+                  ),
+                  decoration: BoxDecoration(
+                    color: complementaryColor,
+                    borderRadius: Styles.buildBorderRadius(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Consumer(
+                    builder: (context, ref, child) {
+                      final sectionId = ref.watch(sectionIdProvider);
+                      return Column(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          if (restaurant != null) ...[
+                            if (sectionId == 0)
+                              _DetailsSection(
+                                restaurant: restaurant,
+                                admin: false,
+                              ),
+                            if (sectionId == 1)
+                              _MenuSection(
+                                restaurant: restaurant,
+                                admin: false,
+                              ),
+                            if (sectionId == 2)
+                              _ReviewsSection(
+                                restaurant: restaurant,
+                              ),
+                          ] else
+                            ref.watch(restaurantInformationProvider).when(
+                                  data: (restaurantInfo) {
+                                    if (sectionId == 0) {
+                                      return _DetailsSection(
+                                        restaurant: restaurantInfo,
+                                        admin: true,
+                                      );
+                                    } else if (sectionId == 1) {
+                                      return _MenuSection(
+                                        restaurant: restaurantInfo,
+                                        admin: true,
+                                      );
+                                    } else if (sectionId == 2) {
+                                      return _ReviewsSection(
+                                        restaurant: restaurantInfo,
+                                      );
+                                    } else {
+                                      return const SizedBox.shrink();
+                                    }
+                                  },
+                                  error: (e, s) => ErrorAlertDialog(
+                                    errorMessage: e.toString(),
+                                  ),
+                                  loading: () =>
+                                      const CustomProgressIndicator(),
+                                ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                _SectionButton(
+                                  sectionText: text.details,
+                                  id: 0,
+                                ),
+                                _SectionButton(
+                                  sectionText: text.menu,
+                                  id: 1,
+                                ),
+                                _SectionButton(
+                                  sectionText: text.reviews,
+                                  id: 2,
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),

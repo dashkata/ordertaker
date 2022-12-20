@@ -3,26 +3,43 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:order_taker/data/repositories/auth_repository.dart';
+import 'package:order_taker/data/repositories/storage_repository.dart';
 import 'package:order_taker/domain/models/menu_item_model.dart';
+import 'package:order_taker/domain/repositories/menu_repo.dart';
+import 'package:order_taker/domain/repositories/restaurant_repo.dart';
+import 'package:order_taker/domain/repositories/user_repo.dart';
 import 'package:order_taker/enums/image_type.dart';
-import 'package:order_taker/presentation/providers/repository_providers.dart';
 
+import '../../../../../domain/models/restaurant_model.dart';
 import '../../../custom_widgets/custom_alert_dialog.dart';
 import '../../../resources/route_manager.dart';
 import 'onboarding_providers.dart';
 
 class OnboardingController extends StateNotifier<void> {
-  OnboardingController({required StateNotifierProviderRef ref})
-      : _ref = ref,
+  OnboardingController({
+    required StateNotifierProviderRef ref,
+    required StorageRepository storageRepository,
+    required RestaurantRepo restaurantRepo,
+    required AuthRepository authRepository,
+    required UserRepo userRepo,
+    required MenuRepo menuRepo,
+  })  : _ref = ref,
+        _storageRepository = storageRepository,
+        _restaurantRepo = restaurantRepo,
+        _authRepository = authRepository,
+        _userRepo = userRepo,
+        _menuRepo = menuRepo,
         super(null);
   final StateNotifierProviderRef _ref;
+  final StorageRepository _storageRepository;
+  final RestaurantRepo _restaurantRepo;
+  final AuthRepository _authRepository;
+  final UserRepo _userRepo;
+  final MenuRepo _menuRepo;
 
   void addMenuDialog(Widget alertDialog, BuildContext context) {
     showDialog(context: context, builder: (_) => alertDialog);
-  }
-
-  void updateTextField(StateProvider provider, String value) {
-    _ref.read(provider.notifier).update((state) => value);
   }
 
   Future<void> pickItemImage(BuildContext context, Widget content) async {
@@ -48,16 +65,13 @@ class OnboardingController extends StateNotifier<void> {
         break;
     }
     if (image?.path != null) {
-      final downloadUrl =
-          await _ref.read(storageRepositoryProvider).uploadItemImage(
-                photoFile: File(image!.path),
-                restaurantName: await _ref
-                    .read(restaurantRepositoryProvider)
-                    .fetchRestaurantTitle(
-                      _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
-                    ),
-                itemName: itemName,
-              );
+      final downloadUrl = await _storageRepository.uploadItemImage(
+        photoFile: File(image!.path),
+        restaurantName: await _restaurantRepo.fetchRestaurantTitle(
+          _authRepository.getCurrentUser()!.uid,
+        ),
+        itemName: itemName,
+      );
       _ref.read(itemImageProvider.notifier).update((state) => downloadUrl);
     }
   }
@@ -65,55 +79,52 @@ class OnboardingController extends StateNotifier<void> {
   Future<void> addMenuItem(
     OrderItem orderItem,
   ) async {
-    await _ref.read(menuRepositoryProvider).addMenuItem(
-          orderItem,
-          await _ref.read(restaurantRepositoryProvider).fetchRestaurantTitle(
-                _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
-              ),
-        );
+    await _menuRepo.addMenuItem(
+      orderItem,
+      await _restaurantRepo.fetchRestaurantTitle(
+        _authRepository.getCurrentUser()!.uid,
+      ),
+    );
   }
 
   Future<void> addRestaurantPicture() async {
     final XFile? image =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image != null) {
-      final downloadUrl =
-          await _ref.read(storageRepositoryProvider).uploadRestaurantImage(
-                photoFile: File(image.path),
-                restaurantName: await _ref
-                    .read(restaurantRepositoryProvider)
-                    .fetchRestaurantTitle(
-                      _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
-                    ),
-              );
+      final downloadUrl = await _storageRepository.uploadRestaurantImage(
+        photoFile: File(image.path),
+        restaurantName: await _restaurantRepo.fetchRestaurantTitle(
+          _authRepository.getCurrentUser()!.uid,
+        ),
+      );
       _ref.read(restaurantPhotoProvider.notifier).update(
             (state) => downloadUrl,
           );
     }
   }
 
+  //TODO update this maybe
   Future<void> submitRestaurantDetails() async {
-    final String title =
-        await _ref.read(restaurantRepositoryProvider).fetchRestaurantTitle(
-              _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
-            );
-    // await _ref.read(firestoreAPIProvider).submitRestaurantDetails(
-    //       Restaurant(
-    //         title: title,
-    //         desc: _ref.read(restaurantDescriptionProvider),
-    //         openHours: _ref.read(restaurantHoursProvider),
-    //         website: _ref.read(restaurantWebsiteProvider),
-    //         phoneNumber: _ref.read(restaurantPhoneNumberProvider),
-    //         paymentMethods: _ref.read(restaurantPaymentProvider),
-    //         address: _ref.read(restaurantAddressProvider),
-    //         photo: _ref.read(restaurantPhotoProvider),
-    //       ),
-    //       int.parse(_ref.read(restaurantTablesProvider)),
-    //     );
-    await _ref.read(userRepositoryProvider).setOnBoarding(
-          _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
-          onBoarding: true,
-        );
+    final String title = await _restaurantRepo.fetchRestaurantTitle(
+      _authRepository.getCurrentUser()!.uid,
+    );
+    await _restaurantRepo.submitRestaurantDetails(
+      Restaurant(
+        title: title,
+        description: _ref.read(restaurantDescriptionProvider),
+        openHours: _ref.read(restaurantHoursProvider),
+        website: _ref.read(restaurantWebsiteProvider),
+        phoneNumber: _ref.read(restaurantPhoneNumberProvider),
+        paymentMethods: _ref.read(restaurantPaymentProvider),
+        address: _ref.read(restaurantAddressProvider),
+        photo: _ref.read(restaurantPhotoProvider),
+      ),
+      int.parse(_ref.read(restaurantTablesProvider)),
+    );
+    await _userRepo.setOnBoarding(
+      _authRepository.getCurrentUser()!.uid,
+      onBoarding: true,
+    );
     await navigatorKey.currentState!.popAndPushNamed(Routes.auth);
   }
 }

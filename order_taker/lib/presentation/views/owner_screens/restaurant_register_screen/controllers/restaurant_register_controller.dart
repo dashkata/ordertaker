@@ -1,13 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/presentation/providers/repository_providers.dart';
+import 'package:order_taker/domain/repositories/restaurant_repo.dart';
+import 'package:order_taker/domain/repositories/user_repo.dart';
 
+import '../../../../../data/repositories/auth_repository.dart';
 import '../../../resources/route_manager.dart';
 
 class RestaurantRegisterController extends StateNotifier<void> {
-  RestaurantRegisterController({required Ref ref})
-      : _ref = ref,
+  RestaurantRegisterController({
+    required AuthRepository authRepository,
+    required UserRepo userRepo,
+    required RestaurantRepo restaurantRepo,
+  })  : _authRepository = authRepository,
+        _userRepo = userRepo,
+        _restaurantRepo = restaurantRepo,
         super(null);
-  final Ref _ref;
+  final AuthRepository _authRepository;
+  final UserRepo _userRepo;
+  final RestaurantRepo _restaurantRepo;
 
   Future<void> signUp(
     String firstName,
@@ -17,39 +26,37 @@ class RestaurantRegisterController extends StateNotifier<void> {
     String phoneNumber,
     String restaurantName,
   ) async {
-    final auth = _ref.watch(authRepositoryProvider);
-    final firestore = _ref.watch(firestoreAPIProvider);
-    await auth
+    await _authRepository
         .signUp(email: email, password: password)
         .then(
-          (value) => auth.getCurrentUser()!.sendEmailVerification(),
+          (value) => _authRepository.getCurrentUser()!.sendEmailVerification(),
         )
         .then(
-          (value) => firestore.setRestaurantTitle(
+          (value) => _restaurantRepo.setRestaurantTitle(
             restaurantName,
-            auth.getCurrentUser()!.uid,
+            _authRepository.getCurrentUser()!.uid,
           ),
         )
         .then(
-          (value) => firestore.setMobileNumber(
-            auth.getCurrentUser()!.uid,
+          (value) => _userRepo.setMobileNumber(
+            _authRepository.getCurrentUser()!.uid,
             phoneNumber,
           ),
         )
         .then(
-          (value) => firestore.setUserType(
+          (value) => _userRepo.setUserType(
             'Admin',
-            auth.getCurrentUser()!.uid,
+            _authRepository.getCurrentUser()!.uid,
           ),
         )
         .then(
-          (value) => auth.updateUserName(
+          (value) => _authRepository.updateUserName(
             name: '$firstName $lastName',
           ),
         )
         .then(
-          (value) => firestore.setOnBoarding(
-            auth.getCurrentUser()!.uid,
+          (value) => _userRepo.setOnBoarding(
+            _authRepository.getCurrentUser()!.uid,
             onBoarding: false,
           ),
         );
