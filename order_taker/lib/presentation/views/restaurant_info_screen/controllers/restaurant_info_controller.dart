@@ -62,9 +62,6 @@ class RestaurantInfoController extends StateNotifier<void> {
     );
   }
 
-  Future<String?> fetchProfilePicture(String email) async =>
-      await _storageRepository.fetchProfilePic(email: email);
-
   Future<void> launchWebsite(String website) async {
     if (website.contains('https://')) {
       await launchUrl(Uri.parse(website));

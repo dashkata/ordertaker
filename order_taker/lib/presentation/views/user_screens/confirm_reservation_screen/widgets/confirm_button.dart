@@ -1,12 +1,12 @@
 part of '../confirm_reservation.dart';
 
 class _ConfirmButton extends ConsumerWidget {
-  const _ConfirmButton(
-      {Key? key,
-      required this.text,
-      required this.reservationInfo,
-      required this.name})
-      : super(key: key);
+  const _ConfirmButton({
+    required this.text,
+    required this.reservationInfo,
+    required this.name,
+    Key? key,
+  }) : super(key: key);
 
   final AppLocalizations text;
   final ConfirmReservationArguments reservationInfo;
@@ -21,7 +21,7 @@ class _ConfirmButton extends ConsumerWidget {
               .addReservation(
                 Reservation(
                   name: name,
-                  restaurant: reservationInfo.restaurantTitle,
+                  restaurant: reservationInfo.restaurant.title,
                   date: '${ref.read(confirmDateProvider)} '
                       '- ${ref.read(confirmTimeProvider)}',
                   numberOfPeople: reservationInfo.numberOfPeople,

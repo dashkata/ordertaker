@@ -1,16 +1,25 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:order_taker/data/repositories/auth_repository.dart';
 import 'package:order_taker/domain/models/order_model.dart';
 import 'package:order_taker/domain/models/reservation_model.dart';
 import 'package:order_taker/domain/models/review_model.dart';
-import 'package:order_taker/presentation/providers/repository_providers.dart';
+import 'package:order_taker/domain/repositories/reservation_repo.dart';
+import 'package:order_taker/domain/repositories/review_repo.dart';
 
 import '../../../resources/route_manager.dart';
 
 class BillScreenController extends StateNotifier<void> {
-  BillScreenController({required StateNotifierProviderRef ref})
-      : _ref = ref,
+  BillScreenController({
+    required ReviewRepo reviewRepo,
+    required AuthRepository authRepository,
+    required ReservationRepo reservationRepo,
+  })  : _reviewRepo = reviewRepo,
+        _authRepository = authRepository,
+        _reservationRepo = reservationRepo,
         super(null);
-  final StateNotifierProviderRef _ref;
+  final ReviewRepo _reviewRepo;
+  final AuthRepository _authRepository;
+  final ReservationRepo _reservationRepo;
 
   void navigateToMenu(Reservation reservation) {
     navigatorKey.currentState!.popAndPushNamed(
@@ -38,21 +47,20 @@ class BillScreenController extends StateNotifier<void> {
     double reviewRating,
   ) async {
     if (reviewMessage.isNotEmpty && reviewRating != 0) {
-      await _ref.read(reviewRepositoryProvider).addRestaurantReview(
-            reservation.restaurant,
-            Review(
-              name: reservation.name,
-              photoURL:
-                  _ref.read(authRepositoryProvider).getCurrentUser()?.photoURL,
-              review: reviewMessage,
-              rating: reviewRating,
-            ),
-          );
+      await _reviewRepo.addRestaurantReview(
+        reservation.restaurant,
+        Review(
+          name: reservation.name,
+          photoURL: _authRepository.getCurrentUser()?.photoURL,
+          review: reviewMessage,
+          rating: reviewRating,
+        ),
+      );
     }
-    await _ref.read(reservationRepositoryProvider).deleteReservation(
-          _ref.read(authRepositoryProvider).getCurrentUser()!.uid,
-          reservation,
-        );
+    await _reservationRepo.deleteReservation(
+      _authRepository.getCurrentUser()!.uid,
+      reservation,
+    );
     await navigatorKey.currentState!.popAndPushNamed(Routes.userRestaurants);
   }
 }

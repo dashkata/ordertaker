@@ -14,7 +14,11 @@ final fetchOrdersProvider = StreamProvider.family<List<UserOrder>, Reservation>(
 
 final billScreenControllerProvider =
     StateNotifierProvider<BillScreenController, void>(
-  (ref) => BillScreenController(ref: ref),
+  (ref) => BillScreenController(
+    reviewRepo: ref.read(reviewRepositoryProvider),
+    authRepository: ref.read(authRepositoryProvider),
+    reservationRepo: ref.read(reservationRepositoryProvider),
+  ),
 );
 
 final reviewMessageProvider = StateProvider<String>((ref) => '');

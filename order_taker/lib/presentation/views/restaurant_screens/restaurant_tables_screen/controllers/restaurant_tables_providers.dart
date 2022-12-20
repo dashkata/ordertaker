@@ -11,12 +11,6 @@ final restaurantTablesControllerProvider =
     ),
   ),
 );
-// final restaurantTitleProvider = FutureProvider<String>(
-//   (ref) async =>
-//       await ref.read(firestoreRepositoryProvider).fetchRestaurantTitle(
-//             ref.read(authRepositoryProvider).getCurrentUser()!.uid,
-//           ),
-// );
 
 final tablesProvider = FutureProvider.family.autoDispose<List<String>, String>(
   (

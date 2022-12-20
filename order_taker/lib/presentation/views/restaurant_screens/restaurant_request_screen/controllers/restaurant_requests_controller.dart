@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/domain/models/reservation_model.dart';
+import 'package:order_taker/domain/repositories/reservation_repo.dart';
 import 'package:order_taker/enums/request_status.dart';
-import 'package:order_taker/presentation/providers/repository_providers.dart';
 
 import '../../../custom_widgets/custom_alert_dialog.dart';
 import '../../../resources/route_manager.dart';
 
 class RestaurantRequestsController extends StateNotifier<void> {
-  RestaurantRequestsController() : super(null);
+  RestaurantRequestsController({required ReservationRepo reservationRepo})
+      : _reservationRepo = reservationRepo,
+        super(null);
+  final ReservationRepo _reservationRepo;
 
   Future<void> requestStats(
     RequestStatus requestStatus,
     Reservation reservation,
-    WidgetRef ref,
   ) async {
     switch (requestStatus) {
       case RequestStatus.approved:
-        await ref
-            .read(reservationRepositoryProvider)
-            .addApprovedReservation(reservation);
+        await _reservationRepo.addApprovedReservation(reservation);
         break;
       case RequestStatus.disapproved:
-        await ref
-            .read(reservationRepositoryProvider)
-            .disapproveRequest(reservation);
+        await _reservationRepo.disapproveRequest(reservation);
         break;
     }
   }

@@ -3,12 +3,10 @@ part of '../confirm_reservation.dart';
 class _ConfirmOverview extends StatelessWidget {
   const _ConfirmOverview({
     Key? key,
-    required this.restaurantPic,
     required this.reservationInfo,
     required this.text,
   }) : super(key: key);
 
-  final AsyncValue restaurantPic;
   final ConfirmReservationArguments reservationInfo;
   final AppLocalizations text;
 
@@ -19,17 +17,11 @@ class _ConfirmOverview extends StatelessWidget {
         children: [
           Padding(
             padding: PaddingManager.p9,
-            child: restaurantPic.when(
-              data: (picValue) => CircleAvatar(
-                backgroundImage: NetworkImage(
-                  picValue,
-                ),
-                radius: 45,
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(
+                reservationInfo.restaurant.photo,
               ),
-              error: (e, s) => ErrorAlertDialog(
-                errorMessage: e.toString(),
-              ),
-              loading: CustomProgressIndicator.new,
+              radius: 45,
             ),
           ),
           Flexible(
@@ -39,7 +31,7 @@ class _ConfirmOverview extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    reservationInfo.restaurantTitle,
+                    reservationInfo.restaurant.title,
                     style: Theme.of(context).textTheme.headline5,
                   ),
                   Padding(

@@ -48,7 +48,7 @@ class _DetailsDialog extends ConsumerWidget {
                     ? () => ref
                         .read(restaurantControllerProvider.notifier)
                         .navigateToConfirm(
-                          restaurant.title,
+                          restaurant,
                           ref,
                         )
                     : null,

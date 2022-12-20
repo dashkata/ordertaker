@@ -76,9 +76,8 @@ class _TableDialogActions extends ConsumerWidget {
                               approved: true,
                               currentReservation: false,
                             ),
-                            ref,
                           );
-                      Navigator.pop(context);
+                      navigatorKey.currentState!.pop();
                     },
             ),
           ],

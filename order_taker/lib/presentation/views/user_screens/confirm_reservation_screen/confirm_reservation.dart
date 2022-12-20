@@ -2,24 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/domain/models/reservation_model.dart';
-import 'package:order_taker/presentation/providers/common_providers.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
 import 'package:order_taker/presentation/themes/themes.dart';
 
 import '../../custom_widgets/custom_button.dart';
-import '../../custom_widgets/custom_error_alert_dialog.dart';
-import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
 import 'confirm_reservation_arguments.dart';
 import 'controllers/confirm_reservation_providers.dart';
 
 part 'widgets/confirm_button.dart';
-
 part 'widgets/confirm_overview.dart';
-
 part 'widgets/detail_row.dart';
-
 part 'widgets/user_detail.dart';
 
 class ConfirmReservationScreen extends ConsumerWidget {
@@ -31,8 +25,8 @@ class ConfirmReservationScreen extends ConsumerWidget {
     final AsyncValue userDetails = ref.watch(detailsProvider);
     final reservationInfo = ModalRoute.of(context)!.settings.arguments
         as ConfirmReservationArguments;
-    final AsyncValue restaurantPic =
-        ref.watch(restaurantPictureProvider(reservationInfo.restaurantTitle));
+    // final AsyncValue restaurantPic =
+    //     ref.watch(restaurantPictureProvider(reservationInfo.restaurantTitle));
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: mainColor,
@@ -50,7 +44,6 @@ class ConfirmReservationScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _ConfirmOverview(
-                        restaurantPic: restaurantPic,
                         reservationInfo: reservationInfo,
                         text: text,
                       ),

@@ -95,13 +95,13 @@ class RestaurantScreenController extends StateNotifier<void> {
   }
 
   Future<void> navigateToConfirm(
-    String restaurantTitle,
+    Restaurant restaurant,
     WidgetRef ref,
   ) async {
     await navigatorKey.currentState!.pushNamed(
       Routes.userConfirmReserveration,
       arguments: ConfirmReservationArguments(
-        restaurantTitle: restaurantTitle,
+        restaurant: restaurant,
         userDate: ref.read(userDateProvider),
         numberOfPeople: ref.read(peopleProvider),
         preferredLocation:

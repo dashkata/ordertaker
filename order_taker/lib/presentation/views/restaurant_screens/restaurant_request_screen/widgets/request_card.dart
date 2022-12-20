@@ -55,7 +55,6 @@ class _RequestCard extends ConsumerWidget {
                             .requestStats(
                               RequestStatus.disapproved,
                               reservation,
-                              ref,
                             ),
                       ),
                       CustomButton(
