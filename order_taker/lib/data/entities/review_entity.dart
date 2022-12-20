@@ -1,3 +1,5 @@
+import 'package:order_taker/domain/models/review_model.dart';
+
 class ReviewEntity {
   final String name;
   final String? photoURL;
@@ -18,10 +20,18 @@ class ReviewEntity {
         rating: data['rating'],
       );
 
+  factory ReviewEntity.fromReview(Review review) => ReviewEntity(
+        name: review.name,
+        review: review.review,
+        rating: review.rating,
+      );
+
   Map<String, dynamic> toMap() => {
         'name': name,
         'photoURL': photoURL,
         'review': review,
         'rating': rating,
       };
+
+  Review toReview() => Review(name: name, review: review, rating: rating);
 }

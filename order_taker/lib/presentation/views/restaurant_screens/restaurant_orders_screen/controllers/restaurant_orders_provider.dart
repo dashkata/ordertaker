@@ -8,7 +8,7 @@ import 'restaurant_order_controller.dart';
 final restaurantOrdersProvider =
     StreamProvider.family<List<UserOrder>, RestaurantOrderArguments>(
   (ref, args) => ref
-      .watch(firestoreAPIProvider)
+      .watch(orderRepositoryProvider)
       .fetchOrdersRestaurant(args.id.toString(), args.restaurantTitle),
 );
 

@@ -6,7 +6,7 @@ import 'package:order_taker/presentation/providers/repository_providers.dart';
 import 'bill_screen_controller.dart';
 
 final fetchOrdersProvider = StreamProvider.family<List<UserOrder>, Reservation>(
-  (ref, reservation) => ref.watch(firestoreAPIProvider).fetchOrdersUser(
+  (ref, reservation) => ref.watch(orderRepositoryProvider).fetchOrdersUser(
         reservation,
         ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
       ),

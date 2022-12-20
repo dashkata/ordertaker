@@ -1,3 +1,6 @@
+import 'package:order_taker/domain/models/menu_item_model.dart';
+import 'package:order_taker/domain/models/order_model.dart';
+
 import 'menu_item_entity.dart';
 
 class UserOrderEntity {
@@ -36,6 +39,33 @@ class UserOrderEntity {
           menuItem['count'];
     }
     return UserOrderEntity(
+      id: id,
+      status: status,
+      menuItems: parsedItems,
+      additionalMessage: additionalMessage,
+    );
+  }
+
+  factory UserOrderEntity.fromUserOrder(UserOrder userOrder) {
+    final Map<OrderItemEntity, int> parsedItems = {};
+    for (final menuItem in userOrder.ordersToList()) {
+      parsedItems[OrderItemEntity.fromMap(menuItem['item'])] =
+          menuItem['count'];
+    }
+    return UserOrderEntity(
+      id: userOrder.id,
+      status: userOrder.status,
+      menuItems: parsedItems,
+      additionalMessage: userOrder.additionalMessage,
+    );
+  }
+
+  UserOrder toUserOrder() {
+    final Map<OrderItem, int> parsedItems = {};
+    for (final menuItem in menuItems.keys) {
+      parsedItems[menuItem.toOrderItem()] = parsedItems[menuItems[menuItem]]!;
+    }
+    return UserOrder(
       id: id,
       status: status,
       menuItems: parsedItems,

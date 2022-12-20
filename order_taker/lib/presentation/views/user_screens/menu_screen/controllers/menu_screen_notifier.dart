@@ -62,7 +62,7 @@ class MenuOrderStateNotifier extends StateNotifier<Map<OrderItem, int>> {
   }
 
   void completeOrder(Reservation reservation) {
-    ref.read(firestoreAPIProvider).completeOrder(
+    ref.read(orderRepositoryProvider).completeOrder(
           UserOrder(
             menuItems: state,
             id: 0,

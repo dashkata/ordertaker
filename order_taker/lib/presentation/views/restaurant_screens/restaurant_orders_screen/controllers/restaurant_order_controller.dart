@@ -71,7 +71,9 @@ class RestaurantOrderController extends StateNotifier<void> {
                     CustomButton(
                       buttonText: 'In progress',
                       buttonFunc: () async {
-                        await _ref.read().updateOrderStatus(
+                        await _ref
+                            .read(orderRepositoryProvider)
+                            .updateOrderStatus(
                               orderId,
                               'In progress',
                               tableId.toString(),

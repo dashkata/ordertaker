@@ -4,6 +4,7 @@ import 'package:order_taker/data/repositories/auth_repository.dart';
 import 'package:order_taker/data/repositories/firestore_repository.dart';
 import 'package:order_taker/data/repositories/storage_repository.dart';
 import 'package:order_taker/domain/repositories/menu_repo.dart';
+import 'package:order_taker/domain/repositories/order_repo.dart';
 import 'package:order_taker/domain/repositories/reservation_repo.dart';
 import 'package:order_taker/domain/repositories/restaurant_repo.dart';
 import 'package:order_taker/domain/repositories/review_repo.dart';
@@ -40,7 +41,13 @@ final menuRepositoryProvider = Provider<MenuRepo>(
     api: ref.watch(firestoreAPIProvider),
   ),
 );
+
 final reviewRepositoryProvider = Provider<ReviewRepo>(
+  (ref) => FirestoreRepository(
+    api: ref.watch(firestoreAPIProvider),
+  ),
+);
+final orderRepositoryProvider = Provider<OrderRepo>(
   (ref) => FirestoreRepository(
     api: ref.watch(firestoreAPIProvider),
   ),

@@ -11,7 +11,6 @@ import 'controllers/restaurant_orders_provider.dart';
 import 'restaurant_order_arguments.dart';
 
 part 'widgets/order_container.dart';
-
 part 'widgets/restaurant_order_fab.dart';
 
 class RestaurantOrders extends StatelessWidget {
@@ -44,38 +43,23 @@ class RestaurantOrders extends StatelessWidget {
               color: accentBlackColor,
               backgroundColor: complementaryColor,
               child: orders.when(
-                data: (data) {
-                  ref.watch(docChangesProvider).whenData(
-                    (value) {
-                      if (value.docs.isNotEmpty) {
-                        return ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              'New order just arrived!',
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                  );
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: List.generate(
-                        data.length,
-                        (index) => Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0,
-                            vertical: 20,
-                          ),
-                          child: _OrderContainer(
-                            order: data[index],
-                            tableId: restaurantOrderArguments.id,
-                          ),
+                data: (data) => SingleChildScrollView(
+                  child: Column(
+                    children: List.generate(
+                      data.length,
+                      (index) => Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0,
+                          vertical: 20,
+                        ),
+                        child: _OrderContainer(
+                          order: data[index],
+                          tableId: restaurantOrderArguments.id,
                         ),
                       ),
                     ),
-                  );
-                },
+                  ),
+                ),
                 error: (e, s) => ErrorAlertDialog(
                   errorMessage: e.toString(),
                 ),

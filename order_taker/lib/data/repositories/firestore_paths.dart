@@ -1,4 +1,4 @@
-import 'package:order_taker/domain/models/reservation_model.dart';
+import '../entities/reservation_entity.dart';
 
 class FirestorePath {
   static String restaurants() => 'Restaurants';
@@ -23,7 +23,7 @@ class FirestorePath {
   static String restaurant(String restaurantTitle) =>
       'Restaurants/$restaurantTitle';
 
-  static String restaurantOrders(Reservation reservation, String uid) =>
+  static String restaurantOrders(ReservationEntity reservation, String uid) =>
       'Restaurants/${reservation.restaurant}/Tables/Table ${reservation.table}/Reservations/$uid - ${reservation.date}/Orders';
 
   static String restaurantTableReservations(

@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:order_taker/data/entities/menu_item_entity.dart';
+import 'package:order_taker/data/entities/menu_section_entity.dart';
+import 'package:order_taker/data/entities/order_entity.dart';
 import 'package:order_taker/data/entities/reservation_entity.dart';
 import 'package:order_taker/data/entities/restaurant_entity.dart';
-import 'package:order_taker/domain/models/menu_item_model.dart';
-import 'package:order_taker/domain/models/menu_section_model.dart';
-import 'package:order_taker/domain/models/order_model.dart';
-import 'package:order_taker/domain/models/reservation_model.dart';
-import 'package:order_taker/domain/models/review_model.dart';
+import 'package:order_taker/data/entities/review_entity.dart';
 
 import '../repositories/firestore_paths.dart';
 
@@ -336,9 +335,9 @@ class API {
   //Queries for orders
 
   Future<void> completeOrder(
-    UserOrder orders,
+    UserOrderEntity orders,
     String uid,
-    Reservation reservation,
+    ReservationEntity reservation,
   ) async {
     if (orders.menuItems.isNotEmpty) {
       final ordersRef = FirebaseFirestore.instance.collection(
@@ -360,8 +359,8 @@ class API {
     }
   }
 
-  Stream<List<UserOrder>> fetchOrdersUser(
-    Reservation reservation,
+  Stream<List<UserOrderEntity>> fetchOrdersUser(
+    ReservationEntity reservation,
     String uid,
   ) {
     final orderRef = FirebaseFirestore.instance
@@ -370,7 +369,7 @@ class API {
     return orderRef.map(
       (orders) => orders.docs
           .map(
-            (order) => UserOrder.fromMap(
+            (order) => UserOrderEntity.fromMap(
               order['order'],
               order['id'],
               order['status'],
@@ -381,7 +380,7 @@ class API {
     );
   }
 
-  Stream<List<UserOrder>> fetchOrdersRestaurant(
+  Stream<List<UserOrderEntity>> fetchOrdersRestaurant(
     String tableId,
     String restaurant,
   ) async* {
@@ -399,7 +398,7 @@ class API {
     yield* ordersCollection.map(
       (orders) => orders.docs
           .map(
-            (order) => UserOrder.fromMap(
+            (order) => UserOrderEntity.fromMap(
               order['order'],
               order['id'],
               order['status'],
@@ -409,22 +408,6 @@ class API {
           .toList(),
     );
   }
-
-  // Stream<QuerySnapshot<Map<String, dynamic>>> listenForOrders(
-  //   String restaurantTitle,
-  //   String tableId,
-  // ) async* {
-  //   final tablerRef = await FirebaseFirestore.instance
-  //       .collection(
-  //         FirestorePath.restaurantTableReservations(tableId, restaurantTitle),
-  //       )
-  //       .where('currentReservation', isEqualTo: true)
-  //       .get();
-  //   yield* tablerRef.docs[0].reference
-  //       .collection('Orders')
-  //       .where('timeStamp', isGreaterThanOrEqualTo: DateTime.now())
-  //       .snapshots();
-  // }
 
   Future<void> updateOrderStatus(
     int id,
@@ -466,7 +449,7 @@ class API {
 
   //Queries for menu
 
-  Future<void> addMenuItem(OrderItem orderItem, String restaurant) async {
+  Future<void> addMenuItem(OrderItemEntity orderItem, String restaurant) async {
     await FirebaseFirestore.instance
         .doc(FirestorePath.restaurantMenuType(restaurant, orderItem.itemType))
         .set(
@@ -479,14 +462,14 @@ class API {
     );
   }
 
-  Stream<List<MenuSection>> fetchMenu(String title) {
+  Stream<List<MenuSectionEntity>> fetchMenu(String title) {
     final menuSnapshot = FirebaseFirestore.instance
         .collection(FirestorePath.restaurantMenu(title))
         .snapshots();
     return menuSnapshot.map(
       (snapshot) => snapshot.docs
           .map(
-            (item) => MenuSection.fromMap(
+            (item) => MenuSectionEntity.fromMap(
               item.data(),
               item.id,
             ),
@@ -498,7 +481,7 @@ class API {
   Future<void> changeMenuItemStatus({
     required bool status,
     required String restaurantTitle,
-    required OrderItem item,
+    required OrderItemEntity item,
   }) async {
     await FirebaseFirestore.instance
         .doc(FirestorePath.restaurantMenuType(restaurantTitle, item.itemType))
@@ -510,7 +493,7 @@ class API {
   }
 
   Future<void> removeMenuItem({
-    required OrderItem item,
+    required OrderItemEntity item,
     required String restaurantTitle,
   }) async {
     await FirebaseFirestore.instance
@@ -522,14 +505,14 @@ class API {
 
   //Queries for reviews
 
-  Stream<List<Review>> fetchReviews(String restaurantTitle) {
+  Stream<List<ReviewEntity>> fetchReviews(String restaurantTitle) {
     final reviewSnapshot = FirebaseFirestore.instance
         .collection(FirestorePath.restaurantReviews(restaurantTitle))
         .snapshots();
     return reviewSnapshot.map(
       (snapshot) => snapshot.docs
           .map(
-            (review) => Review.fromMap(
+            (review) => ReviewEntity.fromMap(
               data: review.data(),
             ),
           )
@@ -539,7 +522,7 @@ class API {
 
   Future<void> addRestaurantReview(
     String restaurantTitle,
-    Review review,
+    ReviewEntity review,
   ) async {
     await FirebaseFirestore.instance
         .collection(FirestorePath.restaurantReviews(restaurantTitle))
@@ -548,7 +531,7 @@ class API {
         );
   }
 
-  Stream<List<Reservation>> fetchRestaurantRequests(
+  Stream<List<ReservationEntity>> fetchRestaurantRequests(
     String restaurantTitle,
   ) {
     final requestsSnapshot = FirebaseFirestore.instance
@@ -557,13 +540,13 @@ class API {
 
     return requestsSnapshot.map(
       (requests) => requests.docs
-          .map((request) => Reservation.fromMap(request.data()))
+          .map((request) => ReservationEntity.fromMap(request.data()))
           .toList(),
     );
   }
 
   //Queries for requests
-  Future<void> disapproveRequest(Reservation reservation) async {
+  Future<void> disapproveRequest(ReservationEntity reservation) async {
     await FirebaseFirestore.instance
         .doc(
           FirestorePath.restaurantRequest(
