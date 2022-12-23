@@ -93,5 +93,31 @@
     "confirm" : "Confirm",
     "remove_item" : "Are you sure you want to remove this item from the menu?",
     "details" : "Details",
-    "request" : "Requests"
+    "request" : "Requests",
+    "no_restaurants" : "No available restaurants at the moment.",
+    "inside" : "Inside",
+    "outside" : "Outside",
+    "preferred_table" : "Select preferred table location",
+    "enter_time" : "Enter time between",
+    "invalid_date" : "The date you selected is invalid, try to select a time in the working hours of the restaurant!",
+    "waiting" : "waiting",
+    "approved" : "approved",
+    "enter_text_in_all_fields" : "Please enter text in all fields!",
+    "reset_password" : "Reset password",
+    "reset_link" : "A password reset link has been sent to",
+    "total_price" : "Total price",
+    "set_order_status" : "Set order status",
+    "current_status" : "Current status",
+    "in_progress" : "In progress",
+    "completed" : "Completed",
+    "orders_for_table" : "Orders for table",
+    "set_table_for_reservation" : "Set the table for the reservation",
+    "table_number" : "table number",
+    "disapprove" : "Disapprove",
+    "approve" : "Approve",
+    "add_restaurant_header" : "Add restaurant header picture",
+    "get_started" : "Get started",
+    "an_error_occurred" : "An error has occurred"
+
+
 }

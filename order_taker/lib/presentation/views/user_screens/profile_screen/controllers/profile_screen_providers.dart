@@ -3,7 +3,7 @@ import 'package:order_taker/presentation/providers/repository_providers.dart';
 
 import 'user_profile_controller.dart';
 
-final phoneNumberProvider = FutureProvider<String>((ref) async {
+final phoneNumberProvider = FutureProvider.autoDispose<String>((ref) async {
   final db = ref.watch(firestoreAPIProvider);
   final mobileNumber = await db.fetchMobileNumber(
     ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
@@ -17,7 +17,7 @@ final emailChangeProvider = StateProvider.autoDispose((ref) => false);
 
 final phoneChangeProvider = StateProvider.autoDispose((ref) => false);
 
-final changeControllerProvider = StateProvider((ref) => '');
+final changeControllerProvider = StateProvider.autoDispose((ref) => '');
 
 final picProvider = FutureProvider.autoDispose<String?>((ref) async {
   final storage = ref.watch(storageRepositoryProvider);
@@ -25,7 +25,8 @@ final picProvider = FutureProvider.autoDispose<String?>((ref) async {
     email: ref.read(authRepositoryProvider).getCurrentUser()!.email!,
   );
 });
-final userProfileProvider = StateNotifierProvider<UserProfileNotifier, void>(
+final userProfileProvider =
+    StateNotifierProvider.autoDispose<UserProfileNotifier, void>(
   (ref) => UserProfileNotifier(
     authRepository: ref.watch(authRepositoryProvider),
     userRepo: ref.watch(
@@ -37,7 +38,7 @@ final userProfileProvider = StateNotifierProvider<UserProfileNotifier, void>(
     ),
   ),
 );
-final restaurantEmailProvider = FutureProvider<String?>(
+final restaurantEmailProvider = FutureProvider.autoDispose<String?>(
   (ref) => ref.read(restaurantRepositoryProvider).getRestauarntEmail(
         ref.read(authRepositoryProvider).getCurrentUser()!.uid,
       ),

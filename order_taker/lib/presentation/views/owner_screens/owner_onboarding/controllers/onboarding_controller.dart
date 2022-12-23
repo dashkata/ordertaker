@@ -104,7 +104,6 @@ class OnboardingController extends StateNotifier<void> {
     }
   }
 
-  //TODO update this maybe
   Future<void> submitRestaurantDetails() async {
     final String title = await _restaurantRepo.fetchRestaurantTitle(
       _authRepository.getCurrentUser()!.uid,

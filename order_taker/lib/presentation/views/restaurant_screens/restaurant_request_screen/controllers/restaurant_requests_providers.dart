@@ -14,7 +14,7 @@ final tableProvider = StateProvider<int>(
   (ref) => 0,
 );
 final restaurantRequestControllerProvider =
-    StateNotifierProvider<RestaurantRequestsController, void>(
+    StateNotifierProvider.autoDispose<RestaurantRequestsController, void>(
   (ref) => RestaurantRequestsController(
     reservationRepo: ref.read(
       reservationRepositoryProvider,

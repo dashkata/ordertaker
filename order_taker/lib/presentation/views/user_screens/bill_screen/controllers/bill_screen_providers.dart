@@ -5,7 +5,8 @@ import 'package:order_taker/presentation/providers/repository_providers.dart';
 
 import 'bill_screen_controller.dart';
 
-final fetchOrdersProvider = StreamProvider.family<List<UserOrder>, Reservation>(
+final fetchOrdersProvider =
+    StreamProvider.family.autoDispose<List<UserOrder>, Reservation>(
   (ref, reservation) => ref.watch(orderRepositoryProvider).fetchOrdersUser(
         reservation,
         ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
@@ -13,7 +14,7 @@ final fetchOrdersProvider = StreamProvider.family<List<UserOrder>, Reservation>(
 );
 
 final billScreenControllerProvider =
-    StateNotifierProvider<BillScreenController, void>(
+    StateNotifierProvider.autoDispose<BillScreenController, void>(
   (ref) => BillScreenController(
     reviewRepo: ref.read(reviewRepositoryProvider),
     authRepository: ref.read(authRepositoryProvider),
@@ -21,9 +22,10 @@ final billScreenControllerProvider =
   ),
 );
 
-final reviewMessageProvider = StateProvider<String>((ref) => '');
-final reviewRatingProvider = StateProvider<double>((ref) => 0);
-final totalPriceProvider = StateProvider.family<double, List<UserOrder>>(
+final reviewMessageProvider = StateProvider.autoDispose<String>((ref) => '');
+final reviewRatingProvider = StateProvider.autoDispose<double>((ref) => 0);
+final totalPriceProvider =
+    StateProvider.family.autoDispose<double, List<UserOrder>>(
   (ref, orders) =>
       ref.read(billScreenControllerProvider.notifier).getTotalPrice(orders),
 );

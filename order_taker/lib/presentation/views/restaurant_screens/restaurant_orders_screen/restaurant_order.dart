@@ -18,12 +18,13 @@ class RestaurantOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = AppLocalizations.of(context)!;
     final restaurantOrderArguments =
         ModalRoute.of(context)!.settings.arguments as RestaurantOrderArguments;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Orders for table ${restaurantOrderArguments.id}',
+          '${text.orders_for_table} ${restaurantOrderArguments.id}',
           style: Theme.of(context).textTheme.headline5,
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:order_taker/domain/models/restaurant_model.dart';
@@ -38,6 +39,7 @@ class RestaurantScreenController extends StateNotifier<void> {
 
   Future<void> showDateTimePicker(
       BuildContext context, WidgetRef ref, Restaurant restaurant) async {
+    final text = AppLocalizations.of(context)!;
     final userDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -47,7 +49,7 @@ class RestaurantScreenController extends StateNotifier<void> {
     );
     if (userDate != null) {
       final userTime = await showTimePicker(
-        helpText: 'Enter time between ${restaurant.openHours}',
+        helpText: '${text.enter_time} ${restaurant.openHours}',
         builder: (context, child) => timeCalendarTheme(child!),
         initialEntryMode: TimePickerEntryMode.inputOnly,
         context: context,
@@ -84,9 +86,8 @@ class RestaurantScreenController extends StateNotifier<void> {
       } else {
         await showDialog(
           context: context,
-          builder: (_) => const ErrorAlertDialog(
-            errorMessage: 'The date you selected is invalid, try to select '
-                'a time in the working hours of the restaurant!',
+          builder: (_) => ErrorAlertDialog(
+            errorMessage: text.invalid_date,
           ),
         );
       }

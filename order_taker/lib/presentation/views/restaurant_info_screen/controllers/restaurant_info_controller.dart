@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:map_launcher/map_launcher.dart';
-import 'package:order_taker/data/repositories/storage_repository.dart';
 import 'package:order_taker/domain/repositories/restaurant_repo.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,12 +12,9 @@ import '../../resources/route_manager.dart';
 class RestaurantInfoController extends StateNotifier<void> {
   RestaurantInfoController({
     required RestaurantRepo restaurantRepo,
-    required StorageRepository storageRepository,
   })  : _restaurantRepo = restaurantRepo,
-        _storageRepository = storageRepository,
         super(null);
   final RestaurantRepo _restaurantRepo;
-  final StorageRepository _storageRepository;
 
   void submitRestaurantDetails(
     RestaurantDetailsType restaurantDetailsType,

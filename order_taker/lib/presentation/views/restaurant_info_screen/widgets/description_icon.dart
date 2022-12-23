@@ -17,7 +17,8 @@ class _DescriptionIcon extends ConsumerWidget {
   final RestaurantDetailsType restaurantDetailsType;
   final bool admin;
   final VoidCallback? onTap;
-  final StateProviderFamily<TextEditingController, String> controllerProvider;
+  final AutoDisposeStateProviderFamily<TextEditingController, String>
+      controllerProvider;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

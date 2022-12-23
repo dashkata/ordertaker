@@ -24,7 +24,7 @@ class _AdminRestaurantCard extends ConsumerWidget {
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     CustomButton(
-                      buttonText: 'Reset password',
+                      buttonText: text.reset_password,
                       buttonFunc: () async {
                         await ref
                             .read(authRepositoryProvider)
@@ -35,11 +35,11 @@ class _AdminRestaurantCard extends ConsumerWidget {
                             .read(userProfileProvider.notifier)
                             .showResetPasswordDialog(
                               Text(
-                                'Reset password',
+                                text.reset_password,
                                 style: Theme.of(context).textTheme.headline5,
                               ),
                               Text(
-                                'A password reset link has been sent to $email',
+                                '${text.reset_link} $email',
                               ),
                             );
                       },

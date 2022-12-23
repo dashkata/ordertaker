@@ -56,8 +56,8 @@ class RestaurantScreen extends StatelessWidget {
                         ),
                       ),
                     )
-                  : const Center(
-                      child: Text('No restaurants'),
+                  : Center(
+                      child: Text(text.no_restaurants),
                     ),
               error: (e, s) => ErrorAlertDialog(
                 errorMessage: e.toString(),

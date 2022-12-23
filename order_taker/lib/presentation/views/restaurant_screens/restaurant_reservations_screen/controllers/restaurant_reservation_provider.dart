@@ -13,7 +13,7 @@ final restaurantReservationsProvider = StreamProvider.family
 );
 
 final restaurantReservationsControllerProvider =
-    StateNotifierProvider<RestaurantReservationsController, void>(
+    StateNotifierProvider.autoDispose<RestaurantReservationsController, void>(
   (ref) => RestaurantReservationsController(
     reservationRepo: ref.watch(reservationRepositoryProvider),
   ),

@@ -30,7 +30,7 @@ class _TitleColumn extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6,
           ),
           Text(
-            'status: ${reservation.approved == null ? 'waiting' : reservation.approved! ? 'approved' : 'not approved'}',
+            '${text.status}: ${reservation.approved == null ? text.waiting : reservation.approved! ? text.approved : 'not approved'}',
             style: Theme.of(context).textTheme.headline6,
           ),
           if (reservation.table != null && reservation.table != 0)

@@ -15,10 +15,11 @@ class LoginButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final email = ref.watch(loginEmailControllerProvider);
     final password = ref.watch(loginPasswordControllerProvider);
+    final text = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.only(top: 30.0, bottom: 20),
       child: CustomButton(
-        buttonText: AppLocalizations.of(context)!.login,
+        buttonText: text.login,
         buttonFunc: () async {
           if (email != '' && password != '') {
             await ref
@@ -39,8 +40,8 @@ class LoginButton extends ConsumerWidget {
           } else {
             await showDialog(
               context: context,
-              builder: (_) => const ErrorAlertDialog(
-                errorMessage: 'Please enter text in both fields!',
+              builder: (_) => ErrorAlertDialog(
+                errorMessage: text.enter_text_in_all_fields,
               ),
             );
           }

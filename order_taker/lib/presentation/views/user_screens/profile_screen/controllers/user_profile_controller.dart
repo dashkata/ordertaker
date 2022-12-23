@@ -61,7 +61,6 @@ class UserProfileNotifier extends StateNotifier<void> {
     AutoDisposeStateProvider<bool> changeProvider,
   ) async {
     final newDetail = ref.watch(changeControllerProvider);
-    String update = '';
     if (ref.watch(changeProvider)) {
       if (detail != newDetail && newDetail != '') {
         switch (detailType) {

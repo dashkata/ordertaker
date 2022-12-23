@@ -8,7 +8,7 @@ class SectionNavBar extends ConsumerWidget {
   final Reservation reservation;
 
   void _navBarFunction(int value, WidgetRef ref, BuildContext context) {
-    ref.read(navBarIndexProvider.state).update((state) => value);
+    ref.read(navBarIndexProvider.notifier).update((state) => value);
     switch (value) {
       case 0:
         ref

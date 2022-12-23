@@ -60,7 +60,7 @@ class _PageTwoForm extends ConsumerWidget {
               .update((state) => val),
         ),
         CustomTextField(
-          hintText: 'Restaurant payment methods',
+          hintText: text.restaurant_payment,
           icon: Icons.payment,
           obscure: false,
           textInputAction: TextInputAction.done,

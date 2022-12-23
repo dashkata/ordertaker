@@ -6,7 +6,7 @@ import 'package:order_taker/presentation/providers/repository_providers.dart';
 import '../../../../domain/models/restaurant_model.dart';
 import 'restaurant_info_controller.dart';
 
-final restaurantInformationProvider = FutureProvider<Restaurant>(
+final restaurantInformationProvider = FutureProvider.autoDispose<Restaurant>(
   (ref) async =>
       await ref.read(restaurantRepositoryProvider).fetchRestaurantInfo(
             await ref.read(restaurantRepositoryProvider).fetchRestaurantTitle(
@@ -14,7 +14,8 @@ final restaurantInformationProvider = FutureProvider<Restaurant>(
                 ),
           ),
 );
-final restaurantReviewsProvider = StreamProvider.family<List<Review>, String>(
+final restaurantReviewsProvider =
+    StreamProvider.family.autoDispose<List<Review>, String>(
   (ref, restaurantTitle) =>
       ref.watch(reviewRepositoryProvider).fetchReviews(restaurantTitle),
 );
@@ -22,53 +23,52 @@ final sectionIdProvider = StateProvider.autoDispose<int>(
   (ref) => 0,
 );
 
-final editProvider = StateProvider<bool>(
+final editProvider = StateProvider.autoDispose<bool>(
   (ref) => false,
 );
 final restaurantInfoControllerProvider =
-    StateNotifierProvider<RestaurantInfoController, void>(
+    StateNotifierProvider.autoDispose<RestaurantInfoController, void>(
   (ref) => RestaurantInfoController(
     restaurantRepo: ref.read(restaurantRepositoryProvider),
-    storageRepository: ref.read(storageRepositoryProvider),
   ),
 );
-final reviewPhotoProvider = FutureProvider.family<String?, String>(
+final reviewPhotoProvider = FutureProvider.family.autoDispose<String?, String>(
   (ref, email) async =>
       await ref.read(storageRepositoryProvider).fetchProfilePic(email: email),
 );
 final descriptionControllerProvider =
-    StateProvider.family<TextEditingController, String>(
+    StateProvider.family.autoDispose<TextEditingController, String>(
   (ref, description) => TextEditingController(
     text: description,
   ),
 );
 final workingHoursControllerProvider =
-    StateProvider.family<TextEditingController, String>(
+    StateProvider.family.autoDispose<TextEditingController, String>(
   (ref, workingHours) => TextEditingController(
     text: workingHours,
   ),
 );
 final phoneNumberControllerProvider =
-    StateProvider.family<TextEditingController, String>(
+    StateProvider.family.autoDispose<TextEditingController, String>(
   (ref, phoneNumber) => TextEditingController(
     text: phoneNumber,
   ),
 );
 final paymentMethodsControllerProvider =
-    StateProvider.family<TextEditingController, String>(
+    StateProvider.family.autoDispose<TextEditingController, String>(
   (ref, paymentMethods) => TextEditingController(
     text: paymentMethods,
   ),
 );
 
 final websiteControllerProvider =
-    StateProvider.family<TextEditingController, String>(
+    StateProvider.family.autoDispose<TextEditingController, String>(
   (ref, website) => TextEditingController(
     text: website,
   ),
 );
 final locationControllerProvider =
-    StateProvider.family<TextEditingController, String>(
+    StateProvider.family.autoDispose<TextEditingController, String>(
   (ref, location) => TextEditingController(
     text: location,
   ),

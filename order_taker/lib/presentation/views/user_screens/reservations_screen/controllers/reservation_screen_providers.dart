@@ -10,7 +10,7 @@ final reservationListProvider = StreamProvider.autoDispose<List<Reservation>>(
       ),
 );
 final reservationsControllerProvider =
-    StateNotifierProvider<UserReservationController, void>(
+    StateNotifierProvider.autoDispose<UserReservationController, void>(
   (ref) => UserReservationController(
     reservationRepo: ref.watch(reservationRepositoryProvider),
     authRepository: ref.watch(authRepositoryProvider),

@@ -22,7 +22,7 @@ final restaurantRegisterNameControllerProvider =
     StateProvider.autoDispose<String>((ref) => '');
 
 final restaurantRegisterControllerProvider =
-    StateNotifierProvider<RestaurantRegisterController, void>(
+    StateNotifierProvider.autoDispose<RestaurantRegisterController, void>(
   (ref) => RestaurantRegisterController(
     authRepository: ref.read(authRepositoryProvider),
     userRepo: ref.read(userRepositoryProvider),

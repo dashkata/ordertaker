@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/presentation/providers/common_providers.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
@@ -16,11 +17,12 @@ class RestaurantOrderController extends StateNotifier<void> {
   final Ref _ref;
 
   void seeAdditionalMessages(BuildContext context, String additionalMessage) {
+    final text = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (BuildContext context) => CustomAlertDialog(
         title: Text(
-          'Additional messages',
+          text.additional_messages,
           style: Theme.of(context).textTheme.headline5,
         ),
         content: Column(
@@ -42,6 +44,7 @@ class RestaurantOrderController extends StateNotifier<void> {
     int tableId,
     BuildContext context,
   ) async {
+    final text = AppLocalizations.of(context)!;
     await showDialog(
       context: context,
       builder: (BuildContext context) => Consumer(

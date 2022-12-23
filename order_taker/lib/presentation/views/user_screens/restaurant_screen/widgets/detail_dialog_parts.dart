@@ -19,20 +19,19 @@ class _DetailsDialog extends ConsumerWidget {
           ),
           const _NumberOfPeopleWidget(),
           Row(
-            children: const [
+            children: [
               _RadioTile(
-                text: 'Inside',
+                text: text.inside,
                 value: 0,
               ),
               _RadioTile(
-                text: 'Outside',
+                text: text.outside,
                 value: 1,
               ),
             ],
           ),
-          //TODO get this in localization
           Text(
-            'Select preferred table location',
+            text.preferred_table,
             style: Theme.of(context).textTheme.headline6,
           )
         ],

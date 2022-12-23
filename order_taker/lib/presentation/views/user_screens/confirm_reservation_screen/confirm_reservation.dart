@@ -25,8 +25,6 @@ class ConfirmReservationScreen extends ConsumerWidget {
     final AsyncValue userDetails = ref.watch(detailsProvider);
     final reservationInfo = ModalRoute.of(context)!.settings.arguments
         as ConfirmReservationArguments;
-    // final AsyncValue restaurantPic =
-    //     ref.watch(restaurantPictureProvider(reservationInfo.restaurantTitle));
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: mainColor,

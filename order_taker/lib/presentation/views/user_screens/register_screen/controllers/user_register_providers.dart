@@ -23,7 +23,7 @@ final registerPhoneNumberControllerProvider = StateProvider.autoDispose(
   (ref) => '',
 );
 final userRegisterControllerProvider =
-    StateNotifierProvider<UserRegisterController, void>(
+    StateNotifierProvider.autoDispose<UserRegisterController, void>(
   (ref) => UserRegisterController(
     authRepository: ref.watch(authRepositoryProvider),
     userRepo: ref.watch(userRepositoryProvider),

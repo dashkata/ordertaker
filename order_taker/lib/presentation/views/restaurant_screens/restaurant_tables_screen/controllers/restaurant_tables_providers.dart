@@ -4,7 +4,7 @@ import 'package:order_taker/presentation/providers/repository_providers.dart';
 import 'restaurant_tables_controller.dart';
 
 final restaurantTablesControllerProvider =
-    StateNotifierProvider<RestaurantTablesController, void>(
+    StateNotifierProvider.autoDispose<RestaurantTablesController, void>(
   (ref) => RestaurantTablesController(
     reservationRepo: ref.watch(
       reservationRepositoryProvider,

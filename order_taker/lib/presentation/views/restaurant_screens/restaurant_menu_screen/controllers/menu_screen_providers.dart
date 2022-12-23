@@ -4,7 +4,7 @@ import 'package:order_taker/presentation/providers/repository_providers.dart';
 import 'menu_screen_notifier.dart';
 
 final restaurantMenuControllerProvider =
-    StateNotifierProvider<RestaurantMenuController, void>(
+    StateNotifierProvider.autoDispose<RestaurantMenuController, void>(
   (ref) => RestaurantMenuController(
     restaurantRepo: ref.read(restaurantRepositoryProvider),
     menuRepo: ref.read(menuRepositoryProvider),

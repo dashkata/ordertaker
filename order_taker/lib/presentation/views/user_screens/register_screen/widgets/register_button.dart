@@ -56,8 +56,8 @@ class _RegisterButton extends ConsumerWidget {
           } else {
             await showDialog(
               context: context,
-              builder: (_) => const ErrorAlertDialog(
-                errorMessage: 'Please enter text in all fields!',
+              builder: (_) => ErrorAlertDialog(
+                errorMessage: text.enter_text_in_all_fields,
               ),
             );
           }
