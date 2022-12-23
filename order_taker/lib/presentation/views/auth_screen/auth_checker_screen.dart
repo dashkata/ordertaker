@@ -24,18 +24,21 @@ class AuthChecker extends ConsumerWidget {
           final AsyncValue userType = ref.watch(userTypeProvider);
           return userType.when(
             data: (value) {
-              if (authServices.getCurrentUser()!.emailVerified &&
-                  value != 'Restaurant') {
-                if (value == 'Customer') {
-                  return const RestaurantScreen();
-                } else if (value == 'Admin') {
-                  return ref.watch(onBoardingProvider).when(
-                        data: (onBoarding) => onBoarding
-                            ? const RestaurantInfo()
-                            : const OnboardingScreen(),
-                        error: (e, s) => Text(e.toString()),
-                        loading: () => const CustomProgressIndicator(),
-                      );
+              if (value != 'Restaurant') {
+                if (authServices.getCurrentUser()!.emailVerified) {
+                  if (value == 'Customer') {
+                    return const RestaurantScreen();
+                  } else if (value == 'Admin') {
+                    return ref.watch(onBoardingProvider).when(
+                          data: (onBoarding) => onBoarding
+                              ? const RestaurantInfo()
+                              : const OnboardingScreen(),
+                          error: (e, s) => Text(e.toString()),
+                          loading: () => const CustomProgressIndicator(),
+                        );
+                  } else {
+                    return const LoginScreen();
+                  }
                 } else {
                   return const LoginScreen();
                 }

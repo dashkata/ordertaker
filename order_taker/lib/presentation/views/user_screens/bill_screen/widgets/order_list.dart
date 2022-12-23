@@ -54,8 +54,12 @@ class OrdersList extends StatelessWidget {
                             ),
                           ),
                         ),
-                        if (ref.read(totalPriceProvider(orders)) != 0.0)
+                        if (ref
+                                .read(billScreenControllerProvider.notifier)
+                                .getTotalPrice(orders) !=
+                            0.0)
                           Text(
+                            // 'kur',
                             'Total price: ${ref.watch(totalPriceProvider(orders)).toStringAsFixed(2)}',
                             style: Theme.of(context).textTheme.headline1,
                           )

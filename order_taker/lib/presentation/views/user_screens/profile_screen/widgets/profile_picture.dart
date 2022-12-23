@@ -46,6 +46,7 @@ class _ContainerPicture extends StatelessWidget {
               ),
               Consumer(
                 builder: (_, ref, child) => IconButton(
+                  padding: const EdgeInsets.only(top: 10),
                   style: IconButton.styleFrom(
                     side: const BorderSide(
                       width: 1.5,

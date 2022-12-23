@@ -12,36 +12,40 @@ class _AdminRestaurantCard extends ConsumerWidget {
     return restaurantEmail.when(
       data: (email) => email != null
           ? Card(
-              elevation: 10,
+              elevation: 5,
               shape: Styles.buildRoundedBorder(40),
-              child: Column(
-                children: [
-                  Text(
-                    email,
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                  CustomButton(
-                    buttonText: 'Reset password',
-                    buttonFunc: () async {
-                      await ref
-                          .read(authRepositoryProvider)
-                          .sendPasswordResetLink(
-                            email,
-                          );
-                      await ref
-                          .read(userProfileProvider.notifier)
-                          .showResetPasswordDialog(
-                            Text(
-                              'Reset password',
-                              style: Theme.of(context).textTheme.headline5,
-                            ),
-                            Text(
-                              'A password reset link has been sent to $email',
-                            ),
-                          );
-                    },
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      email,
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    CustomButton(
+                      buttonText: 'Reset password',
+                      buttonFunc: () async {
+                        await ref
+                            .read(authRepositoryProvider)
+                            .sendPasswordResetLink(
+                              email,
+                            );
+                        await ref
+                            .read(userProfileProvider.notifier)
+                            .showResetPasswordDialog(
+                              Text(
+                                'Reset password',
+                                style: Theme.of(context).textTheme.headline5,
+                              ),
+                              Text(
+                                'A password reset link has been sent to $email',
+                              ),
+                            );
+                      },
+                    ),
+                  ],
+                ),
               ),
             )
           : CustomButton(

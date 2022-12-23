@@ -33,7 +33,9 @@ class BillScreenController extends StateNotifier<void> {
     for (final order in orders) {
       for (final item in order.menuItems.keys) {
         if (order.menuItems[item] != null) {
-          totalPrice += double.parse(item.itemPrice.replaceAll('lv.', '')) *
+          totalPrice += double.parse(
+                item.itemPrice.replaceAll('lv.', '').replaceAll(',', '.'),
+              ) *
               order.menuItems[item]!;
         }
       }
@@ -51,7 +53,7 @@ class BillScreenController extends StateNotifier<void> {
         reservation.restaurant,
         Review(
           name: reservation.name,
-          photoURL: _authRepository.getCurrentUser()?.photoURL,
+          email: _authRepository.getCurrentUser()!.email!,
           review: reviewMessage,
           rating: reviewRating,
         ),

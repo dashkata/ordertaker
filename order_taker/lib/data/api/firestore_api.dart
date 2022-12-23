@@ -85,7 +85,11 @@ class API {
   Future<String?> getRestauarntEmail(String uid) async {
     final adminRef =
         await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).get();
-    return adminRef.get('restaurant_email');
+    if (adminRef.data()!.containsKey('restaurant_email')) {
+      return adminRef.get('restaurant_email');
+    } else {
+      return null;
+    }
   }
 
   Future<void> updateRestaurantInformation(

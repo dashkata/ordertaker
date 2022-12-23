@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/domain/repositories/restaurant_repo.dart';
 import 'package:order_taker/domain/repositories/user_repo.dart';
@@ -63,10 +64,13 @@ class RestaurantRegisterController extends StateNotifier<void> {
   }
 
   void navigateToLogin() {
-    navigatorKey.currentState!.popAndPushNamed(Routes.login);
+    navigatorKey.currentState!.pushNamedAndRemoveUntil(
+      Routes.login,
+      (Route<dynamic> route) => false,
+    );
   }
 
   void navigateToRegister() {
-    navigatorKey.currentState!.popAndPushNamed(Routes.register);
+    navigatorKey.currentState!.pushReplacementNamed(Routes.register);
   }
 }

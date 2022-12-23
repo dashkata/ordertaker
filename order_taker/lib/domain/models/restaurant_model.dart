@@ -7,7 +7,6 @@ class Restaurant {
   final String paymentMethods;
   final String photo;
   final String address;
-  final List<String>? reviews;
 
   Restaurant({
     required this.title,
@@ -18,7 +17,6 @@ class Restaurant {
     required this.paymentMethods,
     required this.photo,
     required this.address,
-    this.reviews,
   });
 
   factory Restaurant.fromMap(Map data) => Restaurant(
@@ -29,7 +27,6 @@ class Restaurant {
         phoneNumber: data['phoneNumber'],
         paymentMethods: data['paymentMethods'],
         photo: data['photo'],
-        reviews: List<String>.from(data['reviews'] ?? []),
         address: data['address'],
       );
 

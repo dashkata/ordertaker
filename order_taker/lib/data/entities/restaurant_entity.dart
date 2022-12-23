@@ -11,7 +11,6 @@ class RestaurantEntity {
   final String paymentMethods;
   final String photo;
   final String address;
-  final List<String>? reviews;
 
   RestaurantEntity({
     required this.title,
@@ -22,7 +21,6 @@ class RestaurantEntity {
     required this.paymentMethods,
     required this.photo,
     required this.address,
-    this.reviews,
   });
 
   Map<String, dynamic> toMap() => <String, dynamic>{
@@ -34,7 +32,6 @@ class RestaurantEntity {
         'paymentMethods': paymentMethods,
         'photo': photo,
         'address': address,
-        'reviews': reviews,
       };
 
   factory RestaurantEntity.fromMap(Map<String, dynamic> map) =>
@@ -47,7 +44,6 @@ class RestaurantEntity {
         paymentMethods: map['paymentMethods'] as String,
         photo: map['photo'] as String,
         address: map['address'] as String,
-        reviews: map['reviews'] ?? [],
       );
 
   Restaurant toRestaurant() => Restaurant(

@@ -10,6 +10,7 @@ import 'package:order_taker/domain/repositories/menu_repo.dart';
 import 'package:order_taker/domain/repositories/restaurant_repo.dart';
 import 'package:order_taker/domain/repositories/user_repo.dart';
 import 'package:order_taker/enums/image_type.dart';
+import 'package:order_taker/presentation/providers/auth_provider.dart';
 
 import '../../../../../domain/models/restaurant_model.dart';
 import '../../../custom_widgets/custom_alert_dialog.dart';
@@ -125,6 +126,7 @@ class OnboardingController extends StateNotifier<void> {
       _authRepository.getCurrentUser()!.uid,
       onBoarding: true,
     );
+    _ref.invalidate(onBoardingProvider);
     await navigatorKey.currentState!.popAndPushNamed(Routes.auth);
   }
 }

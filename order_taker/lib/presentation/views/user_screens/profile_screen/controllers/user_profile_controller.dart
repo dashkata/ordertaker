@@ -170,5 +170,9 @@ class UserProfileNotifier extends StateNotifier<void> {
       password: password,
       restaurantTitle: restaurantTitle,
     );
+    await _restaurantRepo.setRestaurantTitle(
+      restaurantTitle,
+      _authRepository.getCurrentUser()!.uid,
+    );
   }
 }

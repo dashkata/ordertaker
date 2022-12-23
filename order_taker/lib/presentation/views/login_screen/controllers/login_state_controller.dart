@@ -11,7 +11,7 @@ class LoginController extends StateNotifier<void> {
   final AuthRepository _authRepository;
 
   void navigateToRegister() {
-    navigatorKey.currentState!.popAndPushNamed(Routes.register);
+    navigatorKey.currentState!.pushReplacementNamed(Routes.register);
   }
 
   Future<void> login(
@@ -25,8 +25,8 @@ class LoginController extends StateNotifier<void> {
           password: password,
         )
         .then(
-          (value) async =>
-              await navigatorKey.currentState!.popAndPushNamed(Routes.auth),
+          (value) async => await navigatorKey.currentState!
+              .pushReplacementNamed(Routes.auth),
         );
   }
 }

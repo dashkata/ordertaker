@@ -66,6 +66,7 @@ class RestaurantInfo extends StatelessWidget {
                 if (restaurant != null)
                   Image(
                     height: MediaQuery.of(context).size.height / 3,
+                    width: MediaQuery.of(context).size.width,
                     image: NetworkImage(restaurant.photo),
                     fit: BoxFit.cover,
                   )
@@ -75,6 +76,7 @@ class RestaurantInfo extends StatelessWidget {
                         ref.watch(restaurantInformationProvider).when(
                               data: (restaurantInfo) => Image(
                                 height: MediaQuery.of(context).size.height / 3,
+                                width: MediaQuery.of(context).size.width,
                                 image: NetworkImage(restaurantInfo.photo),
                                 fit: BoxFit.cover,
                               ),

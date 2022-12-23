@@ -45,7 +45,6 @@ class AuthRepository {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      String errorMessage;
       switch (e.code) {
         case 'email-already-in-use':
           throw 'There is already a registration made with this email.';

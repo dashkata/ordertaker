@@ -112,18 +112,23 @@ class ProfileScreen extends StatelessWidget {
                   detailType: UserDetails.password,
                   obscure: true,
                 ),
-                Consumer(
-                  builder: (context, ref, child) {
-                    final userType = ref.watch(userTypeProvider);
-                    return userType.when(
-                      data: (type) => type == 'Admin'
-                          ? const _AdminRestaurantCard()
-                          : const SizedBox.shrink(),
-                      error: (e, s) =>
-                          ErrorAlertDialog(errorMessage: e.toString()),
-                      loading: () => const CustomProgressIndicator(),
-                    );
-                  },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Consumer(
+                      builder: (context, ref, child) {
+                        final userType = ref.watch(userTypeProvider);
+                        return userType.when(
+                          data: (type) => type == 'Admin'
+                              ? const _AdminRestaurantCard()
+                              : const SizedBox.shrink(),
+                          error: (e, s) =>
+                              ErrorAlertDialog(errorMessage: e.toString()),
+                          loading: () => const CustomProgressIndicator(),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),

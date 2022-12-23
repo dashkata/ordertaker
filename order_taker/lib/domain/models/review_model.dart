@@ -1,6 +1,6 @@
 class Review {
   final String name;
-  final String? photoURL;
+  final String email;
   final String review;
   final num rating;
 
@@ -8,19 +8,19 @@ class Review {
     required this.name,
     required this.review,
     required this.rating,
-    this.photoURL,
+    required this.email,
   });
 
   factory Review.fromMap({required Map data}) => Review(
         name: data['name'],
-        photoURL: data['photoURL'],
+        email: data['email'],
         review: data['review'],
         rating: data['rating'],
       );
 
   Map<String, dynamic> toMap() => {
         'name': name,
-        'photoURL': photoURL,
+        'email': email,
         'review': review,
         'rating': rating,
       };

@@ -16,7 +16,7 @@ class UserRegisterController extends StateNotifier<void> {
   final UserRepo _userRepo;
 
   void navigateToAuth() {
-    navigatorKey.currentState!.popAndPushNamed(Routes.auth);
+    navigatorKey.currentState!.pushReplacementNamed(Routes.auth);
   }
 
   void navigateToRestaurantRegister() {
@@ -24,7 +24,7 @@ class UserRegisterController extends StateNotifier<void> {
   }
 
   void navigateToLogin() {
-    navigatorKey.currentState!.popAndPushNamed(Routes.login);
+    navigatorKey.currentState!.pushReplacementNamed(Routes.login);
   }
 
   Future<void> register(
