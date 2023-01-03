@@ -51,42 +51,50 @@ class _TableDialogActions extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final asyncTables = ref.watch(tablesProvider(reservation.restaurant));
     final text = AppLocalizations.of(context)!;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          CustomButton(
-            buttonText: text.cancel,
-            buttonFunc: () => Navigator.pop(context),
-          ),
-          CustomButton(
-            buttonText: text.confirm,
-            buttonFunc: ref.watch(tableProvider) == 0
-                ? null
-                : () async {
-                    await ref
-                        .read(restaurantRequestControllerProvider.notifier)
-                        .requestStats(
-                          RequestStatus.approved,
-                          Reservation(
-                            userId: reservation.userId,
-                            name: reservation.name,
-                            restaurant: reservation.restaurant,
-                            date: reservation.date,
-                            numberOfPeople: reservation.numberOfPeople,
-                            preferredLocation: reservation.preferredLocation,
-                            table: ref.watch(tableProvider),
-                            approved: true,
-                            currentReservation: false,
-                          ),
-                        );
-                    navigatorKey.currentState!.pop();
-                  },
-          ),
-        ],
+    return asyncTables.when(
+      data: (tables) => Padding(
+        padding: const EdgeInsets.only(bottom: 15.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            CustomButton(
+              buttonText: text.cancel,
+              buttonFunc: () => Navigator.pop(context),
+            ),
+            CustomButton(
+              buttonText: text.confirm,
+              buttonFunc: ref.watch(tableProvider) == 0 ||
+                      tables.length < ref.read(tableProvider)
+                  ? null
+                  : () async {
+                      await ref
+                          .read(restaurantRequestControllerProvider.notifier)
+                          .requestStats(
+                            RequestStatus.approved,
+                            Reservation(
+                              userId: reservation.userId,
+                              name: reservation.name,
+                              restaurant: reservation.restaurant,
+                              date: reservation.date,
+                              numberOfPeople: reservation.numberOfPeople,
+                              preferredLocation: reservation.preferredLocation,
+                              table: ref.watch(tableProvider),
+                              approved: true,
+                              currentReservation: false,
+                            ),
+                          );
+                      navigatorKey.currentState!.pop();
+                    },
+            ),
+          ],
+        ),
       ),
+      error: (e, s) => ErrorAlertDialog(
+        errorMessage: e.toString(),
+      ),
+      loading: CustomProgressIndicator.new,
     );
   }
 }

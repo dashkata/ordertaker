@@ -7,8 +7,8 @@ class _PageOneImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Center(
-        child: Image.asset(
-          'assets/Logo2.0.png',
+        child: SvgPicture.asset(
+          'assets/logoordertaker.svg',
           height: 400,
         ),
       );

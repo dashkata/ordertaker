@@ -12,7 +12,7 @@ final restaurantControllerProvider =
   (ref) => RestaurantScreenController(),
 );
 
-final userDateProvider = StateProvider.autoDispose<String>((ref) => '');
+final userDateProvider = StateProvider<String>((ref) => '');
 
-final peopleProvider = StateProvider.autoDispose<int>((ref) => 0);
+final peopleProvider = StateProvider<int>((ref) => 0);
 final preferredLocationProvider = StateProvider.autoDispose<int>((ref) => 0);

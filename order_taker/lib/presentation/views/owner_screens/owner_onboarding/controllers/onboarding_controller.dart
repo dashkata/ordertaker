@@ -101,6 +101,9 @@ class OnboardingController extends StateNotifier<void> {
       _ref.read(restaurantPhotoProvider.notifier).update(
             (state) => downloadUrl,
           );
+      scaffoldKey.currentState!.showSnackBar(
+        const SnackBar(content: Text('Image uploaded succesfully')),
+      );
     }
   }
 

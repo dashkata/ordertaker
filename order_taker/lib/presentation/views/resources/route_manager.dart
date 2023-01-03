@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../auth_screen/auth_checker_screen.dart';
 import '../login_screen/login.dart';
 import '../owner_screens/owner_onboarding/onboarding.dart';
@@ -18,6 +19,7 @@ import '../user_screens/reservations_screen/reservations.dart';
 import '../user_screens/restaurant_screen/restaurants.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+final scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
 class Routes {
   static const String login = 'login';

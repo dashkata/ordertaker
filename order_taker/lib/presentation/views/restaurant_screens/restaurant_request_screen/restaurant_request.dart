@@ -6,6 +6,7 @@ import 'package:order_taker/enums/request_status.dart';
 import 'package:order_taker/presentation/providers/common_providers.dart';
 import 'package:order_taker/presentation/themes/themes.dart';
 import 'package:order_taker/presentation/views/resources/route_manager.dart';
+import 'package:order_taker/presentation/views/restaurant_screens/restaurant_tables_screen/controllers/restaurant_tables_providers.dart';
 
 import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/custom_button_outlined.dart';

@@ -13,9 +13,9 @@ final detailsProvider =
     'phoneNumber': await db.fetchMobileNumber(auth.getCurrentUser()!.uid)
   };
 });
-final confirmDateProvider = StateProvider.autoDispose<String>((ref) => '');
+final confirmDateProvider = StateProvider<String>((ref) => '');
 
-final confirmTimeProvider = StateProvider.autoDispose<String>((ref) => '');
+final confirmTimeProvider = StateProvider<String>((ref) => '');
 
 final userConfirmReservationControllerProvider =
     StateNotifierProvider.autoDispose<UserConfirmReservationController, void>(

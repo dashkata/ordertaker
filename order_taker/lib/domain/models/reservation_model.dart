@@ -43,4 +43,13 @@ class Reservation {
         'approved': approved,
         'table': table,
       };
+
+  factory Reservation.empty() => Reservation(
+        userId: '',
+        name: '',
+        restaurant: '',
+        date: '',
+        numberOfPeople: 0,
+        preferredLocation: '',
+      );
 }

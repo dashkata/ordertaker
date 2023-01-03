@@ -41,4 +41,11 @@ class UserOrder {
       additionalMessage: additionalMessage,
     );
   }
+
+  factory UserOrder.empty() => UserOrder(
+        id: 0,
+        status: '',
+        menuItems: {},
+        additionalMessage: '',
+      );
 }

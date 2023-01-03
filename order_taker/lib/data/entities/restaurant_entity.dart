@@ -68,4 +68,40 @@ class RestaurantEntity {
         photo: restaurant.photo,
         address: restaurant.address,
       );
+
+  factory RestaurantEntity.empty() => RestaurantEntity(
+        title: '',
+        description: '',
+        openHours: '',
+        website: '',
+        phoneNumber: '',
+        paymentMethods: '',
+        photo: '',
+        address: '',
+      );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RestaurantEntity &&
+          runtimeType == other.runtimeType &&
+          title == other.title &&
+          description == other.description &&
+          openHours == other.openHours &&
+          website == other.website &&
+          phoneNumber == other.phoneNumber &&
+          paymentMethods == other.paymentMethods &&
+          photo == other.photo &&
+          address == other.address;
+
+  @override
+  int get hashCode =>
+      title.hashCode ^
+      description.hashCode ^
+      openHours.hashCode ^
+      website.hashCode ^
+      phoneNumber.hashCode ^
+      paymentMethods.hashCode ^
+      photo.hashCode ^
+      address.hashCode;
 }
