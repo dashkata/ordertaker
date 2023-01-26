@@ -11,8 +11,8 @@ import '../../confirm_reservation_screen/confirm_reservation_arguments.dart';
 import '../../confirm_reservation_screen/controllers/confirm_reservation_providers.dart';
 import 'restaurant_screen_providers.dart';
 
-class RestaurantScreenController extends StateNotifier<void> {
-  RestaurantScreenController() : super(null);
+class RestaurantScreenViewModel extends StateNotifier<void> {
+  RestaurantScreenViewModel() : super(null);
 
   bool _timeValidation(Restaurant restaurant, DateTime dateTime) {
     final String openHour =

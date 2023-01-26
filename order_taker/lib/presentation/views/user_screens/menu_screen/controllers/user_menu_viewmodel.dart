@@ -29,7 +29,7 @@ class UserMenuController extends StateNotifier<void> {
   }
 
   void navigateToBill(Reservation reservation) {
-    navigatorKey.currentState!.popAndPushNamed(
+    navigatorKey.currentState!.pushReplacementNamed(
       Routes.userBill,
       arguments: reservation,
     );

@@ -6,8 +6,8 @@ import 'package:order_taker/domain/repositories/user_repo.dart';
 import '../../../../../data/repositories/auth_repository.dart';
 import '../../../resources/route_manager.dart';
 
-class RestaurantRegisterController extends StateNotifier<void> {
-  RestaurantRegisterController({
+class RestaurantRegisterViewModel extends StateNotifier<void> {
+  RestaurantRegisterViewModel({
     required AuthRepository authRepository,
     required UserRepo userRepo,
     required RestaurantRepo restaurantRepo,

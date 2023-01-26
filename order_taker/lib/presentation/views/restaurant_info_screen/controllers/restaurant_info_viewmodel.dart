@@ -9,8 +9,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../enums/restaurant_details.dart';
 import '../../resources/route_manager.dart';
 
-class RestaurantInfoController extends StateNotifier<void> {
-  RestaurantInfoController({
+class RestaurantInfoViewModel extends StateNotifier<void> {
+  RestaurantInfoViewModel({
     required RestaurantRepo restaurantRepo,
   })  : _restaurantRepo = restaurantRepo,
         super(null);

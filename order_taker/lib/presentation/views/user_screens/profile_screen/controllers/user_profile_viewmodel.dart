@@ -16,8 +16,8 @@ import '../../../custom_widgets/custom_alert_dialog.dart';
 import '../../../resources/route_manager.dart';
 import 'profile_screen_providers.dart';
 
-class UserProfileNotifier extends StateNotifier<void> {
-  UserProfileNotifier({
+class UserProfileViewModel extends StateNotifier<void> {
+  UserProfileViewModel({
     required AuthRepository authRepository,
     required UserRepo userRepo,
     required RestaurantRepo restaurantRepo,
@@ -169,9 +169,12 @@ class UserProfileNotifier extends StateNotifier<void> {
       password: password,
       restaurantTitle: restaurantTitle,
     );
-    await _restaurantRepo.setRestaurantTitle(
-      restaurantTitle,
+    await _restaurantRepo.setRestaurantEmail(
+      email,
       _authRepository.getCurrentUser()!.uid,
+    );
+    scaffoldKey.currentState!.showSnackBar(
+      const SnackBar(content: Text('Restaurant account added sucessfully')),
     );
   }
 }

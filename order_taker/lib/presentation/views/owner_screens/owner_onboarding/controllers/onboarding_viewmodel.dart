@@ -17,8 +17,8 @@ import '../../../custom_widgets/custom_alert_dialog.dart';
 import '../../../resources/route_manager.dart';
 import 'onboarding_providers.dart';
 
-class OnboardingController extends StateNotifier<void> {
-  OnboardingController({
+class OnBoardingViewModel extends StateNotifier<void> {
+  OnBoardingViewModel({
     required StateNotifierProviderRef ref,
     required StorageRepository storageRepository,
     required RestaurantRepo restaurantRepo,
@@ -74,6 +74,9 @@ class OnboardingController extends StateNotifier<void> {
         itemName: itemName,
       );
       _ref.read(itemImageProvider.notifier).update((state) => downloadUrl);
+      scaffoldKey.currentState!.showSnackBar(
+        const SnackBar(content: Text('Image uploaded successfully')),
+      );
     }
   }
 

@@ -8,8 +8,8 @@ import 'package:order_taker/domain/repositories/restaurant_repo.dart';
 import '../../../custom_widgets/custom_alert_dialog.dart';
 import '../../../resources/route_manager.dart';
 
-class RestaurantMenuController extends StateNotifier<void> {
-  RestaurantMenuController({
+class RestaurantMenuViewModel extends StateNotifier<void> {
+  RestaurantMenuViewModel({
     required RestaurantRepo restaurantRepo,
     required MenuRepo menuRepo,
     required AuthRepository authRepository,

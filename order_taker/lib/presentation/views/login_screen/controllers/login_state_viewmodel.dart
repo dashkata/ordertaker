@@ -4,8 +4,8 @@ import 'package:order_taker/data/repositories/auth_repository.dart';
 
 import '../../resources/route_manager.dart';
 
-class LoginController extends StateNotifier<void> {
-  LoginController({required AuthRepository authRepository})
+class LoginViewModel extends StateNotifier<void> {
+  LoginViewModel({required AuthRepository authRepository})
       : _authRepository = authRepository,
         super(null);
   final AuthRepository _authRepository;
