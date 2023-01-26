@@ -32,7 +32,7 @@ class _AdminRestaurantCard extends ConsumerWidget {
                               email,
                             );
                         await ref
-                            .read(userProfileProvider.notifier)
+                            .read(userProfileViewModelProvider.notifier)
                             .showResetPasswordDialog(
                               Text(
                                 text.reset_password,
@@ -122,7 +122,7 @@ class _AlertDialogBody extends ConsumerWidget {
                 buttonText: text.submit,
                 buttonFunc: () async {
                   await ref
-                      .read(userProfileProvider.notifier)
+                      .read(userProfileViewModelProvider.notifier)
                       .registerAccount(email, password);
                   Navigator.pop(context);
                 },

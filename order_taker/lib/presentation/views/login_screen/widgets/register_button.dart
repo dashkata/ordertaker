@@ -21,7 +21,7 @@ class RegisterButton extends ConsumerWidget {
         ),
         TextButton(
           onPressed: () =>
-              ref.read(loginControllerProvider.notifier).navigateToRegister(),
+              ref.read(loginViewModelProvider.notifier).navigateToRegister(),
           child: Text(
             text.register,
             style: Theme.of(context).textTheme.headline1,

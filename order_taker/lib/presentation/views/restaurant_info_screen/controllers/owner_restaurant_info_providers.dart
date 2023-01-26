@@ -4,9 +4,9 @@ import 'package:order_taker/domain/models/review_model.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
 
 import '../../../../domain/models/restaurant_model.dart';
-import 'restaurant_info_controller.dart';
+import 'restaurant_info_viewmodel.dart';
 
-final restaurantInformationProvider = FutureProvider.autoDispose<Restaurant>(
+final restaurantInformationViewModel = FutureProvider.autoDispose<Restaurant>(
   (ref) async =>
       await ref.read(restaurantRepositoryProvider).fetchRestaurantInfo(
             await ref.read(restaurantRepositoryProvider).fetchRestaurantTitle(
@@ -27,8 +27,8 @@ final editProvider = StateProvider.autoDispose<bool>(
   (ref) => false,
 );
 final restaurantInfoControllerProvider =
-    StateNotifierProvider.autoDispose<RestaurantInfoController, void>(
-  (ref) => RestaurantInfoController(
+    StateNotifierProvider.autoDispose<RestaurantInfoViewModel, void>(
+  (ref) => RestaurantInfoViewModel(
     restaurantRepo: ref.read(restaurantRepositoryProvider),
   ),
 );

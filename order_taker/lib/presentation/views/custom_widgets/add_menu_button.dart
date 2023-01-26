@@ -21,7 +21,7 @@ class AddMenuButton extends ConsumerWidget {
     return CustomButton(
       buttonText: text.add_menu_item,
       buttonFunc: () =>
-          ref.read(onboardingControllerProvider.notifier).addMenuDialog(
+          ref.read(onBoardingViewModelProvider.notifier).addMenuDialog(
                 CustomAlertDialog(
                   title: Center(
                     child: Text(
@@ -95,7 +95,7 @@ class _AlertDialogBody extends ConsumerWidget {
           Center(
             child: TextButton(
               onPressed: () async => await ref
-                  .read(onboardingControllerProvider.notifier)
+                  .read(onBoardingViewModelProvider.notifier)
                   .pickItemImage(
                     context,
                     const _ImageAlertDialog(),
@@ -109,7 +109,7 @@ class _AlertDialogBody extends ConsumerWidget {
           CustomButton(
             buttonText: text.submit,
             buttonFunc: () async {
-              await ref.read(onboardingControllerProvider.notifier).addMenuItem(
+              await ref.read(onBoardingViewModelProvider.notifier).addMenuItem(
                     OrderItem(
                       itemType: itemType,
                       itemTitle: itemTitle,
@@ -141,10 +141,9 @@ class _ImageAlertDialog extends ConsumerWidget {
             leading: const Icon(Icons.camera),
             title: Text(text.camera),
             onTap: () async {
-              await ref
-                  .read(onboardingControllerProvider.notifier)
-                  .addItemImage(
+              await ref.read(onBoardingViewModelProvider.notifier).addItemImage(
                     ImageTypes.camera,
+                    ref,
                     ref.read(
                       itemTitleProvider,
                     ),
@@ -156,10 +155,9 @@ class _ImageAlertDialog extends ConsumerWidget {
             leading: const Icon(Icons.browse_gallery),
             title: Text(text.browse_gallery),
             onTap: () async {
-              await ref
-                  .read(onboardingControllerProvider.notifier)
-                  .addItemImage(
+              await ref.read(onBoardingViewModelProvider.notifier).addItemImage(
                     ImageTypes.gallery,
+                    ref,
                     ref.read(
                       itemTitleProvider,
                     ),

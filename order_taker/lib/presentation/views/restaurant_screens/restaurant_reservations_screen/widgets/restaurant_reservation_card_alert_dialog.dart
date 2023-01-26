@@ -30,7 +30,7 @@ class CardAlertDialog extends ConsumerWidget {
             buttonFunc: () {
               ref
                   .read(
-                    restaurantReservationsControllerProvider.notifier,
+                    restaurantReservationsViewModelProvider.notifier,
                   )
                   .setCurrentReservation(
                     reservation,

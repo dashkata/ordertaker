@@ -32,20 +32,22 @@ class DialogContent extends ConsumerWidget {
             ListTile(
               leading: const Icon(Icons.camera),
               title: Text(text.camera),
-              onTap: () =>
-                  ref.read(userProfileProvider.notifier).changeProfileImage(
-                        context,
-                        ImageTypes.camera,
-                      ),
+              onTap: () => ref
+                  .read(userProfileViewModelProvider.notifier)
+                  .changeProfileImage(
+                    context,
+                    ImageTypes.camera,
+                  ),
             ),
             ListTile(
               leading: const Icon(Icons.browse_gallery),
               title: Text(text.browse_gallery),
-              onTap: () =>
-                  ref.read(userProfileProvider.notifier).changeProfileImage(
-                        context,
-                        ImageTypes.gallery,
-                      ),
+              onTap: () => ref
+                  .read(userProfileViewModelProvider.notifier)
+                  .changeProfileImage(
+                    context,
+                    ImageTypes.gallery,
+                  ),
             ),
           ],
         ),

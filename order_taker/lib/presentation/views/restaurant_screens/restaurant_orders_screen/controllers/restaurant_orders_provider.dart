@@ -3,7 +3,7 @@ import 'package:order_taker/domain/models/order_model.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
 
 import '../restaurant_order_arguments.dart';
-import 'restaurant_order_controller.dart';
+import 'restaurant_order_viewmodel.dart';
 
 final restaurantOrdersProvider = StreamProvider.family
     .autoDispose<List<UserOrder>, RestaurantOrderArguments>(
@@ -12,7 +12,9 @@ final restaurantOrdersProvider = StreamProvider.family
       .fetchOrdersRestaurant(args.id.toString(), args.restaurantTitle),
 );
 
-final restaurantOrderControllerProvider =
-    StateNotifierProvider.autoDispose<RestaurantOrderController, void>(
-  (ref) => RestaurantOrderController(ref: ref),
+final restaurantOrderViewModelProvider =
+    StateNotifierProvider.autoDispose<RestaurantOrderViewModel, void>(
+  (ref) => RestaurantOrderViewModel(
+    orderRepo: ref.read(orderRepositoryProvider),
+  ),
 );

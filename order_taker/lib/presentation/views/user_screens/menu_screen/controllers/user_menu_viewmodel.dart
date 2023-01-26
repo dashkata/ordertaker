@@ -6,8 +6,8 @@ import '../../../custom_widgets/custom_alert_dialog.dart';
 import '../../../resources/padding_manager.dart';
 import '../../../resources/route_manager.dart';
 
-class UserMenuController extends StateNotifier<void> {
-  UserMenuController() : super(null);
+class UserMenuViewModel extends StateNotifier<void> {
+  UserMenuViewModel() : super(null);
 
   Future<void> showOrderFABDialog(
     Widget content,

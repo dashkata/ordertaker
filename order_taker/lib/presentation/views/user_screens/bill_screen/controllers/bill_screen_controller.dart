@@ -8,8 +8,8 @@ import 'package:order_taker/domain/repositories/review_repo.dart';
 
 import '../../../resources/route_manager.dart';
 
-class BillScreenController extends StateNotifier<void> {
-  BillScreenController({
+class BillScreenViewModel extends StateNotifier<void> {
+  BillScreenViewModel({
     required ReviewRepo reviewRepo,
     required AuthRepository authRepository,
     required ReservationRepo reservationRepo,
@@ -22,7 +22,7 @@ class BillScreenController extends StateNotifier<void> {
   final ReservationRepo _reservationRepo;
 
   void navigateToMenu(Reservation reservation) {
-    navigatorKey.currentState!.popAndPushNamed(
+    navigatorKey.currentState!.pushReplacementNamed(
       Routes.userMenu,
       arguments: reservation,
     );

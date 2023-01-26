@@ -5,8 +5,8 @@ import '../../../../../domain/repositories/reservation_repo.dart';
 import '../../../resources/route_manager.dart';
 import '../../restaurant_orders_screen/restaurant_order_arguments.dart';
 
-class RestaurantReservationsController extends StateNotifier<void> {
-  RestaurantReservationsController({
+class RestaurantReservationsViewModel extends StateNotifier<void> {
+  RestaurantReservationsViewModel({
     required ReservationRepo reservationRepo,
   })  : _reservationRepo = reservationRepo,
         super(null);

@@ -21,10 +21,15 @@ import 'controllers/owner_restaurant_info_providers.dart';
 import 'widgets/location_button.dart';
 
 part 'widgets/description_icon.dart';
+
 part 'widgets/details_section.dart';
+
 part 'widgets/menu_section.dart';
+
 part 'widgets/review_card.dart';
+
 part 'widgets/reviews_section.dart';
+
 part 'widgets/section_button.dart';
 
 class RestaurantInfo extends StatelessWidget {
@@ -73,7 +78,7 @@ class RestaurantInfo extends StatelessWidget {
                 else
                   Consumer(
                     builder: (context, ref, child) =>
-                        ref.watch(restaurantInformationProvider).when(
+                        ref.watch(restaurantInformationViewModel).when(
                               data: (restaurantInfo) => Image(
                                 height: MediaQuery.of(context).size.height / 3,
                                 width: MediaQuery.of(context).size.width,
@@ -130,7 +135,7 @@ class RestaurantInfo extends StatelessWidget {
                                 restaurant: restaurant,
                               ),
                           ] else
-                            ref.watch(restaurantInformationProvider).when(
+                            ref.watch(restaurantInformationViewModel).when(
                                   data: (restaurantInfo) {
                                     if (sectionId == 0) {
                                       return _DetailsSection(

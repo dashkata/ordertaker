@@ -14,26 +14,31 @@ class ReviewCard extends StatelessWidget {
           child: Row(
             children: [
               Consumer(
-                builder: (context, ref, child) =>
-                    ref.watch(reviewPhotoProvider(review.email)).when(
-                          data: (photoURL) => Padding(
-                            padding: PaddingManager.p5,
-                            child: photoURL != null
-                                ? CircleAvatar(
-                                    backgroundImage: NetworkImage(photoURL),
-                                    maxRadius: 35,
-                                  )
-                                : const CircleAvatar(
-                                    backgroundImage:
-                                        AssetImage('assets/noavatar.png'),
-                                    maxRadius: 35,
-                                  ),
-                          ),
-                          error: (e, s) => ErrorAlertDialog(
-                            errorMessage: e.toString(),
-                          ),
-                          loading: CustomProgressIndicator.new,
+                builder: (context, ref, child) => ref
+                    .watch(reviewPhotoProvider(review.email))
+                    .when(
+                      data: (photoURL) => Padding(
+                        padding: PaddingManager.p5,
+                        child: photoURL != null
+                            ? CircleAvatar(
+                                backgroundImage: NetworkImage(photoURL),
+                                maxRadius: 35,
+                              )
+                            : const CircleAvatar(
+                                backgroundImage:
+                                    AssetImage('assets/noavatar.png'),
+                                maxRadius: 35,
+                              ),
+                      ),
+                      error: (e, s) => const Padding(
+                        padding: PaddingManager.p5,
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage('assets/noavatar.png'),
+                          maxRadius: 35,
                         ),
+                      ),
+                      loading: CustomProgressIndicator.new,
+                    ),
               ),
               Expanded(
                 child: Column(
@@ -47,6 +52,8 @@ class ReviewCard extends StatelessWidget {
                       review.review,
                       style: Theme.of(context).textTheme.headline6,
                       trimLength: 50,
+                      moreStyle: Theme.of(context).textTheme.headline1,
+                      lessStyle: Theme.of(context).textTheme.headline1,
                     ),
                     RatingBar.builder(
                       minRating: 1,

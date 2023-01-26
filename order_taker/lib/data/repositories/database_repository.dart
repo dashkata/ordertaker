@@ -18,7 +18,7 @@ import 'package:order_taker/domain/repositories/restaurant_repo.dart';
 import 'package:order_taker/domain/repositories/review_repo.dart';
 import 'package:order_taker/domain/repositories/user_repo.dart';
 
-class FirestoreRepository
+class DatabaseRepository
     implements
         RestaurantRepo,
         ReservationRepo,
@@ -28,7 +28,7 @@ class FirestoreRepository
         OrderRepo {
   final API _api;
 
-  FirestoreRepository({required API api}) : _api = api;
+  DatabaseRepository({required API api}) : _api = api;
 
   @override
   Future<Restaurant> fetchRestaurantInfo(String restaurant) async {

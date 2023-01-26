@@ -13,9 +13,9 @@ final fetchOrdersProvider =
       ),
 );
 
-final billScreenControllerProvider =
-    StateNotifierProvider.autoDispose<BillScreenController, void>(
-  (ref) => BillScreenController(
+final billScreenViewModelProvider =
+    StateNotifierProvider.autoDispose<BillScreenViewModel, void>(
+  (ref) => BillScreenViewModel(
     reviewRepo: ref.read(reviewRepositoryProvider),
     authRepository: ref.read(authRepositoryProvider),
     reservationRepo: ref.read(reservationRepositoryProvider),
@@ -27,5 +27,5 @@ final reviewRatingProvider = StateProvider.autoDispose<double>((ref) => 0);
 final totalPriceProvider =
     StateProvider.family.autoDispose<double, List<UserOrder>>(
   (ref, orders) =>
-      ref.read(billScreenControllerProvider.notifier).getTotalPrice(orders),
+      ref.read(billScreenViewModelProvider.notifier).getTotalPrice(orders),
 );

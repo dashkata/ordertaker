@@ -57,7 +57,7 @@ class OrdersList extends StatelessWidget {
                         ),
                       ),
                       if (ref
-                              .read(billScreenControllerProvider.notifier)
+                              .read(billScreenViewModelProvider.notifier)
                               .getTotalPrice(orders) !=
                           0.0)
                         Text(

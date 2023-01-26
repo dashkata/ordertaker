@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
 
-import 'user_profile_controller.dart';
+import 'user_profile_viewmodel.dart';
 
 final phoneNumberProvider = FutureProvider.autoDispose<String>((ref) async {
-  final db = ref.watch(firestoreAPIProvider);
+  final db = ref.watch(apiProvider);
   final mobileNumber = await db.fetchMobileNumber(
     ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
   );
@@ -25,9 +25,9 @@ final picProvider = FutureProvider.autoDispose<String?>((ref) async {
     email: ref.read(authRepositoryProvider).getCurrentUser()!.email!,
   );
 });
-final userProfileProvider =
-    StateNotifierProvider.autoDispose<UserProfileNotifier, void>(
-  (ref) => UserProfileNotifier(
+final userProfileViewModelProvider =
+    StateNotifierProvider.autoDispose<UserProfileViewModel, void>(
+  (ref) => UserProfileViewModel(
     authRepository: ref.watch(authRepositoryProvider),
     userRepo: ref.watch(
       userRepositoryProvider,

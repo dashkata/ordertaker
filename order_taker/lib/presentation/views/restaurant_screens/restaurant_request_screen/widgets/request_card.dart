@@ -53,7 +53,7 @@ class _RequestCard extends ConsumerWidget {
                     CustomButtonOutlined(
                       buttonText: text.disapprove,
                       buttonFunc: () => ref
-                          .read(restaurantRequestControllerProvider.notifier)
+                          .read(restaurantRequestViewModelProvider.notifier)
                           .requestStats(
                             RequestStatus.disapproved,
                             reservation,
@@ -62,7 +62,7 @@ class _RequestCard extends ConsumerWidget {
                     CustomButton(
                       buttonText: text.approve,
                       buttonFunc: () async => await ref
-                          .read(restaurantRequestControllerProvider.notifier)
+                          .read(restaurantRequestViewModelProvider.notifier)
                           .setTableDialog(
                         const _TableDialogTitle(),
                         const _TableDialogContent(),

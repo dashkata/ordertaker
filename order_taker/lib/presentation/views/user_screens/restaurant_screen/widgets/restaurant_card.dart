@@ -12,7 +12,7 @@ class _RestaurantCard extends ConsumerWidget {
         padding: PaddingManager.p1,
         child: InkWell(
           onTap: () => ref
-              .read(restaurantControllerProvider.notifier)
+              .read(restaurantViewModelProvider.notifier)
               .navigateToRestaurantInfo(restaurant: restaurant),
           child: SizedBox(
             child: Card(

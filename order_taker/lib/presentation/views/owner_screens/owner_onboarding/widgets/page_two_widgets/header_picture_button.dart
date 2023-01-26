@@ -8,8 +8,8 @@ class _HeaderPictureButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) => TextButton(
         onPressed: () async => await ref
-            .read(onboardingControllerProvider.notifier)
-            .addRestaurantPicture(),
+            .read(onBoardingViewModelProvider.notifier)
+            .addRestaurantPicture(ref),
         child: Text(
           'Add restaurant header picture',
           style: Theme.of(context).textTheme.headline1,

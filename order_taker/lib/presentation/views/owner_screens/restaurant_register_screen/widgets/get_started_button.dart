@@ -29,7 +29,7 @@ class _ConfirmButton extends ConsumerWidget {
               restaurantName != '') {
             await ref
                 .read(
-                  restaurantRegisterControllerProvider.notifier,
+                  restaurantRegisterViewModelProvider.notifier,
                 )
                 .signUp(
                   firstName,
@@ -42,7 +42,7 @@ class _ConfirmButton extends ConsumerWidget {
                 .then(
                   (value) => ref
                       .read(
-                        restaurantRegisterControllerProvider.notifier,
+                        restaurantRegisterViewModelProvider.notifier,
                       )
                       .navigateToLogin(),
                 )

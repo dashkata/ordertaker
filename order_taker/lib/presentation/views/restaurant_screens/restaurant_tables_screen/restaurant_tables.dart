@@ -43,7 +43,7 @@ class RestaurantTables extends ConsumerWidget {
                             itemBuilder: (context, index) => ElevatedButton(
                               onPressed: () => ref
                                   .read(
-                                    restaurantTablesControllerProvider.notifier,
+                                    restaurantTablesViewModelProvider.notifier,
                                   )
                                   .navigateToOrders(
                                     int.parse(

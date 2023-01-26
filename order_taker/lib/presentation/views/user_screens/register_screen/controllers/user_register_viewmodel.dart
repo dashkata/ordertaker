@@ -5,8 +5,8 @@ import 'package:order_taker/domain/repositories/user_repo.dart';
 
 import '../../../resources/route_manager.dart';
 
-class UserRegisterController extends StateNotifier<void> {
-  UserRegisterController({
+class UserRegisterViewModel extends StateNotifier<void> {
+  UserRegisterViewModel({
     required AuthRepository authRepository,
     required UserRepo userRepo,
   })  : _authRepository = authRepository,

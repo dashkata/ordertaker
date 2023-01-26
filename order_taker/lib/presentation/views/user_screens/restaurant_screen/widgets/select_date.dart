@@ -30,7 +30,7 @@ class _SelectDateWidget extends ConsumerWidget {
           ),
         ),
         onTap: () => ref
-            .read(restaurantControllerProvider.notifier)
+            .read(restaurantViewModelProvider.notifier)
             .showDateTimePicker(context, ref, restaurant),
       ),
     );

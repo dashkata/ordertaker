@@ -7,20 +7,19 @@ import '../mocks/api_mock.dart';
 
 void main() {
   final emptyContainer = ProviderContainer(
-    overrides: [firestoreAPIProvider.overrideWith((ref) => EmptyMockAPI())],
+    overrides: [apiProvider.overrideWith((ref) => EmptyMockAPI())],
   );
   final dataContainer = ProviderContainer(
-    overrides: [firestoreAPIProvider.overrideWith((ref) => DataMockAPI())],
+    overrides: [apiProvider.overrideWith((ref) => DataMockAPI())],
   );
   test('test restaurant fetching with empty data', () {
     expect(
-      emptyContainer.read(firestoreAPIProvider).fetchRestaurants(),
+      emptyContainer.read(apiProvider).fetchRestaurants(),
       const Stream<List<RestaurantEntity>>.empty(),
     );
   });
   test('test restaurant fetching with mock data', () async {
-    final restaurantStream =
-        dataContainer.read(firestoreAPIProvider).fetchRestaurants();
+    final restaurantStream = dataContainer.read(apiProvider).fetchRestaurants();
     expect(
       await restaurantStream.single,
       [RestaurantEntity.empty()],

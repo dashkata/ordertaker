@@ -16,7 +16,7 @@ class _FindATableButton extends ConsumerWidget {
       child: CustomButton(
         buttonText: text.find_a_table,
         buttonFunc: () =>
-            ref.read(restaurantControllerProvider.notifier).showDetailsDialog(
+            ref.read(restaurantViewModelProvider.notifier).showDetailsDialog(
                   context,
                   _DetailsDialog(
                     restaurant: restaurant,

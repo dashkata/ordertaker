@@ -45,7 +45,7 @@ class _DetailsDialog extends ConsumerWidget {
                 onPressed: ref.watch(userDateProvider) != '' &&
                         ref.watch(peopleProvider) != 0
                     ? () => ref
-                        .read(restaurantControllerProvider.notifier)
+                        .read(restaurantViewModelProvider.notifier)
                         .navigateToConfirm(
                           restaurant,
                           ref,

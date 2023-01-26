@@ -9,10 +9,11 @@ import 'package:order_taker/data/entities/review_entity.dart';
 import '../repositories/firestore_paths.dart';
 
 class API {
+  final database = FirebaseFirestore.instance;
+
   //Queries for restaurans
   Stream<List<RestaurantEntity>> fetchRestaurants() {
-    final restaurantRef =
-        FirebaseFirestore.instance.collection(FirestorePath.restaurants());
+    final restaurantRef = database.collection(FirestorePath.restaurants());
     final restaurantSnapshot = restaurantRef.snapshots();
 
     return restaurantSnapshot.map(
@@ -27,8 +28,7 @@ class API {
   }
 
   Future<RestaurantEntity> fetchRestaurantInfo(String restaurant) async {
-    final reservationRef =
-        FirebaseFirestore.instance.doc(FirestorePath.restaurant(restaurant));
+    final reservationRef = database.doc(FirestorePath.restaurant(restaurant));
 
     return reservationRef.get().then(
           (restaurantInfo) =>
@@ -37,7 +37,7 @@ class API {
   }
 
   Future<void> setRestaurantTitle(String restaurantName, String uid) async {
-    await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).set(
+    await database.doc(FirestorePath.user(uid)).set(
       {
         'restaurant': restaurantName,
       },
@@ -48,8 +48,7 @@ class API {
   }
 
   Future<String> fetchRestaurantTitle(String uid) async {
-    final doc =
-        await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).get();
+    final doc = await database.doc(FirestorePath.user(uid)).get();
     return doc.get('restaurant');
   }
 
@@ -57,13 +56,11 @@ class API {
     RestaurantEntity restaurant,
     int tables,
   ) async {
-    await FirebaseFirestore.instance
-        .doc(FirestorePath.restaurant(restaurant.title))
-        .set(
+    await database.doc(FirestorePath.restaurant(restaurant.title)).set(
           restaurant.toMap(),
         );
     for (int i = 1; i <= tables; i++) {
-      await FirebaseFirestore.instance
+      await database
           .doc(FirestorePath.restaurantTable(i.toString(), restaurant.title))
           .set({
         'id': i,
@@ -72,7 +69,7 @@ class API {
   }
 
   Future<void> setRestaurantEmail(String email, String uid) async {
-    await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).set(
+    await database.doc(FirestorePath.user(uid)).set(
       {
         'restaurant_email': email,
       },
@@ -83,8 +80,7 @@ class API {
   }
 
   Future<String?> getRestauarntEmail(String uid) async {
-    final adminRef =
-        await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).get();
+    final adminRef = await database.doc(FirestorePath.user(uid)).get();
     if (adminRef.data()!.containsKey('restaurant_email')) {
       return adminRef.get('restaurant_email');
     } else {
@@ -97,7 +93,7 @@ class API {
     String restaurantTitle,
     String detailType,
   ) async {
-    await FirebaseFirestore.instance
+    await database
         .doc(
       FirestorePath.restaurant(restaurantTitle),
     )
@@ -109,9 +105,8 @@ class API {
   //Queries for reservations
 
   Stream<List<ReservationEntity>> fetchReservations(String uid) {
-    final reservationsSnapshot = FirebaseFirestore.instance
-        .collection(FirestorePath.userReservations(uid))
-        .snapshots();
+    final reservationsSnapshot =
+        database.collection(FirestorePath.userReservations(uid)).snapshots();
     return reservationsSnapshot.map(
       (reservations) => reservations.docs
           .map((reservation) => ReservationEntity.fromMap(reservation.data()))
@@ -123,7 +118,7 @@ class API {
     String restaurantTitle,
     int tableId,
   ) {
-    final reservationSnapshot = FirebaseFirestore.instance
+    final reservationSnapshot = database
         .collection(
           FirestorePath.restaurantTableReservations(
             tableId.toString(),
@@ -142,7 +137,7 @@ class API {
     String restaurantTitle,
     int tableId,
   ) async {
-    final restaurantRef = await FirebaseFirestore.instance
+    final restaurantRef = await database
         .collection(
           FirestorePath.restaurantTableReservations(
             tableId.toString(),
@@ -160,7 +155,7 @@ class API {
     int tableId,
     ReservationEntity reservation,
   ) async {
-    final reservationRef = await FirebaseFirestore.instance
+    final reservationRef = await database
         .collection(
           FirestorePath.restaurantTableReservations(
             tableId.toString(),
@@ -183,9 +178,9 @@ class API {
   }
 
   Future<void> addReservation(String uid, ReservationEntity reservation) async {
-    final userReservationRef = FirebaseFirestore.instance
-        .collection(FirestorePath.userReservations(uid));
-    final restaurantReservationRef = FirebaseFirestore.instance.collection(
+    final userReservationRef =
+        database.collection(FirestorePath.userReservations(uid));
+    final restaurantReservationRef = database.collection(
       FirestorePath.restaurantRequests(
         reservation.restaurant,
       ),
@@ -204,7 +199,7 @@ class API {
     ReservationEntity reservation,
   ) async {
     if (reservation.table != null) {
-      final restaurantReservationRef = FirebaseFirestore.instance.collection(
+      final restaurantReservationRef = database.collection(
         FirestorePath.restaurantReservations(
           reservation.restaurant,
           reservation.table!,
@@ -213,7 +208,7 @@ class API {
       await restaurantReservationRef.doc('$uid - ${reservation.date}').delete();
     }
 
-    await FirebaseFirestore.instance
+    await database
         .doc(
           FirestorePath.restaurantRequest(
             reservation.restaurant,
@@ -222,8 +217,8 @@ class API {
           ),
         )
         .delete();
-    final reservationRef = FirebaseFirestore.instance
-        .collection(FirestorePath.userReservations(uid));
+    final reservationRef =
+        database.collection(FirestorePath.userReservations(uid));
     await reservationRef
         .doc('${reservation.restaurant} - ${reservation.date}')
         .delete();
@@ -231,7 +226,7 @@ class API {
 
   Future<bool> checkUserReservation(
       ReservationEntity reservation, String uid) async {
-    final reservationRef = await FirebaseFirestore.instance
+    final reservationRef = await database
         .doc(
           '${FirestorePath.restaurantReservations(reservation.restaurant, reservation.table!)}/$uid - ${reservation.date}',
         )
@@ -245,7 +240,7 @@ class API {
 
   Future<void> addApprovedReservation(ReservationEntity reservation) async {
     if (reservation.table != null) {
-      await FirebaseFirestore.instance
+      await database
           .doc(
         FirestorePath.restaurantTable(
           reservation.table!.toString(),
@@ -257,7 +252,7 @@ class API {
           'empty': '',
         },
       );
-      await FirebaseFirestore.instance
+      await database
           .doc(
             FirestorePath.userReservation(
               reservation.userId,
@@ -268,7 +263,7 @@ class API {
           .set(
             reservation.toMap(),
           );
-      await FirebaseFirestore.instance
+      await database
           .doc(
             FirestorePath.restaurantRequest(
               reservation.restaurant,
@@ -277,7 +272,7 @@ class API {
             ),
           )
           .delete();
-      await FirebaseFirestore.instance
+      await database
           .collection(
             FirestorePath.restaurantReservations(
               reservation.restaurant,
@@ -295,14 +290,12 @@ class API {
 
   //Queries for users
   Future<String> fetchMobileNumber(String uid) async {
-    final userCollection =
-        await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).get();
+    final userCollection = await database.doc(FirestorePath.user(uid)).get();
     return userCollection.get('phoneNumber');
   }
 
   Future<String> setMobileNumber(String uid, String mobileNumber) async {
-    final userCollection =
-        FirebaseFirestore.instance.doc(FirestorePath.user(uid));
+    final userCollection = database.doc(FirestorePath.user(uid));
     await userCollection.set(
       {
         'phoneNumber': mobileNumber,
@@ -313,24 +306,22 @@ class API {
   }
 
   Future<void> setUserType(String type, String uid) async {
-    final userRef = FirebaseFirestore.instance.doc(FirestorePath.user(uid));
+    final userRef = database.doc(FirestorePath.user(uid));
     await userRef.set({'type': type}, SetOptions(merge: true));
   }
 
   Future<String> fetchUserType(String uid) async {
-    final userRef =
-        await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).get();
+    final userRef = await database.doc(FirestorePath.user(uid)).get();
     return userRef.get('type');
   }
 
   Future<bool> fetchOnBoarding(String uid) async {
-    final userRef =
-        await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).get();
+    final userRef = await database.doc(FirestorePath.user(uid)).get();
     return userRef.get('onBoarding');
   }
 
   Future<void> setOnBoarding(String uid, {required bool onBoarding}) async {
-    await FirebaseFirestore.instance.doc(FirestorePath.user(uid)).set(
+    await database.doc(FirestorePath.user(uid)).set(
       {
         'onBoarding': onBoarding,
       },
@@ -348,7 +339,7 @@ class API {
     ReservationEntity reservation,
   ) async {
     if (orders.menuItems.isNotEmpty) {
-      final ordersRef = FirebaseFirestore.instance.collection(
+      final ordersRef = database.collection(
         FirestorePath.restaurantOrders(reservation, uid),
       );
       await ordersRef.get().then(
@@ -371,7 +362,7 @@ class API {
     ReservationEntity reservation,
     String uid,
   ) {
-    final orderRef = FirebaseFirestore.instance
+    final orderRef = database
         .collection(FirestorePath.restaurantOrders(reservation, uid))
         .snapshots();
     return orderRef.map(
@@ -392,7 +383,7 @@ class API {
     String tableId,
     String restaurant,
   ) async* {
-    final currentReservationRef = await FirebaseFirestore.instance
+    final currentReservationRef = await database
         .collection(
           FirestorePath.restaurantTableReservations(tableId, restaurant),
         )
@@ -423,7 +414,7 @@ class API {
     String tableId,
     String restaurantTitle,
   ) async {
-    final currentReservationRef = await FirebaseFirestore.instance
+    final currentReservationRef = await database
         .collection(
           FirestorePath.restaurantTableReservations(tableId, restaurantTitle),
         )
@@ -446,7 +437,7 @@ class API {
 
   Future<List<String>> fetchTables(String restaurantTitle) async {
     final List<String> tables = [];
-    final tableRef = await FirebaseFirestore.instance
+    final tableRef = await database
         .collection(FirestorePath.restaurantTables(restaurantTitle))
         .get();
     for (final table in tableRef.docs) {
@@ -458,7 +449,7 @@ class API {
   //Queries for menu
 
   Future<void> addMenuItem(OrderItemEntity orderItem, String restaurant) async {
-    await FirebaseFirestore.instance
+    await database
         .doc(FirestorePath.restaurantMenuType(restaurant, orderItem.itemType))
         .set(
       {
@@ -471,9 +462,8 @@ class API {
   }
 
   Stream<List<MenuSectionEntity>> fetchMenu(String title) {
-    final menuSnapshot = FirebaseFirestore.instance
-        .collection(FirestorePath.restaurantMenu(title))
-        .snapshots();
+    final menuSnapshot =
+        database.collection(FirestorePath.restaurantMenu(title)).snapshots();
     return menuSnapshot.map(
       (snapshot) => snapshot.docs
           .map(
@@ -491,7 +481,7 @@ class API {
     required String restaurantTitle,
     required OrderItemEntity item,
   }) async {
-    await FirebaseFirestore.instance
+    await database
         .doc(FirestorePath.restaurantMenuType(restaurantTitle, item.itemType))
         .update(
       {
@@ -504,7 +494,7 @@ class API {
     required OrderItemEntity item,
     required String restaurantTitle,
   }) async {
-    await FirebaseFirestore.instance
+    await database
         .doc(FirestorePath.restaurantMenuType(restaurantTitle, item.itemType))
         .update({
       '${item.itemType}.${item.itemTitle}': FieldValue.delete(),
@@ -514,7 +504,7 @@ class API {
   //Queries for reviews
 
   Stream<List<ReviewEntity>> fetchReviews(String restaurantTitle) {
-    final reviewSnapshot = FirebaseFirestore.instance
+    final reviewSnapshot = database
         .collection(FirestorePath.restaurantReviews(restaurantTitle))
         .snapshots();
     return reviewSnapshot.map(
@@ -532,7 +522,7 @@ class API {
     String restaurantTitle,
     ReviewEntity review,
   ) async {
-    await FirebaseFirestore.instance
+    await database
         .collection(FirestorePath.restaurantReviews(restaurantTitle))
         .add(
           review.toMap(),
@@ -542,7 +532,7 @@ class API {
   Stream<List<ReservationEntity>> fetchRestaurantRequests(
     String restaurantTitle,
   ) {
-    final requestsSnapshot = FirebaseFirestore.instance
+    final requestsSnapshot = database
         .collection(FirestorePath.restaurantRequests(restaurantTitle))
         .snapshots();
 
@@ -555,7 +545,7 @@ class API {
 
   //Queries for requests
   Future<void> disapproveRequest(ReservationEntity reservation) async {
-    await FirebaseFirestore.instance
+    await database
         .doc(
           FirestorePath.restaurantRequest(
             reservation.restaurant,
@@ -564,7 +554,7 @@ class API {
           ),
         )
         .delete();
-    await FirebaseFirestore.instance
+    await database
         .doc(
           FirestorePath.userReservation(
             reservation.userId,

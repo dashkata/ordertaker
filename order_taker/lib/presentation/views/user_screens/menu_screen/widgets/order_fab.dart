@@ -18,7 +18,7 @@ class _OrderFAB extends StatelessWidget {
             heroTag: null,
             backgroundColor: complementaryColor,
             onPressed: () =>
-                ref.read(menuControllerProvider.notifier).showOrderFABDialog(
+                ref.read(menuViewModelProvider.notifier).showOrderFABDialog(
                       const _OrderFABContent(),
                       [
                         _OrderFABActions(reservation: reservation),

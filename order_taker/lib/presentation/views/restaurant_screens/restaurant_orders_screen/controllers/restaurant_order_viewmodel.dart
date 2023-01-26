@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_taker/presentation/providers/common_providers.dart';
-import 'package:order_taker/presentation/providers/repository_providers.dart';
+import 'package:order_taker/domain/repositories/order_repo.dart';
+import 'package:order_taker/enums/order_status.dart';
 
 import '../../../custom_widgets/custom_alert_dialog.dart';
-import '../../../custom_widgets/custom_button.dart';
-import '../../../custom_widgets/custom_progress_indicator.dart';
 import '../../../resources/route_manager.dart';
 import '../restaurant_order_arguments.dart';
 
-class RestaurantOrderController extends StateNotifier<void> {
-  RestaurantOrderController({required Ref ref})
-      : _ref = ref,
+class RestaurantOrderViewModel extends StateNotifier<void> {
+  RestaurantOrderViewModel({required OrderRepo orderRepo})
+      : _orderRepo = orderRepo,
         super(null);
-  final Ref _ref;
+  final OrderRepo _orderRepo;
 
   void seeAdditionalMessages(BuildContext context, String additionalMessage) {
     final text = AppLocalizations.of(context)!;
@@ -38,76 +36,35 @@ class RestaurantOrderController extends StateNotifier<void> {
     );
   }
 
-  Future<void> setStatus(
+  Future<void> showStatusDialog(
     int orderId,
-    String currentStatus,
+    Widget orderStatusTitle,
+    Widget orderStatusContent,
     int tableId,
-    BuildContext context,
   ) async {
-    final text = AppLocalizations.of(context)!;
     await showDialog(
-      context: context,
-      builder: (BuildContext context) => Consumer(
-        builder: (context, ref, child) => _ref
-            .watch(restaurantTitleProvider)
-            .when(
-              data: (title) => CustomAlertDialog(
-                title: Column(
-                  children: [
-                    Center(
-                      child: Text(
-                        'Set order status',
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        'Current status: $currentStatus',
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                    ),
-                  ],
-                ),
-                content: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    CustomButton(
-                      buttonText: 'In progress',
-                      buttonFunc: () async {
-                        await _ref
-                            .read(orderRepositoryProvider)
-                            .updateOrderStatus(
-                              orderId,
-                              'In progress',
-                              tableId.toString(),
-                              title,
-                            );
-
-                        navigatorKey.currentState!.pop();
-                      },
-                    ),
-                    CustomButton(
-                      buttonText: 'Completed',
-                      buttonFunc: () async {
-                        await _ref.read(firestoreAPIProvider).updateOrderStatus(
-                              orderId,
-                              'Completed',
-                              tableId.toString(),
-                              title,
-                            );
-                        navigatorKey.currentState!.pop();
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              error: (e, s) => Text(
-                e.toString(),
-              ),
-              loading: CustomProgressIndicator.new,
-            ),
+      context: navigatorKey.currentState!.context,
+      builder: (BuildContext context) => CustomAlertDialog(
+        title: orderStatusTitle,
+        content: orderStatusContent,
       ),
     );
+  }
+
+  Future<void> updateOrderStatus(
+    int orderId,
+    int tableId,
+    OrderStatus orderStatus,
+    String title,
+  ) async {
+    await _orderRepo.updateOrderStatus(
+      orderId,
+      orderStatus.name,
+      tableId.toString(),
+      title,
+    );
+
+    navigatorKey.currentState!.pop();
   }
 
   void navigateToTables() {

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// const Color accentColor = Color.fromARGB(255, 71, 58, 47);
-// const Color complementaryColor = Color.fromARGB(255, 223, 213, 182);
-// const Color mainColor = Color.fromARGB(255, 236, 229, 191);
 const Color accentBlackColor = Color(0xff232020);
 const Color accentWhiteColor = Color(0xffffffff);
 const Color complementaryColor2 = Color(0xfff1a746);

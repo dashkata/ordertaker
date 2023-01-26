@@ -56,12 +56,13 @@ class _ContainerPicture extends StatelessWidget {
                     Icons.camera_alt,
                     color: accentBlackColor,
                   ),
-                  onPressed: () =>
-                      ref.read(userProfileProvider.notifier).showPicDialog(
-                            _DialogTitle(text: text),
-                            DialogContent(text: text),
-                            context,
-                          ),
+                  onPressed: () => ref
+                      .read(userProfileViewModelProvider.notifier)
+                      .showPicDialog(
+                        _DialogTitle(text: text),
+                        DialogContent(text: text),
+                        context,
+                      ),
                 ),
               ),
             ],

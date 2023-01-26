@@ -20,7 +20,7 @@ class _BottomTexts extends ConsumerWidget {
               ),
               TextButton(
                 onPressed: () => ref
-                    .read(userRegisterControllerProvider.notifier)
+                    .read(userRegisterViewModelProvider.notifier)
                     .navigateToLogin(),
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.zero,
@@ -41,7 +41,7 @@ class _BottomTexts extends ConsumerWidget {
               ),
               TextButton(
                 onPressed: () => ref
-                    .read(userRegisterControllerProvider.notifier)
+                    .read(userRegisterViewModelProvider.notifier)
                     .navigateToRestaurantRegister(),
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 5),

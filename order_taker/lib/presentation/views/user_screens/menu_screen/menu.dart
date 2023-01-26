@@ -17,9 +17,7 @@ import '../bill_screen/controllers/bill_screen_providers.dart';
 import 'controllers/menu_screen_providers.dart';
 
 part 'widgets/bottom_navbar.dart';
-
 part 'widgets/menu_section.dart';
-
 part 'widgets/order_fab.dart';
 
 class MenuScreen extends StatelessWidget {
@@ -50,9 +48,12 @@ class MenuScreen extends StatelessWidget {
                 child: Column(
                   children: List.generate(
                     menu.length,
-                    (index) => _MenuSection(
-                      sectionTitle: menu[index].title,
-                      menuList: menu[index].items,
+                    (index) => Padding(
+                      padding: const EdgeInsets.only(top: 30.0),
+                      child: _MenuSection(
+                        sectionTitle: menu[index].title,
+                        menuList: menu[index].items,
+                      ),
                     ),
                   ),
                 ),

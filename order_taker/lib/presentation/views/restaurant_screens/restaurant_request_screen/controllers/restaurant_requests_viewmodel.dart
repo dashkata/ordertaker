@@ -7,8 +7,8 @@ import 'package:order_taker/enums/request_status.dart';
 import '../../../custom_widgets/custom_alert_dialog.dart';
 import '../../../resources/route_manager.dart';
 
-class RestaurantRequestsController extends StateNotifier<void> {
-  RestaurantRequestsController({required ReservationRepo reservationRepo})
+class RestaurantRequestsViewModel extends StateNotifier<void> {
+  RestaurantRequestsViewModel({required ReservationRepo reservationRepo})
       : _reservationRepo = reservationRepo,
         super(null);
   final ReservationRepo _reservationRepo;

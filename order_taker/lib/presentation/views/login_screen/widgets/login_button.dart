@@ -23,7 +23,7 @@ class LoginButton extends ConsumerWidget {
         buttonFunc: () async {
           if (email != '' && password != '') {
             await ref
-                .read(loginControllerProvider.notifier)
+                .read(loginViewModelProvider.notifier)
                 .login(
                   email,
                   password,

@@ -19,20 +19,17 @@ import 'onboarding_providers.dart';
 
 class OnBoardingViewModel extends StateNotifier<void> {
   OnBoardingViewModel({
-    required StateNotifierProviderRef ref,
     required StorageRepository storageRepository,
     required RestaurantRepo restaurantRepo,
     required AuthRepository authRepository,
     required UserRepo userRepo,
     required MenuRepo menuRepo,
-  })  : _ref = ref,
-        _storageRepository = storageRepository,
+  })  : _storageRepository = storageRepository,
         _restaurantRepo = restaurantRepo,
         _authRepository = authRepository,
         _userRepo = userRepo,
         _menuRepo = menuRepo,
         super(null);
-  final StateNotifierProviderRef _ref;
   final StorageRepository _storageRepository;
   final RestaurantRepo _restaurantRepo;
   final AuthRepository _authRepository;
@@ -54,6 +51,7 @@ class OnBoardingViewModel extends StateNotifier<void> {
 
   Future<void> addItemImage(
     ImageTypes imageTypes,
+    WidgetRef ref,
     String itemName,
   ) async {
     XFile? image;
@@ -73,7 +71,7 @@ class OnBoardingViewModel extends StateNotifier<void> {
         ),
         itemName: itemName,
       );
-      _ref.read(itemImageProvider.notifier).update((state) => downloadUrl);
+      ref.read(itemImageProvider.notifier).update((state) => downloadUrl);
       scaffoldKey.currentState!.showSnackBar(
         const SnackBar(content: Text('Image uploaded successfully')),
       );
@@ -91,7 +89,7 @@ class OnBoardingViewModel extends StateNotifier<void> {
     );
   }
 
-  Future<void> addRestaurantPicture() async {
+  Future<void> addRestaurantPicture(WidgetRef ref) async {
     final XFile? image =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image != null) {
@@ -101,7 +99,7 @@ class OnBoardingViewModel extends StateNotifier<void> {
           _authRepository.getCurrentUser()!.uid,
         ),
       );
-      _ref.read(restaurantPhotoProvider.notifier).update(
+      ref.read(restaurantPhotoProvider.notifier).update(
             (state) => downloadUrl,
           );
       scaffoldKey.currentState!.showSnackBar(
@@ -110,28 +108,28 @@ class OnBoardingViewModel extends StateNotifier<void> {
     }
   }
 
-  Future<void> submitRestaurantDetails() async {
+  Future<void> submitRestaurantDetails(WidgetRef ref) async {
     final String title = await _restaurantRepo.fetchRestaurantTitle(
       _authRepository.getCurrentUser()!.uid,
     );
     await _restaurantRepo.submitRestaurantDetails(
       Restaurant(
         title: title,
-        description: _ref.read(restaurantDescriptionProvider),
-        openHours: _ref.read(restaurantHoursProvider),
-        website: _ref.read(restaurantWebsiteProvider),
-        phoneNumber: _ref.read(restaurantPhoneNumberProvider),
-        paymentMethods: _ref.read(restaurantPaymentProvider),
-        address: _ref.read(restaurantAddressProvider),
-        photo: _ref.read(restaurantPhotoProvider),
+        description: ref.read(restaurantDescriptionProvider),
+        openHours: ref.read(restaurantHoursProvider),
+        website: ref.read(restaurantWebsiteProvider),
+        phoneNumber: ref.read(restaurantPhoneNumberProvider),
+        paymentMethods: ref.read(restaurantPaymentProvider),
+        address: ref.read(restaurantAddressProvider),
+        photo: ref.read(restaurantPhotoProvider),
       ),
-      int.parse(_ref.read(restaurantTablesProvider)),
+      int.parse(ref.read(restaurantTablesProvider)),
     );
     await _userRepo.setOnBoarding(
       _authRepository.getCurrentUser()!.uid,
       onBoarding: true,
     );
-    _ref.invalidate(onBoardingProvider);
+    ref.invalidate(onBoardingProvider);
     await navigatorKey.currentState!.popAndPushNamed(Routes.auth);
   }
 }

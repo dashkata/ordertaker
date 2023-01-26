@@ -1,14 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
 
-import 'login_state_controller.dart';
+import 'login_state_viewmodel.dart';
 
 final loginEmailControllerProvider =
     StateProvider.autoDispose<String>((ref) => '');
 final loginPasswordControllerProvider =
     StateProvider.autoDispose<String>((ref) => '');
-final loginControllerProvider = StateNotifierProvider<LoginController, void>(
-  (ref) => LoginController(
+final loginViewModelProvider = StateNotifierProvider<LoginViewModel, void>(
+  (ref) => LoginViewModel(
     authRepository: ref.watch(
       authRepositoryProvider,
     ),

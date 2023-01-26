@@ -6,11 +6,11 @@ import 'package:order_taker/domain/repositories/reservation_repo.dart';
 
 import '../../../resources/route_manager.dart';
 
-class UserReservationController extends StateNotifier<void> {
+class UserReservationViewModel extends StateNotifier<void> {
   final ReservationRepo _reservationRepo;
   final AuthRepository _authRepository;
 
-  UserReservationController({
+  UserReservationViewModel({
     required ReservationRepo reservationRepo,
     required AuthRepository authRepository,
   })  : _reservationRepo = reservationRepo,

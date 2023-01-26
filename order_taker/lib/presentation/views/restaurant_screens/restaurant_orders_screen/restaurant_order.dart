@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/domain/models/order_model.dart';
+import 'package:order_taker/enums/order_status.dart';
 import 'package:order_taker/presentation/themes/themes.dart';
 
+import '../../../providers/common_providers.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/custom_error_alert_dialog.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
@@ -11,6 +13,9 @@ import 'controllers/restaurant_orders_provider.dart';
 import 'restaurant_order_arguments.dart';
 
 part 'widgets/order_container.dart';
+
+part 'widgets/order_status_dialog.dart';
+
 part 'widgets/restaurant_order_fab.dart';
 
 class RestaurantOrders extends StatelessWidget {

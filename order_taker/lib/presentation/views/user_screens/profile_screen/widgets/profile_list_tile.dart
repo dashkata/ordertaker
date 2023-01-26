@@ -50,7 +50,9 @@ class _ProfileListTile extends ConsumerWidget {
         icon: const Icon(Icons.edit),
         color: accentBlackColor,
         onPressed: () async {
-          await ref.read(userProfileProvider.notifier).updateUserDetails(
+          await ref
+              .read(userProfileViewModelProvider.notifier)
+              .updateUserDetails(
                 ref,
                 detail,
                 context,

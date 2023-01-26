@@ -15,8 +15,6 @@ import '../../resources/padding_manager.dart';
 import '../../resources/style_manager.dart';
 import 'controllers/restaurant_screen_providers.dart';
 
-// part 'widgets/free_tables.dart';
-
 part 'widgets/detail_dialog_parts.dart';
 part 'widgets/find_a_table_button.dart';
 part 'widgets/number_of_people.dart';

@@ -38,7 +38,7 @@ class MenuCard extends ConsumerWidget {
                     }
                   } else {
                     ref
-                        .read(restaurantMenuControllerProvider.notifier)
+                        .read(restaurantMenuViewModelProvider.notifier)
                         .statusDialog(
                           _StatusDialogTitle(text: text),
                           _StatusDialogContent(
@@ -49,7 +49,7 @@ class MenuCard extends ConsumerWidget {
                   }
                 }
               : () => ref
-                  .read(restaurantMenuControllerProvider.notifier)
+                  .read(restaurantMenuViewModelProvider.notifier)
                   .removeItemDialog(
                     _RemoveDialogTitle(text: text),
                     _RemoveDialogContent(
@@ -78,17 +78,21 @@ class MenuCard extends ConsumerWidget {
                       children: [
                         Row(
                           children: [
-                            Text(
-                              orderItem.itemTitle,
-                              style: Theme.of(context).textTheme.headline3,
+                            Flexible(
+                              child: Text(
+                                orderItem.itemTitle,
+                                style: Theme.of(context).textTheme.headline3,
+                              ),
                             ),
                             Text(
                               ' - ',
                               style: Theme.of(context).textTheme.headline3,
                             ),
-                            Text(
-                              orderItem.itemPrice,
-                              style: Theme.of(context).textTheme.headline6,
+                            Flexible(
+                              child: Text(
+                                orderItem.itemPrice,
+                                style: Theme.of(context).textTheme.headline6,
+                              ),
                             ),
                           ],
                         ),
@@ -140,7 +144,7 @@ class _StatusDialogContent extends ConsumerWidget {
             buttonFunc: () async {
               await ref
                   .read(
-                    restaurantMenuControllerProvider.notifier,
+                    restaurantMenuViewModelProvider.notifier,
                   )
                   .updateMenuItemStatus(
                     status: true,
@@ -154,7 +158,7 @@ class _StatusDialogContent extends ConsumerWidget {
             buttonFunc: () async {
               await ref
                   .read(
-                    restaurantMenuControllerProvider.notifier,
+                    restaurantMenuViewModelProvider.notifier,
                   )
                   .updateMenuItemStatus(
                     status: false,
@@ -208,7 +212,7 @@ class _RemoveDialogContent extends ConsumerWidget {
             buttonFunc: () async {
               await ref
                   .read(
-                    restaurantMenuControllerProvider.notifier,
+                    restaurantMenuViewModelProvider.notifier,
                   )
                   .removeMenuItem(
                     item: orderItem,

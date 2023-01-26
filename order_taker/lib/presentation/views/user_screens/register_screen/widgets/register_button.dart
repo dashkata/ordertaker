@@ -35,7 +35,7 @@ class _RegisterButton extends ConsumerWidget {
               mobileNumber != '') {
             await ref
                 .read(
-                  userRegisterControllerProvider.notifier,
+                  userRegisterViewModelProvider.notifier,
                 )
                 .register(
                   email,

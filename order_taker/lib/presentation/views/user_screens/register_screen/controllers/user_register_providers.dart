@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
 
-import 'user_register_controller.dart';
+import 'user_register_viewmodel.dart';
 
 final registerEmailControllerProvider = StateProvider.autoDispose<String>(
   (ref) => '',
@@ -22,9 +22,9 @@ final registerLastNameControllerProvider = StateProvider.autoDispose<String>(
 final registerPhoneNumberControllerProvider = StateProvider.autoDispose(
   (ref) => '',
 );
-final userRegisterControllerProvider =
-    StateNotifierProvider.autoDispose<UserRegisterController, void>(
-  (ref) => UserRegisterController(
+final userRegisterViewModelProvider =
+    StateNotifierProvider.autoDispose<UserRegisterViewModel, void>(
+  (ref) => UserRegisterViewModel(
     authRepository: ref.watch(authRepositoryProvider),
     userRepo: ref.watch(userRepositoryProvider),
   ),

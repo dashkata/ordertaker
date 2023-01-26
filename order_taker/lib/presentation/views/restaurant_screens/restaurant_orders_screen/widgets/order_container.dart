@@ -61,7 +61,7 @@ class _OrderContainer extends ConsumerWidget {
             child: CustomButton(
               buttonText: text.additional_messages,
               buttonFunc: () => ref
-                  .read(restaurantOrderControllerProvider.notifier)
+                  .read(restaurantOrderViewModelProvider.notifier)
                   .seeAdditionalMessages(
                     context,
                     order.additionalMessage,
@@ -73,12 +73,15 @@ class _OrderContainer extends ConsumerWidget {
             child: CustomButton(
               buttonText: text.set_status,
               buttonFunc: () async => await ref
-                  .read(restaurantOrderControllerProvider.notifier)
-                  .setStatus(
+                  .read(restaurantOrderViewModelProvider.notifier)
+                  .showStatusDialog(
                     order.id,
-                    order.status,
+                    _OrderStatusTitle(currentStatus: order.status),
+                    _OrderStatusContent(
+                      orderId: order.id,
+                      tableId: tableId,
+                    ),
                     tableId,
-                    context,
                   ),
             ),
           ),

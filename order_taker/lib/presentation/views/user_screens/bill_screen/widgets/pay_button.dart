@@ -16,7 +16,7 @@ class PayButton extends ConsumerWidget {
       width: 150,
       child: CustomButton(
         buttonText: text.pay,
-        buttonFunc: () => ref.read(billScreenControllerProvider.notifier).pay(
+        buttonFunc: () => ref.read(billScreenViewModelProvider.notifier).pay(
               reservation,
               reviewMessage,
               reviewRating,

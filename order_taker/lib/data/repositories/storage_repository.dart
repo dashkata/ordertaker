@@ -23,7 +23,7 @@ class StorageRepository {
     try {
       return await profilePicRef.getDownloadURL();
     } on FirebaseException catch (e) {
-      return e.message;
+      throw e.message.toString();
     }
   }
 

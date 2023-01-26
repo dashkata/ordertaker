@@ -65,8 +65,8 @@ class OnboardingScreen extends ConsumerWidget {
         ),
         showBackButton: true,
         onDone: () => ref
-            .read(onboardingControllerProvider.notifier)
-            .submitRestaurantDetails(),
+            .read(onBoardingViewModelProvider.notifier)
+            .submitRestaurantDetails(ref),
       ),
     );
   }

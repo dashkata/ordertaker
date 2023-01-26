@@ -55,7 +55,6 @@ class DoubleTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-        // height: 50,
         child: Material(
           borderRadius: Styles.buildBorderRadius(30),
           elevation: 5,
@@ -88,6 +87,7 @@ class DoubleTextField extends StatelessWidget {
             obscureText: obscure,
             autocorrect: false,
             textInputAction: textInputAction,
+            textCapitalization: TextCapitalization.sentences,
           ),
         ),
       );

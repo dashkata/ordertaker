@@ -11,7 +11,7 @@ class _RestaurantOrderFABRow extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) => RestaurantOrderFAB(
         onPressed: () => ref
-            .read(restaurantOrderControllerProvider.notifier)
+            .read(restaurantOrderViewModelProvider.notifier)
             .navigateToReservations(restaurantOrderArguments),
         icon: Icons.note_alt_outlined,
         heroTag: 'orderFab2',
