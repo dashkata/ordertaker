@@ -2,8 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/domain/models/order_model.dart';
 import 'package:order_taker/domain/models/reservation_model.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
-
-import 'bill_screen_controller.dart';
+import 'package:order_taker/presentation/views/user_screens/bill_screen/controllers/bill_screen_viewmodel.dart';
 
 final fetchOrdersProvider =
     StreamProvider.family.autoDispose<List<UserOrder>, Reservation>(

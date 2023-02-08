@@ -40,20 +40,27 @@ class _ConfirmButton extends ConsumerWidget {
                   restaurantName,
                 )
                 .then(
-                  (value) => ref
-                      .read(
-                        restaurantRegisterViewModelProvider.notifier,
-                      )
-                      .navigateToLogin(),
-                )
-                .catchError(
-                  (e) => showDialog(
-                    context: context,
-                    builder: (_) => ErrorAlertDialog(
-                      errorMessage: e.toString(),
+              (value) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Registration successful. To verify your account, check your email inbox.',
                     ),
                   ),
                 );
+                ref
+                    .read(
+                      restaurantRegisterViewModelProvider.notifier,
+                    )
+                    .navigateToLogin();
+              },
+              onError: (e, s) => showDialog(
+                context: context,
+                builder: (_) => ErrorAlertDialog(
+                  errorMessage: e.toString(),
+                ),
+              ),
+            );
           } else {
             await showDialog(
               context: context,

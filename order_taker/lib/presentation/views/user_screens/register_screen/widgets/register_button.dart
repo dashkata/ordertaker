@@ -45,8 +45,15 @@ class _RegisterButton extends ConsumerWidget {
                   lastName,
                   context,
                 )
-                .catchError(
-                  (e) => showDialog(
+                .then(
+                  (value) => ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'Registration successful. To verify your account, check your email inbox.',
+                      ),
+                    ),
+                  ),
+                  onError: (e) => showDialog(
                     context: context,
                     builder: (_) => ErrorAlertDialog(
                       errorMessage: e.toString(),

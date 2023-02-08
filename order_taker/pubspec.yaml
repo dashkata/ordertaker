@@ -41,7 +41,7 @@ flutter_icons:
   image_path: assets/logo.png
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/logo_words.png
+  image: assets/logo.png
 flutter:
   generate: true
   uses-material-design: true
