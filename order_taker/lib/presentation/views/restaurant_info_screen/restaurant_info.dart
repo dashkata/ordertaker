@@ -21,15 +21,10 @@ import 'controllers/owner_restaurant_info_providers.dart';
 import 'widgets/location_button.dart';
 
 part 'widgets/description_icon.dart';
-
 part 'widgets/details_section.dart';
-
 part 'widgets/menu_section.dart';
-
 part 'widgets/review_card.dart';
-
 part 'widgets/reviews_section.dart';
-
 part 'widgets/section_button.dart';
 
 class RestaurantInfo extends StatelessWidget {
@@ -45,6 +40,7 @@ class RestaurantInfo extends StatelessWidget {
         alignment: AlignmentDirectional.center,
         children: [
           Scaffold(
+            resizeToAvoidBottomInset: false,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.miniStartTop,
             floatingActionButton: Builder(
@@ -92,7 +88,6 @@ class RestaurantInfo extends StatelessWidget {
                             ),
                   ),
                 Container(
-                  height: double.maxFinite,
                   width: double.maxFinite,
                   margin: const EdgeInsets.only(
                     top: 200,
@@ -116,7 +111,6 @@ class RestaurantInfo extends StatelessWidget {
                     builder: (context, ref, child) {
                       final sectionId = ref.watch(sectionIdProvider);
                       return Column(
-                        // crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           if (restaurant != null) ...[
