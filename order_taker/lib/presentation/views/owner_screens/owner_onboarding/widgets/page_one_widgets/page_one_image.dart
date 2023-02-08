@@ -6,10 +6,13 @@ class _PageOneImage extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Center(
-        child: SvgPicture.asset(
-          'assets/logoordertaker.svg',
-          height: 400,
+  Widget build(BuildContext context) => const Center(
+        child: Image(
+          width: 200,
+          height: 200,
+          image: AssetImage(
+            'assets/logo.png',
+          ),
         ),
       );
 }
