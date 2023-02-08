@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
-
-import 'user_confirm_reservation_controller.dart';
+import 'package:order_taker/presentation/views/user_screens/confirm_reservation_screen/controllers/user_confirm_reservation_viewmodel.dart';
 
 final detailsProvider =
     FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
