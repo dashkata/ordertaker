@@ -6,12 +6,14 @@ class OrderItemEntity {
   final String itemIngredients;
   final String itemPrice;
   final String itemImage;
+  final String itemCurrency;
   final bool available;
 
   OrderItemEntity({
     required this.itemType,
     required this.itemTitle,
     required this.itemIngredients,
+    required this.itemCurrency,
     required this.itemPrice,
     required this.itemImage,
     required this.available,
@@ -23,6 +25,7 @@ class OrderItemEntity {
         'itemIngredients': itemIngredients,
         'itemPrice': itemPrice,
         'itemImage': itemImage,
+        'itemCurrency': itemCurrency,
         'available': available,
       };
 
@@ -33,6 +36,7 @@ class OrderItemEntity {
         itemPrice: data['itemPrice'],
         itemImage: data['itemImage'],
         available: data['available'],
+        itemCurrency: data['itemCurrency'],
       );
 
   OrderItem toOrderItem() => OrderItem(
@@ -42,6 +46,7 @@ class OrderItemEntity {
         itemPrice: itemPrice,
         itemImage: itemImage,
         available: available,
+        itemCurrency: itemCurrency,
       );
 
   factory OrderItemEntity.fromOrderItem(OrderItem orderItem) => OrderItemEntity(
@@ -51,6 +56,7 @@ class OrderItemEntity {
         itemPrice: orderItem.itemPrice,
         itemImage: orderItem.itemImage,
         available: orderItem.available,
+        itemCurrency: orderItem.itemCurrency,
       );
 
   @override

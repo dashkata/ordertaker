@@ -28,19 +28,21 @@ class BillScreenViewModel extends StateNotifier<void> {
     );
   }
 
-  double getTotalPrice(List<UserOrder> orders) {
+  String getTotalPrice(List<UserOrder> orders) {
     double totalPrice = 0.0;
+    String currency = '';
     for (final order in orders) {
       for (final item in order.menuItems.keys) {
         if (order.menuItems[item] != null) {
+          currency = item.itemCurrency;
           totalPrice += double.parse(
-                item.itemPrice.replaceAll('lv.', '').replaceAll(',', '.'),
+                item.itemPrice.replaceAll(',', '.'),
               ) *
               order.menuItems[item]!;
         }
       }
     }
-    return totalPrice;
+    return '${totalPrice.toStringAsFixed(2)} $currency';
   }
 
   Future<void> pay(

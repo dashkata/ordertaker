@@ -4,9 +4,11 @@ class OrderItem {
   final String itemIngredients;
   final String itemPrice;
   final String itemImage;
+  final String itemCurrency;
   final bool available;
 
   OrderItem({
+    required this.itemCurrency,
     required this.itemType,
     required this.itemTitle,
     required this.itemIngredients,
@@ -20,6 +22,7 @@ class OrderItem {
         'itemTitle': itemTitle,
         'itemIngredients': itemIngredients,
         'itemPrice': itemPrice,
+        'itemCurrency': itemCurrency,
         'itemImage': itemImage,
         'available': available,
       };
@@ -31,6 +34,7 @@ class OrderItem {
         itemPrice: data['itemPrice'],
         itemImage: data['itemImage'],
         available: data['available'],
+        itemCurrency: data['itemCurrency'],
       );
 
   @override

@@ -44,7 +44,7 @@ class OrdersList extends StatelessWidget {
                                   ),
                                   child: Text(
                                     '${orders[ordersIndex].menuItems.keys.elementAt(menuIndex).itemTitle}'
-                                    ' - ${orders[ordersIndex].menuItems.keys.elementAt(menuIndex).itemPrice} '
+                                    ' - ${orders[ordersIndex].menuItems.keys.elementAt(menuIndex).itemPrice}${orders[ordersIndex].menuItems.keys.elementAt(menuIndex).itemCurrency} '
                                     'x${orders[ordersIndex].menuItems[orders[ordersIndex].menuItems.keys.elementAt(menuIndex)]}',
                                     style:
                                         Theme.of(context).textTheme.headline6,
@@ -61,7 +61,7 @@ class OrdersList extends StatelessWidget {
                               .getTotalPrice(orders) !=
                           0.0)
                         Text(
-                          '${text.total_price}: ${ref.watch(totalPriceProvider(orders)).toStringAsFixed(2)}',
+                          '${text.total_price}: ${ref.watch(totalPriceProvider(orders))}',
                           style: Theme.of(context).textTheme.headline1,
                         )
                       else
