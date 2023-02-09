@@ -11,12 +11,12 @@ final authStateProvider = StreamProvider<User?>(
   (ref) => ref.watch(authRepositoryProvider).authStateChange,
 );
 
-final userTypeProvider = FutureProvider.autoDispose(
+final futureUserTypeProvider = FutureProvider.autoDispose(
   (ref) async => await ref
       .watch(userRepositoryProvider)
       .fetchUserType(ref.read(authRepositoryProvider).getCurrentUser()!.uid),
 );
-final onBoardingProvider = FutureProvider.autoDispose<bool>(
+final futureOnBoardingProvider = FutureProvider<bool>(
   (ref) async => await ref
       .watch(userRepositoryProvider)
       .fetchOnBoarding(ref.read(authRepositoryProvider).getCurrentUser()!.uid),

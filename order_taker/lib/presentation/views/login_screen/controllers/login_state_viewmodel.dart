@@ -19,14 +19,9 @@ class LoginViewModel extends StateNotifier<void> {
     String password,
     BuildContext context,
   ) async {
-    await _authRepository
-        .signIn(
-          email: email,
-          password: password,
-        )
-        .then(
-          (value) async => await navigatorKey.currentState!
-              .pushReplacementNamed(Routes.auth),
-        );
+    await _authRepository.signIn(
+      email: email,
+      password: password,
+    );
   }
 }

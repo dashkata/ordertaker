@@ -117,7 +117,7 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     Consumer(
                       builder: (context, ref, child) {
-                        final userType = ref.watch(userTypeProvider);
+                        final userType = ref.watch(futureUserTypeProvider);
                         return userType.when(
                           data: (type) => type == 'Admin'
                               ? const _AdminRestaurantCard()

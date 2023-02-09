@@ -35,6 +35,9 @@ class OnBoardingViewModel extends StateNotifier<void> {
   final AuthRepository _authRepository;
   final UserRepo _userRepo;
   final MenuRepo _menuRepo;
+  final _dropDownItems = ['лв', '€'];
+
+  List<String> get dropDownItems => _dropDownItems;
 
   void addMenuDialog(Widget alertDialog, BuildContext context) {
     showDialog(context: context, builder: (_) => alertDialog);
@@ -129,7 +132,7 @@ class OnBoardingViewModel extends StateNotifier<void> {
       _authRepository.getCurrentUser()!.uid,
       onBoarding: true,
     );
-    ref.invalidate(onBoardingProvider);
+    ref.invalidate(futureOnBoardingProvider);
     await navigatorKey.currentState!.popAndPushNamed(Routes.auth);
   }
 }

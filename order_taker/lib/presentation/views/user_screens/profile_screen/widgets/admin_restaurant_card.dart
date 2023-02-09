@@ -123,7 +123,12 @@ class _AlertDialogBody extends ConsumerWidget {
                 buttonFunc: () async {
                   await ref
                       .read(userProfileViewModelProvider.notifier)
-                      .registerAccount(email, password);
+                      .registerAccount(email, password)
+                      .onError(
+                        (error, stackTrace) => ErrorAlertDialog(
+                          errorMessage: error.toString(),
+                        ),
+                      );
                   Navigator.pop(context);
                 },
               );

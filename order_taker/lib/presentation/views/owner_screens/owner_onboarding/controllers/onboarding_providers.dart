@@ -16,6 +16,8 @@ final restaurantWebsiteProvider = StateProvider<String>((ref) => '');
 final restaurantPhoneNumberProvider = StateProvider<String>((ref) => '');
 final restaurantTablesProvider = StateProvider<String>((ref) => '');
 final restaurantPhotoProvider = StateProvider<String>((ref) => '');
+final currencyProvider = StateProvider.autoDispose<String>(
+    (ref) => ref.read(onBoardingViewModelProvider.notifier).dropDownItems[0]);
 
 final onBoardingViewModelProvider =
     StateNotifierProvider.autoDispose<OnBoardingViewModel, void>(

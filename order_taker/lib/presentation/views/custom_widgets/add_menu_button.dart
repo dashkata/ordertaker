@@ -50,6 +50,7 @@ class _AlertDialogBody extends ConsumerWidget {
     final itemIngredients = ref.watch(itemIngredientsProvider);
     final itemPrice = ref.watch(itemPriceProvider);
     final itemImage = ref.watch(itemImageProvider);
+    final currency = ref.watch(currencyProvider);
 
     return SingleChildScrollView(
       child: Column(
@@ -89,6 +90,24 @@ class _AlertDialogBody extends ConsumerWidget {
             obscure: false,
             textInputAction: TextInputAction.done,
             inputType: const TextInputType.numberWithOptions(decimal: true),
+            suffix: ref.read(itemPriceProvider).isNotEmpty
+                ? DropdownButton(
+                    value: ref.watch(currencyProvider),
+                    items: ref
+                        .read(onBoardingViewModelProvider.notifier)
+                        .dropDownItems
+                        .map(
+                          (String items) => DropdownMenuItem(
+                            value: items,
+                            child: Text(items),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) => ref
+                        .read(currencyProvider.notifier)
+                        .update((state) => value.toString()),
+                  )
+                : null,
             func: (value) =>
                 ref.read(itemPriceProvider.notifier).update((state) => value),
           ),
@@ -114,7 +133,7 @@ class _AlertDialogBody extends ConsumerWidget {
                       itemType: itemType,
                       itemTitle: itemTitle,
                       itemIngredients: itemIngredients,
-                      itemPrice: itemPrice,
+                      itemPrice: '$itemPrice $currency',
                       itemImage: itemImage,
                       available: true,
                     ),

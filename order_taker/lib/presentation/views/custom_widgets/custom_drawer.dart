@@ -21,7 +21,7 @@ class CustomDrawer extends ConsumerWidget {
     final text = AppLocalizations.of(context)!;
     final auth = ref.watch(authRepositoryProvider);
     final User user = auth.getCurrentUser()!;
-    final AsyncValue<String> asyncUserType = ref.watch(userTypeProvider);
+    final AsyncValue<String> asyncUserType = ref.watch(futureUserTypeProvider);
     return asyncUserType.when(
       data: (userType) => Drawer(
         backgroundColor: mainColor,
@@ -149,11 +149,10 @@ class CustomDrawer extends ConsumerWidget {
             _DrawerTab(
               icon: Icons.exit_to_app,
               titleText: text.log_out,
-              func: () =>
-                  auth.signOut().then((value) => Navigator.pop(context)).then(
-                        (value) =>
-                            Navigator.popAndPushNamed(context, Routes.login),
-                      ),
+              func: () => auth.signOut().then(
+                    (value) =>
+                        Navigator.pushReplacementNamed(context, Routes.auth),
+                  ),
             ),
           ],
         ),

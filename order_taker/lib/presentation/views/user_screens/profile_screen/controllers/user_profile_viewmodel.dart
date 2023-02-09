@@ -22,7 +22,8 @@ class UserProfileViewModel extends StateNotifier<void> {
     required UserRepo userRepo,
     required RestaurantRepo restaurantRepo,
     required StorageRepository storageRepository,
-  })  : _authRepository = authRepository,
+  })
+      : _authRepository = authRepository,
         _userRepo = userRepo,
         _restaurantRepo = restaurantRepo,
         _storageRepository = storageRepository,
@@ -35,31 +36,31 @@ class UserProfileViewModel extends StateNotifier<void> {
   void showPicDialog(Widget title, Widget content, BuildContext context) {
     showDialog(
       context: context,
-      builder: (BuildContext context) => CustomAlertDialog(
-        title: title,
-        content: content,
-      ),
+      builder: (BuildContext context) =>
+          CustomAlertDialog(
+            title: title,
+            content: content,
+          ),
     );
   }
 
   Future<void> showResetPasswordDialog(Widget title, Widget content) async {
     await showDialog(
       context: navigatorKey.currentState!.context,
-      builder: (_) => CustomAlertDialog(
-        title: title,
-        content: content,
-      ),
+      builder: (_) =>
+          CustomAlertDialog(
+            title: title,
+            content: content,
+          ),
     );
   }
 
-  Future<void> updateUserDetails(
-    WidgetRef ref,
-    String detail,
-    BuildContext context,
-    AppLocalizations text,
-    UserDetails detailType,
-    AutoDisposeStateProvider<bool> changeProvider,
-  ) async {
+  Future<void> updateUserDetails(WidgetRef ref,
+      String detail,
+      BuildContext context,
+      AppLocalizations text,
+      UserDetails detailType,
+      AutoDisposeStateProvider<bool> changeProvider,) async {
     final newDetail = ref.watch(changeControllerProvider);
     if (ref.watch(changeProvider)) {
       if (detail != newDetail && newDetail != '') {
@@ -73,38 +74,42 @@ class UserProfileViewModel extends StateNotifier<void> {
           case UserDetails.email:
             await showDialog(
               context: context,
-              builder: (BuildContext context) => AlertDialog(
-                backgroundColor: mainColor,
-                title: Text(
-                  '${text.email_changed_to}: $newDetail.'
-                  '\n'
-                  '${text.verify_email}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                actions: [
-                  // Center(
-                  //   child: GFButton(
-                  //     shape: GFButtonShape.pills,
-                  //     color: complementaryColor,
-                  //     onPressed: () async {
-                  //       GFToast.showToast(
-                  //         await _authRepository.updateEmail(
-                  //           email: newDetail,
-                  //         ),
-                  //         context,
-                  //         toastDuration: 5,
-                  //       );
-                  //       await _authRepository.signout();
-                  //       await navigatorKey.currentState!.popAndPushNamed(
-                  //         Routes.auth,
-                  //       );
-                  //     },
-                  //     text: 'OK',
-                  //     textStyle: Theme.of(context).textTheme.headline1,
-                  //   ),
-                  // )
-                ],
-              ),
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    backgroundColor: mainColor,
+                    title: Text(
+                      '${text.email_changed_to}: $newDetail.'
+                          '\n'
+                          '${text.verify_email}',
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .headline4,
+                    ),
+                    actions: [
+                      // Center(
+                      //   child: GFButton(
+                      //     shape: GFButtonShape.pills,
+                      //     color: complementaryColor,
+                      //     onPressed: () async {
+                      //       GFToast.showToast(
+                      //         await _authRepository.updateEmail(
+                      //           email: newDetail,
+                      //         ),
+                      //         context,
+                      //         toastDuration: 5,
+                      //       );
+                      //       await _authRepository.signout();
+                      //       await navigatorKey.currentState!.popAndPushNamed(
+                      //         Routes.auth,
+                      //       );
+                      //     },
+                      //     text: 'OK',
+                      //     textStyle: Theme.of(context).textTheme.headline1,
+                      //   ),
+                      // )
+                    ],
+                  ),
             );
             break;
           case UserDetails.password:
@@ -126,10 +131,8 @@ class UserProfileViewModel extends StateNotifier<void> {
         .update((state) => !ref.read(changeProvider));
   }
 
-  Future<void> changeProfileImage(
-    BuildContext context,
-    ImageTypes imageType,
-  ) async {
+  Future<void> changeProfileImage(BuildContext context,
+      ImageTypes imageType,) async {
     final ImagePicker imagePicker = ImagePicker();
     XFile? image;
     switch (imageType) {
@@ -157,10 +160,8 @@ class UserProfileViewModel extends StateNotifier<void> {
     }
   }
 
-  Future<void> registerAccount(
-    String email,
-    String password,
-  ) async {
+  Future<void> registerAccount(String email,
+      String password,) async {
     final restaurantTitle = await _restaurantRepo.fetchRestaurantTitle(
       _authRepository.getCurrentUser()!.uid,
     );

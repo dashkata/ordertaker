@@ -5,6 +5,7 @@ import '../resources/style_manager.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
+    this.suffix,
     required this.hintText,
     required this.icon,
     required this.obscure,
@@ -20,11 +21,13 @@ class CustomTextField extends StatelessWidget {
   final TextInputType inputType;
   final void Function(String)? func;
   final TextInputAction textInputAction;
+  final Widget? suffix;
 
   @override
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
         child: DoubleTextField(
+          suffix: suffix,
           func: func,
           inputType: inputType,
           icon: icon,
@@ -37,6 +40,7 @@ class CustomTextField extends StatelessWidget {
 
 class DoubleTextField extends StatelessWidget {
   const DoubleTextField({
+    this.suffix,
     required this.func,
     required this.inputType,
     required this.icon,
@@ -51,6 +55,7 @@ class DoubleTextField extends StatelessWidget {
   final String? hintText;
   final bool obscure;
   final TextInputAction textInputAction;
+  final Widget? suffix;
   final void Function(String)? func;
 
   @override
@@ -83,6 +88,7 @@ class DoubleTextField extends StatelessWidget {
               filled: true,
               fillColor: mainColor,
               hintStyle: Theme.of(context).textTheme.headline6,
+              suffixIcon: suffix,
             ),
             obscureText: obscure,
             autocorrect: false,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/presentation/providers/auth_provider.dart';
-import 'package:order_taker/presentation/providers/repository_providers.dart';
+import 'package:order_taker/presentation/providers/common_providers.dart';
+import 'package:order_taker/presentation/views/owner_screens/owner_onboarding/onboarding.dart';
 
 import '../custom_widgets/custom_progress_indicator.dart';
 import '../login_screen/login.dart';
-import '../owner_screens/owner_onboarding/onboarding.dart';
 import '../restaurant_info_screen/restaurant_info.dart';
 import '../restaurant_screens/restaurant_tables_screen/restaurant_tables.dart';
 import '../user_screens/restaurant_screen/restaurants.dart';
@@ -16,41 +16,33 @@ class AuthChecker extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authStateProvider);
-    final authServices = ref.watch(authRepositoryProvider);
-
     return authState.when(
       data: (data) {
         if (data != null) {
-          final AsyncValue userType = ref.watch(userTypeProvider);
-          return userType.when(
-            data: (value) {
-              if (value != 'Restaurant') {
-                if (authServices.getCurrentUser()!.emailVerified) {
-                  if (value == 'Customer') {
-                    return const RestaurantScreen();
-                  } else if (value == 'Admin') {
-                    return ref.watch(onBoardingProvider).when(
-                          data: (onBoarding) => onBoarding
-                              ? const RestaurantInfo()
-                              : const OnboardingScreen(),
-                          error: (e, s) => Text(e.toString()),
-                          loading: () => const CustomProgressIndicator(),
-                        );
-                  } else {
-                    return const LoginScreen();
+          final asyncType = ref.watch(futureUserTypeProvider);
+          return asyncType.when(
+            data: (type) {
+              switch (type) {
+                case 'Restaurant':
+                  return const RestaurantTables();
+                case 'Admin':
+                  if (data.emailVerified) {
+                    return ref.watch(onBoardingProvider)
+                        ? const RestaurantInfo()
+                        : const OnboardingScreen();
                   }
-                } else {
                   return const LoginScreen();
-                }
-              } else {
-                return const RestaurantTables();
+                case 'Customer':
+                  if (data.emailVerified) {
+                    return const RestaurantScreen();
+                  }
+                  return const LoginScreen();
+                default:
+                  return const LoginScreen();
               }
             },
-            loading: () => const Scaffold(
-              body: Center(child: CustomProgressIndicator()),
-            ),
-            error: (Object error, StackTrace? stackTrace) =>
-                const LoginScreen(),
+            error: (e, s) => const LoginScreen(),
+            loading: CustomProgressIndicator.new,
           );
         } else {
           return const LoginScreen();

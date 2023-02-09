@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/domain/models/menu_section_model.dart';
+import 'package:order_taker/presentation/providers/auth_provider.dart';
 
 import 'repository_providers.dart';
 
@@ -19,3 +20,19 @@ final restaurantTitleProvider = FutureProvider<String>(
         ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
       ),
 );
+final userTypeProvider = StateProvider.autoDispose<String>((ref) {
+  final asyncType = ref.watch(futureUserTypeProvider);
+  return asyncType.when(
+    data: (type) => type,
+    error: (e, s) => 'Error',
+    loading: () => 'Loading',
+  );
+});
+final onBoardingProvider = StateProvider<bool>((ref) {
+  final asyncType = ref.watch(futureOnBoardingProvider);
+  return asyncType.when(
+    data: (onBoarding) => onBoarding,
+    error: (e, s) => false,
+    loading: () => false,
+  );
+});

@@ -22,7 +22,7 @@ class MenuCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncType = ref.watch(userTypeProvider);
+    final asyncType = ref.watch(futureUserTypeProvider);
     final text = AppLocalizations.of(context)!;
     return asyncType.when(
       data: (type) => Padding(

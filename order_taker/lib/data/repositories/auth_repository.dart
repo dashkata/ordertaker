@@ -8,17 +8,25 @@ class AuthRepository {
 
   AuthRepository(this._firebaseAuth);
 
-  Stream<User?> get authStateChange => _firebaseAuth.authStateChanges();
+  Stream<User?> get authStateChange {
+    print('object');
+    return _firebaseAuth.authStateChanges();
+  }
 
   Future<void> signIn({
     required String email,
     required String password,
   }) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
+      final user = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      // if (user.user. != null) {
+      //   if (!user.user!.emailVerified) {
+      //     throw 'User email not verified.';
+      //   }
+      // }
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'wrong-password':

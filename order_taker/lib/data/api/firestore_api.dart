@@ -312,6 +312,7 @@ class API {
 
   Future<String> fetchUserType(String uid) async {
     final userRef = await database.doc(FirestorePath.user(uid)).get();
+    print(userRef.get('type'));
     return userRef.get('type');
   }
 
