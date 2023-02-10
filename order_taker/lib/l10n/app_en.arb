@@ -26,7 +26,7 @@
     "change_name" : "Change name",
     "change_mobile_number" : "Change mobile number",
     "change_email_address" : "Change email addresss",
-    "enter_your_new_password" : "Enter your new password",
+    "enter_your_new_password" : "Change password",
     "email_changed_to" :  "Your email will be changed to",
     "verify_email" : "If you are sure about the change, go to the new email and verify it.",
     "first_name" : "First Name",

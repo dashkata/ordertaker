@@ -20,18 +20,36 @@ part 'widgets/bottom_navbar.dart';
 part 'widgets/menu_section.dart';
 part 'widgets/order_fab.dart';
 
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends ConsumerWidget {
   const MenuScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final text = AppLocalizations.of(context)!;
     final reservation =
         ModalRoute.of(context)!.settings.arguments as Reservation;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
-      floatingActionButton: _OrderFAB(
-        reservation: reservation,
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 20.0,
+            ),
+            child: IconButton(
+              onPressed: () => ref
+                  .read(menuViewModelProvider.notifier)
+                  .navigateToReservation(),
+              icon: const Icon(
+                Icons.arrow_back_ios,
+              ),
+            ),
+          ),
+          _OrderFAB(
+            reservation: reservation,
+          ),
+        ],
       ),
       bottomNavigationBar: SectionNavBar(
         reservation: reservation,

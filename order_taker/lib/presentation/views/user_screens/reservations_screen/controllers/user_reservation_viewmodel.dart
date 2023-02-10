@@ -32,7 +32,7 @@ class UserReservationViewModel extends StateNotifier<void> {
       reservation,
       _authRepository.getCurrentUser()!.uid,
     )) {
-      await navigatorKey.currentState!.popAndPushNamed(
+      await navigatorKey.currentState!.pushReplacementNamed(
         Routes.userMenu,
         arguments: reservation,
       );

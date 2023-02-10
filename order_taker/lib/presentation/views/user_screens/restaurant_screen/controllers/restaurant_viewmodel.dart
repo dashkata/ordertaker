@@ -11,10 +11,13 @@ import '../../confirm_reservation_screen/confirm_reservation_arguments.dart';
 import '../../confirm_reservation_screen/controllers/confirm_reservation_providers.dart';
 import 'restaurant_screen_providers.dart';
 
-class RestaurantScreenViewModel extends StateNotifier<void> {
-  RestaurantScreenViewModel() : super(null);
+class RestaurantScreenViewModel extends AutoDisposeNotifier<void> {
+  RestaurantScreenViewModel() : super();
 
-  bool _timeValidation(Restaurant restaurant, DateTime dateTime) {
+  bool _timeValidation({
+    required Restaurant restaurant,
+    required DateTime dateTime,
+  }) {
     final String openHour =
         restaurant.openHours.replaceAll(' ', '').split('-')[0];
     final String closeHour =
@@ -37,8 +40,8 @@ class RestaurantScreenViewModel extends StateNotifier<void> {
     return false;
   }
 
-  Future<void> showDateTimePicker(
-      BuildContext context, WidgetRef ref, Restaurant restaurant) async {
+  Future<void> showDateTimePicker({required Restaurant restaurant}) async {
+    final context = navigatorKey.currentState!.context;
     final text = AppLocalizations.of(context)!;
     final userDate = await showDatePicker(
       context: context,
@@ -57,8 +60,8 @@ class RestaurantScreenViewModel extends StateNotifier<void> {
       );
       if (userTime != null &&
           _timeValidation(
-            restaurant,
-            DateTime(
+            restaurant: restaurant,
+            dateTime: DateTime(
               userDate.year,
               userDate.month,
               userDate.day,
@@ -95,10 +98,9 @@ class RestaurantScreenViewModel extends StateNotifier<void> {
     return;
   }
 
-  Future<void> navigateToConfirm(
-    Restaurant restaurant,
-    WidgetRef ref,
-  ) async {
+  Future<void> navigateToConfirm({
+    required Restaurant restaurant,
+  }) async {
     await navigatorKey.currentState!.pushNamed(
       Routes.userConfirmReserveration,
       arguments: ConfirmReservationArguments(
@@ -111,20 +113,26 @@ class RestaurantScreenViewModel extends StateNotifier<void> {
     );
   }
 
-  void showDetailsDialog(
-    BuildContext context,
-    Widget alertDialog,
-  ) {
+  void showDetailsDialog({
+    required Widget alertDialog,
+  }) {
     showDialog(
-      context: context,
+      context: navigatorKey.currentState!.context,
       builder: (BuildContext context) => alertDialog,
     );
   }
 
-  void navigateToRestaurantInfo({required Restaurant restaurant}) {
-    navigatorKey.currentState!.pushNamed(
+  Future<void> navigateToRestaurantInfo({
+    required Restaurant restaurant,
+  }) async {
+    await navigatorKey.currentState!.pushNamed(
       Routes.ownerRestaurantInfo,
       arguments: restaurant,
     );
+  }
+
+  @override
+  void build() {
+    // TODO: implement build
   }
 }

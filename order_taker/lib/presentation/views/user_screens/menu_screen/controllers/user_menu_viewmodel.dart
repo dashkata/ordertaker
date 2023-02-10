@@ -28,6 +28,11 @@ class UserMenuViewModel extends StateNotifier<void> {
     );
   }
 
+  void navigateToReservation() =>
+      navigatorKey.currentState!.pushReplacementNamed(
+        Routes.userReservations,
+      );
+
   void navigateToBill(Reservation reservation) {
     navigatorKey.currentState!.pushReplacementNamed(
       Routes.userBill,

@@ -49,18 +49,14 @@ class _ProfileListTile extends ConsumerWidget {
       trailing: IconButton(
         icon: const Icon(Icons.edit),
         color: accentBlackColor,
-        onPressed: () async {
-          await ref
-              .read(userProfileViewModelProvider.notifier)
-              .updateUserDetails(
-                ref,
-                detail,
-                context,
-                text,
-                detailType,
-                changeProvider,
-              );
-        },
+        onPressed: () async => await ref
+            .read(userProfileViewModelProvider.notifier)
+            .updateUserDetails(
+              detail,
+              text,
+              detailType,
+              changeProvider,
+            ),
       ),
     );
   }

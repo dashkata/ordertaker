@@ -107,27 +107,19 @@ class AuthRepository {
     }
   }
 
-  Future<String> updateProfilePic({required String photoURL}) async {
-    await _firebaseAuth.currentUser?.updatePhotoURL(photoURL);
-
-    return 'Picture chaned succesfully';
-  }
+  Future<void> updateProfilePic({required String photoURL}) async =>
+      await _firebaseAuth.currentUser?.updatePhotoURL(photoURL);
 
   Future<void> updateUserName({
     required String name,
-  }) async {
-    await _firebaseAuth.currentUser?.updateDisplayName(name);
-  }
+  }) async =>
+      await _firebaseAuth.currentUser?.updateDisplayName(name);
 
-  Future<String> updatePassword({required String passowrd}) async {
-    await _firebaseAuth.currentUser?.updatePassword(passowrd);
-    return 'Password changed Succsefully';
-  }
+  Future<void> updatePassword({required String passowrd}) async =>
+      await _firebaseAuth.currentUser?.updatePassword(passowrd);
 
-  Future<String> updateEmail({required String email}) async {
-    await _firebaseAuth.currentUser?.verifyBeforeUpdateEmail(email);
-    return 'Email changed succesfully to: $email, please verify the new email address.';
-  }
+  Future<void> updateEmail({required String email}) async =>
+      await _firebaseAuth.currentUser?.verifyBeforeUpdateEmail(email);
 
   User? getCurrentUser() => _firebaseAuth.currentUser;
 

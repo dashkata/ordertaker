@@ -17,7 +17,7 @@ final emailChangeProvider = StateProvider.autoDispose((ref) => false);
 
 final phoneChangeProvider = StateProvider.autoDispose((ref) => false);
 
-final changeControllerProvider = StateProvider.autoDispose((ref) => '');
+final changeControllerProvider = StateProvider((ref) => '');
 
 final picProvider = FutureProvider.autoDispose<String?>((ref) async {
   final storage = ref.watch(storageRepositoryProvider);
@@ -26,17 +26,8 @@ final picProvider = FutureProvider.autoDispose<String?>((ref) async {
   );
 });
 final userProfileViewModelProvider =
-    StateNotifierProvider.autoDispose<UserProfileViewModel, void>(
-  (ref) => UserProfileViewModel(
-    authRepository: ref.watch(authRepositoryProvider),
-    userRepo: ref.watch(
-      userRepositoryProvider,
-    ),
-    restaurantRepo: ref.watch(restaurantRepositoryProvider),
-    storageRepository: ref.watch(
-      storageRepositoryProvider,
-    ),
-  ),
+    AsyncNotifierProvider.autoDispose<UserProfileViewModel, void>(
+  UserProfileViewModel.new,
 );
 final restaurantEmailProvider = FutureProvider.autoDispose<String?>(
   (ref) => ref.read(restaurantRepositoryProvider).getRestauarntEmail(

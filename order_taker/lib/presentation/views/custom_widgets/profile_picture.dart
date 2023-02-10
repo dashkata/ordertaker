@@ -13,15 +13,14 @@ class CustomProfilePicture extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final photoURL =
-        ref.read(authRepositoryProvider).getCurrentUser()!.photoURL;
+        ref.watch(authRepositoryProvider).getCurrentUser()?.photoURL;
     if (photoURL != null) {
       return CachedNetworkImage(
-        imageUrl: ref.read(authRepositoryProvider).getCurrentUser()!.photoURL!,
+        imageUrl: photoURL,
         imageBuilder: (context, url) => CircleAvatar(
           backgroundImage: url,
           radius: radius,
         ),
-        placeholder: (context, url) => const CircularProgressIndicator(),
         errorWidget: (context, url, error) => CircleAvatar(
           backgroundImage: const AssetImage('assets/noavatar.png'),
           radius: radius,

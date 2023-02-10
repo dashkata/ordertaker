@@ -59,9 +59,13 @@ class _DetailsSection extends ConsumerWidget {
                     );
                   },
                 ),
-                AddressButton(
-                  restaurant: restaurant,
-                  admin: admin,
+                Row(
+                  children: [
+                    AddressButton(
+                      restaurant: restaurant,
+                      admin: admin,
+                    ),
+                  ],
                 ),
                 _DescriptionIcon(
                   information: restaurant.website,
