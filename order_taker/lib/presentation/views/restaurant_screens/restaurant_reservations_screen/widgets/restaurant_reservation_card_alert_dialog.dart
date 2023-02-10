@@ -33,8 +33,8 @@ class CardAlertDialog extends ConsumerWidget {
                     restaurantReservationsViewModelProvider.notifier,
                   )
                   .setCurrentReservation(
-                    reservation,
-                    args,
+                    reservation: reservation,
+                    restaurantOrderArguments: args,
                   );
               navigatorKey.currentState!.pop();
             },

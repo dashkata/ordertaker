@@ -22,7 +22,7 @@ class AddMenuButton extends ConsumerWidget {
       buttonText: text.add_menu_item,
       buttonFunc: () =>
           ref.read(onBoardingViewModelProvider.notifier).addMenuDialog(
-                CustomAlertDialog(
+                alertDialog: CustomAlertDialog(
                   title: Center(
                     child: Text(
                       text.add_menu_item,
@@ -31,7 +31,6 @@ class AddMenuButton extends ConsumerWidget {
                   ),
                   content: const _AlertDialogBody(),
                 ),
-                context,
               ),
     );
   }
@@ -116,8 +115,7 @@ class _AlertDialogBody extends ConsumerWidget {
               onPressed: () async => await ref
                   .read(onBoardingViewModelProvider.notifier)
                   .pickItemImage(
-                    context,
-                    const _ImageAlertDialog(),
+                    content: const _ImageAlertDialog(),
                   ),
               child: Text(
                 text.picture_menu_item,
@@ -129,7 +127,7 @@ class _AlertDialogBody extends ConsumerWidget {
             buttonText: text.submit,
             buttonFunc: () async {
               await ref.read(onBoardingViewModelProvider.notifier).addMenuItem(
-                    OrderItem(
+                    orderItem: OrderItem(
                       itemType: itemType,
                       itemTitle: itemTitle,
                       itemIngredients: itemIngredients,
@@ -162,9 +160,9 @@ class _ImageAlertDialog extends ConsumerWidget {
             title: Text(text.camera),
             onTap: () async {
               await ref.read(onBoardingViewModelProvider.notifier).addItemImage(
-                    ImageTypes.camera,
-                    ref,
-                    ref.read(
+                    imageTypes: ImageTypes.camera,
+                    ref: ref,
+                    itemName: ref.read(
                       itemTitleProvider,
                     ),
                   );
@@ -176,9 +174,9 @@ class _ImageAlertDialog extends ConsumerWidget {
             title: Text(text.browse_gallery),
             onTap: () async {
               await ref.read(onBoardingViewModelProvider.notifier).addItemImage(
-                    ImageTypes.gallery,
-                    ref,
-                    ref.read(
+                    imageTypes: ImageTypes.gallery,
+                    ref: ref,
+                    itemName: ref.read(
                       itemTitleProvider,
                     ),
                   );

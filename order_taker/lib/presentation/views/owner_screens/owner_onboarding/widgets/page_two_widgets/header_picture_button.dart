@@ -9,7 +9,7 @@ class _HeaderPictureButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => TextButton(
         onPressed: () async => await ref
             .read(onBoardingViewModelProvider.notifier)
-            .addRestaurantPicture(ref),
+            .addRestaurantPicture(ref: ref),
         child: Text(
           'Add restaurant header picture',
           style: Theme.of(context).textTheme.headline1,

@@ -19,12 +19,11 @@ class _OrderFAB extends StatelessWidget {
             backgroundColor: complementaryColor,
             onPressed: () =>
                 ref.read(menuViewModelProvider.notifier).showOrderFABDialog(
-                      const _OrderFABContent(),
-                      [
+                      content: const _OrderFABContent(),
+                      actions: [
                         _OrderFABActions(reservation: reservation),
                       ],
-                      const _OrderFABTitle(),
-                      context,
+                      title: const _OrderFABTitle(),
                     ),
             elevation: 10,
             child: Text(

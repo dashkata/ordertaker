@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/data/repositories/auth_repository.dart';
 import 'package:order_taker/domain/repositories/user_repo.dart';
@@ -27,14 +26,13 @@ class UserRegisterViewModel extends StateNotifier<void> {
     navigatorKey.currentState!.pushReplacementNamed(Routes.login);
   }
 
-  Future<void> register(
-    String email,
-    String password,
-    String mobileNumber,
-    String firstName,
-    String lastName,
-    BuildContext context,
-  ) async {
+  Future<void> register({
+    required String email,
+    required String password,
+    required String mobileNumber,
+    required String firstName,
+    required String lastName,
+  }) async {
     await _authRepository
         .signUp(
           email: email,

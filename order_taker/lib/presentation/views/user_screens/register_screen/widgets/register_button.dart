@@ -38,12 +38,11 @@ class _RegisterButton extends ConsumerWidget {
                   userRegisterViewModelProvider.notifier,
                 )
                 .register(
-                  email,
-                  password,
-                  mobileNumber,
-                  firstName,
-                  lastName,
-                  context,
+                  email: email,
+                  password: password,
+                  mobileNumber: mobileNumber,
+                  firstName: firstName,
+                  lastName: lastName,
                 )
                 .then(
                   (value) => ScaffoldMessenger.of(context).showSnackBar(

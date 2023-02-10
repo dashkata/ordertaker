@@ -35,7 +35,7 @@ class DialogContent extends ConsumerWidget {
               onTap: () => ref
                   .read(userProfileViewModelProvider.notifier)
                   .changeProfileImage(
-                    ImageTypes.camera,
+                    imageType: ImageTypes.camera,
                   ),
             ),
             ListTile(
@@ -44,7 +44,7 @@ class DialogContent extends ConsumerWidget {
               onTap: () => ref
                   .read(userProfileViewModelProvider.notifier)
                   .changeProfileImage(
-                    ImageTypes.gallery,
+                    imageType: ImageTypes.gallery,
                   ),
             ),
           ],

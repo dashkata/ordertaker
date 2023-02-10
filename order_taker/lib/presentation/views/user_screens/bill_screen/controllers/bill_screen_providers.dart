@@ -25,6 +25,7 @@ final reviewMessageProvider = StateProvider.autoDispose<String>((ref) => '');
 final reviewRatingProvider = StateProvider.autoDispose<double>((ref) => 0);
 final totalPriceProvider =
     StateProvider.family.autoDispose<String, List<UserOrder>>(
-  (ref, orders) =>
-      ref.read(billScreenViewModelProvider.notifier).getTotalPrice(orders),
+  (ref, orders) => ref.read(billScreenViewModelProvider.notifier).getTotalPrice(
+        orders: orders,
+      ),
 );

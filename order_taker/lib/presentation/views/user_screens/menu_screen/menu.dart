@@ -25,7 +25,6 @@ class MenuScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final text = AppLocalizations.of(context)!;
     final reservation =
         ModalRoute.of(context)!.settings.arguments as Reservation;
     return Scaffold(

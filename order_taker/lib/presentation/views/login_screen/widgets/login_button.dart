@@ -25,9 +25,8 @@ class LoginButton extends ConsumerWidget {
             await ref
                 .read(loginViewModelProvider.notifier)
                 .login(
-                  email,
-                  password,
-                  context,
+                  email: email,
+                  password: password,
                 )
                 .catchError(
                   (e) => showDialog(

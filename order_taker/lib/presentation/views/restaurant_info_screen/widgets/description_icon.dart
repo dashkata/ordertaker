@@ -73,9 +73,9 @@ class _DescriptionIcon extends ConsumerWidget {
                   onEditingComplete: () => ref
                       .read(restaurantInfoControllerProvider.notifier)
                       .submitRestaurantDetails(
-                        restaurantDetailsType,
-                        controller.value.text,
-                        restaurantTitle,
+                        restaurantDetailsType: restaurantDetailsType,
+                        updateInfo: controller.value.text,
+                        restaurantTitle: restaurantTitle,
                       ),
                   readOnly: !admin,
                   enabled: admin,

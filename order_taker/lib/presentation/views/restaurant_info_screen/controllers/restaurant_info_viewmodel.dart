@@ -16,11 +16,11 @@ class RestaurantInfoViewModel extends StateNotifier<void> {
         super(null);
   final RestaurantRepo _restaurantRepo;
 
-  void submitRestaurantDetails(
-    RestaurantDetailsType restaurantDetailsType,
-    String updateInfo,
-    String restaurantTitle,
-  ) {
+  void submitRestaurantDetails({
+    required RestaurantDetailsType restaurantDetailsType,
+    required String updateInfo,
+    required String restaurantTitle,
+  }) {
     _restaurantRepo.updateRestaurantInformation(
       updateInfo,
       restaurantTitle,
@@ -28,7 +28,9 @@ class RestaurantInfoViewModel extends StateNotifier<void> {
     );
   }
 
-  Future<void> launchMapWithAddress(String address) async {
+  Future<void> launchMapWithAddress({
+    required String address,
+  }) async {
     final List<Location> locations = await locationFromAddress(address);
     final availableMaps = await MapLauncher.installedMaps;
     await showModalBottomSheet(
@@ -58,7 +60,9 @@ class RestaurantInfoViewModel extends StateNotifier<void> {
     );
   }
 
-  Future<void> launchWebsite(String website) async {
+  Future<void> launchWebsite({
+    required String website,
+  }) async {
     if (website.contains('https://')) {
       await launchUrl(Uri.parse(website));
     } else {
@@ -70,7 +74,9 @@ class RestaurantInfoViewModel extends StateNotifier<void> {
     }
   }
 
-  Future<void> callPhoneNumber(String phoneNumber) async {
+  Future<void> callPhoneNumber({
+    required String phoneNumber,
+  }) async {
     await launchUrl(
       Uri(
         scheme: 'tel',

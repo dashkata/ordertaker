@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/data/repositories/auth_repository.dart';
 
@@ -14,11 +13,10 @@ class LoginViewModel extends StateNotifier<void> {
     navigatorKey.currentState!.pushReplacementNamed(Routes.register);
   }
 
-  Future<void> login(
-    String email,
-    String password,
-    BuildContext context,
-  ) async {
+  Future<void> login({
+    required String email,
+    required String password,
+  }) async {
     await _authRepository.signIn(
       email: email,
       password: password,

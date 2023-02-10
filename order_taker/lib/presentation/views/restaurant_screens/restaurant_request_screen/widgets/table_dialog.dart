@@ -72,8 +72,8 @@ class _TableDialogActions extends ConsumerWidget {
                       await ref
                           .read(restaurantRequestViewModelProvider.notifier)
                           .requestStats(
-                            RequestStatus.approved,
-                            Reservation(
+                            requestStatus: RequestStatus.approved,
+                            reservation: Reservation(
                               userId: reservation.userId,
                               name: reservation.name,
                               restaurant: reservation.restaurant,

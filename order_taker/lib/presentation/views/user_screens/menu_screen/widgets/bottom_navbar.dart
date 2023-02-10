@@ -13,7 +13,7 @@ class SectionNavBar extends ConsumerWidget {
       case 0:
         ref
             .read(billScreenViewModelProvider.notifier)
-            .navigateToMenu(reservation);
+            .navigateToMenu(reservation: reservation);
         break;
       case 1:
         ref.read(menuViewModelProvider.notifier).navigateToBill(reservation);

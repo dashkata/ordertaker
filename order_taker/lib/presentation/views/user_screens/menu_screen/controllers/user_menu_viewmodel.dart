@@ -9,14 +9,13 @@ import '../../../resources/route_manager.dart';
 class UserMenuViewModel extends StateNotifier<void> {
   UserMenuViewModel() : super(null);
 
-  Future<void> showOrderFABDialog(
-    Widget content,
-    List<Widget> actions,
-    Widget title,
-    BuildContext context,
-  ) async {
+  Future<void> showOrderFABDialog({
+    required Widget content,
+    required List<Widget> actions,
+    required Widget title,
+  }) async {
     await showDialog(
-      context: context,
+      context: navigatorKey.currentState!.context,
       builder: (context) => Padding(
         padding: PaddingManager.p8,
         child: CustomAlertDialog(

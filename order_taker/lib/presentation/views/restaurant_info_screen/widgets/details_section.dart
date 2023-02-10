@@ -50,9 +50,10 @@ class _DetailsSection extends ConsumerWidget {
                       onEditingComplete: () => ref
                           .read(restaurantInfoControllerProvider.notifier)
                           .submitRestaurantDetails(
-                            RestaurantDetailsType.address,
-                            controller.value.text,
-                            restaurant.title,
+                            restaurantDetailsType:
+                                RestaurantDetailsType.address,
+                            updateInfo: controller.value.text,
+                            restaurantTitle: restaurant.title,
                           ),
                       enabled: admin,
                       textInputAction: TextInputAction.done,
@@ -77,7 +78,7 @@ class _DetailsSection extends ConsumerWidget {
                   onTap: () => ref
                       .read(restaurantInfoControllerProvider.notifier)
                       .launchWebsite(
-                        restaurant.website,
+                        website: restaurant.website,
                       ),
                 ),
                 _DescriptionIcon(
@@ -90,7 +91,7 @@ class _DetailsSection extends ConsumerWidget {
                   onTap: () => ref
                       .read(restaurantInfoControllerProvider.notifier)
                       .callPhoneNumber(
-                        restaurant.phoneNumber,
+                        phoneNumber: restaurant.phoneNumber,
                       ),
                 ),
                 _DescriptionIcon(

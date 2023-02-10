@@ -39,24 +39,31 @@ class OnBoardingViewModel extends StateNotifier<void> {
 
   List<String> get dropDownItems => _dropDownItems;
 
-  void addMenuDialog(Widget alertDialog, BuildContext context) {
-    showDialog(context: context, builder: (_) => alertDialog);
+  void addMenuDialog({
+    required Widget alertDialog,
+  }) {
+    showDialog(
+      context: navigatorKey.currentState!.context,
+      builder: (_) => alertDialog,
+    );
   }
 
-  Future<void> pickItemImage(BuildContext context, Widget content) async {
+  Future<void> pickItemImage({
+    required Widget content,
+  }) async {
     await showDialog(
-      context: context,
+      context: navigatorKey.currentState!.context,
       builder: (_) => CustomAlertDialog(
         content: content,
       ),
     );
   }
 
-  Future<void> addItemImage(
-    ImageTypes imageTypes,
-    WidgetRef ref,
-    String itemName,
-  ) async {
+  Future<void> addItemImage({
+    required ImageTypes imageTypes,
+    required WidgetRef ref,
+    required String itemName,
+  }) async {
     XFile? image;
     switch (imageTypes) {
       case ImageTypes.camera:
@@ -81,9 +88,9 @@ class OnBoardingViewModel extends StateNotifier<void> {
     }
   }
 
-  Future<void> addMenuItem(
-    OrderItem orderItem,
-  ) async {
+  Future<void> addMenuItem({
+    required OrderItem orderItem,
+  }) async {
     await _menuRepo.addMenuItem(
       orderItem,
       await _restaurantRepo.fetchRestaurantTitle(
@@ -92,7 +99,9 @@ class OnBoardingViewModel extends StateNotifier<void> {
     );
   }
 
-  Future<void> addRestaurantPicture(WidgetRef ref) async {
+  Future<void> addRestaurantPicture({
+    required WidgetRef ref,
+  }) async {
     final XFile? image =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image != null) {
@@ -111,7 +120,9 @@ class OnBoardingViewModel extends StateNotifier<void> {
     }
   }
 
-  Future<void> submitRestaurantDetails(WidgetRef ref) async {
+  Future<void> submitRestaurantDetails({
+    required WidgetRef ref,
+  }) async {
     final String title = await _restaurantRepo.fetchRestaurantTitle(
       _authRepository.getCurrentUser()!.uid,
     );

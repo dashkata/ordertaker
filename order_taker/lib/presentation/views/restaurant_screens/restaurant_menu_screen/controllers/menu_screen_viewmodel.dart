@@ -22,10 +22,10 @@ class RestaurantMenuViewModel extends StateNotifier<void> {
   final MenuRepo _menuRepo;
   final AuthRepository _authRepository;
 
-  Future<void> statusDialog(
-    Widget title,
-    Widget content,
-  ) async {
+  Future<void> statusDialog({
+    required Widget title,
+    required Widget content,
+  }) async {
     await showDialog(
       context: navigatorKey.currentState!.overlay!.context,
       builder: (_) => CustomAlertDialog(
@@ -35,10 +35,10 @@ class RestaurantMenuViewModel extends StateNotifier<void> {
     );
   }
 
-  Future<void> removeItemDialog(
-    Widget title,
-    Widget content,
-  ) async {
+  Future<void> removeItemDialog({
+    required Widget title,
+    required Widget content,
+  }) async {
     await showDialog(
       context: navigatorKey.currentState!.overlay!.context,
       builder: (_) => CustomAlertDialog(

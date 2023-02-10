@@ -36,9 +36,9 @@ class AddressButton extends ConsumerWidget {
             onEditingComplete: () => ref
                 .read(restaurantInfoControllerProvider.notifier)
                 .submitRestaurantDetails(
-                  RestaurantDetailsType.address,
-                  controller.value.text,
-                  restaurant.title,
+                  restaurantDetailsType: RestaurantDetailsType.address,
+                  updateInfo: controller.value.text,
+                  restaurantTitle: restaurant.title,
                 ),
             enabled: admin,
             textInputAction: TextInputAction.done,
@@ -50,7 +50,7 @@ class AddressButton extends ConsumerWidget {
                 ref
                     .read(restaurantInfoControllerProvider.notifier)
                     .launchMapWithAddress(
-                      restaurant.address,
+                      address: restaurant.address,
                     );
               },
               child: Text(

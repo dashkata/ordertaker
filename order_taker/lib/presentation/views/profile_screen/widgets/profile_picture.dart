@@ -59,9 +59,8 @@ class _ContainerPicture extends StatelessWidget {
                   onPressed: () => ref
                       .read(userProfileViewModelProvider.notifier)
                       .showPicDialog(
-                        _DialogTitle(text: text),
-                        DialogContent(text: text),
-                        context,
+                        title: _DialogTitle(text: text),
+                        content: DialogContent(text: text),
                       ),
                 ),
               ),

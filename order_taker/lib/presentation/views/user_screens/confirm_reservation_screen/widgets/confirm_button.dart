@@ -19,7 +19,7 @@ class _ConfirmButton extends ConsumerWidget {
           buttonFunc: () => ref
               .read(userConfirmReservationViewModelProvider.notifier)
               .addReservation(
-                Reservation(
+                reservation: Reservation(
                   name: name,
                   restaurant: reservationInfo.restaurant.title,
                   date: '${ref.read(confirmDateProvider)} '

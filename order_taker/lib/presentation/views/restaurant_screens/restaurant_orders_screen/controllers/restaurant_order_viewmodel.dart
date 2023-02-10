@@ -14,10 +14,12 @@ class RestaurantOrderViewModel extends StateNotifier<void> {
         super(null);
   final OrderRepo _orderRepo;
 
-  void seeAdditionalMessages(BuildContext context, String additionalMessage) {
-    final text = AppLocalizations.of(context)!;
+  void seeAdditionalMessages({
+    required String additionalMessage,
+    required AppLocalizations text,
+  }) {
     showDialog(
-      context: context,
+      context: navigatorKey.currentState!.context,
       builder: (BuildContext context) => CustomAlertDialog(
         title: Text(
           text.additional_messages,
@@ -36,12 +38,12 @@ class RestaurantOrderViewModel extends StateNotifier<void> {
     );
   }
 
-  Future<void> showStatusDialog(
-    int orderId,
-    Widget orderStatusTitle,
-    Widget orderStatusContent,
-    int tableId,
-  ) async {
+  Future<void> showStatusDialog({
+    required int orderId,
+    required Widget orderStatusTitle,
+    required Widget orderStatusContent,
+    required int tableId,
+  }) async {
     await showDialog(
       context: navigatorKey.currentState!.context,
       builder: (BuildContext context) => CustomAlertDialog(
@@ -51,12 +53,12 @@ class RestaurantOrderViewModel extends StateNotifier<void> {
     );
   }
 
-  Future<void> updateOrderStatus(
-    int orderId,
-    int tableId,
-    OrderStatus orderStatus,
-    String title,
-  ) async {
+  Future<void> updateOrderStatus({
+    required int orderId,
+    required int tableId,
+    required OrderStatus orderStatus,
+    required String title,
+  }) async {
     await _orderRepo.updateOrderStatus(
       orderId,
       orderStatus.name,
@@ -71,7 +73,9 @@ class RestaurantOrderViewModel extends StateNotifier<void> {
     navigatorKey.currentState!.popAndPushNamed(Routes.restaurantTables);
   }
 
-  void navigateToReservations(RestaurantOrderArguments arguments) {
+  void navigateToReservations({
+    required RestaurantOrderArguments arguments,
+  }) {
     navigatorKey.currentState!.popAndPushNamed(
       Routes.restaurantReservations,
       arguments: arguments,

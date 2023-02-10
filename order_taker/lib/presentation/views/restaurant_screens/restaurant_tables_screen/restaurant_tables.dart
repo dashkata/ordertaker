@@ -46,10 +46,10 @@ class RestaurantTables extends ConsumerWidget {
                                     restaurantTablesViewModelProvider.notifier,
                                   )
                                   .navigateToOrders(
-                                    int.parse(
+                                    tableId: int.parse(
                                       tables[index].replaceAll('Table ', ''),
                                     ),
-                                    title,
+                                    restaurantTitle: title,
                                   ),
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(

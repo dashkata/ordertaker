@@ -52,10 +52,10 @@ class _ProfileListTile extends ConsumerWidget {
         onPressed: () async => await ref
             .read(userProfileViewModelProvider.notifier)
             .updateUserDetails(
-              detail,
-              text,
-              detailType,
-              changeProvider,
+              detail: detail,
+              text: text,
+              detailType: detailType,
+              changeProvider: changeProvider,
             ),
       ),
     );

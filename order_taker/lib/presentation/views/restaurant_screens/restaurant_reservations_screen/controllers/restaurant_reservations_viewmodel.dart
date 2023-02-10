@@ -12,10 +12,10 @@ class RestaurantReservationsViewModel extends StateNotifier<void> {
         super(null);
   final ReservationRepo _reservationRepo;
 
-  Future<void> setCurrentReservation(
-    Reservation reservation,
-    RestaurantOrderArguments restaurantOrderArguments,
-  ) async {
+  Future<void> setCurrentReservation({
+    required Reservation reservation,
+    required RestaurantOrderArguments restaurantOrderArguments,
+  }) async {
     await _reservationRepo.setCurrentReservation(
       restaurantOrderArguments.restaurantTitle,
       restaurantOrderArguments.id,

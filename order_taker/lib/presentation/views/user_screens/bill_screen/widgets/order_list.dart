@@ -58,8 +58,8 @@ class OrdersList extends StatelessWidget {
                       ),
                       if (ref
                               .read(billScreenViewModelProvider.notifier)
-                              .getTotalPrice(orders) !=
-                          0.0)
+                              .getTotalPrice(orders: orders) !=
+                          '0.0')
                         Text(
                           '${text.total_price}: ${ref.watch(totalPriceProvider(orders))}',
                           style: Theme.of(context).textTheme.headline1,

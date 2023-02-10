@@ -63,8 +63,8 @@ class _OrderContainer extends ConsumerWidget {
               buttonFunc: () => ref
                   .read(restaurantOrderViewModelProvider.notifier)
                   .seeAdditionalMessages(
-                    context,
-                    order.additionalMessage,
+                    additionalMessage: order.additionalMessage,
+                    text: text,
                   ),
             ),
           ),
@@ -75,13 +75,14 @@ class _OrderContainer extends ConsumerWidget {
               buttonFunc: () async => await ref
                   .read(restaurantOrderViewModelProvider.notifier)
                   .showStatusDialog(
-                    order.id,
-                    _OrderStatusTitle(currentStatus: order.status),
-                    _OrderStatusContent(
+                    orderId: order.id,
+                    orderStatusTitle:
+                        _OrderStatusTitle(currentStatus: order.status),
+                    orderStatusContent: _OrderStatusContent(
                       orderId: order.id,
                       tableId: tableId,
                     ),
-                    tableId,
+                    tableId: tableId,
                   ),
             ),
           ),

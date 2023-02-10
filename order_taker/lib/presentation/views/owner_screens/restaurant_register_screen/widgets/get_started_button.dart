@@ -32,12 +32,12 @@ class _ConfirmButton extends ConsumerWidget {
                   restaurantRegisterViewModelProvider.notifier,
                 )
                 .signUp(
-                  firstName,
-                  lastName,
-                  email,
-                  password,
-                  phoneNumber,
-                  restaurantName,
+                  firstName: firstName,
+                  lastName: lastName,
+                  email: email,
+                  password: password,
+                  phoneNumber: phoneNumber,
+                  restaurantName: restaurantName,
                 )
                 .then(
               (value) {

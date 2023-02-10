@@ -19,14 +19,14 @@ class RestaurantRegisterViewModel extends StateNotifier<void> {
   final UserRepo _userRepo;
   final RestaurantRepo _restaurantRepo;
 
-  Future<void> signUp(
-    String firstName,
-    String lastName,
-    String email,
-    String password,
-    String phoneNumber,
-    String restaurantName,
-  ) async {
+  Future<void> signUp({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+    required String phoneNumber,
+    required String restaurantName,
+  }) async {
     await _authRepository
         .signUp(email: email, password: password)
         .then(

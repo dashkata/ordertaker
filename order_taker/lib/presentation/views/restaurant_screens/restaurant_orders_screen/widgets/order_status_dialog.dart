@@ -45,10 +45,10 @@ class _OrderStatusContent extends ConsumerWidget {
                 buttonFunc: () async => await ref
                     .read(restaurantOrderViewModelProvider.notifier)
                     .updateOrderStatus(
-                      orderId,
-                      tableId,
-                      OrderStatus.progress,
-                      title,
+                      orderId: orderId,
+                      tableId: tableId,
+                      orderStatus: OrderStatus.progress,
+                      title: title,
                     ),
               ),
               CustomButton(
@@ -56,10 +56,10 @@ class _OrderStatusContent extends ConsumerWidget {
                 buttonFunc: () async => await ref
                     .read(restaurantOrderViewModelProvider.notifier)
                     .updateOrderStatus(
-                      orderId,
-                      tableId,
-                      OrderStatus.completed,
-                      title,
+                      orderId: orderId,
+                      tableId: tableId,
+                      orderStatus: OrderStatus.completed,
+                      title: title,
                     ),
               ),
             ],

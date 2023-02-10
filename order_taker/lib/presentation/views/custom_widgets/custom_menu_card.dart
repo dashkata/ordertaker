@@ -40,8 +40,8 @@ class MenuCard extends ConsumerWidget {
                     ref
                         .read(restaurantMenuViewModelProvider.notifier)
                         .statusDialog(
-                          _StatusDialogTitle(text: text),
-                          _StatusDialogContent(
+                          title: _StatusDialogTitle(text: text),
+                          content: _StatusDialogContent(
                             text: text,
                             orderItem: orderItem,
                           ),
@@ -51,8 +51,8 @@ class MenuCard extends ConsumerWidget {
               : () => ref
                   .read(restaurantMenuViewModelProvider.notifier)
                   .removeItemDialog(
-                    _RemoveDialogTitle(text: text),
-                    _RemoveDialogContent(
+                    title: _RemoveDialogTitle(text: text),
+                    content: _RemoveDialogContent(
                       text: text,
                       orderItem: orderItem,
                     ),

@@ -16,7 +16,7 @@ class UserConfirmReservationViewModel extends StateNotifier<void> {
   final ReservationRepo _reservationRepo;
   final AuthRepository _authRepository;
 
-  void addReservation(Reservation reservation) {
+  void addReservation({required Reservation reservation}) {
     _reservationRepo.addReservation(
       _authRepository.getCurrentUser()!.uid,
       reservation,

@@ -15,9 +15,12 @@ import '../../resources/route_manager.dart';
 import 'profile_screen_providers.dart';
 
 class UserProfileViewModel extends AutoDisposeAsyncNotifier<void> {
-  void showPicDialog(Widget title, Widget content, BuildContext context) {
+  void showPicDialog({
+    required Widget title,
+    required Widget content,
+  }) {
     showDialog(
-      context: context,
+      context: navigatorKey.currentState!.context,
       builder: (BuildContext context) => CustomAlertDialog(
         title: title,
         content: content,
@@ -25,7 +28,10 @@ class UserProfileViewModel extends AutoDisposeAsyncNotifier<void> {
     );
   }
 
-  Future<void> showResetPasswordDialog(Widget title, Widget content) async {
+  Future<void> showResetPasswordDialog({
+    required Widget title,
+    required Widget content,
+  }) async {
     await showDialog(
       context: navigatorKey.currentState!.context,
       builder: (_) => CustomAlertDialog(
@@ -35,12 +41,12 @@ class UserProfileViewModel extends AutoDisposeAsyncNotifier<void> {
     );
   }
 
-  Future<void> updateUserDetails(
-    String detail,
-    AppLocalizations text,
-    UserDetails detailType,
-    AutoDisposeStateProvider<bool> changeProvider,
-  ) async {
+  Future<void> updateUserDetails({
+    required String detail,
+    required AppLocalizations text,
+    required UserDetails detailType,
+    required AutoDisposeStateProvider<bool> changeProvider,
+  }) async {
     final newDetail = ref.watch(changeControllerProvider);
     if (ref.watch(changeProvider)) {
       if (detail != newDetail && newDetail != '') {
@@ -106,9 +112,9 @@ class UserProfileViewModel extends AutoDisposeAsyncNotifier<void> {
         .update((state) => !ref.read(changeProvider));
   }
 
-  Future<void> changeProfileImage(
-    ImageTypes imageType,
-  ) async {
+  Future<void> changeProfileImage({
+    required ImageTypes imageType,
+  }) async {
     final ImagePicker imagePicker = ImagePicker();
     XFile? image;
     switch (imageType) {
@@ -141,10 +147,10 @@ class UserProfileViewModel extends AutoDisposeAsyncNotifier<void> {
     }
   }
 
-  Future<void> registerAccount(
-    String email,
-    String password,
-  ) async {
+  Future<void> registerAccount({
+    required String email,
+    required String password,
+  }) async {
     final restaurantTitle =
         await ref.read(restaurantRepositoryProvider).fetchRestaurantTitle(
               ref.read(authRepositoryProvider).getCurrentUser()!.uid,

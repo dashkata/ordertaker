@@ -34,11 +34,11 @@ class _AdminRestaurantCard extends ConsumerWidget {
                         await ref
                             .read(userProfileViewModelProvider.notifier)
                             .showResetPasswordDialog(
-                              Text(
+                              content: Text(
                                 text.reset_password,
                                 style: Theme.of(context).textTheme.headline5,
                               ),
-                              Text(
+                              title: Text(
                                 '${text.reset_link} $email',
                               ),
                             );
@@ -123,7 +123,10 @@ class _AlertDialogBody extends ConsumerWidget {
                 buttonFunc: () async {
                   await ref
                       .read(userProfileViewModelProvider.notifier)
-                      .registerAccount(email, password)
+                      .registerAccount(
+                        email: email,
+                        password: password,
+                      )
                       .onError(
                         (error, stackTrace) => ErrorAlertDialog(
                           errorMessage: error.toString(),

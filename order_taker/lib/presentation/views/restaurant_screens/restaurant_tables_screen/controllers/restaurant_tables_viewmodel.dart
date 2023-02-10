@@ -11,7 +11,10 @@ class RestaurantTablesViewModel extends StateNotifier<void> {
         super(null);
   final ReservationRepo _reservationRepo;
 
-  Future<void> navigateToOrders(int tableId, String restaurantTitle) async {
+  Future<void> navigateToOrders({
+    required int tableId,
+    required String restaurantTitle,
+  }) async {
     final currentRes = await _reservationRepo.checkForCurrentReservation(
       restaurantTitle,
       tableId,

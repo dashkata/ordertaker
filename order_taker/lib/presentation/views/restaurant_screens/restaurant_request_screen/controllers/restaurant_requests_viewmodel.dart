@@ -13,10 +13,10 @@ class RestaurantRequestsViewModel extends StateNotifier<void> {
         super(null);
   final ReservationRepo _reservationRepo;
 
-  Future<void> requestStats(
-    RequestStatus requestStatus,
-    Reservation reservation,
-  ) async {
+  Future<void> requestStats({
+    required RequestStatus requestStatus,
+    required Reservation reservation,
+  }) async {
     switch (requestStatus) {
       case RequestStatus.approved:
         await _reservationRepo.addApprovedReservation(reservation);
@@ -27,8 +27,11 @@ class RestaurantRequestsViewModel extends StateNotifier<void> {
     }
   }
 
-  Future<void> setTableDialog(
-      Widget title, Widget content, List<Widget> actions) async {
+  Future<void> setTableDialog({
+    required Widget title,
+    required Widget content,
+    required List<Widget> actions,
+  }) async {
     await showDialog(
       context: navigatorKey.currentState!.context,
       builder: (_) => CustomAlertDialog(

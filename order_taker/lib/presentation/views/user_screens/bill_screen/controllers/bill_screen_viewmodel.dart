@@ -21,14 +21,18 @@ class BillScreenViewModel extends StateNotifier<void> {
   final AuthRepository _authRepository;
   final ReservationRepo _reservationRepo;
 
-  void navigateToMenu(Reservation reservation) {
+  void navigateToMenu({
+    required Reservation reservation,
+  }) {
     navigatorKey.currentState!.pushReplacementNamed(
       Routes.userMenu,
       arguments: reservation,
     );
   }
 
-  String getTotalPrice(List<UserOrder> orders) {
+  String getTotalPrice({
+    required List<UserOrder> orders,
+  }) {
     double totalPrice = 0.0;
     String currency = '';
     for (final order in orders) {
@@ -45,11 +49,11 @@ class BillScreenViewModel extends StateNotifier<void> {
     return '${totalPrice.toStringAsFixed(2)} $currency';
   }
 
-  Future<void> pay(
-    Reservation reservation,
-    String reviewMessage,
-    double reviewRating,
-  ) async {
+  Future<void> pay({
+    required Reservation reservation,
+    required String reviewMessage,
+    required double reviewRating,
+  }) async {
     if (reviewMessage.isNotEmpty && reviewRating != 0) {
       await _reviewRepo.addRestaurantReview(
         reservation.restaurant,
