@@ -8,8 +8,8 @@ final restaurantListProvider = StreamProvider.autoDispose<List<Restaurant>>(
   (ref) => ref.watch(restaurantRepositoryProvider).fetchRestaurants(),
 );
 final restaurantViewModelProvider =
-    NotifierProvider.autoDispose<RestaurantScreenViewModel, void>(
-  RestaurantScreenViewModel.new,
+    StateNotifierProvider.autoDispose<RestaurantScreenViewModel, void>(
+  (ref) => RestaurantScreenViewModel(),
 );
 
 final userDateProvider = StateProvider<String>((ref) => '');

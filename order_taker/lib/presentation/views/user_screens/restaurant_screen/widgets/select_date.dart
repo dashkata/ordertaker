@@ -29,9 +29,11 @@ class _SelectDateWidget extends ConsumerWidget {
             userDateProvider,
           ),
         ),
-        onTap: () => ref
-            .read(restaurantViewModelProvider.notifier)
-            .showDateTimePicker(restaurant: restaurant),
+        onTap: () =>
+            ref.read(restaurantViewModelProvider.notifier).showDateTimePicker(
+                  restaurant: restaurant,
+                  ref: ref,
+                ),
       ),
     );
   }

@@ -17,17 +17,18 @@ class UserReservationViewModel extends StateNotifier<void> {
         _authRepository = authRepository,
         super(null);
 
-  Future<void> deleteReservation(
-    BuildContext context,
-    Widget cancelReservationDialog,
-  ) async {
+  Future<void> deleteReservation({
+    required Widget cancelReservationDialog,
+  }) async {
     await showDialog(
-      context: context,
+      context: navigatorKey.currentState!.context,
       builder: (_) => cancelReservationDialog,
     );
   }
 
-  Future<void> navigateToMenu(Reservation reservation) async {
+  Future<void> navigateToMenu({
+    required Reservation reservation,
+  }) async {
     if (await _reservationRepo.checkUserReservation(
       reservation,
       _authRepository.getCurrentUser()!.uid,

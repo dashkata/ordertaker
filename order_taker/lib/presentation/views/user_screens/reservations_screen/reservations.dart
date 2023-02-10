@@ -19,9 +19,7 @@ import '../../resources/style_manager.dart';
 import 'controllers/reservation_screen_providers.dart';
 
 part 'widget/cancel_reservation_dialog.dart';
-
 part 'widget/reservation_card.dart';
-
 part 'widget/title_column.dart';
 
 class ReservationScreen extends StatelessWidget {
@@ -56,24 +54,10 @@ class ReservationScreen extends StatelessWidget {
                         ),
                       ),
                     )
-                  // : Center(
-                  //     child: SingleChildScrollView(
-                  //       child: Column(
-                  //         mainAxisAlignment: MainAxisAlignment.end,
-                  //         mainAxisSize: MainAxisSize.min,
-                  //         children: [
-                  //           Text(
-                  //             'No reservations at the moment.',
-                  //             style: Theme.of(context).textTheme.headline5,
-                  //           ),
                   : SvgPicture.asset(
                       'assets/pizza_02.svg',
                       height: 20000,
                     ),
-              // ],
-              // ),
-              // ),
-              // ),
               error: (e, s) => ErrorAlertDialog(
                 errorMessage: e.toString(),
               ),

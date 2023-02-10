@@ -14,9 +14,10 @@ class _ReservationCard extends ConsumerWidget {
     return Padding(
       padding: PaddingManager.p11,
       child: GestureDetector(
-        onTap: () => ref
-            .read(reservationsViewModelProvider.notifier)
-            .navigateToMenu(reservation),
+        onTap: () =>
+            ref.read(reservationsViewModelProvider.notifier).navigateToMenu(
+                  reservation: reservation,
+                ),
         child: Card(
           color: complementaryColor,
           elevation: 10,
@@ -61,8 +62,7 @@ class _ReservationCard extends ConsumerWidget {
                   onPressed: () => ref
                       .watch(reservationsViewModelProvider.notifier)
                       .deleteReservation(
-                        context,
-                        _CancelReservationDialog(
+                        cancelReservationDialog: _CancelReservationDialog(
                           reservation: reservation,
                         ),
                       ),

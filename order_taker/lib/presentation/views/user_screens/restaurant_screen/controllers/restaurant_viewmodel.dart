@@ -11,8 +11,8 @@ import '../../confirm_reservation_screen/confirm_reservation_arguments.dart';
 import '../../confirm_reservation_screen/controllers/confirm_reservation_providers.dart';
 import 'restaurant_screen_providers.dart';
 
-class RestaurantScreenViewModel extends AutoDisposeNotifier<void> {
-  RestaurantScreenViewModel() : super();
+class RestaurantScreenViewModel extends StateNotifier<void> {
+  RestaurantScreenViewModel() : super(null);
 
   bool _timeValidation({
     required Restaurant restaurant,
@@ -40,7 +40,10 @@ class RestaurantScreenViewModel extends AutoDisposeNotifier<void> {
     return false;
   }
 
-  Future<void> showDateTimePicker({required Restaurant restaurant}) async {
+  Future<void> showDateTimePicker({
+    required Restaurant restaurant,
+    required WidgetRef ref,
+  }) async {
     final context = navigatorKey.currentState!.context;
     final text = AppLocalizations.of(context)!;
     final userDate = await showDatePicker(
@@ -100,6 +103,7 @@ class RestaurantScreenViewModel extends AutoDisposeNotifier<void> {
 
   Future<void> navigateToConfirm({
     required Restaurant restaurant,
+    required WidgetRef ref,
   }) async {
     await navigatorKey.currentState!.pushNamed(
       Routes.userConfirmReserveration,

@@ -48,6 +48,7 @@ class _DetailsDialog extends ConsumerWidget {
                         .read(restaurantViewModelProvider.notifier)
                         .navigateToConfirm(
                           restaurant: restaurant,
+                          ref: ref,
                         )
                     : null,
                 style: ElevatedButton.styleFrom(
