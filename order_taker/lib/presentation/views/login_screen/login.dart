@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/presentation/themes/themes.dart';
+import 'package:order_taker/presentation/views/login_screen/widgets/forgot_password_button.dart';
 
 import '../custom_widgets/custom_remove_focus.dart';
 import '../resources/padding_manager.dart';
@@ -43,7 +44,8 @@ class LoginScreen extends ConsumerWidget {
                                 height: 20,
                               ),
                               LoginButton(),
-                              RegisterButton()
+                              RegisterButton(),
+                              ForgotPasswordButton(),
                             ],
                           ),
                         ),

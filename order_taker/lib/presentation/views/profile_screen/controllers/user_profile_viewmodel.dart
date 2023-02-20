@@ -107,6 +107,7 @@ class UserProfileViewModel extends AutoDisposeAsyncNotifier<void> {
         }
       }
     }
+    ref.invalidate(changeControllerProvider);
     ref
         .read(changeProvider.notifier)
         .update((state) => !ref.read(changeProvider));
@@ -155,15 +156,18 @@ class UserProfileViewModel extends AutoDisposeAsyncNotifier<void> {
         await ref.read(restaurantRepositoryProvider).fetchRestaurantTitle(
               ref.read(authRepositoryProvider).getCurrentUser()!.uid,
             );
+    state = const AsyncLoading();
     await ref.read(authRepositoryProvider).adminSignUp(
           email: email,
           password: password,
           restaurantTitle: restaurantTitle,
         );
-    await ref.read(restaurantRepositoryProvider).setRestaurantEmail(
-          email,
-          ref.read(authRepositoryProvider).getCurrentUser()!.uid,
-        );
+    state = await AsyncValue.guard(
+      () => ref.read(restaurantRepositoryProvider).setRestaurantEmail(
+            email,
+            ref.read(authRepositoryProvider).getCurrentUser()!.uid,
+          ),
+    );
     scaffoldKey.currentState!.showSnackBar(
       const SnackBar(content: Text('Restaurant account added sucessfully')),
     );

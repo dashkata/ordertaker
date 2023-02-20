@@ -58,7 +58,9 @@ class MenuScreen extends ConsumerWidget {
         child: Consumer(
           builder: (context, ref, child) {
             final AsyncValue<List<MenuSection>> asyncMenu = ref.watch(
-              menuListProvider(reservation.restaurant),
+              menuListProvider(
+                reservation.restaurant.title,
+              ),
             );
             return asyncMenu.when(
               data: (menu) => SingleChildScrollView(

@@ -22,11 +22,6 @@ class AuthRepository {
         email: email,
         password: password,
       );
-      // if (user.user. != null) {
-      //   if (!user.user!.emailVerified) {
-      //     throw 'User email not verified.';
-      //   }
-      // }
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'wrong-password':
@@ -115,8 +110,27 @@ class AuthRepository {
   }) async =>
       await _firebaseAuth.currentUser?.updateDisplayName(name);
 
-  Future<void> updatePassword({required String passowrd}) async =>
+  Future<void> updatePassword({required String passowrd}) async {
+    try {
       await _firebaseAuth.currentUser?.updatePassword(passowrd);
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'weak-password':
+          throw 'The password you have entered is too weak, it must be at least 6 characters.';
+      }
+    }
+  }
+
+  Future<void> forgotPassword({required String email}) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'invalid-email':
+          throw 'Please enter a valid email address.';
+      }
+    }
+  }
 
   Future<void> updateEmail({required String email}) async =>
       await _firebaseAuth.currentUser?.verifyBeforeUpdateEmail(email);

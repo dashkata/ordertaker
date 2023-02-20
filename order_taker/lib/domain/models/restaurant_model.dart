@@ -40,4 +40,15 @@ class Restaurant {
         'photo': photo,
         'address': address,
       };
+
+  factory Restaurant.empty() => Restaurant(
+        title: '',
+        description: '',
+        openHours: '',
+        website: '',
+        phoneNumber: '',
+        paymentMethods: '',
+        photo: '',
+        address: '',
+      );
 }

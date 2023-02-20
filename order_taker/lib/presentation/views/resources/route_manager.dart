@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:order_taker/presentation/views/forgot_password/forgot_password.dart';
 
 import '../auth_screen/auth_checker_screen.dart';
 import '../login_screen/login.dart';
@@ -41,6 +42,7 @@ class Routes {
   static const String ownerOnboarding = 'onboarding';
   static const String ownerRestaurantInfo = 'owner_restaurant_info';
   static const String ownerEditAccounts = 'owner_edit_accounts';
+  static const String forgotPassword = 'forgot_password';
 }
 
 class AppRouter {
@@ -49,6 +51,10 @@ class AppRouter {
       case Routes.login:
         return MaterialPageRoute(
           builder: (_) => const LoginScreen(),
+        );
+      case Routes.forgotPassword:
+        return MaterialPageRoute(
+          builder: (_) => const ForgotPasswordScreen(),
         );
       case Routes.register:
         return MaterialPageRoute(

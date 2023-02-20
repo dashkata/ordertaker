@@ -126,7 +126,8 @@ class ProfileScreen extends ConsumerWidget {
                                     ? const _AdminRestaurantCard()
                                     : const SizedBox.shrink(),
                                 error: (e, s) => ErrorAlertDialog(
-                                    errorMessage: e.toString()),
+                                  errorMessage: e.toString(),
+                                ),
                                 loading: () => const CustomProgressIndicator(),
                               );
                             },

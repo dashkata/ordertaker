@@ -182,7 +182,7 @@ class API {
         database.collection(FirestorePath.userReservations(uid));
     final restaurantReservationRef = database.collection(
       FirestorePath.restaurantRequests(
-        reservation.restaurant,
+        reservation.restaurant.title,
       ),
     );
     await userReservationRef
@@ -201,7 +201,7 @@ class API {
     if (reservation.table != null) {
       final restaurantReservationRef = database.collection(
         FirestorePath.restaurantReservations(
-          reservation.restaurant,
+          reservation.restaurant.title,
           reservation.table!,
         ),
       );
@@ -211,7 +211,7 @@ class API {
     await database
         .doc(
           FirestorePath.restaurantRequest(
-            reservation.restaurant,
+            reservation.restaurant.title,
             reservation.userId,
             reservation.date,
           ),
@@ -228,7 +228,7 @@ class API {
       ReservationEntity reservation, String uid) async {
     final reservationRef = await database
         .doc(
-          '${FirestorePath.restaurantReservations(reservation.restaurant, reservation.table!)}/$uid - ${reservation.date}',
+          '${FirestorePath.restaurantReservations(reservation.restaurant.title, reservation.table!)}/$uid - ${reservation.date}',
         )
         .get();
     if (reservationRef.data() != null &&
@@ -244,7 +244,7 @@ class API {
           .doc(
         FirestorePath.restaurantTable(
           reservation.table!.toString(),
-          reservation.restaurant,
+          reservation.restaurant.title,
         ),
       )
           .set(
@@ -256,7 +256,7 @@ class API {
           .doc(
             FirestorePath.userReservation(
               reservation.userId,
-              reservation.restaurant,
+              reservation.restaurant.title,
               reservation.date,
             ),
           )
@@ -266,7 +266,7 @@ class API {
       await database
           .doc(
             FirestorePath.restaurantRequest(
-              reservation.restaurant,
+              reservation.restaurant.title,
               reservation.userId,
               reservation.date,
             ),
@@ -275,7 +275,7 @@ class API {
       await database
           .collection(
             FirestorePath.restaurantReservations(
-              reservation.restaurant,
+              reservation.restaurant.title,
               reservation.table!,
             ),
           )
@@ -549,7 +549,7 @@ class API {
     await database
         .doc(
           FirestorePath.restaurantRequest(
-            reservation.restaurant,
+            reservation.restaurant.title,
             reservation.userId,
             reservation.date,
           ),
@@ -559,7 +559,7 @@ class API {
         .doc(
           FirestorePath.userReservation(
             reservation.userId,
-            reservation.restaurant,
+            reservation.restaurant.title,
             reservation.date,
           ),
         )

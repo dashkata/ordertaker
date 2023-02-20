@@ -21,7 +21,7 @@ class _ConfirmButton extends ConsumerWidget {
               .addReservation(
                 reservation: Reservation(
                   name: name,
-                  restaurant: reservationInfo.restaurant.title,
+                  restaurant: reservationInfo.restaurant,
                   date: '${ref.read(confirmDateProvider)} '
                       '- ${ref.read(confirmTimeProvider)}',
                   numberOfPeople: reservationInfo.numberOfPeople,

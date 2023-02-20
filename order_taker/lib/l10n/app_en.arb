@@ -117,7 +117,8 @@
     "approve" : "Approve",
     "add_restaurant_header" : "Add restaurant header picture",
     "get_started" : "Get started",
-    "an_error_occurred" : "An error has occurred"
+    "an_error_occurred" : "An error has occurred",
+    "rejected" : "rejected"
 
 
 }

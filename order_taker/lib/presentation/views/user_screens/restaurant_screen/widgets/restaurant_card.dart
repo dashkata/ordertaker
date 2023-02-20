@@ -34,6 +34,7 @@ class _RestaurantCard extends ConsumerWidget {
                           image: url,
                           fit: BoxFit.cover,
                           height: 100,
+                          width: double.maxFinite,
                         ),
                       ),
                     ],

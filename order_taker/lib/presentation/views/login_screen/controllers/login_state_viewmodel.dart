@@ -9,9 +9,13 @@ class LoginViewModel extends StateNotifier<void> {
         super(null);
   final AuthRepository _authRepository;
 
-  void navigateToRegister() {
-    navigatorKey.currentState!.pushReplacementNamed(Routes.register);
-  }
+  Future<void> navigateToRegister() async =>
+      await navigatorKey.currentState!.pushReplacementNamed(Routes.register);
+
+  Future<void> navigateToForgotPassword() async =>
+      await navigatorKey.currentState!.pushNamed(
+        Routes.forgotPassword,
+      );
 
   Future<void> login({
     required String email,

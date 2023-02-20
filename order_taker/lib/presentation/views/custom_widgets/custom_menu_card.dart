@@ -90,7 +90,7 @@ class MenuCard extends ConsumerWidget {
                             ),
                             Flexible(
                               child: Text(
-                                orderItem.itemPrice,
+                                '${orderItem.itemPrice} ${orderItem.itemCurrency}',
                                 style: Theme.of(context).textTheme.headline6,
                               ),
                             ),

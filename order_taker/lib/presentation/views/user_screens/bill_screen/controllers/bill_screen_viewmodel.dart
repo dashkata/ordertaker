@@ -56,7 +56,7 @@ class BillScreenViewModel extends StateNotifier<void> {
   }) async {
     if (reviewMessage.isNotEmpty && reviewRating != 0) {
       await _reviewRepo.addRestaurantReview(
-        reservation.restaurant,
+        reservation.restaurant.title,
         Review(
           name: reservation.name,
           email: _authRepository.getCurrentUser()!.email!,

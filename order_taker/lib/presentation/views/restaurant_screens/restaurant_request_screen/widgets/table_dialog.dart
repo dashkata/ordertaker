@@ -51,7 +51,11 @@ class _TableDialogActions extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncTables = ref.watch(tablesProvider(reservation.restaurant));
+    final asyncTables = ref.watch(
+      tablesProvider(
+        reservation.restaurant.title,
+      ),
+    );
     final text = AppLocalizations.of(context)!;
     return asyncTables.when(
       data: (tables) => Padding(

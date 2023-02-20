@@ -136,7 +136,5 @@ class RestaurantScreenViewModel extends StateNotifier<void> {
   }
 
   @override
-  void build() {
-    // TODO: implement build
-  }
+  void build() {}
 }

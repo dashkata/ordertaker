@@ -20,7 +20,7 @@ class _OrderContainer extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              if (order.status == 'Completed')
+              if (order.status == 'completed')
                 const Padding(
                   padding: EdgeInsets.only(top: 5, right: 5),
                   child: Icon(
@@ -33,7 +33,7 @@ class _OrderContainer extends ConsumerWidget {
                 const SizedBox.shrink(),
             ],
           ),
-          if (order.status != 'Completed')
+          if (order.status != 'completed')
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: _OrderTitle(

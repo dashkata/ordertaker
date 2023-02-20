@@ -15,7 +15,7 @@ class _TitleColumn extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            reservation.restaurant,
+            reservation.restaurant.title,
             style: Theme.of(context).textTheme.headline5,
           ),
           const SizedBox(

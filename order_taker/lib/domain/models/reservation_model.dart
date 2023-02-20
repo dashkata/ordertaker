@@ -1,7 +1,9 @@
+import 'package:order_taker/domain/models/restaurant_model.dart';
+
 class Reservation {
   final String userId;
   final String name;
-  final String restaurant;
+  final Restaurant restaurant;
   final String date;
   final String preferredLocation;
   final int numberOfPeople;
@@ -47,7 +49,7 @@ class Reservation {
   factory Reservation.empty() => Reservation(
         userId: '',
         name: '',
-        restaurant: '',
+        restaurant: Restaurant.empty(),
         date: '',
         numberOfPeople: 0,
         preferredLocation: '',

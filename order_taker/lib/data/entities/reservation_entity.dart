@@ -1,9 +1,10 @@
+import 'package:order_taker/data/entities/restaurant_entity.dart';
 import 'package:order_taker/domain/models/reservation_model.dart';
 
 class ReservationEntity {
   final String userId;
   final String name;
-  final String restaurant;
+  final RestaurantEntity restaurant;
   final String date;
   final String preferredLocation;
   final int numberOfPeople;
@@ -27,7 +28,7 @@ class ReservationEntity {
       ReservationEntity(
         userId: fetchedReservation['userId'],
         name: fetchedReservation['personName'],
-        restaurant: fetchedReservation['reservationTitle'],
+        restaurant: RestaurantEntity.fromMap(fetchedReservation['restaurant']),
         date: fetchedReservation['reservationDate'],
         numberOfPeople: fetchedReservation['reservationPeopleCount'],
         table: fetchedReservation['table'] ?? 0,
@@ -38,7 +39,7 @@ class ReservationEntity {
 
   Map<String, dynamic> toMap() => {
         'userId': userId,
-        'reservationTitle': restaurant,
+        'restaurant': restaurant.toMap(),
         'reservationDate': date,
         'personName': name,
         'reservationPeopleCount': numberOfPeople,
@@ -50,7 +51,7 @@ class ReservationEntity {
   Reservation toReservation() => Reservation(
         userId: userId,
         name: name,
-        restaurant: restaurant,
+        restaurant: restaurant.toRestaurant(),
         date: date,
         numberOfPeople: numberOfPeople,
         preferredLocation: preferredLocation,
@@ -63,7 +64,7 @@ class ReservationEntity {
       ReservationEntity(
         userId: reservation.userId,
         name: reservation.name,
-        restaurant: reservation.restaurant,
+        restaurant: RestaurantEntity.fromRestaurant(reservation.restaurant),
         date: reservation.date,
         numberOfPeople: reservation.numberOfPeople,
         preferredLocation: reservation.preferredLocation,

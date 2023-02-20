@@ -32,6 +32,7 @@ class OrderTaker extends StatelessWidget {
         supportedLocales: const [
           Locale('en', ''),
         ],
+        debugShowCheckedModeBanner: false,
         scaffoldMessengerKey: scaffoldKey,
         navigatorKey: navigatorKey,
         useInheritedMediaQuery: true,

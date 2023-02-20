@@ -121,6 +121,7 @@ class _AlertDialogBody extends ConsumerWidget {
               return CustomButton(
                 buttonText: text.submit,
                 buttonFunc: () async {
+                  Navigator.pop(context);
                   await ref
                       .read(userProfileViewModelProvider.notifier)
                       .registerAccount(

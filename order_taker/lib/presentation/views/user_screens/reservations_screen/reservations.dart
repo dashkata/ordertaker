@@ -4,7 +4,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:order_taker/domain/models/reservation_model.dart';
-import 'package:order_taker/presentation/providers/common_providers.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
 import 'package:order_taker/presentation/themes/themes.dart';
 

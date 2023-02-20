@@ -26,25 +26,12 @@ class _ReservationCard extends ConsumerWidget {
             children: [
               Padding(
                 padding: PaddingManager.p5,
-                child: Consumer(
-                  builder: (context, ref, child) {
-                    final AsyncValue restaurantPic = ref.watch(
-                      restaurantPictureProvider(reservation.restaurant),
-                    );
-                    return restaurantPic.when(
-                      data: (picValue) => CachedNetworkImage(
-                        imageUrl: picValue,
-                        imageBuilder: (context, url) => CircleAvatar(
-                          backgroundImage: url,
-                          radius: 40,
-                        ),
-                      ),
-                      error: (e, s) => Text(
-                        e.toString(),
-                      ),
-                      loading: () => const CustomProgressIndicator(),
-                    );
-                  },
+                child: CachedNetworkImage(
+                  imageUrl: reservation.restaurant.photo,
+                  imageBuilder: (context, url) => CircleAvatar(
+                    backgroundImage: url,
+                    radius: 40,
+                  ),
                 ),
               ),
               Expanded(
