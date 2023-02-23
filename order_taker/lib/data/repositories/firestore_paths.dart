@@ -24,7 +24,7 @@ class FirestorePath {
       'Restaurants/$restaurantTitle';
 
   static String restaurantOrders(ReservationEntity reservation, String uid) =>
-      'Restaurants/${reservation.restaurant}/Tables/Table ${reservation.table}/Reservations/$uid - ${reservation.date}/Orders';
+      'Restaurants/${reservation.restaurant.title}/Tables/Table ${reservation.table}/Reservations/$uid - ${reservation.date}/Orders';
 
   static String restaurantTableReservations(
           String tableId, String restaurant) =>

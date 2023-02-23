@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:order_taker/domain/models/reservation_model.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
 import 'package:order_taker/presentation/themes/themes.dart';
@@ -16,7 +15,6 @@ import '../restaurant_orders_screen/restaurant_order_arguments.dart';
 import 'controllers/restaurant_reservation_provider.dart';
 
 part 'widgets/restaurant_reservation_card.dart';
-
 part 'widgets/restaurant_reservation_card_alert_dialog.dart';
 
 class RestaurantReservations extends ConsumerWidget {
@@ -47,21 +45,19 @@ class RestaurantReservations extends ConsumerWidget {
                   ),
                 );
                 return asyncReservations.when(
-                  data: (reservations) => reservations.isEmpty
-                      ? SvgPicture.asset('assets/illustration pizza-01')
-                      : Center(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: List.generate(
-                                reservations.length,
-                                (index) => _RestaurantReservationCard(
-                                  reservation: reservations[index],
-                                  args: restaurantOrderArguments,
-                                ),
-                              ),
-                            ),
+                  data: (reservations) => Center(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: List.generate(
+                          reservations.length,
+                          (index) => _RestaurantReservationCard(
+                            reservation: reservations[index],
+                            args: restaurantOrderArguments,
                           ),
                         ),
+                      ),
+                    ),
+                  ),
                   error: (e, s) => ErrorAlertDialog(
                     errorMessage: e.toString(),
                   ),

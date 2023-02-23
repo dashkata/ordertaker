@@ -42,7 +42,10 @@ class OnboardingScreen extends ConsumerWidget {
           ),
           PageViewModel(
             titleWidget: const _PageThreeTitle(),
-            footer: const AddMenuButton(),
+            footer: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 100.0),
+              child: AddMenuButton(),
+            ),
             bodyWidget: const _PageThreeBody(),
           ),
         ],

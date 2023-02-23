@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:order_taker/domain/models/reservation_model.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
 import 'package:order_taker/presentation/themes/themes.dart';
@@ -42,21 +41,16 @@ class ReservationScreen extends StatelessWidget {
             final AsyncValue<List<Reservation>> reservations =
                 ref.watch(reservationListProvider);
             return reservations.when(
-              data: (data) => data.isNotEmpty
-                  ? SingleChildScrollView(
-                      child: Column(
-                        children: List.generate(
-                          data.length,
-                          (index) => _ReservationCard(
-                            reservation: data[index],
-                          ),
-                        ),
-                      ),
-                    )
-                  : SvgPicture.asset(
-                      'assets/pizza_02.svg',
-                      height: 20000,
+              data: (data) => SingleChildScrollView(
+                child: Column(
+                  children: List.generate(
+                    data.length,
+                    (index) => _ReservationCard(
+                      reservation: data[index],
                     ),
+                  ),
+                ),
+              ),
               error: (e, s) => ErrorAlertDialog(
                 errorMessage: e.toString(),
               ),

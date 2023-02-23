@@ -186,7 +186,7 @@ class API {
       ),
     );
     await userReservationRef
-        .doc('${reservation.restaurant} - ${reservation.date}')
+        .doc('${reservation.restaurant.title} - ${reservation.date}')
         .set(reservation.toMap());
 
     await restaurantReservationRef
@@ -220,7 +220,7 @@ class API {
     final reservationRef =
         database.collection(FirestorePath.userReservations(uid));
     await reservationRef
-        .doc('${reservation.restaurant} - ${reservation.date}')
+        .doc('${reservation.restaurant.title} - ${reservation.date}')
         .delete();
   }
 

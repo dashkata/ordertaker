@@ -21,9 +21,11 @@ class RestaurantOrderViewModel extends StateNotifier<void> {
     showDialog(
       context: navigatorKey.currentState!.context,
       builder: (BuildContext context) => CustomAlertDialog(
-        title: Text(
-          text.additional_messages,
-          style: Theme.of(context).textTheme.headline5,
+        title: Center(
+          child: Text(
+            text.additional_messages,
+            style: Theme.of(context).textTheme.headline5,
+          ),
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,

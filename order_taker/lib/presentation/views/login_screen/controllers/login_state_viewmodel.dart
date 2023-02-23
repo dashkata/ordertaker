@@ -26,4 +26,7 @@ class LoginViewModel extends StateNotifier<void> {
       password: password,
     );
   }
+
+  Future<void> navigateToAuth() =>
+      navigatorKey.currentState!.pushReplacementNamed(Routes.auth);
 }

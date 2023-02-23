@@ -28,8 +28,11 @@ class LoginButton extends ConsumerWidget {
                   email: email,
                   password: password,
                 )
-                .catchError(
-                  (e) => showDialog(
+                .then(
+                  (val) async => await ref
+                      .read(loginViewModelProvider.notifier)
+                      .navigateToAuth(),
+                  onError: (e) => showDialog(
                     context: context,
                     builder: (_) => ErrorAlertDialog(
                       errorMessage: e.toString(),

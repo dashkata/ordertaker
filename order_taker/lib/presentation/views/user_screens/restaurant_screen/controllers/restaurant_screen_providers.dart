@@ -12,7 +12,7 @@ final restaurantViewModelProvider =
   (ref) => RestaurantScreenViewModel(),
 );
 
-final userDateProvider = StateProvider<String>((ref) => '');
+final userDateProvider = StateProvider.autoDispose<String>((ref) => '');
 
 final peopleProvider = StateProvider<int>((ref) => 0);
 final preferredLocationProvider = StateProvider.autoDispose<int>((ref) => 0);

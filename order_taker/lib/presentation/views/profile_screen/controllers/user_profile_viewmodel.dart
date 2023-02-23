@@ -67,17 +67,20 @@ class UserProfileViewModel extends AutoDisposeAsyncNotifier<void> {
                   '${text.email_changed_to}: $newDetail.'
                   '\n'
                   '${text.verify_email}',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline6,
                 ),
                 content: CustomButton(
                   buttonFunc: () async {
                     state = const AsyncLoading();
+
                     state = await AsyncValue.guard(
                       () => ref
                           .read(authRepositoryProvider)
                           .updateEmail(email: newDetail),
                     );
+
                     await ref.read(authRepositoryProvider).signOut();
+                    navigatorKey.currentState!.pop();
                     await navigatorKey.currentState!
                         .pushReplacementNamed(Routes.auth);
                   },

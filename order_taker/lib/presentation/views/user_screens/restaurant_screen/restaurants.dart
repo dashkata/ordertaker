@@ -43,20 +43,16 @@ class RestaurantScreen extends StatelessWidget {
             final AsyncValue<List<Restaurant>> restaurants =
                 ref.watch(restaurantListProvider);
             return restaurants.when(
-              data: (data) => data.isNotEmpty
-                  ? SingleChildScrollView(
-                      child: Column(
-                        children: List.generate(
-                          data.length,
-                          (index) => _RestaurantCard(
-                            restaurant: data[index],
-                          ),
-                        ),
-                      ),
-                    )
-                  : Center(
-                      child: Text(text.no_restaurants),
+              data: (data) => SingleChildScrollView(
+                child: Column(
+                  children: List.generate(
+                    data.length,
+                    (index) => _RestaurantCard(
+                      restaurant: data[index],
                     ),
+                  ),
+                ),
+              ),
               error: (e, s) => ErrorAlertDialog(
                 errorMessage: e.toString(),
               ),

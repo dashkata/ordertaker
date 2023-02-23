@@ -28,11 +28,3 @@ final userTypeProvider = StateProvider.autoDispose<String>((ref) {
     loading: () => 'Loading',
   );
 });
-final onBoardingProvider = StateProvider<bool>((ref) {
-  final asyncType = ref.watch(futureOnBoardingProvider);
-  return asyncType.when(
-    data: (onBoarding) => onBoarding,
-    error: (e, s) => false,
-    loading: () => false,
-  );
-});
