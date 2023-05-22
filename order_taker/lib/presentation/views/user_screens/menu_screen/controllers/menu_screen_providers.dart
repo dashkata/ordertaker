@@ -19,4 +19,5 @@ final menuListProvider =
     StreamProvider.family.autoDispose<List<MenuSection>, String>(
   (ref, title) => ref.watch(menuRepositoryProvider).fetchMenu(title),
 );
-final additionalMessagesProvider = StateProvider<String>((ref) => '');
+final additionalMessagesProvider =
+    StateProvider.autoDispose<String>((ref) => '');

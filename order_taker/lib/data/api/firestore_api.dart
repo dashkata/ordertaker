@@ -177,6 +177,23 @@ class API {
     );
   }
 
+  Future<bool> checkReservationOverlap(
+    String restaurant,
+    int tableId,
+    String reservationDate,
+  ) async {
+    final tableRef = await database
+        .collection(
+          FirestorePath.restaurantTableReservations(
+            tableId.toString(),
+            restaurant,
+          ),
+        )
+        .where('reservationDate', isEqualTo: reservationDate)
+        .get();
+    return tableRef.docs.isEmpty;
+  }
+
   Future<void> addReservation(String uid, ReservationEntity reservation) async {
     final userReservationRef =
         database.collection(FirestorePath.userReservations(uid));

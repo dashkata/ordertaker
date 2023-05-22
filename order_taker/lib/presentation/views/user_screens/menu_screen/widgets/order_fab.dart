@@ -75,13 +75,17 @@ class _OrderFABActions extends StatelessWidget {
     final text = AppLocalizations.of(context)!;
     return Center(
       child: Consumer(
-        builder: (BuildContext context, WidgetRef ref, Widget? child) =>
-            CustomButton(
-          buttonText: text.complete_order,
-          buttonFunc: () => ref
-              .read(menuOrderStateProvider.notifier)
-              .completeOrder(reservation),
-        ),
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          final additionalMessage = ref.watch(additionalMessagesProvider);
+          return CustomButton(
+            buttonText: text.complete_order,
+            buttonFunc: () =>
+                ref.read(menuOrderStateProvider.notifier).completeOrder(
+                      reservation,
+                      additionalMessage,
+                    ),
+          );
+        },
       ),
     );
   }

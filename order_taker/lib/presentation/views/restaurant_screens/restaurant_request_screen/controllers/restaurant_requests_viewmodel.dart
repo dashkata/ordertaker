@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:order_taker/domain/models/reservation_model.dart';
 import 'package:order_taker/domain/repositories/reservation_repo.dart';
 import 'package:order_taker/enums/request_status.dart';
+import 'package:order_taker/presentation/views/custom_widgets/custom_error_alert_dialog.dart';
 
 import '../../../custom_widgets/custom_alert_dialog.dart';
 import '../../../resources/route_manager.dart';
@@ -19,7 +20,25 @@ class RestaurantRequestsViewModel extends StateNotifier<void> {
   }) async {
     switch (requestStatus) {
       case RequestStatus.approved:
-        await _reservationRepo.addApprovedReservation(reservation);
+        if (reservation.table != null) {
+          final check = await _reservationRepo.checkReservationOverlap(
+            reservation.restaurant.title,
+            reservation.table!,
+            reservation.date,
+          );
+          if (check) {
+            await _reservationRepo.addApprovedReservation(reservation);
+          } else {
+            await showDialog(
+              context: navigatorKey.currentState!.context,
+              builder: (_) => const ErrorAlertDialog(
+                errorMessage:
+                    'The table you have selected already has a reservation on the current date',
+              ),
+            );
+          }
+        }
+
         break;
       case RequestStatus.disapproved:
         await _reservationRepo.disapproveRequest(reservation);
