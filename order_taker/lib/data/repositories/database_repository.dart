@@ -294,4 +294,16 @@ class DatabaseRepository
     String restaurantTitle,
   ) async =>
       await _api.updateOrderStatus(id, orderStatus, tableId, restaurantTitle);
+
+  @override
+  Future<bool> checkReservationOverlap(
+    String restaurantTitle,
+    int tableId,
+    String reservationDate,
+  ) async =>
+      await _api.checkReservationOverlap(
+        restaurantTitle,
+        tableId,
+        reservationDate,
+      );
 }

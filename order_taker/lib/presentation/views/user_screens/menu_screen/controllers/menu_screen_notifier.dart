@@ -5,7 +5,6 @@ import 'package:order_taker/domain/models/reservation_model.dart';
 import 'package:order_taker/presentation/providers/repository_providers.dart';
 
 import '../../../resources/route_manager.dart';
-import 'menu_screen_providers.dart';
 
 class MenuOrderStateNotifier extends StateNotifier<Map<OrderItem, int>> {
   MenuOrderStateNotifier(this.ref) : super({});
@@ -61,13 +60,13 @@ class MenuOrderStateNotifier extends StateNotifier<Map<OrderItem, int>> {
     }
   }
 
-  void completeOrder(Reservation reservation) {
+  void completeOrder(Reservation reservation, String additionalMessage) {
     ref.read(orderRepositoryProvider).completeOrder(
           UserOrder(
             menuItems: state,
             id: 0,
             status: '',
-            additionalMessage: ref.watch(additionalMessagesProvider),
+            additionalMessage: additionalMessage,
           ),
           ref.watch(authRepositoryProvider).getCurrentUser()!.uid,
           reservation,

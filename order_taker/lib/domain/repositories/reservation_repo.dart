@@ -19,6 +19,12 @@ abstract class ReservationRepo {
     Reservation reservation,
   );
 
+  Future<bool> checkReservationOverlap(
+    String restaurantTitle,
+    int tableId,
+    String reservationDate,
+  );
+
   Future<void> addReservation(String uid, Reservation reservation);
 
   Future<void> deleteReservation(
