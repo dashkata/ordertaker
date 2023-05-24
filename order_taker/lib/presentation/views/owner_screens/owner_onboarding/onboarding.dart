@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:order_taker/domain/models/menu_section_model.dart';
 import 'package:order_taker/presentation/providers/common_providers.dart';
+import 'package:order_taker/presentation/providers/repository_providers.dart';
 import 'package:order_taker/presentation/themes/themes.dart';
+import 'package:order_taker/presentation/views/custom_widgets/custom_button.dart';
 import 'package:order_taker/presentation/views/custom_widgets/custom_error_alert_dialog.dart';
 import 'package:order_taker/presentation/views/custom_widgets/custom_menu_card.dart';
 import 'package:order_taker/presentation/views/custom_widgets/custom_progress_indicator.dart';
@@ -34,7 +36,11 @@ class OnboardingScreen extends ConsumerWidget {
           PageViewModel(
             image: const _PageOneImage(),
             titleWidget: const _PageOneTitle(),
-            body: '',
+            bodyWidget: CustomButton(
+              buttonText: 'Log out',
+              buttonFunc: () async =>
+                  await ref.read(authRepositoryProvider).signOut(),
+            ),
           ),
           PageViewModel(
             titleWidget: const _PageTwoTitle(),
